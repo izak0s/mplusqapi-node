@@ -1,0 +1,1016 @@
+/**
+ * WSDL → TypeScript generator.
+ * Reads wsdl.xml from project root and writes src/generated/{types,serializer,deserializer}.ts
+ *
+ * Run: npm run generate
+ */
+
+import * as fs from 'fs';
+import * as path from 'path';
+import { XMLParser } from 'fast-xml-parser';
+
+// ---------------------------------------------------------------------------
+// Types for our intermediate representation
+// ---------------------------------------------------------------------------
+
+interface EnumType {
+  name: string;
+  values: string[];
+  doc?: string;
+}
+
+interface FieldDef {
+  /** TypeScript field name (sanitized, valid identifier) */
+  name: string;
+  /** Original XML element name (for serialization) */
+  xmlName: string;
+  /** Resolved TypeScript type (e.g. "string", "number", "Relation", "Date") */
+  tsType: string;
+  /** Sanitized WSDL type without namespace prefix (for calling serialize/deserialize functions) */
+  wsdlType: string;
+  optional: boolean;
+  array: boolean;
+  doc?: string;
+}
+
+interface ComplexTypeDef {
+  /** TypeScript type name (sanitized) */
+  name: string;
+  fields: FieldDef[];
+  doc?: string;
+}
+
+/** Maps complex type name → its single inner array field, for transparent list flattening */
+type ListWrapperMap = Map<string, FieldDef>;
+
+/** An input element for an operation — may have 0..N fields */
+interface InputElementDef {
+  name: string;
+  fields: FieldDef[];
+}
+
+/** An output element — references a complexType */
+interface OutputElementDef {
+  name: string;
+  typeRef: string;
+}
+
+interface OperationDef {
+  name: string;
+  inputElement: InputElementDef;
+  outputElement: OutputElementDef;
+  outputTsType: string;
+}
+
+// ---------------------------------------------------------------------------
+// XSD → TypeScript mapping
+// ---------------------------------------------------------------------------
+
+const XSD_PRIMITIVES: Record<string, string> = {
+  string: 'string',
+  int: 'number',
+  long: 'number',
+  short: 'number',
+  byte: 'number',
+  integer: 'number',
+  unsignedInt: 'number',
+  unsignedLong: 'number',
+  unsignedShort: 'number',
+  unsignedByte: 'number',
+  decimal: 'string',
+  float: 'number',
+  double: 'number',
+  boolean: 'boolean',
+  base64Binary: 'string',
+  base64: 'string',
+  date: 'Date',
+  dateTime: 'Date',
+  anySimpleType: 'string',
+  anyType: 'unknown',
+};
+
+/** XSD date/dateTime — stored as ISO string in XML, not a SoapMplusDateTime struct */
+const ISO_DATE_WSDL_TYPES = new Set(['date', 'dateTime']);
+
+const DATETIME_TYPES = new Set(['SoapMplusDateTime', 'SoapMplusDate']);
+
+function stripNs(value: string): string {
+  const idx = value.indexOf(':');
+  return idx >= 0 ? value.slice(idx + 1) : value;
+}
+
+/** Convert XML names with hyphens/dots to valid TypeScript identifiers. */
+function sanitizeIdent(name: string): string {
+  return name.replace(/[-.]([a-zA-Z0-9])/g, (_, c: string) => c.toUpperCase())
+             .replace(/^-/, '_');
+}
+
+function wsdlTypeToTs(rawType: string): string {
+  const base = sanitizeIdent(stripNs(rawType));
+  if (DATETIME_TYPES.has(base)) return 'Date';
+  const primitive = XSD_PRIMITIVES[base];
+  return primitive ?? base;
+}
+
+function isDateType(rawType: string): boolean {
+  return DATETIME_TYPES.has(stripNs(rawType));
+}
+
+function isPrimitive(tsType: string): boolean {
+  return ['string', 'number', 'boolean', 'unknown'].includes(tsType);
+}
+
+function buildListWrapperMap(complexTypes: ComplexTypeDef[]): ListWrapperMap {
+  const map: ListWrapperMap = new Map();
+  for (const ct of complexTypes) {
+    if (ct.fields.length === 1 && ct.fields[0].array) {
+      map.set(ct.name, ct.fields[0]);
+    }
+  }
+  return map;
+}
+
+type PrimitiveWrapperMap = Map<string, FieldDef>;
+
+function buildPrimitiveWrapperMap(complexTypes: ComplexTypeDef[]): PrimitiveWrapperMap {
+  const map: PrimitiveWrapperMap = new Map();
+  for (const ct of complexTypes) {
+    if (ct.fields.length === 1 && !ct.fields[0].array &&
+        (isPrimitive(ct.fields[0].tsType) || ct.fields[0].tsType === 'Date')) {
+      map.set(ct.name, ct.fields[0]);
+    }
+  }
+  return map;
+}
+
+// ---------------------------------------------------------------------------
+// WSDL parser
+// ---------------------------------------------------------------------------
+
+function parseWsdl(wsdlPath: string): {
+  enums: EnumType[];
+  complexTypes: ComplexTypeDef[];
+  inputElements: Map<string, InputElementDef>;
+  outputElements: Map<string, OutputElementDef>;
+  operations: OperationDef[];
+} {
+  const xml = fs.readFileSync(wsdlPath, 'utf-8');
+
+  const parser = new XMLParser({
+    ignoreAttributes: false,
+    attributeNamePrefix: '@',
+    removeNSPrefix: true,
+    parseTagValue: false,
+    parseAttributeValue: false,
+    textNodeName: '#text',
+    isArray: (name) => [
+      'simpleType', 'complexType', 'element', 'enumeration',
+      'message', 'operation', 'part',
+    ].includes(name),
+  });
+
+  const doc = parser.parse(xml) as Record<string, unknown>;
+  const definitions = doc['definitions'] as Record<string, unknown>;
+  const types = definitions['types'] as Record<string, unknown>;
+  const schema = types['schema'] as Record<string, unknown>;
+
+  // --- Simple types (enums) ---
+  const enums: EnumType[] = [];
+  const enumNames = new Set<string>();
+  for (const st of asArray(schema['simpleType'])) {
+    const rawName = attr(st, 'name');
+    if (!rawName) continue;
+    const name = sanitizeIdent(rawName);
+    const restriction = st['restriction'] as Record<string, unknown> | undefined;
+    if (!restriction) continue;
+    const enumerations = asArray(restriction['enumeration']);
+    if (enumerations.length === 0) continue;
+    const values = enumerations.map((e) => String(attr(e, 'value') ?? ''));
+    enums.push({ name, values, doc: extractDoc(st) });
+    enumNames.add(name);
+  }
+
+  // --- Complex types ---
+  const complexTypes: ComplexTypeDef[] = [];
+  const complexTypeMap = new Map<string, ComplexTypeDef>();
+  for (const ct of asArray(schema['complexType'])) {
+    const rawName = attr(ct, 'name');
+    if (!rawName) continue;
+    const name = sanitizeIdent(rawName);
+    const fields = extractFields(ct, enumNames);
+    const def: ComplexTypeDef = { name, fields, doc: extractDoc(ct) };
+    complexTypes.push(def);
+    complexTypeMap.set(name, def);
+  }
+
+  // --- Elements (input/output wrappers) ---
+  const inputElements = new Map<string, InputElementDef>();
+  const outputElements = new Map<string, OutputElementDef>();
+
+  for (const el of asArray(schema['element'])) {
+    const rawElName = attr(el, 'name');
+    if (!rawElName) continue;
+    // Keep original name as map key (used to look up by WSDL message references)
+    // but sanitize for use as TypeScript identifiers in the name field
+    const name = rawElName;
+
+    const typeRef = attr(el, 'type');
+    if (typeRef) {
+      // Output element referencing a complexType
+      const typeName = sanitizeIdent(stripNs(typeRef));
+      outputElements.set(name, { name, typeRef: typeName });
+    } else {
+      // Inline complexType — input element
+      // isArray wraps complexType in an array even for inline single occurrences
+      const ctRaw = el['complexType'];
+      const ct = Array.isArray(ctRaw)
+        ? (ctRaw[0] as Record<string, unknown>)
+        : (ctRaw as Record<string, unknown> | undefined);
+      const fields = ct ? extractFields(ct, enumNames) : [];
+      inputElements.set(name, { name, fields });
+    }
+  }
+
+  // --- Messages ---
+  const messageToElement = new Map<string, string>();
+  for (const msg of asArray(definitions['message'])) {
+    const msgName = attr(msg, 'name');
+    if (!msgName) continue;
+    for (const part of asArray(msg['part'])) {
+      const elementRef = attr(part, 'element');
+      if (elementRef) {
+        messageToElement.set(msgName, stripNs(elementRef));
+      }
+    }
+  }
+
+  // --- PortType operations (first portType only) ---
+  const portTypeRaw = definitions['portType'];
+  const portType = Array.isArray(portTypeRaw) ? portTypeRaw[0] : portTypeRaw;
+  const operations: OperationDef[] = [];
+
+  for (const op of asArray((portType as Record<string, unknown>)?.['operation'])) {
+    const opName = attr(op, 'name');
+    if (!opName) continue;
+
+    const inputMsgRef = stripNs(attr((op as Record<string, unknown>)['input'] as Record<string, unknown>, 'message') ?? '');
+    const outputMsgRef = stripNs(attr((op as Record<string, unknown>)['output'] as Record<string, unknown>, 'message') ?? '');
+
+    const inputElementName = messageToElement.get(inputMsgRef) ?? opName;
+    const outputElementName = messageToElement.get(outputMsgRef);
+    if (!outputElementName) continue;
+
+    const inputEl = inputElements.get(inputElementName) ?? { name: inputElementName, fields: [] };
+    const outputEl = outputElements.get(outputElementName);
+    if (!outputEl) continue;
+
+    const outputTsType = outputEl.typeRef;
+
+    operations.push({
+      name: opName,
+      inputElement: inputEl,
+      outputElement: outputEl,
+      outputTsType,
+    });
+  }
+
+  return { enums, complexTypes, inputElements, outputElements, operations };
+}
+
+function extractFields(ct: Record<string, unknown>, enumNames: Set<string>): FieldDef[] {
+  const sequence = ct['sequence'] as Record<string, unknown> | undefined;
+  if (!sequence) return [];
+
+  const fields: FieldDef[] = [];
+  for (const el of asArray(sequence['element'])) {
+    const rawName = attr(el, 'name');
+    const rawType = attr(el, 'type');
+    if (!rawName || !rawType) continue;
+
+    const name = sanitizeIdent(rawName);
+    const minOccurs = attr(el, 'minOccurs');
+    const maxOccurs = attr(el, 'maxOccurs');
+    const optional = minOccurs === '0';
+    const array = maxOccurs === 'unbounded';
+
+    const wsdlType = sanitizeIdent(stripNs(rawType));
+    const tsType = wsdlTypeToTs(rawType);
+
+    fields.push({
+      name,
+      xmlName: rawName,
+      tsType,
+      wsdlType,
+      optional,
+      array,
+      doc: extractDoc(el),
+    });
+  }
+  return fields;
+}
+
+function extractDoc(node: Record<string, unknown>): string | undefined {
+  const annotation = node['annotation'] as Record<string, unknown> | undefined;
+  if (!annotation) return undefined;
+  const documentation = annotation['documentation'];
+  if (!documentation) return undefined;
+  const text = typeof documentation === 'string'
+    ? documentation
+    : (documentation as Record<string, unknown>)?.['#text'] as string | undefined ?? '';
+  return text.trim().replace(/\s+/g, ' ') || undefined;
+}
+
+function attr(node: unknown, name: string): string | undefined {
+  if (!node || typeof node !== 'object') return undefined;
+  const val = (node as Record<string, unknown>)[`@${name}`];
+  return val !== undefined ? String(val) : undefined;
+}
+
+function asArray(val: unknown): Record<string, unknown>[] {
+  if (!val) return [];
+  if (Array.isArray(val)) return val as Record<string, unknown>[];
+  return [val as Record<string, unknown>];
+}
+
+// ---------------------------------------------------------------------------
+// Code generators
+// ---------------------------------------------------------------------------
+
+const HEADER = `// Generated by scripts/generate.ts — do not edit manually.\n`;
+
+// --- types.ts ---
+
+function generateTypes(enums: EnumType[], complexTypes: ComplexTypeDef[], listWrapperMap: ListWrapperMap, primitiveWrapperMap: PrimitiveWrapperMap): string {
+  const lines: string[] = [HEADER, ''];
+
+  for (const e of enums) {
+    if (e.doc) lines.push(`/** ${e.doc} */`);
+    const values = e.values.map((v) => `'${v}'`).join(' | ');
+    lines.push(`export type ${e.name} = ${values};`, '');
+  }
+
+  // Mark special types to skip (we handle them via Date in the API)
+  const skip = new Set(['SoapMplusDateTime', 'SoapMplusDate']);
+
+  for (const ct of complexTypes) {
+    if (skip.has(ct.name)) continue;
+    if (ct.doc) lines.push(`/** ${ct.doc} */`);
+    lines.push(`export interface ${ct.name} {`);
+    for (const f of ct.fields) {
+      if (f.doc) lines.push(`  /** ${f.doc} */`);
+      const inner = !f.array ? listWrapperMap.get(f.wsdlType) : undefined;
+      if (inner) {
+        const primitiveInner = primitiveWrapperMap.get(inner.wsdlType);
+        const innerTsType = primitiveInner ? primitiveInner.tsType : inner.tsType;
+        const lwOpt = ct.name.endsWith('Request') ? '?' : '';
+        lines.push(`  ${f.name}${lwOpt}: ${innerTsType}[];`);
+      } else {
+        const opt = (ct.name.endsWith('Request') || f.optional || f.array) ? '?' : '';
+        const arrSuffix = f.array ? '[]' : '';
+        lines.push(`  ${f.name}${opt}: ${f.tsType}${arrSuffix};`);
+      }
+    }
+    lines.push('}', '');
+  }
+
+  return lines.join('\n');
+}
+
+// --- serializer.ts ---
+
+function generateSerializer(
+  complexTypes: ComplexTypeDef[],
+  inputElements: Map<string, InputElementDef>,
+  operations: OperationDef[],
+  enumNames: Set<string>,
+  listWrapperMap: ListWrapperMap,
+  primitiveWrapperMap: PrimitiveWrapperMap,
+): string {
+  const lines: string[] = [
+    HEADER,
+    `import {`,
+    `  serializeString,`,
+    `  serializeNumber,`,
+    `  serializeBoolean,`,
+    `  serializeDateTime,`,
+    `  serializeDate,`,
+    `  NS_PREFIX,`,
+    `} from '../soap';`,
+    `import type * as T from './types';`,
+    '',
+  ];
+
+  // Emit a serialize function for each complex type
+  const skip = new Set(['SoapMplusDateTime', 'SoapMplusDate']);
+  for (const ct of complexTypes) {
+    if (skip.has(ct.name)) continue;
+    lines.push(...emitComplexTypeSerializer(ct, enumNames, listWrapperMap, primitiveWrapperMap));
+  }
+
+  // Emit operation-level request body serializers
+  const seen = new Set<string>();
+  for (const op of operations) {
+    const el = op.inputElement;
+    if (seen.has(el.name)) continue;
+    seen.add(el.name);
+    lines.push(...emitOperationBodySerializer(el, enumNames, listWrapperMap, primitiveWrapperMap));
+  }
+
+  return lines.join('\n');
+}
+
+function emitComplexTypeSerializer(ct: ComplexTypeDef, enumNames: Set<string>, listWrapperMap: ListWrapperMap, primitiveWrapperMap: PrimitiveWrapperMap): string[] {
+  const lines: string[] = [];
+  lines.push(`export function serialize${ct.name}(obj: T.${ct.name}, elemName: string): string {`);
+  lines.push(`  let xml = \`<\${NS_PREFIX}:\${elemName}>\`;`);
+  for (const f of ct.fields) {
+    lines.push(...emitFieldSerializer(f, enumNames, 'obj', 2, listWrapperMap, primitiveWrapperMap));
+  }
+  lines.push(`  xml += \`</\${NS_PREFIX}:\${elemName}>\`;`);
+  lines.push(`  return xml;`);
+  lines.push(`}`, '');
+  return lines;
+}
+
+function emitFieldSerializer(
+  f: FieldDef,
+  enumNames: Set<string>,
+  objRef: string,
+  indent: number,
+  listWrapperMap: ListWrapperMap,
+  primitiveWrapperMap: PrimitiveWrapperMap,
+): string[] {
+  const pad = ' '.repeat(indent);
+  const lines: string[] = [];
+  const accessor = `${objRef}.${f.name}`;
+
+  const inner = !f.array ? listWrapperMap.get(f.wsdlType) : undefined;
+  if (inner) {
+    const primitiveInner = primitiveWrapperMap.get(inner.wsdlType);
+    lines.push(`${pad}if (${accessor} !== undefined && ${accessor} !== null) {`);
+    lines.push(`${pad}  xml += \`<\${NS_PREFIX}:${f.xmlName}>\`;`);
+    lines.push(`${pad}  for (const item of ${accessor}) {`);
+    if (primitiveInner) {
+      lines.push(`${pad}    xml += \`<\${NS_PREFIX}:${inner.xmlName}>\${serializeString('${primitiveInner.xmlName}', String(item))}</\${NS_PREFIX}:${inner.xmlName}>\`;`);
+    } else {
+      const innerF: FieldDef = { ...inner, xmlName: inner.xmlName, array: false };
+      lines.push(...emitSingleValueSerializer(innerF, enumNames, 'item', indent + 4));
+    }
+    lines.push(`${pad}  }`);
+    lines.push(`${pad}  xml += \`</\${NS_PREFIX}:${f.xmlName}>\`;`);
+    lines.push(`${pad}}`);
+    return lines;
+  }
+
+  const guard = !f.array ? `${pad}if (${accessor} !== undefined && ${accessor} !== null) {\n` : '';
+  const closeGuard = guard ? `${pad}}\n` : '';
+
+  if (f.array) {
+    lines.push(`${pad}if (${accessor} !== undefined && ${accessor} !== null) {`);
+    lines.push(`${pad}  for (const item of ${accessor}) {`);
+    lines.push(...emitSingleValueSerializer(f, enumNames, 'item', indent + 4));
+    lines.push(`${pad}  }`);
+    lines.push(`${pad}}`);
+  } else {
+    if (guard) lines.push(guard.trimEnd());
+    lines.push(...emitSingleValueSerializer(f, enumNames, accessor, indent + (guard ? 2 : 0)));
+    if (closeGuard) lines.push(closeGuard.trimEnd());
+  }
+
+  return lines;
+}
+
+function emitSingleValueSerializer(
+  f: FieldDef,
+  enumNames: Set<string>,
+  valueRef: string,
+  indent: number,
+): string[] {
+  const pad = ' '.repeat(indent);
+  const xmlName = f.xmlName;
+  if (f.tsType === 'Date' && f.wsdlType === 'SoapMplusDateTime') {
+    return [`${pad}xml += serializeDateTime('${xmlName}', ${valueRef});`];
+  }
+  if (f.tsType === 'Date' && f.wsdlType === 'SoapMplusDate') {
+    return [`${pad}xml += serializeDate('${xmlName}', ${valueRef});`];
+  }
+  if (f.tsType === 'Date' && ISO_DATE_WSDL_TYPES.has(f.wsdlType)) {
+    const fmt = f.wsdlType === 'date'
+      ? `${valueRef}.toISOString().substring(0, 10)`
+      : `${valueRef}.toISOString()`;
+    return [`${pad}xml += serializeString('${xmlName}', ${fmt});`];
+  }
+  if (f.tsType === 'string' || enumNames.has(f.wsdlType)) {
+    return [`${pad}xml += serializeString('${xmlName}', String(${valueRef}));`];
+  }
+  if (f.tsType === 'number') {
+    return [`${pad}xml += serializeNumber('${xmlName}', ${valueRef});`];
+  }
+  if (f.tsType === 'boolean') {
+    return [`${pad}xml += serializeBoolean('${xmlName}', ${valueRef});`];
+  }
+  // Complex type
+  return [`${pad}xml += serialize${f.wsdlType}(${valueRef}, '${xmlName}');`];
+}
+
+function emitOperationBodySerializer(el: InputElementDef, enumNames: Set<string>, listWrapperMap: ListWrapperMap, primitiveWrapperMap: PrimitiveWrapperMap): string[] {
+  const lines: string[] = [];
+  const fnName = `serialize${capitalize(el.name)}Body`;
+
+  if (el.fields.length === 0) {
+    lines.push(`export function ${fnName}(): string {`);
+    lines.push(`  return '';`);
+    lines.push(`}`, '');
+    return lines;
+  }
+
+  // Determine parameter type
+  // Single field named 'request' → unwrap to that field's type
+  if (el.fields.length === 1 && el.fields[0].name === 'request' && !isPrimitive(el.fields[0].tsType)) {
+    const f = el.fields[0];
+    const paramType = f.optional ? `T.${f.tsType} | undefined` : `T.${f.tsType}`;
+    lines.push(`export function ${fnName}(request: ${paramType}): string {`);
+    if (f.optional) {
+      lines.push(`  if (request === undefined) return '';`);
+    }
+    lines.push(`  let xml = '';`);
+    lines.push(`  xml += serialize${f.tsType}(request!, 'request');`);
+    lines.push(`  return xml;`);
+    lines.push(`}`, '');
+    return lines;
+  }
+
+  // Single positional field — the param IS the value, not an object to access .fieldName on
+  if (el.fields.length === 1) {
+    const f = el.fields[0];
+    const paramType = buildParamType(f);
+    lines.push(`export function ${fnName}(${f.name}: ${paramType}): string {`);
+    lines.push(`  let xml = '';`);
+    if (f.array) {
+      lines.push(`  if (${f.name} !== undefined && ${f.name} !== null) {`);
+      lines.push(`    for (const item of ${f.name}) {`);
+      for (const l of emitSingleValueSerializer(f, enumNames, 'item', 6)) {
+        lines.push(l);
+      }
+      lines.push(`    }`);
+      lines.push(`  }`);
+    } else {
+      lines.push(`  if (${f.name} !== undefined && ${f.name} !== null) {`);
+      for (const l of emitSingleValueSerializer(f, enumNames, f.name, 4)) {
+        lines.push(l);
+      }
+      lines.push(`  }`);
+    }
+    lines.push(`  return xml;`);
+    lines.push(`}`, '');
+    return lines;
+  }
+
+  // Multiple fields → params object
+  const paramFields = el.fields
+    .map((f) => {
+      const innerW = !f.array ? listWrapperMap.get(f.wsdlType) : undefined;
+      if (innerW) {
+        const primitiveInnerW = primitiveWrapperMap.get(innerW.wsdlType);
+        const resolvedTsType = primitiveInnerW ? primitiveInnerW.tsType : innerW.tsType;
+        const innerBase = resolvedTsType === 'Date' ? 'Date' : isPrimitive(resolvedTsType) ? resolvedTsType : `T.${resolvedTsType}`;
+        return `${f.name}?: ${innerBase}[]`;
+      }
+      const base = f.tsType === 'Date' ? 'Date' : isPrimitive(f.tsType) ? f.tsType : `T.${f.tsType}`;
+      return `${f.name}?: ${base}${f.array ? '[]' : ''}`;
+    })
+    .join('; ');
+  lines.push(`export function ${fnName}(params: { ${paramFields} }): string {`);
+  lines.push(`  let xml = '';`);
+  for (const f of el.fields) {
+    const accessor = `params.${f.name}`;
+    if (f.array) {
+      lines.push(`  if (${accessor} !== undefined && ${accessor} !== null) {`);
+      lines.push(`    for (const item of ${accessor}) {`);
+      for (const l of emitSingleValueSerializer(f, enumNames, 'item', 6)) {
+        lines.push(l);
+      }
+      lines.push(`    }`);
+      lines.push(`  }`);
+    } else {
+      const inner = listWrapperMap.get(f.wsdlType);
+      if (inner) {
+        const primitiveInner = primitiveWrapperMap.get(inner.wsdlType);
+        lines.push(`  if (${accessor} !== undefined && ${accessor} !== null) {`);
+        lines.push(`    xml += \`<\${NS_PREFIX}:${f.xmlName}>\`;`);
+        lines.push(`    for (const item of ${accessor}) {`);
+        if (primitiveInner) {
+          lines.push(`      xml += \`<\${NS_PREFIX}:${inner.xmlName}>\${serializeString('${primitiveInner.xmlName}', String(item))}</\${NS_PREFIX}:${inner.xmlName}>\`;`);
+        } else {
+          const innerF: FieldDef = { ...inner, xmlName: inner.xmlName, array: false };
+          lines.push(...emitSingleValueSerializer(innerF, enumNames, 'item', 6));
+        }
+        lines.push(`    }`);
+        lines.push(`    xml += \`</\${NS_PREFIX}:${f.xmlName}>\`;`);
+        lines.push(`  }`);
+      } else {
+        lines.push(`  if (${accessor} !== undefined && ${accessor} !== null) {`);
+        for (const l of emitSingleValueSerializer(f, enumNames, accessor, 4)) {
+          lines.push(l);
+        }
+        lines.push(`  }`);
+      }
+    }
+  }
+  lines.push(`  return xml;`);
+  lines.push(`}`, '');
+  return lines;
+}
+
+function buildParamType(f: FieldDef): string {
+  const base = f.tsType === 'Date' ? 'Date' :
+    isPrimitive(f.tsType) ? f.tsType : `T.${f.tsType}`;
+  const arrSuffix = f.array ? '[]' : '';
+  const optSuffix = f.optional ? ' | undefined' : '';
+  return `${base}${arrSuffix}${optSuffix}`;
+}
+
+// --- deserializer.ts ---
+
+function generateDeserializer(
+  complexTypes: ComplexTypeDef[],
+  operations: OperationDef[],
+  enumNames: Set<string>,
+  listWrapperMap: ListWrapperMap,
+  primitiveWrapperMap: PrimitiveWrapperMap,
+): string {
+  const lines: string[] = [
+    HEADER,
+    `import {`,
+    `  toArray,`,
+    `  deserializeDateTime,`,
+    `  deserializeDate,`,
+    `} from '../soap';`,
+    `import type * as T from './types';`,
+    '',
+  ];
+
+  const skip = new Set(['SoapMplusDateTime', 'SoapMplusDate']);
+
+  for (const ct of complexTypes) {
+    if (skip.has(ct.name)) continue;
+    lines.push(...emitComplexTypeDeserializer(ct, enumNames, listWrapperMap, primitiveWrapperMap));
+  }
+
+  return lines.join('\n');
+}
+
+function emitComplexTypeDeserializer(ct: ComplexTypeDef, enumNames: Set<string>, listWrapperMap: ListWrapperMap, primitiveWrapperMap: PrimitiveWrapperMap): string[] {
+  const lines: string[] = [];
+  lines.push(`export function deserialize${ct.name}(obj: Record<string, unknown>): T.${ct.name} {`);
+  lines.push(`  const r: Partial<T.${ct.name}> = {};`);
+
+  for (const f of ct.fields) {
+    // Access by original XML name (as it appears in the response XML)
+    const val = `obj['${f.xmlName}']`;
+
+    const inner = !f.array ? listWrapperMap.get(f.wsdlType) : undefined;
+    if (inner) {
+      const primitiveInner = primitiveWrapperMap.get(inner.wsdlType);
+      const outerVal = `obj['${f.xmlName}']`;
+      const innerXmlName = inner.xmlName;
+      lines.push(`  if (${outerVal} !== undefined) {`);
+      lines.push(`    const _w = ${outerVal} as Record<string, unknown>;`);
+      lines.push(`    const _iv = (_w)['${innerXmlName}'];`);
+      lines.push(`    if (_iv !== undefined) {`);
+      if (primitiveInner) {
+        lines.push(`      r.${f.name} = toArray(_iv).map((v) => String((v as Record<string, unknown>)['${primitiveInner.xmlName}'] ?? v));`);
+      } else if (inner.tsType === 'Date' && inner.wsdlType === 'SoapMplusDateTime') {
+        lines.push(`      r.${f.name} = toArray(_iv).map((v) => deserializeDateTime(v as Record<string, unknown>));`);
+      } else if (inner.tsType === 'Date' && inner.wsdlType === 'SoapMplusDate') {
+        lines.push(`      r.${f.name} = toArray(_iv).map((v) => deserializeDate(v as Record<string, unknown>));`);
+      } else if (inner.tsType === 'Date') {
+        lines.push(`      r.${f.name} = toArray(_iv).map((v) => new Date(String(v)));`);
+      } else if (inner.tsType === 'number') {
+        lines.push(`      r.${f.name} = toArray(_iv).map(Number);`);
+      } else if (inner.tsType === 'string' || enumNames.has(inner.wsdlType)) {
+        const castType = enumNames.has(inner.wsdlType) ? ` as T.${inner.wsdlType}[]` : '';
+        lines.push(`      r.${f.name} = toArray(_iv).map(String)${castType};`);
+      } else if (inner.tsType === 'boolean') {
+        lines.push(`      r.${f.name} = toArray(_iv).map((v) => v === 'true' || v === true);`);
+      } else {
+        lines.push(`      r.${f.name} = toArray(_iv).map((v) => deserialize${inner.wsdlType}(v as Record<string, unknown>));`);
+      }
+      lines.push(`    } else {`);
+      lines.push(`      r.${f.name} = [];`);
+      lines.push(`    }`);
+      lines.push(`  } else {`);
+      lines.push(`    r.${f.name} = [];`);
+      lines.push(`  }`);
+      continue;
+    }
+
+    if (f.array) {
+      lines.push(`  if (${val} !== undefined) {`);
+      if (f.tsType === 'Date' && f.wsdlType === 'SoapMplusDateTime') {
+        lines.push(`    r.${f.name} = toArray(${val}).map((v) => deserializeDateTime(v as Record<string, unknown>));`);
+      } else if (f.tsType === 'Date' && f.wsdlType === 'SoapMplusDate') {
+        lines.push(`    r.${f.name} = toArray(${val}).map((v) => deserializeDate(v as Record<string, unknown>));`);
+      } else if (f.tsType === 'Date') {
+        lines.push(`    r.${f.name} = toArray(${val}).map((v) => new Date(String(v)));`);
+      } else if (f.tsType === 'number') {
+        lines.push(`    r.${f.name} = toArray(${val}).map(Number);`);
+      } else if (f.tsType === 'string' || enumNames.has(f.wsdlType)) {
+        const castType = enumNames.has(f.wsdlType) ? ` as T.${f.wsdlType}[]` : '';
+        lines.push(`    r.${f.name} = toArray(${val}).map(String)${castType};`);
+      } else if (f.tsType === 'boolean') {
+        lines.push(`    r.${f.name} = toArray(${val}).map((v) => v === 'true' || v === true);`);
+      } else {
+        lines.push(`    r.${f.name} = toArray(${val}).map((v) => deserialize${f.wsdlType}(v as Record<string, unknown>));`);
+      }
+      lines.push(`  }`);
+    } else if (f.optional) {
+      if (f.tsType === 'Date' && f.wsdlType === 'SoapMplusDateTime') {
+        lines.push(`  if (${val} !== undefined) r.${f.name} = deserializeDateTime(${val} as Record<string, unknown>);`);
+      } else if (f.tsType === 'Date' && f.wsdlType === 'SoapMplusDate') {
+        lines.push(`  if (${val} !== undefined) r.${f.name} = deserializeDate(${val} as Record<string, unknown>);`);
+      } else if (f.tsType === 'Date') {
+        lines.push(`  if (${val} !== undefined) r.${f.name} = new Date(String(${val}));`);
+      } else if (f.tsType === 'number') {
+        lines.push(`  if (${val} !== undefined) r.${f.name} = Number(${val});`);
+      } else if (f.tsType === 'string' || enumNames.has(f.wsdlType)) {
+        const castType = enumNames.has(f.wsdlType) ? `T.${f.wsdlType}` : 'string';
+        lines.push(`  if (${val} !== undefined) r.${f.name} = String(${val}) as ${castType};`);
+      } else if (f.tsType === 'boolean') {
+        lines.push(`  if (${val} !== undefined) r.${f.name} = ${val} === 'true' || ${val} === true;`);
+      } else {
+        lines.push(`  if (${val} !== undefined) r.${f.name} = deserialize${f.wsdlType}(${val} as Record<string, unknown>);`);
+      }
+    } else {
+      // Required field
+      if (f.tsType === 'Date' && f.wsdlType === 'SoapMplusDateTime') {
+        lines.push(`  r.${f.name} = deserializeDateTime(${val} as Record<string, unknown> ?? {});`);
+      } else if (f.tsType === 'Date' && f.wsdlType === 'SoapMplusDate') {
+        lines.push(`  r.${f.name} = deserializeDate(${val} as Record<string, unknown> ?? {});`);
+      } else if (f.tsType === 'Date') {
+        lines.push(`  r.${f.name} = new Date(String(${val} ?? ''));`);
+      } else if (f.tsType === 'number') {
+        lines.push(`  r.${f.name} = Number(${val});`);
+      } else if (f.tsType === 'string' || enumNames.has(f.wsdlType)) {
+        const castType = enumNames.has(f.wsdlType) ? `T.${f.wsdlType}` : 'string';
+        lines.push(`  r.${f.name} = String(${val} ?? '') as ${castType};`);
+      } else if (f.tsType === 'boolean') {
+        lines.push(`  r.${f.name} = ${val} === 'true' || ${val} === true;`);
+      } else if (f.tsType === 'unknown') {
+        lines.push(`  r.${f.name} = ${val};`);
+      } else {
+        lines.push(`  r.${f.name} = deserialize${f.wsdlType}(${val} as Record<string, unknown> ?? {});`);
+      }
+    }
+  }
+
+  lines.push(`  return r as T.${ct.name};`);
+  lines.push(`}`, '');
+  return lines;
+}
+
+// --- client.ts ---
+
+function generateClient(operations: OperationDef[], enumNames: Set<string>, listWrapperMap: ListWrapperMap, primitiveWrapperMap: PrimitiveWrapperMap, complexTypes: ComplexTypeDef[]): string {
+  const lines: string[] = [
+    HEADER,
+    `import { SoapTransport, TransportOptions } from '../transport';`,
+    `import { buildEnvelope, parseEnvelopeBody } from '../soap';`,
+    `import {`,
+    `  MplusApiDeserializationError,`,
+    `  MplusApiSerializationError,`,
+    `  MplusApiFaultError,`,
+    `  MplusApiClientError,`,
+    `  MplusApiServerError,`,
+    `} from '../errors';`,
+    `import type * as T from './types';`,
+    `import * as S from './serializer';`,
+    `import * as D from './deserializer';`,
+    '',
+    `export type { TransportOptions as MplusKassaClientOptions };`,
+    '',
+    `export class MplusKassaClient {`,
+    `  private readonly transport: SoapTransport;`,
+    '',
+    `  constructor(options: TransportOptions) {`,
+    `    this.transport = new SoapTransport(options);`,
+    `  }`,
+    '',
+    `  private async call<R>(`,
+    `    operationName: string,`,
+    `    responseElementName: string,`,
+    `    responseTypeName: string,`,
+    `    bodyXml: string,`,
+    `    deserialize: (obj: Record<string, unknown>) => R,`,
+    `    requestId?: string,`,
+    `  ): Promise<R> {`,
+    `    let xmlRequest = '';`,
+    `    try {`,
+    `      xmlRequest = buildEnvelope(operationName, bodyXml);`,
+    `    } catch (err) {`,
+    `      throw new MplusApiSerializationError(\`Failed to serialize \${operationName}: \${err}\`);`,
+    `    }`,
+    '',
+    `    const xmlResponse = await this.transport.send(operationName, xmlRequest, requestId);`,
+    '',
+    `    const parsed = parseEnvelopeBody(xmlResponse);`,
+    `    if ('fault' in parsed) {`,
+    `      const { faultcode, faultstring } = parsed.fault;`,
+    `      const message = \`[\${faultcode}] \${operationName}: \${faultstring}\`;`,
+    `      if (faultcode.startsWith('Client')) throw new MplusApiClientError(message, faultcode, xmlRequest, xmlResponse);`,
+    `      if (faultcode.startsWith('Server')) throw new MplusApiServerError(message, faultcode, xmlRequest, xmlResponse);`,
+    `      throw new MplusApiFaultError(message, faultcode, xmlRequest, xmlResponse);`,
+    `    }`,
+    '',
+    `    const responseData = parsed.data[responseElementName] as Record<string, unknown> | undefined;`,
+    `    if (responseData === undefined) {`,
+    `      throw new MplusApiDeserializationError(`,
+    `        \`Missing response element '\${responseElementName}' in \${operationName} response\`,`,
+    `        xmlRequest,`,
+    `        xmlResponse,`,
+    `      );`,
+    `    }`,
+    '',
+    `    try {`,
+    `      return deserialize(responseData);`,
+    `    } catch (err) {`,
+    `      throw new MplusApiDeserializationError(`,
+    `        \`Failed to deserialize \${responseTypeName}: \${err}\`,`,
+    `        xmlRequest,`,
+    `        xmlResponse,`,
+    `      );`,
+    `    }`,
+    `  }`,
+    '',
+  ];
+
+  const complexTypeMap = new Map<string, ComplexTypeDef>(complexTypes.map(ct => [ct.name, ct]));
+
+  for (const op of operations) {
+    lines.push(...emitClientMethod(op, enumNames, listWrapperMap, primitiveWrapperMap, complexTypeMap));
+  }
+
+  lines.push(`}`);
+
+  return lines.join('\n');
+}
+
+function emitClientMethod(op: OperationDef, enumNames: Set<string>, listWrapperMap: ListWrapperMap, primitiveWrapperMap: PrimitiveWrapperMap, complexTypeMap: Map<string, ComplexTypeDef>): string[] {
+  const lines: string[] = [];
+  const { name, inputElement, outputElement, outputTsType } = op;
+  const responseEl = outputElement.name;
+
+  const { paramStr, bodyCallStr } = buildMethodParams(inputElement, enumNames, listWrapperMap, primitiveWrapperMap);
+  const allParams = paramStr
+    ? `${paramStr}, requestId?: string`
+    : `requestId?: string`;
+
+  // Determine if response type has a single field that can be unwrapped
+  let returnType = `T.${outputTsType}`;
+  let singleFieldName: string | undefined;
+
+  const outputCt = complexTypeMap.get(outputTsType);
+  if (outputCt && outputCt.fields.length === 1) {
+    const rf = outputCt.fields[0];
+    singleFieldName = rf.name;
+    const innerW = !rf.array ? listWrapperMap.get(rf.wsdlType) : undefined;
+    if (innerW) {
+      const primitiveInnerW = primitiveWrapperMap.get(innerW.wsdlType);
+      const resolvedTsType = primitiveInnerW ? primitiveInnerW.tsType : innerW.tsType;
+      const innerBase = resolvedTsType === 'Date' ? 'Date' : isPrimitive(resolvedTsType) ? resolvedTsType : `T.${resolvedTsType}`;
+      returnType = `${innerBase}[]`;
+    } else if (rf.array) {
+      const base = rf.tsType === 'Date' ? 'Date' : isPrimitive(rf.tsType) ? rf.tsType : `T.${rf.tsType}`;
+      returnType = rf.optional ? `${base}[] | undefined` : `${base}[]`;
+    } else {
+      const base = rf.tsType === 'Date' ? 'Date' : isPrimitive(rf.tsType) ? rf.tsType : `T.${rf.tsType}`;
+      returnType = rf.optional ? `${base} | undefined` : base;
+    }
+  }
+
+  lines.push(`  async ${name}(${allParams}): Promise<${returnType}> {`);
+  lines.push(`    const bodyXml = ${bodyCallStr};`);
+  if (singleFieldName) {
+    lines.push(`    return (await this.call(`);
+    lines.push(`      '${name}',`);
+    lines.push(`      '${responseEl}',`);
+    lines.push(`      '${outputTsType}',`);
+    lines.push(`      bodyXml,`);
+    lines.push(`      D.deserialize${outputTsType},`);
+    lines.push(`      requestId,`);
+    lines.push(`    )).${singleFieldName};`);
+  } else {
+    lines.push(`    return this.call(`);
+    lines.push(`      '${name}',`);
+    lines.push(`      '${responseEl}',`);
+    lines.push(`      '${outputTsType}',`);
+    lines.push(`      bodyXml,`);
+    lines.push(`      D.deserialize${outputTsType},`);
+    lines.push(`      requestId,`);
+    lines.push(`    );`);
+  }
+  lines.push(`  }`, '');
+
+  return lines;
+}
+
+function buildMethodParams(
+  el: InputElementDef,
+  enumNames: Set<string>,
+  listWrapperMap: ListWrapperMap,
+  primitiveWrapperMap: PrimitiveWrapperMap,
+): { paramStr: string; bodyCallStr: string } {
+  const fnName = `S.serialize${capitalize(el.name)}Body`;
+
+  if (el.fields.length === 0) {
+    return { paramStr: '', bodyCallStr: `${fnName}()` };
+  }
+
+  if (el.fields.length === 1 && el.fields[0].name === 'request' && !isPrimitive(el.fields[0].tsType)) {
+    const f = el.fields[0];
+    const typePart = `T.${f.tsType}`;
+    const paramName = 'request';
+    const param = f.optional ? `${paramName}?: ${typePart}` : `${paramName}: ${typePart}`;
+    return {
+      paramStr: param,
+      bodyCallStr: `${fnName}(${paramName})`,
+    };
+  }
+
+  if (el.fields.length === 1) {
+    const f = el.fields[0];
+    const base = f.tsType === 'Date' ? 'Date' : isPrimitive(f.tsType) ? f.tsType : `T.${f.tsType}`;
+    const arrSuffix = f.array ? '[]' : '';
+    const opt = f.optional ? '?' : '';
+    const param = `${f.name}${opt}: ${base}${arrSuffix}`;
+    return {
+      paramStr: param,
+      bodyCallStr: `${fnName}(${f.name})`,
+    };
+  }
+
+  const paramFields = el.fields
+    .map((f) => {
+      const innerW = !f.array ? listWrapperMap.get(f.wsdlType) : undefined;
+      if (innerW) {
+        const primitiveInnerW = primitiveWrapperMap.get(innerW.wsdlType);
+        const resolvedTsType = primitiveInnerW ? primitiveInnerW.tsType : innerW.tsType;
+        const innerBase = resolvedTsType === 'Date' ? 'Date' : isPrimitive(resolvedTsType) ? resolvedTsType : `T.${resolvedTsType}`;
+        return `${f.name}?: ${innerBase}[]`;
+      }
+      const base = f.tsType === 'Date' ? 'Date' : isPrimitive(f.tsType) ? f.tsType : `T.${f.tsType}`;
+      return `${f.name}?: ${base}${f.array ? '[]' : ''}`;
+    })
+    .join('; ');
+  return {
+    paramStr: `params: { ${paramFields} }`,
+    bodyCallStr: `${fnName}(params)`,
+  };
+}
+
+// ---------------------------------------------------------------------------
+// Helpers
+// ---------------------------------------------------------------------------
+
+function capitalize(s: string): string {
+  return s.charAt(0).toUpperCase() + s.slice(1);
+}
+
+// ---------------------------------------------------------------------------
+// Entry point
+// ---------------------------------------------------------------------------
+
+function main(): void {
+  const projectRoot = path.resolve(__dirname, '..');
+  const wsdlPath = path.join(projectRoot, 'wsdl.xml');
+  const outDir = path.join(projectRoot, 'src', 'generated');
+
+  console.log('Parsing WSDL...');
+  const { enums, complexTypes, inputElements, outputElements, operations } = parseWsdl(wsdlPath);
+
+  console.log(`  ${enums.length} enum types`);
+  console.log(`  ${complexTypes.length} complex types`);
+  console.log(`  ${inputElements.size} input elements`);
+  console.log(`  ${outputElements.size} output elements`);
+  console.log(`  ${operations.length} operations`);
+
+  const enumNames = new Set(enums.map((e) => e.name));
+  const listWrapperMap = buildListWrapperMap(complexTypes);
+  const primitiveWrapperMap = buildPrimitiveWrapperMap(complexTypes);
+
+  console.log('Generating types.ts...');
+  fs.writeFileSync(path.join(outDir, 'types.ts'), generateTypes(enums, complexTypes, listWrapperMap, primitiveWrapperMap));
+
+  console.log('Generating serializer.ts...');
+  fs.writeFileSync(path.join(outDir, 'serializer.ts'), generateSerializer(complexTypes, inputElements, operations, enumNames, listWrapperMap, primitiveWrapperMap));
+
+  console.log('Generating deserializer.ts...');
+  fs.writeFileSync(path.join(outDir, 'deserializer.ts'), generateDeserializer(complexTypes, operations, enumNames, listWrapperMap, primitiveWrapperMap));
+
+  console.log('Generating client.ts...');
+  fs.writeFileSync(path.join(outDir, 'client.ts'), generateClient(operations, enumNames, listWrapperMap, primitiveWrapperMap, complexTypes));
+
+  console.log('Done.');
+}
+
+main();

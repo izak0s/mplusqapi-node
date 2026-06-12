@@ -1,5 +1,7 @@
+.env
 /tmp
 /out-tsc
+/dist
 
 /node_modules
 npm-debug.log*
@@ -9,3 +11,6 @@ yarn-error.log*
 .pnp.js
 
 .vscode/*
+.idea
+.claude
+.DS_Store
