@@ -248,6 +248,15 @@ npm run test:types  # tsc --noEmit over src + test
 npm run check       # build + both of the above (what CI runs)
 ```
 
+### Release
+
+```bash
+npm version patch   # or minor / major — bumps package.json, commits, tags
+git push --follow-tags
+```
+
+The tag triggers `.github/workflows/publish.yml`: gate on `npm run check`, publish to npm via [trusted publishing](https://docs.npmjs.com/trusted-publishers) (OIDC, no token), and create a GitHub release with generated notes. The workflow refuses to publish if the tag doesn't match `package.json`.
+
 ### Run the example
 
 ```bash
