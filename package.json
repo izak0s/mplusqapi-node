@@ -19,12 +19,18 @@
   ],
   "license": "GPL-3.0-only",
   "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "require": "./dist/index.js",
-      "default": "./dist/index.js"
+      "import": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
+      },
+      "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      }
     },
     "./package.json": "./package.json"
   },
@@ -35,15 +41,16 @@
   ],
   "sideEffects": false,
   "engines": {
-    "node": ">=18"
+    "node": ">=20"
   },
   "scripts": {
     "clean": "node -e \"require('fs').rmSync('dist', { recursive: true, force: true })\"",
-    "build": "npm run clean && tsc",
+    "build": "npm run clean && tsup",
+    "lint": "eslint .",
     "generate": "ts-node --project scripts/tsconfig.json scripts/generate.ts",
     "generate:local": "ts-node --project scripts/tsconfig.json scripts/generate.ts wsdl.xml",
     "check": "npm run build && npm run test:types && npm test",
-    "test": "node --require ts-node/register/transpile-only --test test/soap.test.ts test/transport.test.ts test/roundtrip.test.ts test/client.test.ts",
+    "test": "node --require ts-node/register/transpile-only --test test/soap.test.ts test/transport.test.ts test/roundtrip.test.ts test/client.test.ts test/generator.test.ts",
     "test:types": "tsc --noEmit -p tsconfig.test.json",
     "prepack": "npm run build",
     "pack:dry-run": "npm pack --dry-run"
@@ -54,7 +61,10 @@
   },
   "devDependencies": {
     "@types/node": "^25.9.3",
+    "eslint": "^9.39.4",
     "ts-node": "^10.9.2",
-    "typescript": "^6.0.3"
+    "tsup": "^8.5.1",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.61.0"
   }
 }

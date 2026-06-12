@@ -117,10 +117,6 @@ function wsdlTypeToTs(rawType: string): string {
   return primitive ?? base;
 }
 
-function isDateType(rawType: string): boolean {
-  return DATETIME_TYPES.has(stripNs(rawType));
-}
-
 function isPrimitive(tsType: string): boolean {
   return ['string', 'number', 'boolean', 'unknown'].includes(tsType);
 }
@@ -164,12 +160,13 @@ function buildPrimitiveWrapperMap(complexTypes: ComplexTypeDef[]): PrimitiveWrap
 // WSDL parser
 // ---------------------------------------------------------------------------
 
-function parseWsdl(xml: string): {
+export function parseWsdl(xml: string): {
   enums: EnumType[];
   complexTypes: ComplexTypeDef[];
   inputElements: Map<string, InputElementDef>;
   outputElements: Map<string, OutputElementDef>;
   operations: OperationDef[];
+  skippedOperations: string[];
 } {
   const parser = new XMLParser({
     ignoreAttributes: false,
@@ -270,6 +267,7 @@ function parseWsdl(xml: string): {
   const portTypeRaw = definitions['portType'];
   const portType = Array.isArray(portTypeRaw) ? portTypeRaw[0] : portTypeRaw;
   const operations: OperationDef[] = [];
+  const skippedOperations: string[] = [];
 
   for (const op of asArray((portType as Record<string, unknown>)?.['operation'])) {
     const opName = attr(op, 'name');
@@ -280,11 +278,17 @@ function parseWsdl(xml: string): {
 
     const inputElementName = messageToElement.get(inputMsgRef) ?? opName;
     const outputElementName = messageToElement.get(outputMsgRef);
-    if (!outputElementName) continue;
+    if (!outputElementName) {
+      skippedOperations.push(opName);
+      continue;
+    }
 
     const inputEl = inputElements.get(inputElementName) ?? { name: inputElementName, fields: [] };
     const outputEl = outputElements.get(outputElementName);
-    if (!outputEl) continue;
+    if (!outputEl) {
+      skippedOperations.push(opName);
+      continue;
+    }
 
     const outputTsType = outputEl.typeRef;
 
@@ -296,7 +300,7 @@ function parseWsdl(xml: string): {
     });
   }
 
-  return { enums, complexTypes, inputElements, outputElements, operations };
+  return { enums, complexTypes, inputElements, outputElements, operations, skippedOperations };
 }
 
 function extractFields(
@@ -319,14 +323,14 @@ function extractFields(
       const baseCt = ctByRawName.get(baseName);
       if (baseCt) fields.push(...extractFields(baseCt, enumNames, ctByRawName, seen));
     }
-    fields.push(...extractSequenceFields(ext, enumNames));
+    fields.push(...extractSequenceFields(ext));
     return fields;
   }
 
-  return extractSequenceFields(ct, enumNames);
+  return extractSequenceFields(ct);
 }
 
-function extractSequenceFields(ct: Record<string, unknown>, enumNames: Set<string>): FieldDef[] {
+function extractSequenceFields(ct: Record<string, unknown>): FieldDef[] {
   const sequence = ct['sequence'] as Record<string, unknown> | undefined;
   if (!sequence) return [];
 
@@ -1131,30 +1135,18 @@ function fetchText(url: string, redirectCount = 0): Promise<string> {
 // Entry point
 // ---------------------------------------------------------------------------
 
-async function main(): Promise<void> {
-  const projectRoot = path.resolve(__dirname, '..');
-  const wsdlSourceArg = process.argv[2] ?? process.env.MPLUS_WSDL_URL;
-  if (!wsdlSourceArg) {
-    throw new Error(
-      'Missing WSDL source. Run `npm run generate -- <wsdl-url-or-path>` or set MPLUS_WSDL_URL.',
-    );
-  }
-  const wsdlSource = isUrl(wsdlSourceArg)
-    ? wsdlSourceArg
-    : path.resolve(projectRoot, wsdlSourceArg);
-  const outDir = path.join(projectRoot, 'src', 'generated');
+export interface GenerateResult {
+  types: string;
+  serializer: string;
+  deserializer: string;
+  client: string;
+  skippedOperations: string[];
+  counts: { enums: number; complexTypes: number; operations: number };
+}
 
-  console.log(`Loading WSDL from ${wsdlSource}...`);
-  const xml = await loadWsdl(wsdlSource);
-
-  console.log('Parsing WSDL...');
-  const { enums, complexTypes, inputElements, outputElements, operations } = parseWsdl(xml);
-
-  console.log(`  ${enums.length} enum types`);
-  console.log(`  ${complexTypes.length} complex types`);
-  console.log(`  ${inputElements.size} input elements`);
-  console.log(`  ${outputElements.size} output elements`);
-  console.log(`  ${operations.length} operations`);
+/** Full pipeline: WSDL XML string → the four generated source files. */
+export function generateAll(xml: string): GenerateResult {
+  const { enums, complexTypes, inputElements, operations, skippedOperations } = parseWsdl(xml);
 
   const enumNames = new Set(enums.map((e) => e.name));
   const listWrapperMap = buildListWrapperMap(complexTypes);
@@ -1177,22 +1169,52 @@ async function main(): Promise<void> {
     }
   }
 
-  console.log('Generating types.ts...');
-  fs.writeFileSync(path.join(outDir, 'types.ts'), generateTypes(enums, complexTypes, listWrapperMap, primitiveWrapperMap));
+  return {
+    types: generateTypes(enums, complexTypes, listWrapperMap, primitiveWrapperMap),
+    serializer: generateSerializer(complexTypes, inputElements, operations, enumNames, listWrapperMap, primitiveWrapperMap),
+    deserializer: generateDeserializer(complexTypes, operations, enumNames, listWrapperMap, primitiveWrapperMap, responseTypeNames),
+    client: generateClient(operations, enumNames, listWrapperMap, primitiveWrapperMap, complexTypes),
+    skippedOperations,
+    counts: { enums: enums.length, complexTypes: complexTypes.length, operations: operations.length },
+  };
+}
 
-  console.log('Generating serializer.ts...');
-  fs.writeFileSync(path.join(outDir, 'serializer.ts'), generateSerializer(complexTypes, inputElements, operations, enumNames, listWrapperMap, primitiveWrapperMap));
+async function main(): Promise<void> {
+  const projectRoot = path.resolve(__dirname, '..');
+  const wsdlSourceArg = process.argv[2] ?? process.env.MPLUS_WSDL_URL;
+  if (!wsdlSourceArg) {
+    throw new Error(
+      'Missing WSDL source. Run `npm run generate -- <wsdl-url-or-path>` or set MPLUS_WSDL_URL.',
+    );
+  }
+  const wsdlSource = isUrl(wsdlSourceArg)
+    ? wsdlSourceArg
+    : path.resolve(projectRoot, wsdlSourceArg);
+  const outDir = path.join(projectRoot, 'src', 'generated');
 
-  console.log('Generating deserializer.ts...');
-  fs.writeFileSync(path.join(outDir, 'deserializer.ts'), generateDeserializer(complexTypes, operations, enumNames, listWrapperMap, primitiveWrapperMap, responseTypeNames));
+  console.log(`Loading WSDL from ${wsdlSource}...`);
+  const xml = await loadWsdl(wsdlSource);
 
-  console.log('Generating client.ts...');
-  fs.writeFileSync(path.join(outDir, 'client.ts'), generateClient(operations, enumNames, listWrapperMap, primitiveWrapperMap, complexTypes));
+  console.log('Parsing and generating...');
+  const result = generateAll(xml);
+
+  console.log(`  ${result.counts.enums} enum types`);
+  console.log(`  ${result.counts.complexTypes} complex types`);
+  console.log(`  ${result.counts.operations} operations`);
+  if (result.skippedOperations.length > 0) {
+    console.warn(`  WARNING: skipped ${result.skippedOperations.length} operation(s) with unresolvable output elements:`);
+    for (const name of result.skippedOperations) console.warn(`    - ${name}`);
+  }
+
+  fs.writeFileSync(path.join(outDir, 'types.ts'), result.types);
+  fs.writeFileSync(path.join(outDir, 'serializer.ts'), result.serializer);
+  fs.writeFileSync(path.join(outDir, 'deserializer.ts'), result.deserializer);
+  fs.writeFileSync(path.join(outDir, 'client.ts'), result.client);
 
   console.log('Done.');
 }
 
-main().catch((err: unknown) => {
+if (require.main === module) main().catch((err: unknown) => {
   console.error(err instanceof Error ? err.message : String(err));
   process.exitCode = 1;
 });
