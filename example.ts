@@ -24,15 +24,21 @@ const client = new MplusKassaClient({
 });
 
 async function main() {
-    const print = await client.reportPrintableFinancialTotals({
-        dateFilter: {
-            fromFinancialDate: new Date(2025, 1, 1),
-            throughFinancialDate: new Date(2026, 6, 1)
-        }
-    });
-    console.log(print);
-    await client.createOrderV3({})
-    await client.createRelation({})
+    // Fetch API version
+    const version = await client.getApiVersion();
+    console.log(`API: ${version.majorNumber}.${version.minorNumber}.${version.revisionNumber}`);
+
+    // Fetch orders (returns Order[] directly — list wrappers are unwrapped)
+    const orders = await client.getOrders({ syncMarker: 0, syncMarkerLimit: 10 });
+    for (const order of orders) {
+        console.log(order.orderId, order.financialDate);
+    }
+
+// Fetch a single relation — `relation` is undefined when result is NOT-FOUND
+    const { result, relation } = await client.getRelation(42);
+    if (result === 'GET-RELATION-RESULT-OK') {
+        console.log(relation?.name, relation?.email);
+    }
 }
 
 main().catch((err: unknown) => {
