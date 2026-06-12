@@ -4,7 +4,7 @@
  *
  * Set env vars before running:
  *   MPLUS_HOST=api.mpluskassa.nl
- *   MPLUS_PORT=44281
+ *   MPLUS_PORT=PORT
  *   MPLUS_IDENT=your-ident
  *   MPLUS_SECRET=your-secret
  */
@@ -17,8 +17,8 @@ import {
 } from './src';
 
 const client = new MplusKassaClient({
-  host: process.env.MPLUS_HOST ?? 'api.mpluskassa.nl',
-  port: Number(process.env.MPLUS_PORT ?? 44281),
+  host: process.env.MPLUS_HOST ?? '',
+  port: Number(process.env.MPLUS_PORT ?? 0),
   ident: process.env.MPLUS_IDENT ?? '',
   secret: process.env.MPLUS_SECRET ?? '',
 });

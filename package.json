@@ -2,6 +2,14 @@
   "name": "mplusqapi-node",
   "version": "1.0.0",
   "description": "TypeScript client for the MplusKASSA SOAP API",
+  "homepage": "https://github.com/izak0s/mplusqapi-node#readme",
+  "bugs": {
+    "url": "https://github.com/izak0s/mplusqapi-node/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/izak0s/mplusqapi-node.git"
+  },
   "keywords": [
     "mpluskassa",
     "mplusqapi",
@@ -9,7 +17,7 @@
     "typescript",
     "api-client"
   ],
-  "license": "GNU GPLv3",
+  "license": "GPL-3.0-only",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {

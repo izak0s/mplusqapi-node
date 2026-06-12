@@ -41,10 +41,10 @@ import {
 } from 'mplusqapi-node';
 
 const client = new MplusKassaClient({
-  host: 'api.mpluskassa.nl',
-  port: 44281,
-  ident: 'your-ident',
-  secret: 'your-secret',
+  host: process.env.MPLUS_HOST!,
+  port: Number(process.env.MPLUS_PORT!),
+  ident: process.env.MPLUS_IDENT!,
+  secret: process.env.MPLUS_SECRET!,
 });
 
 // Fetch API version
@@ -70,8 +70,8 @@ Credentials are passed as **URL query parameters** (`?ident=X&secret=Y`), not in
 
 ```typescript
 const client = new MplusKassaClient({
-  host: 'api.mpluskassa.nl', // hostname only, no protocol
-  port: 44281,
+  host: process.env.MPLUS_HOST!, // hostname only, no protocol
+  port: Number(process.env.MPLUS_PORT!),
   ident: process.env.MPLUS_IDENT!,
   secret: process.env.MPLUS_SECRET!,
   rejectUnauthorized: false, // set to false for self-signed certs (e.g. local test servers)
@@ -170,11 +170,11 @@ The ID is sent as the `X-Request-Id` header.
 ### Regenerate from WSDL
 
 ```bash
-# Regenerate src/generated/ from the official WSDL URL
-npm run generate
+# Regenerate src/generated/ from a WSDL URL
+npm run generate -- 'https://api.mpluskassa.nl:PORT/?wsdl'
 
-# Or regenerate from a custom WSDL URL
-npm run generate -- 'https://api.mpluskassa.nl:44281/?wsdl'
+# Or keep the URL out of shell history by using an environment variable
+MPLUS_WSDL_URL='https://api.mpluskassa.nl:PORT/?wsdl' npm run generate
 
 # Or regenerate from the cached local WSDL
 npm run generate:local
