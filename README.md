@@ -14,7 +14,7 @@ A fully-typed TypeScript client for the [MplusKASSA](https://www.mpluskassa.nl) 
 - **List flattening** — `*List` wrapper types (e.g. `OrderList`) are transparently unwrapped to plain arrays (`Order[]`)
 - **Decimal-safe** — `xsd:decimal` fields typed as `string` to avoid floating-point precision loss
 - **Date handling** — `SoapMplusDateTime` structs and ISO date fields both map to `Date`
-- **Rich error types** — every error carries `xmlRequest` and `xmlResponse` for easy debugging
+- **Rich error types** — errors carry the raw `xmlRequest` / `xmlResponse` (where available) for easy debugging
 
 ---
 
@@ -181,7 +181,7 @@ const first: Order = orders[0];
 
 // Request: pass an array directly
 await client.payTableOrder({
-  terminal: myTerminal,
+  terminal: { branchNumber: 1, terminalNumber: 40 },
   paymentList: [{ method: 'CASH', amount: 1000 }], // amount in cents
 });
 ```
@@ -232,11 +232,20 @@ npm run generate:local
 npm run build   # tsc → dist/
 ```
 
-Output:
+Output (CommonJS + declarations):
 ```
 dist/
-  index.js          CommonJS entry point
-  index.d.ts        TypeScript declarations
+  index.js / index.d.ts          entry point
+  errors.js, soap.js, transport.js (+ .d.ts)
+  generated/                     client, types, serializer, deserializer
+```
+
+### Test
+
+```bash
+npm test            # node:test suite (test/)
+npm run test:types  # tsc --noEmit over src + test
+npm run check       # build + both of the above (what CI runs)
 ```
 
 ### Run the example
@@ -265,6 +274,8 @@ src/
 scripts/
   generate.ts           WSDL parser + code generator
 wsdl.xml                Cached WSDL for offline/local regeneration
+                        (gitignored — fetch once via `npm run generate -- <url>`
+                        before `npm run generate:local` works)
 ```
 
 ---
