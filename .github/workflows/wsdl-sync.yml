@@ -1,0 +1,63 @@
+name: WSDL sync
+
+on:
+  schedule:
+    - cron: '17 3 * * *' # nightly, 03:17 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  regenerate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22.x
+          cache: npm
+      - run: npm ci
+
+      - name: Regenerate from live WSDL
+        env:
+          MPLUS_WSDL_URL: ${{ secrets.MPLUS_WSDL_URL }}
+        run: |
+          if [ -z "$MPLUS_WSDL_URL" ]; then
+            echo "::error::Repository secret MPLUS_WSDL_URL is not set (full WSDL URL incl. port)."
+            exit 1
+          fi
+          npm run generate
+
+      - name: Detect changes
+        id: diff
+        run: |
+          if git diff --quiet -- src/generated; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "WSDL unchanged — nothing to do."
+          else
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            git diff --stat -- src/generated
+          fi
+
+      - name: Validate regenerated code
+        if: steps.diff.outputs.changed == 'true'
+        run: npm run check
+
+      - name: Create or update PR
+        if: steps.diff.outputs.changed == 'true'
+        uses: peter-evans/create-pull-request@v7
+        with:
+          branch: auto/wsdl-update
+          add-paths: src/generated
+          commit-message: ':sparkles: Regenerate from upstream WSDL'
+          title: 'Regenerate from upstream WSDL'
+          body: |
+            Nightly WSDL sync detected upstream changes and regenerated `src/generated/`.
+
+            Build, type-check, and tests passed in the sync run, but CI does not
+            trigger automatically on bot-created PRs — close and reopen this PR
+            (or push to the branch) to run it.
+
+            🤖 Generated with [Claude Code](https://claude.com/claude-code)
