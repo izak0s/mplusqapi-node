@@ -1,5 +1,5 @@
 {
-  "name": "mplusqapi-node",
+  "name": "@izak0s/mplusqapi-node",
   "version": "1.0.0",
   "description": "TypeScript client for the MplusKASSA SOAP API",
   "homepage": "https://github.com/izak0s/mplusqapi-node#readme",
@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/izak0s/mplusqapi-node.git"
+    "url": "git+https://github.com/izak0s/mplusqapi-node.git"
   },
   "keywords": [
     "mpluskassa",
