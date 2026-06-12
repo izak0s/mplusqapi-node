@@ -1,0 +1,73 @@
+{
+  "name": "@izak0s/mplusqapi-node",
+  "version": "1.0.0",
+  "description": "TypeScript client for the MplusKASSA SOAP API",
+  "homepage": "https://github.com/izak0s/mplusqapi-node#readme",
+  "bugs": {
+    "url": "https://github.com/izak0s/mplusqapi-node/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/izak0s/mplusqapi-node.git"
+  },
+  "keywords": [
+    "mpluskassa",
+    "mplusqapi",
+    "soap",
+    "typescript",
+    "api-client"
+  ],
+  "license": "GPL-3.0-only",
+  "main": "./dist/index.js",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
+      },
+      "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      }
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "sideEffects": false,
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "clean": "node -e \"require('fs').rmSync('dist', { recursive: true, force: true })\"",
+    "build": "npm run clean && tsup",
+    "lint": "eslint .",
+    "generate": "ts-node --project scripts/tsconfig.json scripts/generate.ts",
+    "generate:local": "ts-node --project scripts/tsconfig.json scripts/generate.ts wsdl.xml",
+    "check": "npm run build && npm run test:types && npm test",
+    "test": "node --require ts-node/register/transpile-only --test test/soap.test.ts test/transport.test.ts test/roundtrip.test.ts test/client.test.ts test/generator.test.ts",
+    "test:types": "tsc --noEmit -p tsconfig.test.json",
+    "prepack": "npm run build",
+    "pack:dry-run": "npm pack --dry-run"
+  },
+  "dependencies": {
+    "axios": "^1.7.2",
+    "fast-xml-parser": "^5.8.0"
+  },
+  "overrides": {
+    "esbuild": "^0.28.1"
+  },
+  "devDependencies": {
+    "@types/node": "^25.9.3",
+    "eslint": "^10.5.0",
+    "ts-node": "^10.9.2",
+    "tsup": "^8.5.1",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.61.0"
+  }
+}
