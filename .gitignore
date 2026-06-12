@@ -15,3 +15,5 @@ yarn-error.log*
 .idea
 .claude
 .DS_Store
+CLAUDE.md
+AGENTS.md
