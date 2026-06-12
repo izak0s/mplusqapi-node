@@ -2,11 +2,41 @@
   "name": "mplusqapi-node",
   "version": "1.0.0",
   "description": "TypeScript client for the MplusKASSA SOAP API",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "keywords": [
+    "mpluskassa",
+    "mplusqapi",
+    "soap",
+    "typescript",
+    "api-client"
+  ],
+  "license": "GNU GPLv3",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "require": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "sideEffects": false,
+  "engines": {
+    "node": ">=18"
+  },
   "scripts": {
-    "build": "tsc",
-    "generate": "ts-node --project scripts/tsconfig.json scripts/generate.ts"
+    "clean": "node -e \"require('fs').rmSync('dist', { recursive: true, force: true })\"",
+    "build": "npm run clean && tsc",
+    "generate": "ts-node --project scripts/tsconfig.json scripts/generate.ts",
+    "generate:local": "ts-node --project scripts/tsconfig.json scripts/generate.ts wsdl.xml",
+    "check": "npm run build",
+    "prepack": "npm run build",
+    "pack:dry-run": "npm pack --dry-run"
   },
   "dependencies": {
     "axios": "^1.7.2",
@@ -16,6 +46,5 @@
     "@types/node": "^25.9.3",
     "ts-node": "^10.9.2",
     "typescript": "^6.0.3"
-  },
-  "private": true
+  }
 }

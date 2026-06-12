@@ -1,11 +1,16 @@
 /**
  * WSDL → TypeScript generator.
- * Reads wsdl.xml from project root and writes src/generated/{types,serializer,deserializer}.ts
+ * Reads a WSDL URL or local WSDL file and writes src/generated/{types,serializer,deserializer,client}.ts
  *
- * Run: npm run generate
+ * Run:
+ *   npm run generate
+ *   npm run generate -- https://api.mpluskassa.nl:PORT/?wsdl
+ *   npm run generate -- wsdl.xml
  */
 
 import * as fs from 'fs';
+import * as http from 'http';
+import * as https from 'https';
 import * as path from 'path';
 import { XMLParser } from 'fast-xml-parser';
 
@@ -93,6 +98,7 @@ const XSD_PRIMITIVES: Record<string, string> = {
 const ISO_DATE_WSDL_TYPES = new Set(['date', 'dateTime']);
 
 const DATETIME_TYPES = new Set(['SoapMplusDateTime', 'SoapMplusDate']);
+const DEFAULT_WSDL_URL = 'https://api.mpluskassa.nl:44281/?wsdl';
 
 function stripNs(value: string): string {
   const idx = value.indexOf(':');
@@ -147,15 +153,13 @@ function buildPrimitiveWrapperMap(complexTypes: ComplexTypeDef[]): PrimitiveWrap
 // WSDL parser
 // ---------------------------------------------------------------------------
 
-function parseWsdl(wsdlPath: string): {
+function parseWsdl(xml: string): {
   enums: EnumType[];
   complexTypes: ComplexTypeDef[];
   inputElements: Map<string, InputElementDef>;
   outputElements: Map<string, OutputElementDef>;
   operations: OperationDef[];
 } {
-  const xml = fs.readFileSync(wsdlPath, 'utf-8');
-
   const parser = new XMLParser({
     ignoreAttributes: false,
     attributeNamePrefix: '@',
@@ -976,17 +980,87 @@ function capitalize(s: string): string {
   return s.charAt(0).toUpperCase() + s.slice(1);
 }
 
+function isUrl(value: string): boolean {
+  return value.startsWith('http://') || value.startsWith('https://');
+}
+
+async function loadWsdl(source: string): Promise<string> {
+  if (!isUrl(source)) {
+    return fs.readFileSync(source, 'utf-8');
+  }
+
+  return fetchText(source);
+}
+
+function fetchText(url: string, redirectCount = 0): Promise<string> {
+  if (redirectCount > 5) {
+    return Promise.reject(new Error(`Too many redirects while fetching ${url}`));
+  }
+
+  const parsedUrl = new URL(url);
+  const transport = parsedUrl.protocol === 'http:' ? http : https;
+
+  return new Promise((resolve, reject) => {
+    const req = transport.get(
+      {
+        hostname: parsedUrl.hostname,
+        port: parsedUrl.port,
+        path: `${parsedUrl.pathname}${parsedUrl.search}`,
+        protocol: parsedUrl.protocol,
+        rejectUnauthorized: false,
+      },
+      (res) => {
+        const statusCode = res.statusCode ?? 0;
+        const location = res.headers.location;
+
+        if (statusCode >= 300 && statusCode < 400 && location) {
+          res.resume();
+          const redirectUrl = new URL(location, url).toString();
+          resolve(fetchText(redirectUrl, redirectCount + 1));
+          return;
+        }
+
+        if (statusCode < 200 || statusCode >= 300) {
+          res.resume();
+          reject(new Error(`Failed to fetch WSDL: HTTP ${statusCode}`));
+          return;
+        }
+
+        res.setEncoding('utf8');
+        let body = '';
+        res.on('data', (chunk) => {
+          body += chunk;
+        });
+        res.on('end', () => {
+          resolve(body);
+        });
+      },
+    );
+
+    req.on('error', reject);
+    req.setTimeout(30000, () => {
+      req.destroy(new Error(`Timed out fetching WSDL from ${url}`));
+    });
+  });
+}
+
 // ---------------------------------------------------------------------------
 // Entry point
 // ---------------------------------------------------------------------------
 
-function main(): void {
+async function main(): Promise<void> {
   const projectRoot = path.resolve(__dirname, '..');
-  const wsdlPath = path.join(projectRoot, 'wsdl.xml');
+  const wsdlSourceArg = process.argv[2];
+  const wsdlSource = wsdlSourceArg
+    ? isUrl(wsdlSourceArg) ? wsdlSourceArg : path.resolve(projectRoot, wsdlSourceArg)
+    : DEFAULT_WSDL_URL;
   const outDir = path.join(projectRoot, 'src', 'generated');
 
+  console.log(`Loading WSDL from ${wsdlSource}...`);
+  const xml = await loadWsdl(wsdlSource);
+
   console.log('Parsing WSDL...');
-  const { enums, complexTypes, inputElements, outputElements, operations } = parseWsdl(wsdlPath);
+  const { enums, complexTypes, inputElements, outputElements, operations } = parseWsdl(xml);
 
   console.log(`  ${enums.length} enum types`);
   console.log(`  ${complexTypes.length} complex types`);
@@ -1013,4 +1087,7 @@ function main(): void {
   console.log('Done.');
 }
 
-main();
+main().catch((err: unknown) => {
+  console.error(err instanceof Error ? err.message : String(err));
+  process.exitCode = 1;
+});

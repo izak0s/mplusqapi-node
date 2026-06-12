@@ -9,7 +9,7 @@ A fully-typed TypeScript client for the [MplusKASSA](https://www.mpluskassa.nl) 
 ## Features
 
 - **342 typed async methods** covering the full MplusKASSA API surface
-- **Auto-generated** from `wsdl.xml` — regenerate anytime the WSDL changes
+- **Auto-generated** from the official WSDL URL — regenerate anytime the WSDL changes
 - **Fully typed** — 259 enum types and 1200+ interfaces, all derived from the WSDL
 - **List flattening** — `*List` wrapper types (e.g. `OrderList`) are transparently unwrapped to plain arrays (`Order[]`)
 - **Decimal-safe** — `xsd:decimal` fields typed as `string` to avoid floating-point precision loss
@@ -21,7 +21,7 @@ A fully-typed TypeScript client for the [MplusKASSA](https://www.mpluskassa.nl) 
 ## Installation
 
 ```bash
-npm install
+npm install mplusqapi-node
 ```
 
 **Runtime dependencies:**
@@ -38,7 +38,7 @@ import {
   MplusApiClientError,
   MplusApiServerError,
   MplusApiCommunicationError,
-} from './src';
+} from 'mplusqapi-node';
 
 const client = new MplusKassaClient({
   host: 'api.mpluskassa.nl',
@@ -91,7 +91,7 @@ import {
   MplusApiCommunicationError, // network / HTTP error
   MplusApiSerializationError, // failed to build request XML
   MplusApiDeserializationError, // failed to parse response XML
-} from './src';
+} from 'mplusqapi-node';
 
 try {
   await client.getOrder('invalid-id');
@@ -117,7 +117,7 @@ try {
 Enum fields are typed as TypeScript string unions:
 
 ```typescript
-import type { OrderType, ArticleType } from './src';
+import type { OrderType, ArticleType } from 'mplusqapi-node';
 
 const type: OrderType = 'SALES_ORDER';
 ```
@@ -170,11 +170,14 @@ The ID is sent as the `X-Request-Id` header.
 ### Regenerate from WSDL
 
 ```bash
-# Refresh WSDL from the live API (optional)
-curl -sk 'https://api.mpluskassa.nl:44281/?wsdl' -o wsdl.xml
-
-# Regenerate src/generated/
+# Regenerate src/generated/ from the official WSDL URL
 npm run generate
+
+# Or regenerate from a custom WSDL URL
+npm run generate -- 'https://api.mpluskassa.nl:44281/?wsdl'
+
+# Or regenerate from the cached local WSDL
+npm run generate:local
 ```
 
 ### Build
@@ -215,7 +218,7 @@ src/
 
 scripts/
   generate.ts           WSDL parser + code generator
-wsdl.xml                Cached WSDL
+wsdl.xml                Cached WSDL for offline/local regeneration
 ```
 
 ---
