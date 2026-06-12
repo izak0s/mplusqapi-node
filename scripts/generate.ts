@@ -125,6 +125,18 @@ function isPrimitive(tsType: string): boolean {
   return ['string', 'number', 'boolean', 'unknown'].includes(tsType);
 }
 
+/**
+ * Type reference for an input (request) position. Complex types are wrapped in
+ * `T.Input<...>` so array fields — required on deserialized responses — become
+ * optional when callers build request objects.
+ */
+function inputTypeRef(tsType: string, wsdlType: string, enumNames: Set<string>): string {
+  if (tsType === 'Date') return 'Date';
+  if (isPrimitive(tsType)) return tsType;
+  if (enumNames.has(wsdlType)) return `T.${tsType}`;
+  return `T.Input<T.${tsType}>`;
+}
+
 function buildListWrapperMap(complexTypes: ComplexTypeDef[]): ListWrapperMap {
   const map: ListWrapperMap = new Map();
   for (const ct of complexTypes) {
@@ -194,13 +206,20 @@ function parseWsdl(xml: string): {
   }
 
   // --- Complex types ---
-  const complexTypes: ComplexTypeDef[] = [];
-  const complexTypeMap = new Map<string, ComplexTypeDef>();
+  // Two passes: collect raw nodes first so complexContent/extension bases can
+  // be resolved regardless of declaration order.
+  const rawComplexTypes = new Map<string, Record<string, unknown>>();
   for (const ct of asArray(schema['complexType'])) {
     const rawName = attr(ct, 'name');
     if (!rawName) continue;
+    rawComplexTypes.set(rawName, ct);
+  }
+
+  const complexTypes: ComplexTypeDef[] = [];
+  const complexTypeMap = new Map<string, ComplexTypeDef>();
+  for (const [rawName, ct] of rawComplexTypes) {
     const name = sanitizeIdent(rawName);
-    const fields = extractFields(ct, enumNames);
+    const fields = extractFields(ct, enumNames, rawComplexTypes);
     const def: ComplexTypeDef = { name, fields, doc: extractDoc(ct) };
     complexTypes.push(def);
     complexTypeMap.set(name, def);
@@ -229,7 +248,7 @@ function parseWsdl(xml: string): {
       const ct = Array.isArray(ctRaw)
         ? (ctRaw[0] as Record<string, unknown>)
         : (ctRaw as Record<string, unknown> | undefined);
-      const fields = ct ? extractFields(ct, enumNames) : [];
+      const fields = ct ? extractFields(ct, enumNames, rawComplexTypes) : [];
       inputElements.set(name, { name, fields });
     }
   }
@@ -280,7 +299,34 @@ function parseWsdl(xml: string): {
   return { enums, complexTypes, inputElements, outputElements, operations };
 }
 
-function extractFields(ct: Record<string, unknown>, enumNames: Set<string>): FieldDef[] {
+function extractFields(
+  ct: Record<string, unknown>,
+  enumNames: Set<string>,
+  ctByRawName: Map<string, Record<string, unknown>>,
+  seen: Set<string> = new Set(),
+): FieldDef[] {
+  // complexContent/extension: inherited base fields come first (XSD order),
+  // then the extension's own sequence.
+  const cc = ct['complexContent'] as Record<string, unknown> | undefined;
+  if (cc) {
+    const extRaw = cc['extension'];
+    const ext = (Array.isArray(extRaw) ? extRaw[0] : extRaw) as Record<string, unknown> | undefined;
+    if (!ext) return [];
+    const fields: FieldDef[] = [];
+    const baseName = stripNs(attr(ext, 'base') ?? '');
+    if (baseName && !seen.has(baseName)) {
+      seen.add(baseName);
+      const baseCt = ctByRawName.get(baseName);
+      if (baseCt) fields.push(...extractFields(baseCt, enumNames, ctByRawName, seen));
+    }
+    fields.push(...extractSequenceFields(ext, enumNames));
+    return fields;
+  }
+
+  return extractSequenceFields(ct, enumNames);
+}
+
+function extractSequenceFields(ct: Record<string, unknown>, enumNames: Set<string>): FieldDef[] {
   const sequence = ct['sequence'] as Record<string, unknown> | undefined;
   if (!sequence) return [];
 
@@ -376,6 +422,22 @@ function generateTypes(enums: EnumType[], complexTypes: ComplexTypeDef[], listWr
     lines.push('}', '');
   }
 
+  lines.push(
+    `/**`,
+    ` * Input variant of a generated type: all fields become deeply optional.`,
+    ` * Field requiredness in the WSDL describes what responses are guaranteed to`,
+    ` * contain (e.g. an order's orderId, list fields), not what requests must`,
+    ` * provide — the server assigns/validates those. Omitted fields are simply`,
+    ` * not serialized.`,
+    ` */`,
+    `export type Input<T> =`,
+    `  T extends Date ? T :`,
+    `  T extends readonly (infer U)[] ? Input<U>[] :`,
+    `  T extends object ? { [K in keyof T]?: Input<T[K]> } :`,
+    `  T;`,
+    '',
+  );
+
   return lines.join('\n');
 }
 
@@ -424,7 +486,7 @@ function generateSerializer(
 
 function emitComplexTypeSerializer(ct: ComplexTypeDef, enumNames: Set<string>, listWrapperMap: ListWrapperMap, primitiveWrapperMap: PrimitiveWrapperMap): string[] {
   const lines: string[] = [];
-  lines.push(`export function serialize${ct.name}(obj: T.${ct.name}, elemName: string): string {`);
+  lines.push(`export function serialize${ct.name}(obj: T.Input<T.${ct.name}>, elemName: string): string {`);
   lines.push(`  let xml = \`<\${NS_PREFIX}:\${elemName}>\`;`);
   for (const f of ct.fields) {
     lines.push(...emitFieldSerializer(f, enumNames, 'obj', 2, listWrapperMap, primitiveWrapperMap));
@@ -531,7 +593,8 @@ function emitOperationBodySerializer(el: InputElementDef, enumNames: Set<string>
   // Single field named 'request' → unwrap to that field's type
   if (el.fields.length === 1 && el.fields[0].name === 'request' && !isPrimitive(el.fields[0].tsType)) {
     const f = el.fields[0];
-    const paramType = f.optional ? `T.${f.tsType} | undefined` : `T.${f.tsType}`;
+    const typeRef = inputTypeRef(f.tsType, f.wsdlType, enumNames);
+    const paramType = f.optional ? `${typeRef} | undefined` : typeRef;
     lines.push(`export function ${fnName}(request: ${paramType}): string {`);
     if (f.optional) {
       lines.push(`  if (request === undefined) return '';`);
@@ -546,7 +609,7 @@ function emitOperationBodySerializer(el: InputElementDef, enumNames: Set<string>
   // Single positional field — the param IS the value, not an object to access .fieldName on
   if (el.fields.length === 1) {
     const f = el.fields[0];
-    const paramType = buildParamType(f);
+    const paramType = buildParamType(f, enumNames);
     lines.push(`export function ${fnName}(${f.name}: ${paramType}): string {`);
     lines.push(`  let xml = '';`);
     if (f.array) {
@@ -576,10 +639,10 @@ function emitOperationBodySerializer(el: InputElementDef, enumNames: Set<string>
       if (innerW) {
         const primitiveInnerW = primitiveWrapperMap.get(innerW.wsdlType);
         const resolvedTsType = primitiveInnerW ? primitiveInnerW.tsType : innerW.tsType;
-        const innerBase = resolvedTsType === 'Date' ? 'Date' : isPrimitive(resolvedTsType) ? resolvedTsType : `T.${resolvedTsType}`;
+        const innerBase = inputTypeRef(resolvedTsType, innerW.wsdlType, enumNames);
         return `${f.name}?: ${innerBase}[]`;
       }
-      const base = f.tsType === 'Date' ? 'Date' : isPrimitive(f.tsType) ? f.tsType : `T.${f.tsType}`;
+      const base = inputTypeRef(f.tsType, f.wsdlType, enumNames);
       return `${f.name}?: ${base}${f.array ? '[]' : ''}`;
     })
     .join('; ');
@@ -625,9 +688,8 @@ function emitOperationBodySerializer(el: InputElementDef, enumNames: Set<string>
   return lines;
 }
 
-function buildParamType(f: FieldDef): string {
-  const base = f.tsType === 'Date' ? 'Date' :
-    isPrimitive(f.tsType) ? f.tsType : `T.${f.tsType}`;
+function buildParamType(f: FieldDef, enumNames: Set<string>): string {
+  const base = inputTypeRef(f.tsType, f.wsdlType, enumNames);
   const arrSuffix = f.array ? '[]' : '';
   const optSuffix = f.optional ? ' | undefined' : '';
   return `${base}${arrSuffix}${optSuffix}`;
@@ -931,7 +993,7 @@ function buildMethodParams(
 
   if (el.fields.length === 1 && el.fields[0].name === 'request' && !isPrimitive(el.fields[0].tsType)) {
     const f = el.fields[0];
-    const typePart = `T.${f.tsType}`;
+    const typePart = inputTypeRef(f.tsType, f.wsdlType, enumNames);
     const paramName = 'request';
     const param = f.optional ? `${paramName}?: ${typePart}` : `${paramName}: ${typePart}`;
     return {
@@ -942,7 +1004,7 @@ function buildMethodParams(
 
   if (el.fields.length === 1) {
     const f = el.fields[0];
-    const base = f.tsType === 'Date' ? 'Date' : isPrimitive(f.tsType) ? f.tsType : `T.${f.tsType}`;
+    const base = inputTypeRef(f.tsType, f.wsdlType, enumNames);
     const arrSuffix = f.array ? '[]' : '';
     const opt = f.optional ? '?' : '';
     const param = `${f.name}${opt}: ${base}${arrSuffix}`;
@@ -958,10 +1020,10 @@ function buildMethodParams(
       if (innerW) {
         const primitiveInnerW = primitiveWrapperMap.get(innerW.wsdlType);
         const resolvedTsType = primitiveInnerW ? primitiveInnerW.tsType : innerW.tsType;
-        const innerBase = resolvedTsType === 'Date' ? 'Date' : isPrimitive(resolvedTsType) ? resolvedTsType : `T.${resolvedTsType}`;
+        const innerBase = inputTypeRef(resolvedTsType, innerW.wsdlType, enumNames);
         return `${f.name}?: ${innerBase}[]`;
       }
-      const base = f.tsType === 'Date' ? 'Date' : isPrimitive(f.tsType) ? f.tsType : `T.${f.tsType}`;
+      const base = inputTypeRef(f.tsType, f.wsdlType, enumNames);
       return `${f.name}?: ${base}${f.array ? '[]' : ''}`;
     })
     .join('; ');

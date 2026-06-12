@@ -1488,6 +1488,31 @@ export function deserializeVoucherIssuanceList(obj: Record<string, unknown>): T.
 
 export function deserializeVoucherIssuanceCompact(obj: Record<string, unknown>): T.VoucherIssuanceCompact {
   const r: Partial<T.VoucherIssuanceCompact> = {};
+  if (obj['id'] !== undefined) r.id = String(obj['id']) as string;
+  if (obj['scanCode'] !== undefined) r.scanCode = String(obj['scanCode']) as string;
+  if (obj['groupId'] !== undefined) r.groupId = String(obj['groupId']) as string;
+  r.voucherId = deserializeVoucherId(obj['voucherId'] as Record<string, unknown> ?? {});
+  if (obj['salesTurnoverId'] !== undefined) r.salesTurnoverId = String(obj['salesTurnoverId']) as string;
+  if (obj['salesIssuanceId'] !== undefined) r.salesIssuanceId = String(obj['salesIssuanceId']) as string;
+  if (obj['salesTurnoverLineId'] !== undefined) r.salesTurnoverLineId = String(obj['salesTurnoverLineId']) as string;
+  if (obj['salesIssuanceLineId'] !== undefined) r.salesIssuanceLineId = String(obj['salesIssuanceLineId']) as string;
+  if (obj['relationNumber'] !== undefined) r.relationNumber = Number(obj['relationNumber']);
+  r.cancelled = obj['cancelled'] === 'true' || obj['cancelled'] === true;
+  r.startTs = new Date(String(obj['startTs'] ?? ''));
+  if (obj['endTs'] !== undefined) r.endTs = new Date(String(obj['endTs']));
+  if (obj['voucherIssuanceRedeems'] !== undefined) {
+    const _w = obj['voucherIssuanceRedeems'] as Record<string, unknown>;
+    const _iv = (_w)['voucherIssuanceRedeem'];
+    if (_iv !== undefined) {
+      r.voucherIssuanceRedeems = toArray(_iv).map((v) => deserializeVoucherIssuanceRedeem(v as Record<string, unknown>));
+    } else {
+      r.voucherIssuanceRedeems = [];
+    }
+  } else {
+    r.voucherIssuanceRedeems = [];
+  }
+  if (obj['groupScanCode'] !== undefined) r.groupScanCode = String(obj['groupScanCode']) as string;
+  r.quantity = Number(obj['quantity']);
   return r as T.VoucherIssuanceCompact;
 }
 
@@ -1501,6 +1526,38 @@ export function deserializeVoucherIssuanceCompactList(obj: Record<string, unknow
 
 export function deserializeVoucherIssuanceCandidate(obj: Record<string, unknown>): T.VoucherIssuanceCandidate {
   const r: Partial<T.VoucherIssuanceCandidate> = {};
+  if (obj['id'] !== undefined) r.id = String(obj['id']) as string;
+  if (obj['scanCode'] !== undefined) r.scanCode = String(obj['scanCode']) as string;
+  if (obj['groupId'] !== undefined) r.groupId = String(obj['groupId']) as string;
+  r.voucherId = deserializeVoucherId(obj['voucherId'] as Record<string, unknown> ?? {});
+  if (obj['salesTurnoverId'] !== undefined) r.salesTurnoverId = String(obj['salesTurnoverId']) as string;
+  if (obj['salesIssuanceId'] !== undefined) r.salesIssuanceId = String(obj['salesIssuanceId']) as string;
+  if (obj['salesTurnoverLineId'] !== undefined) r.salesTurnoverLineId = String(obj['salesTurnoverLineId']) as string;
+  if (obj['salesIssuanceLineId'] !== undefined) r.salesIssuanceLineId = String(obj['salesIssuanceLineId']) as string;
+  if (obj['relationNumber'] !== undefined) r.relationNumber = Number(obj['relationNumber']);
+  r.cancelled = obj['cancelled'] === 'true' || obj['cancelled'] === true;
+  r.startTs = new Date(String(obj['startTs'] ?? ''));
+  if (obj['endTs'] !== undefined) r.endTs = new Date(String(obj['endTs']));
+  if (obj['voucherIssuanceRedeems'] !== undefined) {
+    const _w = obj['voucherIssuanceRedeems'] as Record<string, unknown>;
+    const _iv = (_w)['voucherIssuanceRedeem'];
+    if (_iv !== undefined) {
+      r.voucherIssuanceRedeems = toArray(_iv).map((v) => deserializeVoucherIssuanceRedeem(v as Record<string, unknown>));
+    } else {
+      r.voucherIssuanceRedeems = [];
+    }
+  } else {
+    r.voucherIssuanceRedeems = [];
+  }
+  if (obj['groupScanCode'] !== undefined) r.groupScanCode = String(obj['groupScanCode']) as string;
+  r.quantity = Number(obj['quantity']);
+  r.sourceArticleNumber = Number(obj['sourceArticleNumber']);
+  r.relationRequired = obj['relationRequired'] === 'true' || obj['relationRequired'] === true;
+  r.pendingStartTsRequired = obj['pendingStartTsRequired'] === 'true' || obj['pendingStartTsRequired'] === true;
+  r.view = deserializeVoucherView(obj['view'] as Record<string, unknown> ?? {});
+  if (obj['externalScanCodes'] !== undefined) {
+    r.externalScanCodes = toArray(obj['externalScanCodes']).map(String);
+  }
   return r as T.VoucherIssuanceCandidate;
 }
 
@@ -2031,6 +2088,23 @@ export function deserializeMoveTableLineList(obj: Record<string, unknown>): T.Mo
 
 export function deserializeMoveTableOrderV3Request(obj: Record<string, unknown>): T.MoveTableOrderV3Request {
   const r: Partial<T.MoveTableOrderV3Request> = {};
+  r.idempotencyKey = String(obj['idempotencyKey'] ?? '') as string;
+  r.workplace = deserializeWorkplaceIdentifier(obj['workplace'] as Record<string, unknown> ?? {});
+  r.employee = deserializeEmployeeIdentifier(obj['employee'] as Record<string, unknown> ?? {});
+  r.orderId = String(obj['orderId'] ?? '') as string;
+  if (obj['lines'] !== undefined) {
+    const _w = obj['lines'] as Record<string, unknown>;
+    const _iv = (_w)['line'];
+    if (_iv !== undefined) {
+      r.lines = toArray(_iv).map((v) => deserializeMoveTableLine(v as Record<string, unknown>));
+    } else {
+      r.lines = [];
+    }
+  } else {
+    r.lines = [];
+  }
+  r.destinationTable = deserializeTableIdentifier(obj['destinationTable'] as Record<string, unknown> ?? {});
+  if (obj['releaseSourceTable'] !== undefined) r.releaseSourceTable = obj['releaseSourceTable'] === 'true' || obj['releaseSourceTable'] === true;
   return r as T.MoveTableOrderV3Request;
 }
 
@@ -3264,6 +3338,10 @@ export function deserializeGetReceiptsByCashCountRequest(obj: Record<string, unk
 
 export function deserializePrintReceiptV2Request(obj: Record<string, unknown>): T.PrintReceiptV2Request {
   const r: Partial<T.PrintReceiptV2Request> = {};
+  r.idempotencyKey = String(obj['idempotencyKey'] ?? '') as string;
+  r.workplaceIdentifier = deserializeWorkplaceIdentifier(obj['workplaceIdentifier'] as Record<string, unknown> ?? {});
+  if (obj['tableIdentifier'] !== undefined) r.tableIdentifier = deserializeTableIdentifier(obj['tableIdentifier'] as Record<string, unknown>);
+  if (obj['receiptId'] !== undefined) r.receiptId = String(obj['receiptId']) as string;
   return r as T.PrintReceiptV2Request;
 }
 
@@ -3277,6 +3355,9 @@ export function deserializePrintTableReceiptRequest(obj: Record<string, unknown>
 
 export function deserializePrintTableReceiptV3Request(obj: Record<string, unknown>): T.PrintTableReceiptV3Request {
   const r: Partial<T.PrintTableReceiptV3Request> = {};
+  r.idempotencyKey = String(obj['idempotencyKey'] ?? '') as string;
+  r.workplaceIdentifier = deserializeWorkplaceIdentifier(obj['workplaceIdentifier'] as Record<string, unknown> ?? {});
+  r.tableIdentifier = deserializeTableIdentifier(obj['tableIdentifier'] as Record<string, unknown> ?? {});
   return r as T.PrintTableReceiptV3Request;
 }
 
@@ -6537,6 +6618,29 @@ export function deserializeTableOrderIdentifierElem(obj: Record<string, unknown>
 
 export function deserializePlaceTableOrderReq(obj: Record<string, unknown>): T.PlaceTableOrderReq {
   const r: Partial<T.PlaceTableOrderReq> = {};
+  r.idempotencyKey = String(obj['idempotencyKey'] ?? '') as string;
+  r.tableOrderIdentifier = deserializeTableOrderIdentifierElem(obj['tableOrderIdentifier'] as Record<string, unknown> ?? {});
+  r.employeeNumber = Number(obj['employeeNumber']);
+  r.workplaceNumber = Number(obj['workplaceNumber']);
+  if (obj['tableDescription'] !== undefined) r.tableDescription = String(obj['tableDescription']) as string;
+  if (obj['numberOfGuests'] !== undefined) r.numberOfGuests = Number(obj['numberOfGuests']);
+  if (obj['relationNumber'] !== undefined) r.relationNumber = Number(obj['relationNumber']);
+  if (obj['vatChange'] !== undefined) r.vatChange = String(obj['vatChange']) as T.VatChange;
+  if (obj['lines'] !== undefined) {
+    r.lines = toArray(obj['lines']).map((v) => deserializePlaceTableOrderLineElem(v as Record<string, unknown>));
+  }
+  if (obj['payments'] !== undefined) {
+    r.payments = toArray(obj['payments']).map((v) => deserializePlaceTableOrderPaymentElem(v as Record<string, unknown>));
+  }
+  if (obj['webhookSessionData'] !== undefined) r.webhookSessionData = deserializeWebhookSessionData(obj['webhookSessionData'] as Record<string, unknown>);
+  if (obj['keepTableName'] !== undefined) r.keepTableName = obj['keepTableName'] === 'true' || obj['keepTableName'] === true;
+  if (obj['activityId'] !== undefined) r.activityId = String(obj['activityId']) as string;
+  if (obj['deliveryPeriodBegin'] !== undefined) r.deliveryPeriodBegin = new Date(String(obj['deliveryPeriodBegin']));
+  if (obj['automaticNewMenus'] !== undefined) r.automaticNewMenus = obj['automaticNewMenus'] === 'true' || obj['automaticNewMenus'] === true;
+  if (obj['scannedVoucherIssuanceCodes'] !== undefined) {
+    r.scannedVoucherIssuanceCodes = toArray(obj['scannedVoucherIssuanceCodes']).map(String);
+  }
+  if (obj['releaseTable'] !== undefined) r.releaseTable = obj['releaseTable'] === 'true' || obj['releaseTable'] === true;
   return r as T.PlaceTableOrderReq;
 }
 
@@ -6635,6 +6739,14 @@ export function deserializeSaveTodoListRequest(obj: Record<string, unknown>): T.
 
 export function deserializeSaveTodoListV2Request(obj: Record<string, unknown>): T.SaveTodoListV2Request {
   const r: Partial<T.SaveTodoListV2Request> = {};
+  r.idempotencyKey = String(obj['idempotencyKey'] ?? '') as string;
+  if (obj['id'] !== undefined) r.id = Number(obj['id']);
+  if (obj['branchNumber'] !== undefined) r.branchNumber = Number(obj['branchNumber']);
+  if (obj['category'] !== undefined) r.category = String(obj['category']) as T.TodoListCategory;
+  if (obj['name'] !== undefined) r.name = String(obj['name']) as string;
+  if (obj['entries'] !== undefined) {
+    r.entries = toArray(obj['entries']).map((v) => deserializeTodoListEntry(v as Record<string, unknown>));
+  }
   return r as T.SaveTodoListV2Request;
 }
 
@@ -6947,6 +7059,10 @@ export function deserializeCardFieldInfoList(obj: Record<string, unknown>): T.Ca
 
 export function deserializeCardFieldInfoResponse(obj: Record<string, unknown>): T.CardFieldInfoResponse {
   const r: Partial<T.CardFieldInfoResponse> = {};
+  r.name = String(obj['name'] ?? '') as string;
+  r.optionType = String(obj['optionType'] ?? '') as T.CardFilterOptionType;
+  if (obj['optionsJson'] !== undefined) r.optionsJson = String(obj['optionsJson']) as string;
+  r.numOptions = Number(obj['numOptions']);
   return r as T.CardFieldInfoResponse;
 }
 
@@ -7036,6 +7152,27 @@ export function deserializeActiveCycleCountLineList(obj: Record<string, unknown>
 
 export function deserializeActiveCycleCount(obj: Record<string, unknown>): T.ActiveCycleCount {
   const r: Partial<T.ActiveCycleCount> = {};
+  if (obj['id'] !== undefined) r.id = String(obj['id']) as string;
+  r.todoListId = Number(obj['todoListId']);
+  r.todoListName = String(obj['todoListName'] ?? '') as string;
+  r.branchNumber = Number(obj['branchNumber']);
+  r.fromDate = new Date(String(obj['fromDate'] ?? ''));
+  r.throughDate = new Date(String(obj['throughDate'] ?? ''));
+  r.isRecurring = obj['isRecurring'] === 'true' || obj['isRecurring'] === true;
+  r.colour = deserializeColour(obj['colour'] as Record<string, unknown> ?? {});
+  r.countedQuantity = Number(obj['countedQuantity']);
+  r.totalQuantity = Number(obj['totalQuantity']);
+  if (obj['lines'] !== undefined) {
+    const _w = obj['lines'] as Record<string, unknown>;
+    const _iv = (_w)['activeCycleCountLine'];
+    if (_iv !== undefined) {
+      r.lines = toArray(_iv).map((v) => deserializeActiveCycleCountLine(v as Record<string, unknown>));
+    } else {
+      r.lines = [];
+    }
+  } else {
+    r.lines = [];
+  }
   return r as T.ActiveCycleCount;
 }
 
@@ -7084,6 +7221,20 @@ export function deserializeArticleComponentList(obj: Record<string, unknown>): T
 
 export function deserializeSaveArticleComponentsRequest(obj: Record<string, unknown>): T.SaveArticleComponentsRequest {
   const r: Partial<T.SaveArticleComponentsRequest> = {};
+  r.idempotencyKey = String(obj['idempotencyKey'] ?? '') as string;
+  r.mode = String(obj['mode'] ?? '') as T.SaveArticleComponentsMode;
+  r.articleNumber = Number(obj['articleNumber']);
+  if (obj['articleComponents'] !== undefined) {
+    const _w = obj['articleComponents'] as Record<string, unknown>;
+    const _iv = (_w)['articleComponent'];
+    if (_iv !== undefined) {
+      r.articleComponents = toArray(_iv).map((v) => deserializeArticleComponent(v as Record<string, unknown>));
+    } else {
+      r.articleComponents = [];
+    }
+  } else {
+    r.articleComponents = [];
+  }
   return r as T.SaveArticleComponentsRequest;
 }
 
@@ -7419,6 +7570,9 @@ export function deserializeMoveTableOrderResponse(obj: Record<string, unknown>):
 
 export function deserializeMoveTableOrderV3Response(obj: Record<string, unknown>): T.MoveTableOrderV3Response {
   const r: Partial<T.MoveTableOrderV3Response> = {};
+  r.idempotencyResult = String(obj['idempotencyResult'] ?? '') as T.IdempotencyResult;
+  r.result = String(obj['result'] ?? '') as T.MoveTableOrderResult;
+  r.errorMessage = String(obj['errorMessage'] ?? '') as string;
   return r as T.MoveTableOrderV3Response;
 }
 
@@ -7761,6 +7915,9 @@ export function deserializePrintReceiptResponse(obj: Record<string, unknown>): T
 
 export function deserializePrintReceiptV2Response(obj: Record<string, unknown>): T.PrintReceiptV2Response {
   const r: Partial<T.PrintReceiptV2Response> = {};
+  r.idempotencyResult = String(obj['idempotencyResult'] ?? '') as T.IdempotencyResult;
+  r.result = String(obj['result'] ?? '') as T.PrintReceiptResult;
+  r.errorMessage = String(obj['errorMessage'] ?? '') as string;
   return r as T.PrintReceiptV2Response;
 }
 
@@ -7773,6 +7930,9 @@ export function deserializePrintTableReceiptResponse(obj: Record<string, unknown
 
 export function deserializePrintTableReceiptV3Response(obj: Record<string, unknown>): T.PrintTableReceiptV3Response {
   const r: Partial<T.PrintTableReceiptV3Response> = {};
+  r.idempotencyResult = String(obj['idempotencyResult'] ?? '') as T.IdempotencyResult;
+  r.result = String(obj['result'] ?? '') as T.PrintTableReceiptResult;
+  r.errorMessage = String(obj['errorMessage'] ?? '') as string;
   return r as T.PrintTableReceiptV3Response;
 }
 
@@ -8518,6 +8678,35 @@ export function deserializeUpdateArticlePreparationMethodGroupsResponse(obj: Rec
 
 export function deserializePlaceTableOrderResp(obj: Record<string, unknown>): T.PlaceTableOrderResp {
   const r: Partial<T.PlaceTableOrderResp> = {};
+  r.idempotencyResult = String(obj['idempotencyResult'] ?? '') as T.IdempotencyResult;
+  r.result = String(obj['result'] ?? '') as T.PlaceTableOrderResult;
+  if (obj['errorMessage'] !== undefined) r.errorMessage = String(obj['errorMessage']) as string;
+  if (obj['linesResult'] !== undefined) r.linesResult = String(obj['linesResult']) as T.LinesResult;
+  if (obj['orderId'] !== undefined) r.orderId = String(obj['orderId']) as string;
+  if (obj['paymentsResult'] !== undefined) r.paymentsResult = String(obj['paymentsResult']) as T.PaymentsResult;
+  if (obj['receiptId'] !== undefined) r.receiptId = String(obj['receiptId']) as string;
+  if (obj['voucherIssuances'] !== undefined) {
+    const _w = obj['voucherIssuances'] as Record<string, unknown>;
+    const _iv = (_w)['voucherIssuance'];
+    if (_iv !== undefined) {
+      r.voucherIssuances = toArray(_iv).map((v) => deserializeVoucherIssuance(v as Record<string, unknown>));
+    } else {
+      r.voucherIssuances = [];
+    }
+  } else {
+    r.voucherIssuances = [];
+  }
+  if (obj['unappliedVoucherIssuances'] !== undefined) {
+    const _w = obj['unappliedVoucherIssuances'] as Record<string, unknown>;
+    const _iv = (_w)['unappliedVoucherIssuance'];
+    if (_iv !== undefined) {
+      r.unappliedVoucherIssuances = toArray(_iv).map((v) => deserializeUnappliedVoucherIssuance(v as Record<string, unknown>));
+    } else {
+      r.unappliedVoucherIssuances = [];
+    }
+  } else {
+    r.unappliedVoucherIssuances = [];
+  }
   return r as T.PlaceTableOrderResp;
 }
 
@@ -8573,6 +8762,8 @@ export function deserializeCreateTodoListResponse(obj: Record<string, unknown>):
 
 export function deserializeSaveTodoListV2Response(obj: Record<string, unknown>): T.SaveTodoListV2Response {
   const r: Partial<T.SaveTodoListV2Response> = {};
+  r.idempotencyResult = String(obj['idempotencyResult'] ?? '') as T.IdempotencyResult;
+  r.id = Number(obj['id']);
   return r as T.SaveTodoListV2Response;
 }
 
@@ -8794,6 +8985,19 @@ export function deserializeGetArticleComponentsResponse(obj: Record<string, unkn
 
 export function deserializeSaveArticleComponentsResponse(obj: Record<string, unknown>): T.SaveArticleComponentsResponse {
   const r: Partial<T.SaveArticleComponentsResponse> = {};
+  r.idempotencyResult = String(obj['idempotencyResult'] ?? '') as T.IdempotencyResult;
+  r.result = String(obj['result'] ?? '') as T.SaveArticleComponentsResult;
+  if (obj['newArticleComponents'] !== undefined) {
+    const _w = obj['newArticleComponents'] as Record<string, unknown>;
+    const _iv = (_w)['articleComponent'];
+    if (_iv !== undefined) {
+      r.newArticleComponents = toArray(_iv).map((v) => deserializeArticleComponent(v as Record<string, unknown>));
+    } else {
+      r.newArticleComponents = [];
+    }
+  } else {
+    r.newArticleComponents = [];
+  }
   return r as T.SaveArticleComponentsResponse;
 }
 
@@ -10240,6 +10444,11 @@ export function deserializeTableProperties(obj: Record<string, unknown>): T.Tabl
 
 export function deserializeChangeTablePropertyReq(obj: Record<string, unknown>): T.ChangeTablePropertyReq {
   const r: Partial<T.ChangeTablePropertyReq> = {};
+  r.idempotencyKey = String(obj['idempotencyKey'] ?? '') as string;
+  r.workplaceIdentifier = deserializeWorkplaceIdentifier(obj['workplaceIdentifier'] as Record<string, unknown> ?? {});
+  r.employeeIdentifier = deserializeEmployeeIdentifier(obj['employeeIdentifier'] as Record<string, unknown> ?? {});
+  r.tableIdentifier = deserializeTableIdentifier(obj['tableIdentifier'] as Record<string, unknown> ?? {});
+  r.tableProperties = deserializeTableProperties(obj['tableProperties'] as Record<string, unknown> ?? {});
   return r as T.ChangeTablePropertyReq;
 }
 
@@ -11070,6 +11279,11 @@ export function deserializeGetFloorplansResponse(obj: Record<string, unknown>): 
 
 export function deserializeChangeTablePropertyResp(obj: Record<string, unknown>): T.ChangeTablePropertyResp {
   const r: Partial<T.ChangeTablePropertyResp> = {};
+  r.idempotencyResult = String(obj['idempotencyResult'] ?? '') as T.IdempotencyResult;
+  r.result = String(obj['result'] ?? '') as T.ChangeTablePropertyResult;
+  if (obj['errorMessage'] !== undefined) r.errorMessage = String(obj['errorMessage']) as string;
+  r.tableIdentifier = deserializeTableIdentifier(obj['tableIdentifier'] as Record<string, unknown> ?? {});
+  r.tableProperties = deserializeTableProperties(obj['tableProperties'] as Record<string, unknown> ?? {});
   return r as T.ChangeTablePropertyResp;
 }
 
@@ -11723,6 +11937,22 @@ export function deserializeRegisterGiftcardPaymentRequest(obj: Record<string, un
 
 export function deserializeRegisterGiftcardPaymentV2Request(obj: Record<string, unknown>): T.RegisterGiftcardPaymentV2Request {
   const r: Partial<T.RegisterGiftcardPaymentV2Request> = {};
+  r.idempotencyKey = String(obj['idempotencyKey'] ?? '') as string;
+  r.cardNumber = String(obj['cardNumber'] ?? '') as string;
+  r.branchNumber = Number(obj['branchNumber']);
+  r.employeeNumber = Number(obj['employeeNumber']);
+  r.externalReference = String(obj['externalReference'] ?? '') as string;
+  if (obj['lineList'] !== undefined) {
+    const _w = obj['lineList'] as Record<string, unknown>;
+    const _iv = (_w)['line'];
+    if (_iv !== undefined) {
+      r.lineList = toArray(_iv).map((v) => deserializeGiftcardPaymentLine(v as Record<string, unknown>));
+    } else {
+      r.lineList = [];
+    }
+  } else {
+    r.lineList = [];
+  }
   return r as T.RegisterGiftcardPaymentV2Request;
 }
 
@@ -11887,16 +12117,42 @@ export function deserializeSaveGiftcardList(obj: Record<string, unknown>): T.Sav
 
 export function deserializeSaveGiftcardsRequest(obj: Record<string, unknown>): T.SaveGiftcardsRequest {
   const r: Partial<T.SaveGiftcardsRequest> = {};
+  r.idempotencyKey = String(obj['idempotencyKey'] ?? '') as string;
+  if (obj['giftcardList'] !== undefined) {
+    const _w = obj['giftcardList'] as Record<string, unknown>;
+    const _iv = (_w)['giftcard'];
+    if (_iv !== undefined) {
+      r.giftcardList = toArray(_iv).map((v) => deserializeSaveGiftcard(v as Record<string, unknown>));
+    } else {
+      r.giftcardList = [];
+    }
+  } else {
+    r.giftcardList = [];
+  }
   return r as T.SaveGiftcardsRequest;
 }
 
 export function deserializeRestituteGiftcardsRequest(obj: Record<string, unknown>): T.RestituteGiftcardsRequest {
   const r: Partial<T.RestituteGiftcardsRequest> = {};
+  r.idempotencyKey = String(obj['idempotencyKey'] ?? '') as string;
+  if (obj['cardIds'] !== undefined) {
+    r.cardIds = toArray(obj['cardIds']).map(String);
+  }
+  r.workplaceIdentifier = deserializeWorkplaceIdentifier(obj['workplaceIdentifier'] as Record<string, unknown> ?? {});
+  r.employeeIdentifier = deserializeEmployeeIdentifier(obj['employeeIdentifier'] as Record<string, unknown> ?? {});
+  r.relationIdentifier = deserializeRelationIdentifier(obj['relationIdentifier'] as Record<string, unknown> ?? {});
   return r as T.RestituteGiftcardsRequest;
 }
 
 export function deserializeLinkGiftcardsToRelationRequest(obj: Record<string, unknown>): T.LinkGiftcardsToRelationRequest {
   const r: Partial<T.LinkGiftcardsToRelationRequest> = {};
+  r.idempotencyKey = String(obj['idempotencyKey'] ?? '') as string;
+  if (obj['cardIds'] !== undefined) {
+    r.cardIds = toArray(obj['cardIds']).map(String);
+  }
+  r.workplaceIdentifier = deserializeWorkplaceIdentifier(obj['workplaceIdentifier'] as Record<string, unknown> ?? {});
+  r.relationIdentifier = deserializeRelationIdentifier(obj['relationIdentifier'] as Record<string, unknown> ?? {});
+  r.employeeIdentifier = deserializeEmployeeIdentifier(obj['employeeIdentifier'] as Record<string, unknown> ?? {});
   return r as T.LinkGiftcardsToRelationRequest;
 }
 
@@ -11975,6 +12231,19 @@ export function deserializeGetVoucherSettingsRequest(obj: Record<string, unknown
 
 export function deserializeIssueVouchersRequest(obj: Record<string, unknown>): T.IssueVouchersRequest {
   const r: Partial<T.IssueVouchersRequest> = {};
+  r.idempotencyKey = String(obj['idempotencyKey'] ?? '') as string;
+  if (obj['issueVouchers'] !== undefined) {
+    const _w = obj['issueVouchers'] as Record<string, unknown>;
+    const _iv = (_w)['issueVoucher'];
+    if (_iv !== undefined) {
+      r.issueVouchers = toArray(_iv).map((v) => deserializeIssueVoucher(v as Record<string, unknown>));
+    } else {
+      r.issueVouchers = [];
+    }
+  } else {
+    r.issueVouchers = [];
+  }
+  r.financialWorkplaceIdentifier = deserializeWorkplaceIdentifier(obj['financialWorkplaceIdentifier'] as Record<string, unknown> ?? {});
   return r as T.IssueVouchersRequest;
 }
 
@@ -11988,6 +12257,19 @@ export function deserializeIssueVoucherExternalScanCodeSet(obj: Record<string, u
 
 export function deserializeIssueVoucherExternalScanCodesRequest(obj: Record<string, unknown>): T.IssueVoucherExternalScanCodesRequest {
   const r: Partial<T.IssueVoucherExternalScanCodesRequest> = {};
+  r.idempotencyKey = String(obj['idempotencyKey'] ?? '') as string;
+  r.voucherId = String(obj['voucherId'] ?? '') as string;
+  if (obj['scanCodes'] !== undefined) {
+    const _w = obj['scanCodes'] as Record<string, unknown>;
+    const _iv = (_w)['scanCode'];
+    if (_iv !== undefined) {
+      r.scanCodes = toArray(_iv).map(String);
+    } else {
+      r.scanCodes = [];
+    }
+  } else {
+    r.scanCodes = [];
+  }
   return r as T.IssueVoucherExternalScanCodesRequest;
 }
 
@@ -12037,6 +12319,11 @@ export function deserializeRegisterGiftcardPaymentResponse(obj: Record<string, u
 
 export function deserializeRegisterGiftcardPaymentV2Response(obj: Record<string, unknown>): T.RegisterGiftcardPaymentV2Response {
   const r: Partial<T.RegisterGiftcardPaymentV2Response> = {};
+  r.idempotencyResult = String(obj['idempotencyResult'] ?? '') as T.IdempotencyResult;
+  r.result = String(obj['result'] ?? '') as T.GiftcardResult;
+  if (obj['newBalance'] !== undefined) r.newBalance = String(obj['newBalance']) as string;
+  if (obj['receiptId'] !== undefined) r.receiptId = String(obj['receiptId']) as string;
+  if (obj['errorMessage'] !== undefined) r.errorMessage = String(obj['errorMessage']) as string;
   return r as T.RegisterGiftcardPaymentV2Response;
 }
 
@@ -12128,16 +12415,26 @@ export function deserializeGetGiftcardsResponse(obj: Record<string, unknown>): T
 
 export function deserializeSaveGiftcardsResponse(obj: Record<string, unknown>): T.SaveGiftcardsResponse {
   const r: Partial<T.SaveGiftcardsResponse> = {};
+  r.idempotencyResult = String(obj['idempotencyResult'] ?? '') as T.IdempotencyResult;
+  r.result = String(obj['result'] ?? '') as T.SaveGiftcardsResult;
+  if (obj['errorMessage'] !== undefined) r.errorMessage = String(obj['errorMessage']) as string;
   return r as T.SaveGiftcardsResponse;
 }
 
 export function deserializeRestituteGiftcardsResponse(obj: Record<string, unknown>): T.RestituteGiftcardsResponse {
   const r: Partial<T.RestituteGiftcardsResponse> = {};
+  r.idempotencyResult = String(obj['idempotencyResult'] ?? '') as T.IdempotencyResult;
+  r.result = String(obj['result'] ?? '') as T.RestituteGiftcardsResult;
+  if (obj['errorMessage'] !== undefined) r.errorMessage = String(obj['errorMessage']) as string;
+  if (obj['packingSlipId'] !== undefined) r.packingSlipId = String(obj['packingSlipId']) as string;
   return r as T.RestituteGiftcardsResponse;
 }
 
 export function deserializeLinkGiftcardsToRelationResponse(obj: Record<string, unknown>): T.LinkGiftcardsToRelationResponse {
   const r: Partial<T.LinkGiftcardsToRelationResponse> = {};
+  r.idempotencyResult = String(obj['idempotencyResult'] ?? '') as T.IdempotencyResult;
+  r.result = String(obj['result'] ?? '') as T.LinkGiftcardsToRelationResult;
+  if (obj['errorMessage'] !== undefined) r.errorMessage = String(obj['errorMessage']) as string;
   return r as T.LinkGiftcardsToRelationResponse;
 }
 
@@ -12213,11 +12510,26 @@ export function deserializeGetVoucherSettingsResponse(obj: Record<string, unknow
 
 export function deserializeIssueVouchersResponse(obj: Record<string, unknown>): T.IssueVouchersResponse {
   const r: Partial<T.IssueVouchersResponse> = {};
+  r.idempotencyResult = String(obj['idempotencyResult'] ?? '') as T.IdempotencyResult;
+  r.result = String(obj['result'] ?? '') as T.IssueVouchersResult;
+  if (obj['voucherIssuances'] !== undefined) {
+    const _w = obj['voucherIssuances'] as Record<string, unknown>;
+    const _iv = (_w)['voucherIssuance'];
+    if (_iv !== undefined) {
+      r.voucherIssuances = toArray(_iv).map((v) => deserializeVoucherIssuance(v as Record<string, unknown>));
+    } else {
+      r.voucherIssuances = [];
+    }
+  } else {
+    r.voucherIssuances = [];
+  }
   return r as T.IssueVouchersResponse;
 }
 
 export function deserializeIssueVoucherExternalScanCodesResponse(obj: Record<string, unknown>): T.IssueVoucherExternalScanCodesResponse {
   const r: Partial<T.IssueVoucherExternalScanCodesResponse> = {};
+  r.idempotencyResult = String(obj['idempotencyResult'] ?? '') as T.IdempotencyResult;
+  r.result = String(obj['result'] ?? '') as T.IssueVoucherExternalScanCodesResult;
   return r as T.IssueVoucherExternalScanCodesResponse;
 }
 
@@ -14081,6 +14393,9 @@ export function deserializeSaveSalesRepeatTemplate(obj: Record<string, unknown>)
 
 export function deserializeSaveSalesRepeatTemplateRequest(obj: Record<string, unknown>): T.SaveSalesRepeatTemplateRequest {
   const r: Partial<T.SaveSalesRepeatTemplateRequest> = {};
+  r.idempotencyKey = String(obj['idempotencyKey'] ?? '') as string;
+  r.workplaceIdentifier = deserializeWorkplaceIdentifier(obj['workplaceIdentifier'] as Record<string, unknown> ?? {});
+  r.salesRepeatTemplate = deserializeSaveSalesRepeatTemplate(obj['salesRepeatTemplate'] as Record<string, unknown> ?? {});
   return r as T.SaveSalesRepeatTemplateRequest;
 }
 
@@ -14325,6 +14640,26 @@ export function deserializeCreateOrderV2Request(obj: Record<string, unknown>): T
 
 export function deserializeCreateOrderV3Request(obj: Record<string, unknown>): T.CreateOrderV3Request {
   const r: Partial<T.CreateOrderV3Request> = {};
+  r.idempotencyKey = String(obj['idempotencyKey'] ?? '') as string;
+  r.order = deserializeOrder(obj['order'] as Record<string, unknown> ?? {});
+  if (obj['applySalesAndActions'] !== undefined) r.applySalesAndActions = obj['applySalesAndActions'] === 'true' || obj['applySalesAndActions'] === true;
+  if (obj['applySalesPrices'] !== undefined) r.applySalesPrices = obj['applySalesPrices'] === 'true' || obj['applySalesPrices'] === true;
+  if (obj['applyPriceGroups'] !== undefined) r.applyPriceGroups = obj['applyPriceGroups'] === 'true' || obj['applyPriceGroups'] === true;
+  if (obj['scannedVoucherIssuanceCodes'] !== undefined) {
+    r.scannedVoucherIssuanceCodes = toArray(obj['scannedVoucherIssuanceCodes']).map(String);
+  }
+  if (obj['prepay'] !== undefined) r.prepay = obj['prepay'] === 'true' || obj['prepay'] === true;
+  if (obj['paymentList'] !== undefined) {
+    const _w = obj['paymentList'] as Record<string, unknown>;
+    const _iv = (_w)['payment'];
+    if (_iv !== undefined) {
+      r.paymentList = toArray(_iv).map((v) => deserializePayment(v as Record<string, unknown>));
+    } else {
+      r.paymentList = [];
+    }
+  } else {
+    r.paymentList = [];
+  }
   return r as T.CreateOrderV3Request;
 }
 
@@ -14348,6 +14683,20 @@ export function deserializePayOrderRequest(obj: Record<string, unknown>): T.PayO
 
 export function deserializePayOrderV2Request(obj: Record<string, unknown>): T.PayOrderV2Request {
   const r: Partial<T.PayOrderV2Request> = {};
+  r.idempotencyKey = String(obj['idempotencyKey'] ?? '') as string;
+  r.orderId = String(obj['orderId'] ?? '') as string;
+  r.prepay = obj['prepay'] === 'true' || obj['prepay'] === true;
+  if (obj['paymentList'] !== undefined) {
+    const _w = obj['paymentList'] as Record<string, unknown>;
+    const _iv = (_w)['payment'];
+    if (_iv !== undefined) {
+      r.paymentList = toArray(_iv).map((v) => deserializePayment(v as Record<string, unknown>));
+    } else {
+      r.paymentList = [];
+    }
+  } else {
+    r.paymentList = [];
+  }
   return r as T.PayOrderV2Request;
 }
 
@@ -14775,6 +15124,13 @@ export function deserializeDetermineContractLinesRequest(obj: Record<string, unk
 
 export function deserializeCreateInvoiceFromPackingSlipsRequest(obj: Record<string, unknown>): T.CreateInvoiceFromPackingSlipsRequest {
   const r: Partial<T.CreateInvoiceFromPackingSlipsRequest> = {};
+  r.idempotencyKey = String(obj['idempotencyKey'] ?? '') as string;
+  if (obj['packingSlipIds'] !== undefined) {
+    r.packingSlipIds = toArray(obj['packingSlipIds']).map(String);
+  }
+  r.financialDate = new Date(String(obj['financialDate'] ?? ''));
+  r.branchNumber = Number(obj['branchNumber']);
+  if (obj['forcedActivityId'] !== undefined) r.forcedActivityId = String(obj['forcedActivityId']) as string;
   return r as T.CreateInvoiceFromPackingSlipsRequest;
 }
 
@@ -14886,6 +15242,14 @@ export function deserializeGetCashCountInfoRequest(obj: Record<string, unknown>)
 
 export function deserializeCashCountInfoCountedPaymentMethodAmount(obj: Record<string, unknown>): T.CashCountInfoCountedPaymentMethodAmount {
   const r: Partial<T.CashCountInfoCountedPaymentMethodAmount> = {};
+  r.id = String(obj['id'] ?? '') as string;
+  r.description = String(obj['description'] ?? '') as string;
+  r.isAutomaticDeposit = obj['isAutomaticDeposit'] === 'true' || obj['isAutomaticDeposit'] === true;
+  if (obj['openingBalance'] !== undefined) r.openingBalance = String(obj['openingBalance']) as string;
+  if (obj['booked'] !== undefined) r.booked = String(obj['booked']) as string;
+  if (obj['counted'] !== undefined) r.counted = String(obj['counted']) as string;
+  if (obj['deposited'] !== undefined) r.deposited = String(obj['deposited']) as string;
+  if (obj['depositPaymentMethodId'] !== undefined) r.depositPaymentMethodId = String(obj['depositPaymentMethodId']) as string;
   return r as T.CashCountInfoCountedPaymentMethodAmount;
 }
 
@@ -14899,6 +15263,33 @@ export function deserializeCashCountInfoCountedPaymentMethodAmountList(obj: Reco
 
 export function deserializeSaveCashCountRequest(obj: Record<string, unknown>): T.SaveCashCountRequest {
   const r: Partial<T.SaveCashCountRequest> = {};
+  r.idempotencyKey = String(obj['idempotencyKey'] ?? '') as string;
+  r.employeeNumber = Number(obj['employeeNumber']);
+  r.fromWorkplace = deserializeWorkplaceIdentifier(obj['fromWorkplace'] as Record<string, unknown> ?? {});
+  r.countEmployeeNumber = Number(obj['countEmployeeNumber']);
+  r.workplaceData = deserializeCashCountInfoWorkplaceData(obj['workplaceData'] as Record<string, unknown> ?? {});
+  if (obj['extraWorkplacesData'] !== undefined) {
+    const _w = obj['extraWorkplacesData'] as Record<string, unknown>;
+    const _iv = (_w)['workplaceData'];
+    if (_iv !== undefined) {
+      r.extraWorkplacesData = toArray(_iv).map((v) => deserializeCashCountInfoWorkplaceData(v as Record<string, unknown>));
+    } else {
+      r.extraWorkplacesData = [];
+    }
+  } else {
+    r.extraWorkplacesData = [];
+  }
+  if (obj['countedPaymentMethodAmounts'] !== undefined) {
+    const _w = obj['countedPaymentMethodAmounts'] as Record<string, unknown>;
+    const _iv = (_w)['countedPaymentMethodAmount'];
+    if (_iv !== undefined) {
+      r.countedPaymentMethodAmounts = toArray(_iv).map((v) => deserializeCashCountInfoCountedPaymentMethodAmount(v as Record<string, unknown>));
+    } else {
+      r.countedPaymentMethodAmounts = [];
+    }
+  } else {
+    r.countedPaymentMethodAmounts = [];
+  }
   return r as T.SaveCashCountRequest;
 }
 
@@ -14976,6 +15367,9 @@ export function deserializeSalesProcessorResult(obj: Record<string, unknown>): T
 
 export function deserializeProcessInvoiceRequest(obj: Record<string, unknown>): T.ProcessInvoiceRequest {
   const r: Partial<T.ProcessInvoiceRequest> = {};
+  r.idempotencyKey = String(obj['idempotencyKey'] ?? '') as string;
+  r.invoice = deserializeInvoiceInput(obj['invoice'] as Record<string, unknown> ?? {});
+  r.processorContext = deserializeSalesProcessorContext(obj['processorContext'] as Record<string, unknown> ?? {});
   return r as T.ProcessInvoiceRequest;
 }
 
@@ -15009,11 +15403,17 @@ export function deserializeProposalInput(obj: Record<string, unknown>): T.Propos
 
 export function deserializeProcessProposalRequest(obj: Record<string, unknown>): T.ProcessProposalRequest {
   const r: Partial<T.ProcessProposalRequest> = {};
+  r.idempotencyKey = String(obj['idempotencyKey'] ?? '') as string;
+  r.proposal = deserializeProposalInput(obj['proposal'] as Record<string, unknown> ?? {});
+  r.processorContext = deserializeSalesProcessorContext(obj['processorContext'] as Record<string, unknown> ?? {});
   return r as T.ProcessProposalRequest;
 }
 
 export function deserializeProcessOrderRequest(obj: Record<string, unknown>): T.ProcessOrderRequest {
   const r: Partial<T.ProcessOrderRequest> = {};
+  r.idempotencyKey = String(obj['idempotencyKey'] ?? '') as string;
+  r.order = deserializeOrderInput(obj['order'] as Record<string, unknown> ?? {});
+  r.processorContext = deserializeSalesProcessorContext(obj['processorContext'] as Record<string, unknown> ?? {});
   return r as T.ProcessOrderRequest;
 }
 
@@ -15035,6 +15435,10 @@ export function deserializeGetSalesRepeatTemplatesResponse(obj: Record<string, u
 
 export function deserializeSaveSalesRepeatTemplateResponse(obj: Record<string, unknown>): T.SaveSalesRepeatTemplateResponse {
   const r: Partial<T.SaveSalesRepeatTemplateResponse> = {};
+  r.idempotencyResult = String(obj['idempotencyResult'] ?? '') as T.IdempotencyResult;
+  r.result = String(obj['result'] ?? '') as T.SaveSalesRepeatTemplateResult;
+  if (obj['errorMessage'] !== undefined) r.errorMessage = String(obj['errorMessage']) as string;
+  if (obj['salesRepeatTemplateId'] !== undefined) r.salesRepeatTemplateId = String(obj['salesRepeatTemplateId']) as string;
   return r as T.SaveSalesRepeatTemplateResponse;
 }
 
@@ -15139,6 +15543,35 @@ export function deserializeCreateOrderV2Response(obj: Record<string, unknown>): 
 
 export function deserializeCreateOrderV3Response(obj: Record<string, unknown>): T.CreateOrderV3Response {
   const r: Partial<T.CreateOrderV3Response> = {};
+  r.idempotencyResult = String(obj['idempotencyResult'] ?? '') as T.IdempotencyResult;
+  r.result = String(obj['result'] ?? '') as T.CreateOrderResult;
+  if (obj['order'] !== undefined) r.order = deserializeOrder(obj['order'] as Record<string, unknown>);
+  if (obj['errorMessage'] !== undefined) r.errorMessage = String(obj['errorMessage']) as string;
+  r.info = deserializeCreateOrderInfo(obj['info'] as Record<string, unknown> ?? {});
+  if (obj['payResult'] !== undefined) r.payResult = String(obj['payResult']) as T.PayOrderResult;
+  if (obj['invoiceId'] !== undefined) r.invoiceId = String(obj['invoiceId']) as string;
+  if (obj['voucherIssuances'] !== undefined) {
+    const _w = obj['voucherIssuances'] as Record<string, unknown>;
+    const _iv = (_w)['voucherIssuance'];
+    if (_iv !== undefined) {
+      r.voucherIssuances = toArray(_iv).map((v) => deserializeVoucherIssuance(v as Record<string, unknown>));
+    } else {
+      r.voucherIssuances = [];
+    }
+  } else {
+    r.voucherIssuances = [];
+  }
+  if (obj['unappliedVoucherIssuances'] !== undefined) {
+    const _w = obj['unappliedVoucherIssuances'] as Record<string, unknown>;
+    const _iv = (_w)['unappliedVoucherIssuance'];
+    if (_iv !== undefined) {
+      r.unappliedVoucherIssuances = toArray(_iv).map((v) => deserializeUnappliedVoucherIssuance(v as Record<string, unknown>));
+    } else {
+      r.unappliedVoucherIssuances = [];
+    }
+  } else {
+    r.unappliedVoucherIssuances = [];
+  }
   return r as T.CreateOrderV3Response;
 }
 
@@ -15174,6 +15607,32 @@ export function deserializePayOrderResponse(obj: Record<string, unknown>): T.Pay
 
 export function deserializePayOrderV2Response(obj: Record<string, unknown>): T.PayOrderV2Response {
   const r: Partial<T.PayOrderV2Response> = {};
+  r.idempotencyResult = String(obj['idempotencyResult'] ?? '') as T.IdempotencyResult;
+  r.result = String(obj['result'] ?? '') as T.PayOrderResult;
+  if (obj['invoiceId'] !== undefined) r.invoiceId = String(obj['invoiceId']) as string;
+  r.errorMessage = String(obj['errorMessage'] ?? '') as string;
+  if (obj['voucherIssuances'] !== undefined) {
+    const _w = obj['voucherIssuances'] as Record<string, unknown>;
+    const _iv = (_w)['voucherIssuance'];
+    if (_iv !== undefined) {
+      r.voucherIssuances = toArray(_iv).map((v) => deserializeVoucherIssuance(v as Record<string, unknown>));
+    } else {
+      r.voucherIssuances = [];
+    }
+  } else {
+    r.voucherIssuances = [];
+  }
+  if (obj['unappliedVoucherIssuances'] !== undefined) {
+    const _w = obj['unappliedVoucherIssuances'] as Record<string, unknown>;
+    const _iv = (_w)['unappliedVoucherIssuance'];
+    if (_iv !== undefined) {
+      r.unappliedVoucherIssuances = toArray(_iv).map((v) => deserializeUnappliedVoucherIssuance(v as Record<string, unknown>));
+    } else {
+      r.unappliedVoucherIssuances = [];
+    }
+  } else {
+    r.unappliedVoucherIssuances = [];
+  }
   return r as T.PayOrderV2Response;
 }
 
@@ -15405,6 +15864,31 @@ export function deserializeDetermineContractLinesResponse(obj: Record<string, un
 
 export function deserializeCreateInvoiceFromPackingSlipsResponse(obj: Record<string, unknown>): T.CreateInvoiceFromPackingSlipsResponse {
   const r: Partial<T.CreateInvoiceFromPackingSlipsResponse> = {};
+  r.idempotencyResult = String(obj['idempotencyResult'] ?? '') as T.IdempotencyResult;
+  r.result = String(obj['result'] ?? '') as T.CreateInvoiceFromPackingSlipsResponseResult;
+  if (obj['invoiceId'] !== undefined) r.invoiceId = String(obj['invoiceId']) as string;
+  if (obj['voucherIssuances'] !== undefined) {
+    const _w = obj['voucherIssuances'] as Record<string, unknown>;
+    const _iv = (_w)['voucherIssuance'];
+    if (_iv !== undefined) {
+      r.voucherIssuances = toArray(_iv).map((v) => deserializeVoucherIssuance(v as Record<string, unknown>));
+    } else {
+      r.voucherIssuances = [];
+    }
+  } else {
+    r.voucherIssuances = [];
+  }
+  if (obj['unappliedVoucherIssuances'] !== undefined) {
+    const _w = obj['unappliedVoucherIssuances'] as Record<string, unknown>;
+    const _iv = (_w)['unappliedVoucherIssuance'];
+    if (_iv !== undefined) {
+      r.unappliedVoucherIssuances = toArray(_iv).map((v) => deserializeUnappliedVoucherIssuance(v as Record<string, unknown>));
+    } else {
+      r.unappliedVoucherIssuances = [];
+    }
+  } else {
+    r.unappliedVoucherIssuances = [];
+  }
   return r as T.CreateInvoiceFromPackingSlipsResponse;
 }
 
@@ -15416,21 +15900,38 @@ export function deserializeGetCashCountInfoResponse(obj: Record<string, unknown>
 
 export function deserializeSaveCashCountResponse(obj: Record<string, unknown>): T.SaveCashCountResponse {
   const r: Partial<T.SaveCashCountResponse> = {};
+  r.idempotencyResult = String(obj['idempotencyResult'] ?? '') as T.IdempotencyResult;
+  r.result = String(obj['result'] ?? '') as T.SaveCashCountResult;
+  if (obj['errorMessage'] !== undefined) r.errorMessage = String(obj['errorMessage']) as string;
+  if (obj['cashCountInfoState'] !== undefined) r.cashCountInfoState = String(obj['cashCountInfoState']) as T.CashCountInfoState;
   return r as T.SaveCashCountResponse;
 }
 
 export function deserializeProcessInvoiceResponse(obj: Record<string, unknown>): T.ProcessInvoiceResponse {
   const r: Partial<T.ProcessInvoiceResponse> = {};
+  r.idempotencyResult = String(obj['idempotencyResult'] ?? '') as T.IdempotencyResult;
+  if (obj['invoice'] !== undefined) r.invoice = deserializeInvoice(obj['invoice'] as Record<string, unknown>);
+  if (obj['processorResult'] !== undefined) r.processorResult = deserializeSalesProcessorResult(obj['processorResult'] as Record<string, unknown>);
+  r.resultCode = String(obj['resultCode'] ?? '') as T.ProcessInvoiceResultCode;
   return r as T.ProcessInvoiceResponse;
 }
 
 export function deserializeProcessProposalResponse(obj: Record<string, unknown>): T.ProcessProposalResponse {
   const r: Partial<T.ProcessProposalResponse> = {};
+  r.idempotencyResult = String(obj['idempotencyResult'] ?? '') as T.IdempotencyResult;
+  if (obj['proposal'] !== undefined) r.proposal = deserializeProposal(obj['proposal'] as Record<string, unknown>);
+  if (obj['processorResult'] !== undefined) r.processorResult = deserializeSalesProcessorResult(obj['processorResult'] as Record<string, unknown>);
+  r.resultCode = String(obj['resultCode'] ?? '') as T.ProcessProposalResultCode;
   return r as T.ProcessProposalResponse;
 }
 
 export function deserializeProcessOrderResponse(obj: Record<string, unknown>): T.ProcessOrderResponse {
   const r: Partial<T.ProcessOrderResponse> = {};
+  r.idempotencyResult = String(obj['idempotencyResult'] ?? '') as T.IdempotencyResult;
+  if (obj['order'] !== undefined) r.order = deserializeOrder(obj['order'] as Record<string, unknown>);
+  if (obj['queuedOrderId'] !== undefined) r.queuedOrderId = String(obj['queuedOrderId']) as string;
+  if (obj['processorResult'] !== undefined) r.processorResult = deserializeSalesProcessorResult(obj['processorResult'] as Record<string, unknown>);
+  r.resultCode = String(obj['resultCode'] ?? '') as T.ProcessOrderResultCode;
   return r as T.ProcessOrderResponse;
 }
 
@@ -15722,6 +16223,20 @@ export function deserializeWebhookSessionBaseLineInput(obj: Record<string, unkno
 
 export function deserializeWebhookSessionLineInput(obj: Record<string, unknown>): T.WebhookSessionLineInput {
   const r: Partial<T.WebhookSessionLineInput> = {};
+  r.lineId = String(obj['lineId'] ?? '') as string;
+  if (obj['articleNumber'] !== undefined) r.articleNumber = Number(obj['articleNumber']);
+  if (obj['priceIncl'] !== undefined) r.priceIncl = String(obj['priceIncl']) as string;
+  if (obj['quantity'] !== undefined) r.quantity = String(obj['quantity']) as string;
+  r.text = String(obj['text'] ?? '') as string;
+  if (obj['discountPercentage'] !== undefined) r.discountPercentage = String(obj['discountPercentage']) as string;
+  if (obj['discountAmount'] !== undefined) r.discountAmount = String(obj['discountAmount']) as string;
+  if (obj['externalDiscount'] !== undefined) r.externalDiscount = deserializeWebhookExternalDiscountInput(obj['externalDiscount'] as Record<string, unknown>);
+  if (obj['preparationMethods'] !== undefined) {
+    r.preparationMethods = toArray(obj['preparationMethods']).map((v) => deserializeWebhookSessionBaseLineInput(v as Record<string, unknown>));
+  }
+  if (obj['componentArticles'] !== undefined) {
+    r.componentArticles = toArray(obj['componentArticles']).map((v) => deserializeWebhookSessionBaseLineInput(v as Record<string, unknown>));
+  }
   return r as T.WebhookSessionLineInput;
 }
 
@@ -15956,6 +16471,18 @@ export function deserializeWebhookLineDeletion(obj: Record<string, unknown>): T.
 
 export function deserializeWebhookReq(obj: Record<string, unknown>): T.WebhookReq {
   const r: Partial<T.WebhookReq> = {};
+  r.idempotencyKey = String(obj['idempotencyKey'] ?? '') as string;
+  if (obj['browser'] !== undefined) r.browser = deserializeWebhookBrowserInput(obj['browser'] as Record<string, unknown>);
+  if (obj['dialog'] !== undefined) r.dialog = deserializeWebhookDialogInput(obj['dialog'] as Record<string, unknown>);
+  if (obj['scanCode'] !== undefined) r.scanCode = deserializeWebhookScanCodeInput(obj['scanCode'] as Record<string, unknown>);
+  if (obj['openUrl'] !== undefined) r.openUrl = deserializeWebhookOpenUrlInput(obj['openUrl'] as Record<string, unknown>);
+  if (obj['session'] !== undefined) r.session = deserializeWebhookSessionInput(obj['session'] as Record<string, unknown>);
+  if (obj['addSessionLine'] !== undefined) r.addSessionLine = deserializeWebhookSessionLineInput(obj['addSessionLine'] as Record<string, unknown>);
+  if (obj['updateSessionLine'] !== undefined) r.updateSessionLine = deserializeWebhookSessionLineInput(obj['updateSessionLine'] as Record<string, unknown>);
+  if (obj['removeSessionLine'] !== undefined) r.removeSessionLine = deserializeWebhookSessionLineInput(obj['removeSessionLine'] as Record<string, unknown>);
+  if (obj['selectRelation'] !== undefined) r.selectRelation = deserializeWebhookSelectRelationInput(obj['selectRelation'] as Record<string, unknown>);
+  if (obj['customAction'] !== undefined) r.customAction = deserializeWebhookCustomActionInput(obj['customAction'] as Record<string, unknown>);
+  if (obj['form'] !== undefined) r.form = deserializeWebhookFormInput(obj['form'] as Record<string, unknown>);
   return r as T.WebhookReq;
 }
 
@@ -15987,11 +16514,37 @@ export function deserializeExternalPaymentResp(obj: Record<string, unknown>): T.
 
 export function deserializeExternalPaymentWebhookRequest(obj: Record<string, unknown>): T.ExternalPaymentWebhookRequest {
   const r: Partial<T.ExternalPaymentWebhookRequest> = {};
+  r.idempotencyKey = String(obj['idempotencyKey'] ?? '') as string;
+  if (obj['browser'] !== undefined) r.browser = deserializeWebhookBrowserInput(obj['browser'] as Record<string, unknown>);
+  if (obj['dialog'] !== undefined) r.dialog = deserializeWebhookDialogInput(obj['dialog'] as Record<string, unknown>);
+  if (obj['scanCode'] !== undefined) r.scanCode = deserializeWebhookScanCodeInput(obj['scanCode'] as Record<string, unknown>);
+  if (obj['openUrl'] !== undefined) r.openUrl = deserializeWebhookOpenUrlInput(obj['openUrl'] as Record<string, unknown>);
+  if (obj['session'] !== undefined) r.session = deserializeWebhookSessionInput(obj['session'] as Record<string, unknown>);
+  if (obj['addSessionLine'] !== undefined) r.addSessionLine = deserializeWebhookSessionLineInput(obj['addSessionLine'] as Record<string, unknown>);
+  if (obj['updateSessionLine'] !== undefined) r.updateSessionLine = deserializeWebhookSessionLineInput(obj['updateSessionLine'] as Record<string, unknown>);
+  if (obj['removeSessionLine'] !== undefined) r.removeSessionLine = deserializeWebhookSessionLineInput(obj['removeSessionLine'] as Record<string, unknown>);
+  if (obj['selectRelation'] !== undefined) r.selectRelation = deserializeWebhookSelectRelationInput(obj['selectRelation'] as Record<string, unknown>);
+  if (obj['customAction'] !== undefined) r.customAction = deserializeWebhookCustomActionInput(obj['customAction'] as Record<string, unknown>);
+  if (obj['form'] !== undefined) r.form = deserializeWebhookFormInput(obj['form'] as Record<string, unknown>);
+  r.externalPayment = deserializeExternalPaymentReq(obj['externalPayment'] as Record<string, unknown> ?? {});
   return r as T.ExternalPaymentWebhookRequest;
 }
 
 export function deserializeSendWebhookRequest(obj: Record<string, unknown>): T.SendWebhookRequest {
   const r: Partial<T.SendWebhookRequest> = {};
+  r.idempotencyKey = String(obj['idempotencyKey'] ?? '') as string;
+  if (obj['browser'] !== undefined) r.browser = deserializeWebhookBrowserInput(obj['browser'] as Record<string, unknown>);
+  if (obj['dialog'] !== undefined) r.dialog = deserializeWebhookDialogInput(obj['dialog'] as Record<string, unknown>);
+  if (obj['scanCode'] !== undefined) r.scanCode = deserializeWebhookScanCodeInput(obj['scanCode'] as Record<string, unknown>);
+  if (obj['openUrl'] !== undefined) r.openUrl = deserializeWebhookOpenUrlInput(obj['openUrl'] as Record<string, unknown>);
+  if (obj['session'] !== undefined) r.session = deserializeWebhookSessionInput(obj['session'] as Record<string, unknown>);
+  if (obj['addSessionLine'] !== undefined) r.addSessionLine = deserializeWebhookSessionLineInput(obj['addSessionLine'] as Record<string, unknown>);
+  if (obj['updateSessionLine'] !== undefined) r.updateSessionLine = deserializeWebhookSessionLineInput(obj['updateSessionLine'] as Record<string, unknown>);
+  if (obj['removeSessionLine'] !== undefined) r.removeSessionLine = deserializeWebhookSessionLineInput(obj['removeSessionLine'] as Record<string, unknown>);
+  if (obj['selectRelation'] !== undefined) r.selectRelation = deserializeWebhookSelectRelationInput(obj['selectRelation'] as Record<string, unknown>);
+  if (obj['customAction'] !== undefined) r.customAction = deserializeWebhookCustomActionInput(obj['customAction'] as Record<string, unknown>);
+  if (obj['form'] !== undefined) r.form = deserializeWebhookFormInput(obj['form'] as Record<string, unknown>);
+  r.webhookEvent = String(obj['webhookEvent'] ?? '') as T.WebhookEvent;
   return r as T.SendWebhookRequest;
 }
 
@@ -16082,11 +16635,54 @@ export function deserializeCancelExternalPaymentResponse(obj: Record<string, unk
 
 export function deserializeExternalPaymentWebhookResponse(obj: Record<string, unknown>): T.ExternalPaymentWebhookResponse {
   const r: Partial<T.ExternalPaymentWebhookResponse> = {};
+  r.idempotencyResult = String(obj['idempotencyResult'] ?? '') as T.IdempotencyResult;
+  if (obj['messages'] !== undefined) {
+    r.messages = toArray(obj['messages']).map((v) => deserializeWebhookMessage(v as Record<string, unknown>));
+  }
+  if (obj['dialog'] !== undefined) r.dialog = deserializeWebhookDialog(obj['dialog'] as Record<string, unknown>);
+  if (obj['displayBarcode'] !== undefined) r.displayBarcode = deserializeWebhookDisplayBarcode(obj['displayBarcode'] as Record<string, unknown>);
+  if (obj['openUrl'] !== undefined) r.openUrl = deserializeWebhookOpenUrl(obj['openUrl'] as Record<string, unknown>);
+  if (obj['error'] !== undefined) r.error = deserializeWebhookError(obj['error'] as Record<string, unknown>);
+  if (obj['requestScanCode'] !== undefined) r.requestScanCode = deserializeWebhookRequestScanCode(obj['requestScanCode'] as Record<string, unknown>);
+  if (obj['scanCode'] !== undefined) r.scanCode = deserializeWebhookScanCode(obj['scanCode'] as Record<string, unknown>);
+  if (obj['lineChanges'] !== undefined) {
+    r.lineChanges = toArray(obj['lineChanges']).map((v) => deserializeWebhookLineChange(v as Record<string, unknown>));
+  }
+  if (obj['lineAdditions'] !== undefined) {
+    r.lineAdditions = toArray(obj['lineAdditions']).map((v) => deserializeWebhookLineAddition(v as Record<string, unknown>));
+  }
+  if (obj['lineDeletions'] !== undefined) {
+    r.lineDeletions = toArray(obj['lineDeletions']).map((v) => deserializeWebhookLineDeletion(v as Record<string, unknown>));
+  }
+  if (obj['keepPolling'] !== undefined) r.keepPolling = obj['keepPolling'] === 'true' || obj['keepPolling'] === true;
+  if (obj['form'] !== undefined) r.form = deserializeWebhookForm(obj['form'] as Record<string, unknown>);
+  if (obj['externalPayment'] !== undefined) r.externalPayment = deserializeExternalPaymentResp(obj['externalPayment'] as Record<string, unknown>);
   return r as T.ExternalPaymentWebhookResponse;
 }
 
 export function deserializeWebhookResp(obj: Record<string, unknown>): T.WebhookResp {
   const r: Partial<T.WebhookResp> = {};
+  r.idempotencyResult = String(obj['idempotencyResult'] ?? '') as T.IdempotencyResult;
+  if (obj['messages'] !== undefined) {
+    r.messages = toArray(obj['messages']).map((v) => deserializeWebhookMessage(v as Record<string, unknown>));
+  }
+  if (obj['dialog'] !== undefined) r.dialog = deserializeWebhookDialog(obj['dialog'] as Record<string, unknown>);
+  if (obj['displayBarcode'] !== undefined) r.displayBarcode = deserializeWebhookDisplayBarcode(obj['displayBarcode'] as Record<string, unknown>);
+  if (obj['openUrl'] !== undefined) r.openUrl = deserializeWebhookOpenUrl(obj['openUrl'] as Record<string, unknown>);
+  if (obj['error'] !== undefined) r.error = deserializeWebhookError(obj['error'] as Record<string, unknown>);
+  if (obj['requestScanCode'] !== undefined) r.requestScanCode = deserializeWebhookRequestScanCode(obj['requestScanCode'] as Record<string, unknown>);
+  if (obj['scanCode'] !== undefined) r.scanCode = deserializeWebhookScanCode(obj['scanCode'] as Record<string, unknown>);
+  if (obj['lineChanges'] !== undefined) {
+    r.lineChanges = toArray(obj['lineChanges']).map((v) => deserializeWebhookLineChange(v as Record<string, unknown>));
+  }
+  if (obj['lineAdditions'] !== undefined) {
+    r.lineAdditions = toArray(obj['lineAdditions']).map((v) => deserializeWebhookLineAddition(v as Record<string, unknown>));
+  }
+  if (obj['lineDeletions'] !== undefined) {
+    r.lineDeletions = toArray(obj['lineDeletions']).map((v) => deserializeWebhookLineDeletion(v as Record<string, unknown>));
+  }
+  if (obj['keepPolling'] !== undefined) r.keepPolling = obj['keepPolling'] === 'true' || obj['keepPolling'] === true;
+  if (obj['form'] !== undefined) r.form = deserializeWebhookForm(obj['form'] as Record<string, unknown>);
   return r as T.WebhookResp;
 }
 
@@ -16589,6 +17185,18 @@ export function deserializeArticleFilter(obj: Record<string, unknown>): T.Articl
 
 export function deserializeRunInterbranchPlannerRequest(obj: Record<string, unknown>): T.RunInterbranchPlannerRequest {
   const r: Partial<T.RunInterbranchPlannerRequest> = {};
+  r.idempotencyKey = String(obj['idempotencyKey'] ?? '') as string;
+  r.mode = String(obj['mode'] ?? '') as T.InterbranchPlannerMode;
+  if (obj['fromBranchNumbers'] !== undefined) {
+    r.fromBranchNumbers = toArray(obj['fromBranchNumbers']).map(Number);
+  }
+  if (obj['toBranchNumbers'] !== undefined) {
+    r.toBranchNumbers = toArray(obj['toBranchNumbers']).map(Number);
+  }
+  if (obj['articleFilter'] !== undefined) r.articleFilter = deserializeArticleFilter(obj['articleFilter'] as Record<string, unknown>);
+  if (obj['roundByPrimaryPackaging'] !== undefined) r.roundByPrimaryPackaging = obj['roundByPrimaryPackaging'] === 'true' || obj['roundByPrimaryPackaging'] === true;
+  if (obj['defaultPrimaryPackaging'] !== undefined) r.defaultPrimaryPackaging = String(obj['defaultPrimaryPackaging']) as string;
+  if (obj['roundBySpecificPackaging'] !== undefined) r.roundBySpecificPackaging = String(obj['roundBySpecificPackaging']) as string;
   return r as T.RunInterbranchPlannerRequest;
 }
 
@@ -16716,5 +17324,17 @@ export function deserializeCreateInterbranchDeliveryResponse(obj: Record<string,
 
 export function deserializeRunInterbranchPlannerResponse(obj: Record<string, unknown>): T.RunInterbranchPlannerResponse {
   const r: Partial<T.RunInterbranchPlannerResponse> = {};
+  r.idempotencyResult = String(obj['idempotencyResult'] ?? '') as T.IdempotencyResult;
+  r.result = String(obj['result'] ?? '') as T.RunInterbranchPlannerResult;
+  if (obj['errorMessage'] !== undefined) r.errorMessage = String(obj['errorMessage']) as string;
+  if (obj['createdInterbranchOrders'] !== undefined) {
+    r.createdInterbranchOrders = toArray(obj['createdInterbranchOrders']).map((v) => deserializeYearNumber(v as Record<string, unknown>));
+  }
+  if (obj['updatedInterbranchOrders'] !== undefined) {
+    r.updatedInterbranchOrders = toArray(obj['updatedInterbranchOrders']).map((v) => deserializeYearNumber(v as Record<string, unknown>));
+  }
+  if (obj['messages'] !== undefined) {
+    r.messages = toArray(obj['messages']).map((v) => deserializeInterbranchPlannerMessage(v as Record<string, unknown>));
+  }
   return r as T.RunInterbranchPlannerResponse;
 }

@@ -1472,6 +1472,21 @@ export interface VoucherIssuanceList {
 }
 
 export interface VoucherIssuanceCompact {
+  id?: string;
+  scanCode?: string;
+  groupId?: string;
+  voucherId: VoucherId;
+  salesTurnoverId?: string;
+  salesIssuanceId?: string;
+  salesTurnoverLineId?: string;
+  salesIssuanceLineId?: string;
+  relationNumber?: number;
+  cancelled: boolean;
+  startTs: Date;
+  endTs?: Date;
+  voucherIssuanceRedeems: VoucherIssuanceRedeem[];
+  groupScanCode?: string;
+  quantity: number;
 }
 
 export interface VoucherIssuanceCompactList {
@@ -1479,6 +1494,26 @@ export interface VoucherIssuanceCompactList {
 }
 
 export interface VoucherIssuanceCandidate {
+  id?: string;
+  scanCode?: string;
+  groupId?: string;
+  voucherId: VoucherId;
+  salesTurnoverId?: string;
+  salesIssuanceId?: string;
+  salesTurnoverLineId?: string;
+  salesIssuanceLineId?: string;
+  relationNumber?: number;
+  cancelled: boolean;
+  startTs: Date;
+  endTs?: Date;
+  voucherIssuanceRedeems: VoucherIssuanceRedeem[];
+  groupScanCode?: string;
+  quantity: number;
+  sourceArticleNumber: number;
+  relationRequired: boolean;
+  pendingStartTsRequired: boolean;
+  view: VoucherView;
+  externalScanCodes?: string[];
 }
 
 export interface VoucherIssuanceCandidateList {
@@ -1827,6 +1862,15 @@ export interface MoveTableLineList {
 }
 
 export interface MoveTableOrderV3Request {
+  /** Must be unique for every request that you only want to have executed once. If you want to recheck if a certain request came through, reuse the same idempotencyKey. */
+  idempotencyKey?: string;
+  workplace?: WorkplaceIdentifier;
+  employee?: EmployeeIdentifier;
+  orderId?: string;
+  /** Optional when absent or empty all lines will be moved. Otherwise the lines specified. */
+  lines?: MoveTableLine[];
+  destinationTable?: TableIdentifier;
+  releaseSourceTable?: boolean;
 }
 
 export interface GetTableOrderRequest {
@@ -2596,6 +2640,14 @@ export interface GetReceiptsByCashCountRequest {
 }
 
 export interface PrintReceiptV2Request {
+  /** Must be unique for every request that you only want to have executed once. If you want to recheck if a certain request came through, reuse the same idempotencyKey. */
+  idempotencyKey?: string;
+  /** Used to determine the target printer and which receipt to print (if no further request parameters are specified). */
+  workplaceIdentifier?: WorkplaceIdentifier;
+  /** Use this to print the last receipt of the specified table. */
+  tableIdentifier?: TableIdentifier;
+  /** Use this to precisely specify the receipt to print. */
+  receiptId?: string;
 }
 
 export interface PrintTableReceiptRequest {
@@ -2605,6 +2657,10 @@ export interface PrintTableReceiptRequest {
 }
 
 export interface PrintTableReceiptV3Request {
+  /** Must be unique for every request that you only want to have executed once. If you want to recheck if a certain request came through, reuse the same idempotencyKey. */
+  idempotencyKey?: string;
+  workplaceIdentifier?: WorkplaceIdentifier;
+  tableIdentifier?: TableIdentifier;
 }
 
 export interface GetInvoicesRequest {
@@ -4525,6 +4581,30 @@ export interface TableOrderIdentifierElem {
 }
 
 export interface PlaceTableOrderReq {
+  /** Must be unique for every request that you only want to have executed once. If you want to recheck if a certain request came through, reuse the same idempotencyKey. */
+  idempotencyKey: string;
+  tableOrderIdentifier: TableOrderIdentifierElem;
+  /** The employee that is submitting this order. */
+  employeeNumber: number;
+  /** The workplace that this employee is using to submit the order. Does not have to be a terminal. */
+  workplaceNumber: number;
+  /** A description that will be attached to the table of this order. */
+  tableDescription?: string;
+  /** The total number of guests currently seated at the table. */
+  numberOfGuests?: number;
+  relationNumber?: number;
+  /** Specify whether the order is eat-here or take-out. This can impact the calculated VAT in some regions and additional disposables may be added to the order. */
+  vatChange?: VatChange;
+  lines?: PlaceTableOrderLineElem[];
+  payments?: PlaceTableOrderPaymentElem[];
+  webhookSessionData?: WebhookSessionData;
+  keepTableName?: boolean;
+  activityId?: string;
+  deliveryPeriodBegin?: Date;
+  /** AVOID, better to use PlaceTableOrderLineDataElem::menuId and PlaceTableOrderLineDataElem::menuLinesId. Whether or not the call should try to automatically create menus for the new menu system. */
+  automaticNewMenus?: boolean;
+  scannedVoucherIssuanceCodes?: string[];
+  releaseTable?: boolean;
 }
 
 export interface TapTickTotalsRequest {
@@ -4601,6 +4681,13 @@ export interface SaveTodoListRequest {
 }
 
 export interface SaveTodoListV2Request {
+  /** Must be unique for every request that you only want to have executed once. If you want to recheck if a certain request came through, reuse the same idempotencyKey. */
+  idempotencyKey?: string;
+  id?: number;
+  branchNumber?: number;
+  category?: TodoListCategory;
+  name?: string;
+  entries?: TodoListEntry[];
 }
 
 export interface AddToTodoListRequest {
@@ -4808,6 +4895,10 @@ export interface CardFieldInfoList {
 }
 
 export interface CardFieldInfoResponse {
+  name: string;
+  optionType: CardFilterOptionType;
+  optionsJson?: string;
+  numOptions: number;
 }
 
 export interface CardFieldInfoResponseList {
@@ -4855,6 +4946,17 @@ export interface ActiveCycleCountLineList {
 }
 
 export interface ActiveCycleCount {
+  id?: string;
+  todoListId: number;
+  todoListName: string;
+  branchNumber: number;
+  fromDate: Date;
+  throughDate: Date;
+  isRecurring: boolean;
+  colour: Colour;
+  countedQuantity: number;
+  totalQuantity: number;
+  lines: ActiveCycleCountLine[];
 }
 
 export interface GetActiveCycleCountRequest {
@@ -4891,6 +4993,11 @@ export interface ArticleComponentList {
 }
 
 export interface SaveArticleComponentsRequest {
+  /** Must be unique for every request that you only want to have executed once. If you want to recheck if a certain request came through, reuse the same idempotencyKey. */
+  idempotencyKey?: string;
+  mode?: SaveArticleComponentsMode;
+  articleNumber?: number;
+  articleComponents?: ArticleComponent[];
 }
 
 export interface getSalesPriceListResponse {
@@ -5042,6 +5149,10 @@ export interface MoveTableOrderResponse {
 }
 
 export interface MoveTableOrderV3Response {
+  /** Shows you whether you have received the original response or a replay of the response. Either way, all other properties of this response will be the same. This is just for informational purposes. */
+  idempotencyResult: IdempotencyResult;
+  result: MoveTableOrderResult;
+  errorMessage: string;
 }
 
 export interface GetTableOrderResponse {
@@ -5205,6 +5316,10 @@ export interface PrintReceiptResponse {
 }
 
 export interface PrintReceiptV2Response {
+  /** Shows you whether you have received the original response or a replay of the response. Either way, all other properties of this response will be the same. This is just for informational purposes. */
+  idempotencyResult: IdempotencyResult;
+  result: PrintReceiptResult;
+  errorMessage: string;
 }
 
 export interface PrintTableReceiptResponse {
@@ -5213,6 +5328,10 @@ export interface PrintTableReceiptResponse {
 }
 
 export interface PrintTableReceiptV3Response {
+  /** Shows you whether you have received the original response or a replay of the response. Either way, all other properties of this response will be the same. This is just for informational purposes. */
+  idempotencyResult: IdempotencyResult;
+  result: PrintTableReceiptResult;
+  errorMessage: string;
 }
 
 export interface GetInvoicesResponse {
@@ -5531,6 +5650,22 @@ export interface UpdateArticlePreparationMethodGroupsResponse {
 }
 
 export interface PlaceTableOrderResp {
+  /** Shows you whether you have received the original response or a replay of the response. Either way, all other properties of this response will be the same. This is just for informational purposes. */
+  idempotencyResult: IdempotencyResult;
+  /** The result of the request. Either OK or what part of the request failed, i.e. mismaching IDENTIFIERS, failure in processing the LINES or failure in processing the PAYMENTS. */
+  result: PlaceTableOrderResult;
+  /** Gives more information in case of failure. */
+  errorMessage?: string;
+  /** The result of processing the lines. Either NOTHING happened or an order was CREATED or UPDATED. */
+  linesResult?: LinesResult;
+  /** Returns the current orderId of the table. */
+  orderId?: string;
+  /** The result of processing the payments. Either NOTHING happened, a receipt was CREATED or the order was PREPAID. */
+  paymentsResult?: PaymentsResult;
+  /** Returns the receiptId when a receipt was CREATED. */
+  receiptId?: string;
+  voucherIssuances: VoucherIssuance[];
+  unappliedVoucherIssuances: UnappliedVoucherIssuance[];
 }
 
 export interface TapTickTotalsResponse {
@@ -5564,6 +5699,9 @@ export interface CreateTodoListResponse {
 }
 
 export interface SaveTodoListV2Response {
+  /** Shows you whether you have received the original response or a replay of the response. Either way, all other properties of this response will be the same. This is just for informational purposes. */
+  idempotencyResult: IdempotencyResult;
+  id: number;
 }
 
 export interface GetFilterProfilesResponse {
@@ -5651,6 +5789,10 @@ export interface GetArticleComponentsResponse {
 }
 
 export interface SaveArticleComponentsResponse {
+  /** Shows you whether you have received the original response or a replay of the response. Either way, all other properties of this response will be the same. This is just for informational purposes. */
+  idempotencyResult: IdempotencyResult;
+  result: SaveArticleComponentsResult;
+  newArticleComponents: ArticleComponent[];
 }
 
 export interface RequestDateFilter {
@@ -6545,6 +6687,12 @@ export interface TableProperties {
 }
 
 export interface ChangeTablePropertyReq {
+  /** Must be unique for every request that you only want to have executed once. If you want to recheck if a certain request came through, reuse the same idempotencyKey. */
+  idempotencyKey: string;
+  workplaceIdentifier: WorkplaceIdentifier;
+  employeeIdentifier: EmployeeIdentifier;
+  tableIdentifier: TableIdentifier;
+  tableProperties: TableProperties;
 }
 
 export interface AuthorizationGroup {
@@ -7033,6 +7181,12 @@ export interface GetFloorplansResponse {
 }
 
 export interface ChangeTablePropertyResp {
+  /** Shows you whether you have received the original response or a replay of the response. Either way, all other properties of this response will be the same. This is just for informational purposes. */
+  idempotencyResult: IdempotencyResult;
+  result: ChangeTablePropertyResult;
+  errorMessage?: string;
+  tableIdentifier: TableIdentifier;
+  tableProperties: TableProperties;
 }
 
 export interface GetEmployeeAuthorizationsResponse {
@@ -7376,6 +7530,13 @@ export interface RegisterGiftcardPaymentRequest {
 }
 
 export interface RegisterGiftcardPaymentV2Request {
+  /** Must be unique for every request that you only want to have executed once. If you want to recheck if a certain request came through, reuse the same idempotencyKey. */
+  idempotencyKey?: string;
+  cardNumber?: string;
+  branchNumber?: number;
+  employeeNumber?: number;
+  externalReference?: string;
+  lineList?: GiftcardPaymentLine[];
 }
 
 export interface CreateGiftcardRequest {
@@ -7501,12 +7662,27 @@ export interface SaveGiftcardList {
 }
 
 export interface SaveGiftcardsRequest {
+  /** Must be unique for every request that you only want to have executed once. If you want to recheck if a certain request came through, reuse the same idempotencyKey. */
+  idempotencyKey?: string;
+  giftcardList?: SaveGiftcard[];
 }
 
 export interface RestituteGiftcardsRequest {
+  /** Must be unique for every request that you only want to have executed once. If you want to recheck if a certain request came through, reuse the same idempotencyKey. */
+  idempotencyKey?: string;
+  cardIds?: string[];
+  workplaceIdentifier?: WorkplaceIdentifier;
+  employeeIdentifier?: EmployeeIdentifier;
+  relationIdentifier?: RelationIdentifier;
 }
 
 export interface LinkGiftcardsToRelationRequest {
+  /** Must be unique for every request that you only want to have executed once. If you want to recheck if a certain request came through, reuse the same idempotencyKey. */
+  idempotencyKey?: string;
+  cardIds?: string[];
+  workplaceIdentifier?: WorkplaceIdentifier;
+  relationIdentifier?: RelationIdentifier;
+  employeeIdentifier?: EmployeeIdentifier;
 }
 
 export interface GetVouchersRequest {
@@ -7539,6 +7715,10 @@ export interface GetVoucherSettingsRequest {
 }
 
 export interface IssueVouchersRequest {
+  /** Must be unique for every request that you only want to have executed once. If you want to recheck if a certain request came through, reuse the same idempotencyKey. */
+  idempotencyKey?: string;
+  issueVouchers?: IssueVoucher[];
+  financialWorkplaceIdentifier?: WorkplaceIdentifier;
 }
 
 export interface IssueVoucherExternalScanCodeSet {
@@ -7546,6 +7726,10 @@ export interface IssueVoucherExternalScanCodeSet {
 }
 
 export interface IssueVoucherExternalScanCodesRequest {
+  /** Must be unique for every request that you only want to have executed once. If you want to recheck if a certain request came through, reuse the same idempotencyKey. */
+  idempotencyKey?: string;
+  voucherId?: string;
+  scanCodes?: string[];
 }
 
 export interface GetVoucherExternalScanCodesRequest {
@@ -7583,6 +7767,12 @@ export interface RegisterGiftcardPaymentResponse {
 }
 
 export interface RegisterGiftcardPaymentV2Response {
+  /** Shows you whether you have received the original response or a replay of the response. Either way, all other properties of this response will be the same. This is just for informational purposes. */
+  idempotencyResult: IdempotencyResult;
+  result: GiftcardResult;
+  newBalance?: string;
+  receiptId?: string;
+  errorMessage?: string;
 }
 
 export interface CreateGiftcardResponse {
@@ -7618,12 +7808,25 @@ export interface GetGiftcardsResponse {
 }
 
 export interface SaveGiftcardsResponse {
+  /** Shows you whether you have received the original response or a replay of the response. Either way, all other properties of this response will be the same. This is just for informational purposes. */
+  idempotencyResult: IdempotencyResult;
+  result: SaveGiftcardsResult;
+  errorMessage?: string;
 }
 
 export interface RestituteGiftcardsResponse {
+  /** Shows you whether you have received the original response or a replay of the response. Either way, all other properties of this response will be the same. This is just for informational purposes. */
+  idempotencyResult: IdempotencyResult;
+  result: RestituteGiftcardsResult;
+  errorMessage?: string;
+  packingSlipId?: string;
 }
 
 export interface LinkGiftcardsToRelationResponse {
+  /** Shows you whether you have received the original response or a replay of the response. Either way, all other properties of this response will be the same. This is just for informational purposes. */
+  idempotencyResult: IdempotencyResult;
+  result: LinkGiftcardsToRelationResult;
+  errorMessage?: string;
 }
 
 export interface GetVouchersResponse {
@@ -7647,9 +7850,16 @@ export interface GetVoucherSettingsResponse {
 }
 
 export interface IssueVouchersResponse {
+  /** Shows you whether you have received the original response or a replay of the response. Either way, all other properties of this response will be the same. This is just for informational purposes. */
+  idempotencyResult: IdempotencyResult;
+  result: IssueVouchersResult;
+  voucherIssuances: VoucherIssuance[];
 }
 
 export interface IssueVoucherExternalScanCodesResponse {
+  /** Shows you whether you have received the original response or a replay of the response. Either way, all other properties of this response will be the same. This is just for informational purposes. */
+  idempotencyResult: IdempotencyResult;
+  result: IssueVoucherExternalScanCodesResult;
 }
 
 export interface GetVoucherExternalScanCodesResponse {
@@ -8322,6 +8532,10 @@ export interface SaveSalesRepeatTemplate {
 }
 
 export interface SaveSalesRepeatTemplateRequest {
+  /** Must be unique for every request that you only want to have executed once. If you want to recheck if a certain request came through, reuse the same idempotencyKey. */
+  idempotencyKey?: string;
+  workplaceIdentifier?: WorkplaceIdentifier;
+  salesRepeatTemplate?: SaveSalesRepeatTemplate;
 }
 
 export interface BpeBudgetCheck {
@@ -8462,6 +8676,15 @@ export interface CreateOrderV2Request {
 }
 
 export interface CreateOrderV3Request {
+  /** Must be unique for every request that you only want to have executed once. If you want to recheck if a certain request came through, reuse the same idempotencyKey. */
+  idempotencyKey?: string;
+  order?: Order;
+  applySalesAndActions?: boolean;
+  applySalesPrices?: boolean;
+  applyPriceGroups?: boolean;
+  scannedVoucherIssuanceCodes?: string[];
+  prepay?: boolean;
+  paymentList?: Payment[];
 }
 
 export interface PayOrderRequest {
@@ -8471,6 +8694,11 @@ export interface PayOrderRequest {
 }
 
 export interface PayOrderV2Request {
+  /** Must be unique for every request that you only want to have executed once. If you want to recheck if a certain request came through, reuse the same idempotencyKey. */
+  idempotencyKey?: string;
+  orderId?: string;
+  prepay?: boolean;
+  paymentList?: Payment[];
 }
 
 export interface PayTableOrderRequest {
@@ -8629,6 +8857,14 @@ export interface DetermineContractLinesRequest {
 }
 
 export interface CreateInvoiceFromPackingSlipsRequest {
+  /** Must be unique for every request that you only want to have executed once. If you want to recheck if a certain request came through, reuse the same idempotencyKey. */
+  idempotencyKey?: string;
+  packingSlipIds?: string[];
+  financialDate?: Date;
+  /** used for reading necessary settings and to save the financial transaction on. The 'factuur_boeken_op_huidig_filiaal' setting will determine whether or not it will also be used to save the invoice on. If not, it will use the packing slip branch number as the invoice branch number. */
+  branchNumber?: number;
+  /** Can be used to specify what activity should be used for the resulting invoice in case the specified packing slips have different activities. This will only work if the 'can_invoice_different_activities' setting is enabled. */
+  forcedActivityId?: string;
 }
 
 export interface CashCountInfoWorkplaceData {
@@ -8701,6 +8937,18 @@ export interface GetCashCountInfoRequest {
 }
 
 export interface CashCountInfoCountedPaymentMethodAmount {
+  /** The payment method id. */
+  id: string;
+  description: string;
+  isAutomaticDeposit: boolean;
+  /** The opening balance for the current count. */
+  openingBalance?: string;
+  /** The amount that was booked using this payment method since the previuos count. */
+  booked?: string;
+  /** The counted amount for the current payment method. This is 0.0 after a getCashCountInfo call, unless the payment method is an automatic deposit payment method. In that case it's the openingBalance + booked. */
+  counted?: string;
+  deposited?: string;
+  depositPaymentMethodId?: string;
 }
 
 export interface CashCountInfoCountedPaymentMethodAmountList {
@@ -8708,6 +8956,16 @@ export interface CashCountInfoCountedPaymentMethodAmountList {
 }
 
 export interface SaveCashCountRequest {
+  /** Must be unique for every request that you only want to have executed once. If you want to recheck if a certain request came through, reuse the same idempotencyKey. */
+  idempotencyKey?: string;
+  /** The employee number that performs this count. */
+  employeeNumber?: number;
+  fromWorkplace?: WorkplaceIdentifier;
+  /** The employee number that is currently being counted for. */
+  countEmployeeNumber?: number;
+  workplaceData?: CashCountInfoWorkplaceData;
+  extraWorkplacesData?: CashCountInfoWorkplaceData[];
+  countedPaymentMethodAmounts?: CashCountInfoCountedPaymentMethodAmount[];
 }
 
 export interface SalesProcessorContext {
@@ -8725,6 +8983,10 @@ export interface SalesProcessorResult {
 }
 
 export interface ProcessInvoiceRequest {
+  /** Must be unique for every request that you only want to have executed once. If you want to recheck if a certain request came through, reuse the same idempotencyKey. */
+  idempotencyKey?: string;
+  invoice?: InvoiceInput;
+  processorContext?: SalesProcessorContext;
 }
 
 export interface ProposalInput {
@@ -8744,9 +9006,17 @@ export interface ProposalInput {
 }
 
 export interface ProcessProposalRequest {
+  /** Must be unique for every request that you only want to have executed once. If you want to recheck if a certain request came through, reuse the same idempotencyKey. */
+  idempotencyKey?: string;
+  proposal?: ProposalInput;
+  processorContext?: SalesProcessorContext;
 }
 
 export interface ProcessOrderRequest {
+  /** Must be unique for every request that you only want to have executed once. If you want to recheck if a certain request came through, reuse the same idempotencyKey. */
+  idempotencyKey?: string;
+  order?: OrderInput;
+  processorContext?: SalesProcessorContext;
 }
 
 export interface GetSalesRepeatTemplatesResponse {
@@ -8754,6 +9024,11 @@ export interface GetSalesRepeatTemplatesResponse {
 }
 
 export interface SaveSalesRepeatTemplateResponse {
+  /** Shows you whether you have received the original response or a replay of the response. Either way, all other properties of this response will be the same. This is just for informational purposes. */
+  idempotencyResult: IdempotencyResult;
+  result: SaveSalesRepeatTemplateResult;
+  errorMessage?: string;
+  salesRepeatTemplateId?: string;
 }
 
 export interface PerformBpeBudgetChecksResponse {
@@ -8792,6 +9067,16 @@ export interface CreateOrderV2Response {
 }
 
 export interface CreateOrderV3Response {
+  /** Shows you whether you have received the original response or a replay of the response. Either way, all other properties of this response will be the same. This is just for informational purposes. */
+  idempotencyResult: IdempotencyResult;
+  result: CreateOrderResult;
+  order?: Order;
+  errorMessage?: string;
+  info: CreateOrderInfo;
+  payResult?: PayOrderResult;
+  invoiceId?: string;
+  voucherIssuances: VoucherIssuance[];
+  unappliedVoucherIssuances: UnappliedVoucherIssuance[];
 }
 
 export interface PayOrderResponse {
@@ -8803,6 +9088,13 @@ export interface PayOrderResponse {
 }
 
 export interface PayOrderV2Response {
+  /** Shows you whether you have received the original response or a replay of the response. Either way, all other properties of this response will be the same. This is just for informational purposes. */
+  idempotencyResult: IdempotencyResult;
+  result: PayOrderResult;
+  invoiceId?: string;
+  errorMessage: string;
+  voucherIssuances: VoucherIssuance[];
+  unappliedVoucherIssuances: UnappliedVoucherIssuance[];
 }
 
 export interface PayTableOrderResponse {
@@ -8876,6 +9168,12 @@ export interface DetermineContractLinesResponse {
 }
 
 export interface CreateInvoiceFromPackingSlipsResponse {
+  /** Shows you whether you have received the original response or a replay of the response. Either way, all other properties of this response will be the same. This is just for informational purposes. */
+  idempotencyResult: IdempotencyResult;
+  result: CreateInvoiceFromPackingSlipsResponseResult;
+  invoiceId?: string;
+  voucherIssuances: VoucherIssuance[];
+  unappliedVoucherIssuances: UnappliedVoucherIssuance[];
 }
 
 export interface GetCashCountInfoResponse {
@@ -8883,15 +9181,36 @@ export interface GetCashCountInfoResponse {
 }
 
 export interface SaveCashCountResponse {
+  /** Shows you whether you have received the original response or a replay of the response. Either way, all other properties of this response will be the same. This is just for informational purposes. */
+  idempotencyResult: IdempotencyResult;
+  result: SaveCashCountResult;
+  errorMessage?: string;
+  cashCountInfoState?: CashCountInfoState;
 }
 
 export interface ProcessInvoiceResponse {
+  /** Shows you whether you have received the original response or a replay of the response. Either way, all other properties of this response will be the same. This is just for informational purposes. */
+  idempotencyResult: IdempotencyResult;
+  invoice?: Invoice;
+  processorResult?: SalesProcessorResult;
+  resultCode: ProcessInvoiceResultCode;
 }
 
 export interface ProcessProposalResponse {
+  /** Shows you whether you have received the original response or a replay of the response. Either way, all other properties of this response will be the same. This is just for informational purposes. */
+  idempotencyResult: IdempotencyResult;
+  proposal?: Proposal;
+  processorResult?: SalesProcessorResult;
+  resultCode: ProcessProposalResultCode;
 }
 
 export interface ProcessOrderResponse {
+  /** Shows you whether you have received the original response or a replay of the response. Either way, all other properties of this response will be the same. This is just for informational purposes. */
+  idempotencyResult: IdempotencyResult;
+  order?: Order;
+  queuedOrderId?: string;
+  processorResult?: SalesProcessorResult;
+  resultCode: ProcessOrderResultCode;
 }
 
 export interface WebhookConsumerEvent {
@@ -9069,6 +9388,16 @@ export interface WebhookSessionBaseLineInput {
 }
 
 export interface WebhookSessionLineInput {
+  lineId: string;
+  articleNumber?: number;
+  priceIncl?: string;
+  quantity?: string;
+  text: string;
+  discountPercentage?: string;
+  discountAmount?: string;
+  externalDiscount?: WebhookExternalDiscountInput;
+  preparationMethods?: WebhookSessionBaseLineInput[];
+  componentArticles?: WebhookSessionBaseLineInput[];
 }
 
 export interface WebhookSessionInput {
@@ -9251,6 +9580,19 @@ export interface WebhookLineDeletion {
 }
 
 export interface WebhookReq {
+  /** Must be unique for every request that you only want to have executed once. If you want to recheck if a certain request came through, reuse the same idempotencyKey. */
+  idempotencyKey: string;
+  browser?: WebhookBrowserInput;
+  dialog?: WebhookDialogInput;
+  scanCode?: WebhookScanCodeInput;
+  openUrl?: WebhookOpenUrlInput;
+  session?: WebhookSessionInput;
+  addSessionLine?: WebhookSessionLineInput;
+  updateSessionLine?: WebhookSessionLineInput;
+  removeSessionLine?: WebhookSessionLineInput;
+  selectRelation?: WebhookSelectRelationInput;
+  customAction?: WebhookCustomActionInput;
+  form?: WebhookFormInput;
 }
 
 export interface ExternalPaymentReq {
@@ -9274,9 +9616,37 @@ export interface ExternalPaymentResp {
 }
 
 export interface ExternalPaymentWebhookRequest {
+  /** Must be unique for every request that you only want to have executed once. If you want to recheck if a certain request came through, reuse the same idempotencyKey. */
+  idempotencyKey?: string;
+  browser?: WebhookBrowserInput;
+  dialog?: WebhookDialogInput;
+  scanCode?: WebhookScanCodeInput;
+  openUrl?: WebhookOpenUrlInput;
+  session?: WebhookSessionInput;
+  addSessionLine?: WebhookSessionLineInput;
+  updateSessionLine?: WebhookSessionLineInput;
+  removeSessionLine?: WebhookSessionLineInput;
+  selectRelation?: WebhookSelectRelationInput;
+  customAction?: WebhookCustomActionInput;
+  form?: WebhookFormInput;
+  externalPayment?: ExternalPaymentReq;
 }
 
 export interface SendWebhookRequest {
+  /** Must be unique for every request that you only want to have executed once. If you want to recheck if a certain request came through, reuse the same idempotencyKey. */
+  idempotencyKey?: string;
+  browser?: WebhookBrowserInput;
+  dialog?: WebhookDialogInput;
+  scanCode?: WebhookScanCodeInput;
+  openUrl?: WebhookOpenUrlInput;
+  session?: WebhookSessionInput;
+  addSessionLine?: WebhookSessionLineInput;
+  updateSessionLine?: WebhookSessionLineInput;
+  removeSessionLine?: WebhookSessionLineInput;
+  selectRelation?: WebhookSelectRelationInput;
+  customAction?: WebhookCustomActionInput;
+  form?: WebhookFormInput;
+  webhookEvent?: WebhookEvent;
 }
 
 export interface GetWebhookConsumersResponse {
@@ -9315,9 +9685,38 @@ export interface CancelExternalPaymentResponse {
 }
 
 export interface ExternalPaymentWebhookResponse {
+  /** Shows you whether you have received the original response or a replay of the response. Either way, all other properties of this response will be the same. This is just for informational purposes. */
+  idempotencyResult: IdempotencyResult;
+  messages?: WebhookMessage[];
+  dialog?: WebhookDialog;
+  displayBarcode?: WebhookDisplayBarcode;
+  openUrl?: WebhookOpenUrl;
+  error?: WebhookError;
+  requestScanCode?: WebhookRequestScanCode;
+  scanCode?: WebhookScanCode;
+  lineChanges?: WebhookLineChange[];
+  lineAdditions?: WebhookLineAddition[];
+  lineDeletions?: WebhookLineDeletion[];
+  keepPolling?: boolean;
+  form?: WebhookForm;
+  externalPayment?: ExternalPaymentResp;
 }
 
 export interface WebhookResp {
+  /** Shows you whether you have received the original response or a replay of the response. Either way, all other properties of this response will be the same. This is just for informational purposes. */
+  idempotencyResult: IdempotencyResult;
+  messages?: WebhookMessage[];
+  dialog?: WebhookDialog;
+  displayBarcode?: WebhookDisplayBarcode;
+  openUrl?: WebhookOpenUrl;
+  error?: WebhookError;
+  requestScanCode?: WebhookRequestScanCode;
+  scanCode?: WebhookScanCode;
+  lineChanges?: WebhookLineChange[];
+  lineAdditions?: WebhookLineAddition[];
+  lineDeletions?: WebhookLineDeletion[];
+  keepPolling?: boolean;
+  form?: WebhookForm;
 }
 
 export interface GetPrintLayoutsRequest {
@@ -9626,6 +10025,22 @@ export interface ArticleFilter {
 }
 
 export interface RunInterbranchPlannerRequest {
+  /** Must be unique for every request that you only want to have executed once. If you want to recheck if a certain request came through, reuse the same idempotencyKey. */
+  idempotencyKey?: string;
+  /** Generally, use mode DEFAULT during an active event and PREPARATORY before an event. */
+  mode?: InterbranchPlannerMode;
+  /** Run the planner for the branches that are supplied by these branches, or leave empty to run for all. */
+  fromBranchNumbers?: number[];
+  /** Run the planner for these branches, or leave empty to run for all. */
+  toBranchNumbers?: number[];
+  /** Fine-grained control over the specific articles that should be included in the planning. */
+  articleFilter?: ArticleFilter;
+  /** Only use increments of the "primary" packaging to create interbranch orders. */
+  roundByPrimaryPackaging?: boolean;
+  /** If an article has no "primary" packaging configured, use this value instead. */
+  defaultPrimaryPackaging?: string;
+  /** Override the "primary" packaging with this specific value. */
+  roundBySpecificPackaging?: string;
 }
 
 export interface InterbranchPlannerMessage {
@@ -9695,4 +10110,24 @@ export interface CreateInterbranchDeliveryResponse {
 }
 
 export interface RunInterbranchPlannerResponse {
+  /** Shows you whether you have received the original response or a replay of the response. Either way, all other properties of this response will be the same. This is just for informational purposes. */
+  idempotencyResult: IdempotencyResult;
+  result: RunInterbranchPlannerResult;
+  errorMessage?: string;
+  createdInterbranchOrders?: YearNumber[];
+  updatedInterbranchOrders?: YearNumber[];
+  messages?: InterbranchPlannerMessage[];
 }
+
+/**
+ * Input variant of a generated type: all fields become deeply optional.
+ * Field requiredness in the WSDL describes what responses are guaranteed to
+ * contain (e.g. an order's orderId, list fields), not what requests must
+ * provide — the server assigns/validates those. Omitted fields are simply
+ * not serialized.
+ */
+export type Input<T> =
+  T extends Date ? T :
+  T extends readonly (infer U)[] ? Input<U>[] :
+  T extends object ? { [K in keyof T]?: Input<T[K]> } :
+  T;

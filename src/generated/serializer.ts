@@ -10,7 +10,7 @@ import {
 } from '../soap';
 import type * as T from './types';
 
-export function serializeNumberList(obj: T.NumberList, elemName: string): string {
+export function serializeNumberList(obj: T.Input<T.NumberList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.number !== undefined && obj.number !== null) {
     for (const item of obj.number) {
@@ -21,7 +21,7 @@ export function serializeNumberList(obj: T.NumberList, elemName: string): string
   return xml;
 }
 
-export function serializeCategoryIdSet(obj: T.CategoryIdSet, elemName: string): string {
+export function serializeCategoryIdSet(obj: T.Input<T.CategoryIdSet>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.category !== undefined && obj.category !== null) {
     for (const item of obj.category) {
@@ -32,7 +32,7 @@ export function serializeCategoryIdSet(obj: T.CategoryIdSet, elemName: string): 
   return xml;
 }
 
-export function serializeCustomField(obj: T.CustomField, elemName: string): string {
+export function serializeCustomField(obj: T.Input<T.CustomField>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.fieldName !== undefined && obj.fieldName !== null) {
     xml += serializeString('fieldName', String(obj.fieldName));
@@ -70,7 +70,7 @@ export function serializeCustomField(obj: T.CustomField, elemName: string): stri
   return xml;
 }
 
-export function serializeCustomFieldList(obj: T.CustomFieldList, elemName: string): string {
+export function serializeCustomFieldList(obj: T.Input<T.CustomFieldList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.customField !== undefined && obj.customField !== null) {
     for (const item of obj.customField) {
@@ -81,7 +81,7 @@ export function serializeCustomFieldList(obj: T.CustomFieldList, elemName: strin
   return xml;
 }
 
-export function serializeEmployee(obj: T.Employee, elemName: string): string {
+export function serializeEmployee(obj: T.Input<T.Employee>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.employeeNumber !== undefined && obj.employeeNumber !== null) {
     xml += serializeNumber('employeeNumber', obj.employeeNumber);
@@ -164,7 +164,7 @@ export function serializeEmployee(obj: T.Employee, elemName: string): string {
   return xml;
 }
 
-export function serializeEmployeeList(obj: T.EmployeeList, elemName: string): string {
+export function serializeEmployeeList(obj: T.Input<T.EmployeeList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.employee !== undefined && obj.employee !== null) {
     for (const item of obj.employee) {
@@ -175,7 +175,7 @@ export function serializeEmployeeList(obj: T.EmployeeList, elemName: string): st
   return xml;
 }
 
-export function serializeImage(obj: T.Image, elemName: string): string {
+export function serializeImage(obj: T.Input<T.Image>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.imageId !== undefined && obj.imageId !== null) {
     xml += serializeNumber('imageId', obj.imageId);
@@ -235,7 +235,7 @@ export function serializeImage(obj: T.Image, elemName: string): string {
   return xml;
 }
 
-export function serializeImageList(obj: T.ImageList, elemName: string): string {
+export function serializeImageList(obj: T.Input<T.ImageList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.image !== undefined && obj.image !== null) {
     for (const item of obj.image) {
@@ -246,7 +246,7 @@ export function serializeImageList(obj: T.ImageList, elemName: string): string {
   return xml;
 }
 
-export function serializeRelationArticleDiscount(obj: T.RelationArticleDiscount, elemName: string): string {
+export function serializeRelationArticleDiscount(obj: T.Input<T.RelationArticleDiscount>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.relationArticleDiscountId !== undefined && obj.relationArticleDiscountId !== null) {
     xml += serializeNumber('relationArticleDiscountId', obj.relationArticleDiscountId);
@@ -279,7 +279,7 @@ export function serializeRelationArticleDiscount(obj: T.RelationArticleDiscount,
   return xml;
 }
 
-export function serializeRelationArticleDiscountList(obj: T.RelationArticleDiscountList, elemName: string): string {
+export function serializeRelationArticleDiscountList(obj: T.Input<T.RelationArticleDiscountList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.relationArticleDiscount !== undefined && obj.relationArticleDiscount !== null) {
     for (const item of obj.relationArticleDiscount) {
@@ -290,7 +290,7 @@ export function serializeRelationArticleDiscountList(obj: T.RelationArticleDisco
   return xml;
 }
 
-export function serializeVatGroup(obj: T.VatGroup, elemName: string): string {
+export function serializeVatGroup(obj: T.Input<T.VatGroup>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.branchNumber !== undefined && obj.branchNumber !== null) {
     xml += serializeNumber('branchNumber', obj.branchNumber);
@@ -323,7 +323,7 @@ export function serializeVatGroup(obj: T.VatGroup, elemName: string): string {
   return xml;
 }
 
-export function serializeVatGroupList(obj: T.VatGroupList, elemName: string): string {
+export function serializeVatGroupList(obj: T.Input<T.VatGroupList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.vatGroup !== undefined && obj.vatGroup !== null) {
     for (const item of obj.vatGroup) {
@@ -334,7 +334,7 @@ export function serializeVatGroupList(obj: T.VatGroupList, elemName: string): st
   return xml;
 }
 
-export function serializeRelationList(obj: T.RelationList, elemName: string): string {
+export function serializeRelationList(obj: T.Input<T.RelationList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.relation !== undefined && obj.relation !== null) {
     for (const item of obj.relation) {
@@ -345,7 +345,7 @@ export function serializeRelationList(obj: T.RelationList, elemName: string): st
   return xml;
 }
 
-export function serializeRelation(obj: T.Relation, elemName: string): string {
+export function serializeRelation(obj: T.Input<T.Relation>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.relationNumber !== undefined && obj.relationNumber !== null) {
     xml += serializeNumber('relationNumber', obj.relationNumber);
@@ -519,7 +519,7 @@ export function serializeRelation(obj: T.Relation, elemName: string): string {
   return xml;
 }
 
-export function serializeColour(obj: T.Colour, elemName: string): string {
+export function serializeColour(obj: T.Input<T.Colour>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.red !== undefined && obj.red !== null) {
     xml += serializeNumber('red', obj.red);
@@ -534,7 +534,7 @@ export function serializeColour(obj: T.Colour, elemName: string): string {
   return xml;
 }
 
-export function serializeEmployeeIdentifier(obj: T.EmployeeIdentifier, elemName: string): string {
+export function serializeEmployeeIdentifier(obj: T.Input<T.EmployeeIdentifier>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.employeeNumber !== undefined && obj.employeeNumber !== null) {
     xml += serializeNumber('employeeNumber', obj.employeeNumber);
@@ -543,7 +543,7 @@ export function serializeEmployeeIdentifier(obj: T.EmployeeIdentifier, elemName:
   return xml;
 }
 
-export function serializeRelationIdentifier(obj: T.RelationIdentifier, elemName: string): string {
+export function serializeRelationIdentifier(obj: T.Input<T.RelationIdentifier>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.relationNumber !== undefined && obj.relationNumber !== null) {
     xml += serializeNumber('relationNumber', obj.relationNumber);
@@ -552,7 +552,7 @@ export function serializeRelationIdentifier(obj: T.RelationIdentifier, elemName:
   return xml;
 }
 
-export function serializeTableIdentifier(obj: T.TableIdentifier, elemName: string): string {
+export function serializeTableIdentifier(obj: T.Input<T.TableIdentifier>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.branchNumber !== undefined && obj.branchNumber !== null) {
     xml += serializeNumber('branchNumber', obj.branchNumber);
@@ -567,7 +567,7 @@ export function serializeTableIdentifier(obj: T.TableIdentifier, elemName: strin
   return xml;
 }
 
-export function serializeWorkplaceIdentifier(obj: T.WorkplaceIdentifier, elemName: string): string {
+export function serializeWorkplaceIdentifier(obj: T.Input<T.WorkplaceIdentifier>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.branchNumber !== undefined && obj.branchNumber !== null) {
     xml += serializeNumber('branchNumber', obj.branchNumber);
@@ -579,7 +579,7 @@ export function serializeWorkplaceIdentifier(obj: T.WorkplaceIdentifier, elemNam
   return xml;
 }
 
-export function serializeBranchAccountNumber(obj: T.BranchAccountNumber, elemName: string): string {
+export function serializeBranchAccountNumber(obj: T.Input<T.BranchAccountNumber>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.branchNumber !== undefined && obj.branchNumber !== null) {
     xml += serializeNumber('branchNumber', obj.branchNumber);
@@ -600,7 +600,7 @@ export function serializeBranchAccountNumber(obj: T.BranchAccountNumber, elemNam
   return xml;
 }
 
-export function serializeBranchAccountNumberList(obj: T.BranchAccountNumberList, elemName: string): string {
+export function serializeBranchAccountNumberList(obj: T.Input<T.BranchAccountNumberList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.branchAccountNumber !== undefined && obj.branchAccountNumber !== null) {
     for (const item of obj.branchAccountNumber) {
@@ -611,7 +611,7 @@ export function serializeBranchAccountNumberList(obj: T.BranchAccountNumberList,
   return xml;
 }
 
-export function serializeGiftcardType(obj: T.GiftcardType, elemName: string): string {
+export function serializeGiftcardType(obj: T.Input<T.GiftcardType>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.cardTypeId !== undefined && obj.cardTypeId !== null) {
     xml += serializeString('cardTypeId', String(obj.cardTypeId));
@@ -669,7 +669,7 @@ export function serializeGiftcardType(obj: T.GiftcardType, elemName: string): st
   return xml;
 }
 
-export function serializeBpeConfiguration(obj: T.BpeConfiguration, elemName: string): string {
+export function serializeBpeConfiguration(obj: T.Input<T.BpeConfiguration>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.employeeBudgetsConfigured !== undefined && obj.employeeBudgetsConfigured !== null) {
     xml += serializeBoolean('employeeBudgetsConfigured', obj.employeeBudgetsConfigured);
@@ -687,7 +687,7 @@ export function serializeBpeConfiguration(obj: T.BpeConfiguration, elemName: str
   return xml;
 }
 
-export function serializeEftReceiptLine(obj: T.EftReceiptLine, elemName: string): string {
+export function serializeEftReceiptLine(obj: T.Input<T.EftReceiptLine>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.doubleHeight !== undefined && obj.doubleHeight !== null) {
     xml += serializeBoolean('doubleHeight', obj.doubleHeight);
@@ -702,7 +702,7 @@ export function serializeEftReceiptLine(obj: T.EftReceiptLine, elemName: string)
   return xml;
 }
 
-export function serializeEftReceipt(obj: T.EftReceipt, elemName: string): string {
+export function serializeEftReceipt(obj: T.Input<T.EftReceipt>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.line !== undefined && obj.line !== null) {
     for (const item of obj.line) {
@@ -713,7 +713,7 @@ export function serializeEftReceipt(obj: T.EftReceipt, elemName: string): string
   return xml;
 }
 
-export function serializeEftTransactionDetails(obj: T.EftTransactionDetails, elemName: string): string {
+export function serializeEftTransactionDetails(obj: T.Input<T.EftTransactionDetails>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.eftTransactionId !== undefined && obj.eftTransactionId !== null) {
     xml += serializeString('eftTransactionId', String(obj.eftTransactionId));
@@ -787,7 +787,7 @@ export function serializeEftTransactionDetails(obj: T.EftTransactionDetails, ele
   return xml;
 }
 
-export function serializeExternalPaymentReceiptText(obj: T.ExternalPaymentReceiptText, elemName: string): string {
+export function serializeExternalPaymentReceiptText(obj: T.Input<T.ExternalPaymentReceiptText>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.type !== undefined && obj.type !== null) {
     xml += serializeString('type', String(obj.type));
@@ -802,7 +802,7 @@ export function serializeExternalPaymentReceiptText(obj: T.ExternalPaymentReceip
   return xml;
 }
 
-export function serializeExternalPaymentTransactionDetails(obj: T.ExternalPaymentTransactionDetails, elemName: string): string {
+export function serializeExternalPaymentTransactionDetails(obj: T.Input<T.ExternalPaymentTransactionDetails>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.externalPaymentId !== undefined && obj.externalPaymentId !== null) {
     xml += serializeString('externalPaymentId', String(obj.externalPaymentId));
@@ -831,7 +831,7 @@ export function serializeExternalPaymentTransactionDetails(obj: T.ExternalPaymen
   return xml;
 }
 
-export function serializePayment(obj: T.Payment, elemName: string): string {
+export function serializePayment(obj: T.Input<T.Payment>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.paymentId !== undefined && obj.paymentId !== null) {
     xml += serializeString('paymentId', String(obj.paymentId));
@@ -895,7 +895,7 @@ export function serializePayment(obj: T.Payment, elemName: string): string {
   return xml;
 }
 
-export function serializePaymentList(obj: T.PaymentList, elemName: string): string {
+export function serializePaymentList(obj: T.Input<T.PaymentList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.payment !== undefined && obj.payment !== null) {
     for (const item of obj.payment) {
@@ -906,7 +906,7 @@ export function serializePaymentList(obj: T.PaymentList, elemName: string): stri
   return xml;
 }
 
-export function serializePaymentMethod(obj: T.PaymentMethod, elemName: string): string {
+export function serializePaymentMethod(obj: T.Input<T.PaymentMethod>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.method !== undefined && obj.method !== null) {
     xml += serializeString('method', String(obj.method));
@@ -952,7 +952,7 @@ export function serializePaymentMethod(obj: T.PaymentMethod, elemName: string): 
   return xml;
 }
 
-export function serializePaymentMethodList(obj: T.PaymentMethodList, elemName: string): string {
+export function serializePaymentMethodList(obj: T.Input<T.PaymentMethodList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.paymentMethod !== undefined && obj.paymentMethod !== null) {
     for (const item of obj.paymentMethod) {
@@ -963,7 +963,7 @@ export function serializePaymentMethodList(obj: T.PaymentMethodList, elemName: s
   return xml;
 }
 
-export function serializeSalePromotionLineData(obj: T.SalePromotionLineData, elemName: string): string {
+export function serializeSalePromotionLineData(obj: T.Input<T.SalePromotionLineData>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.salePromotionId !== undefined && obj.salePromotionId !== null) {
     xml += serializeString('salePromotionId', String(obj.salePromotionId));
@@ -981,7 +981,7 @@ export function serializeSalePromotionLineData(obj: T.SalePromotionLineData, ele
   return xml;
 }
 
-export function serializeSalePromotionLineDataInput(obj: T.SalePromotionLineDataInput, elemName: string): string {
+export function serializeSalePromotionLineDataInput(obj: T.Input<T.SalePromotionLineDataInput>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.salePromotionLineId !== undefined && obj.salePromotionLineId !== null) {
     xml += serializeString('salePromotionLineId', String(obj.salePromotionLineId));
@@ -996,7 +996,7 @@ export function serializeSalePromotionLineDataInput(obj: T.SalePromotionLineData
   return xml;
 }
 
-export function serializeTerminalId(obj: T.TerminalId, elemName: string): string {
+export function serializeTerminalId(obj: T.Input<T.TerminalId>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.branchNumber !== undefined && obj.branchNumber !== null) {
     xml += serializeNumber('branchNumber', obj.branchNumber);
@@ -1008,7 +1008,7 @@ export function serializeTerminalId(obj: T.TerminalId, elemName: string): string
   return xml;
 }
 
-export function serializeTerminal(obj: T.Terminal, elemName: string): string {
+export function serializeTerminal(obj: T.Input<T.Terminal>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.branchNumber !== undefined && obj.branchNumber !== null) {
     xml += serializeNumber('branchNumber', obj.branchNumber);
@@ -1047,7 +1047,7 @@ export function serializeTerminal(obj: T.Terminal, elemName: string): string {
   return xml;
 }
 
-export function serializeIdempotentReq(obj: T.IdempotentReq, elemName: string): string {
+export function serializeIdempotentReq(obj: T.Input<T.IdempotentReq>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.idempotencyKey !== undefined && obj.idempotencyKey !== null) {
     xml += serializeString('idempotencyKey', String(obj.idempotencyKey));
@@ -1056,7 +1056,7 @@ export function serializeIdempotentReq(obj: T.IdempotentReq, elemName: string): 
   return xml;
 }
 
-export function serializeIdempotentResp(obj: T.IdempotentResp, elemName: string): string {
+export function serializeIdempotentResp(obj: T.Input<T.IdempotentResp>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.idempotencyResult !== undefined && obj.idempotencyResult !== null) {
     xml += serializeString('idempotencyResult', String(obj.idempotencyResult));
@@ -1065,7 +1065,7 @@ export function serializeIdempotentResp(obj: T.IdempotentResp, elemName: string)
   return xml;
 }
 
-export function serializeWebhookExternalDiscount(obj: T.WebhookExternalDiscount, elemName: string): string {
+export function serializeWebhookExternalDiscount(obj: T.Input<T.WebhookExternalDiscount>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.discountId !== undefined && obj.discountId !== null) {
     xml += serializeString('discountId', String(obj.discountId));
@@ -1089,7 +1089,7 @@ export function serializeWebhookExternalDiscount(obj: T.WebhookExternalDiscount,
   return xml;
 }
 
-export function serializeBranchFilter(obj: T.BranchFilter, elemName: string): string {
+export function serializeBranchFilter(obj: T.Input<T.BranchFilter>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.branchNumbers !== undefined && obj.branchNumbers !== null) {
     for (const item of obj.branchNumbers) {
@@ -1100,7 +1100,7 @@ export function serializeBranchFilter(obj: T.BranchFilter, elemName: string): st
   return xml;
 }
 
-export function serializeAuthorizationsList(obj: T.AuthorizationsList, elemName: string): string {
+export function serializeAuthorizationsList(obj: T.Input<T.AuthorizationsList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.authorizations !== undefined && obj.authorizations !== null) {
     for (const item of obj.authorizations) {
@@ -1111,7 +1111,7 @@ export function serializeAuthorizationsList(obj: T.AuthorizationsList, elemName:
   return xml;
 }
 
-export function serializeAuthorization(obj: T.Authorization, elemName: string): string {
+export function serializeAuthorization(obj: T.Input<T.Authorization>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.authorization !== undefined && obj.authorization !== null) {
     xml += serializeString('authorization', String(obj.authorization));
@@ -1130,7 +1130,7 @@ export function serializeAuthorization(obj: T.Authorization, elemName: string): 
   return xml;
 }
 
-export function serializeBranchGroupFilter(obj: T.BranchGroupFilter, elemName: string): string {
+export function serializeBranchGroupFilter(obj: T.Input<T.BranchGroupFilter>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.branchGroups !== undefined && obj.branchGroups !== null) {
     for (const item of obj.branchGroups) {
@@ -1141,7 +1141,7 @@ export function serializeBranchGroupFilter(obj: T.BranchGroupFilter, elemName: s
   return xml;
 }
 
-export function serializeOwnerLabelFilter(obj: T.OwnerLabelFilter, elemName: string): string {
+export function serializeOwnerLabelFilter(obj: T.Input<T.OwnerLabelFilter>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.ownerLabels !== undefined && obj.ownerLabels !== null) {
     for (const item of obj.ownerLabels) {
@@ -1152,7 +1152,7 @@ export function serializeOwnerLabelFilter(obj: T.OwnerLabelFilter, elemName: str
   return xml;
 }
 
-export function serializeIdList(obj: T.IdList, elemName: string): string {
+export function serializeIdList(obj: T.Input<T.IdList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.id !== undefined && obj.id !== null) {
     for (const item of obj.id) {
@@ -1163,7 +1163,7 @@ export function serializeIdList(obj: T.IdList, elemName: string): string {
   return xml;
 }
 
-export function serializeOrder(obj: T.Order, elemName: string): string {
+export function serializeOrder(obj: T.Input<T.Order>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.orderId !== undefined && obj.orderId !== null) {
     xml += serializeString('orderId', String(obj.orderId));
@@ -1396,7 +1396,7 @@ export function serializeOrder(obj: T.Order, elemName: string): string {
   return xml;
 }
 
-export function serializeOrderList(obj: T.OrderList, elemName: string): string {
+export function serializeOrderList(obj: T.Input<T.OrderList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.order !== undefined && obj.order !== null) {
     for (const item of obj.order) {
@@ -1407,7 +1407,7 @@ export function serializeOrderList(obj: T.OrderList, elemName: string): string {
   return xml;
 }
 
-export function serializeOrderInput(obj: T.OrderInput, elemName: string): string {
+export function serializeOrderInput(obj: T.Input<T.OrderInput>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.orderId !== undefined && obj.orderId !== null) {
     xml += serializeString('orderId', String(obj.orderId));
@@ -1501,7 +1501,7 @@ export function serializeOrderInput(obj: T.OrderInput, elemName: string): string
   return xml;
 }
 
-export function serializeOrderTypeList(obj: T.OrderTypeList, elemName: string): string {
+export function serializeOrderTypeList(obj: T.Input<T.OrderTypeList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.orderType !== undefined && obj.orderType !== null) {
     for (const item of obj.orderType) {
@@ -1512,7 +1512,7 @@ export function serializeOrderTypeList(obj: T.OrderTypeList, elemName: string): 
   return xml;
 }
 
-export function serializeYearNumber(obj: T.YearNumber, elemName: string): string {
+export function serializeYearNumber(obj: T.Input<T.YearNumber>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.year !== undefined && obj.year !== null) {
     xml += serializeNumber('year', obj.year);
@@ -1524,7 +1524,7 @@ export function serializeYearNumber(obj: T.YearNumber, elemName: string): string
   return xml;
 }
 
-export function serializeYearNumberList(obj: T.YearNumberList, elemName: string): string {
+export function serializeYearNumberList(obj: T.Input<T.YearNumberList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.yearNumber !== undefined && obj.yearNumber !== null) {
     for (const item of obj.yearNumber) {
@@ -1535,7 +1535,7 @@ export function serializeYearNumberList(obj: T.YearNumberList, elemName: string)
   return xml;
 }
 
-export function serializeYearNumberPart(obj: T.YearNumberPart, elemName: string): string {
+export function serializeYearNumberPart(obj: T.Input<T.YearNumberPart>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.year !== undefined && obj.year !== null) {
     xml += serializeNumber('year', obj.year);
@@ -1550,7 +1550,7 @@ export function serializeYearNumberPart(obj: T.YearNumberPart, elemName: string)
   return xml;
 }
 
-export function serializeAddress(obj: T.Address, elemName: string): string {
+export function serializeAddress(obj: T.Input<T.Address>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.addressId !== undefined && obj.addressId !== null) {
     xml += serializeString('addressId', String(obj.addressId));
@@ -1586,7 +1586,7 @@ export function serializeAddress(obj: T.Address, elemName: string): string {
   return xml;
 }
 
-export function serializeContractFrequencyList(obj: T.ContractFrequencyList, elemName: string): string {
+export function serializeContractFrequencyList(obj: T.Input<T.ContractFrequencyList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.contractFrequency !== undefined && obj.contractFrequency !== null) {
     for (const item of obj.contractFrequency) {
@@ -1597,7 +1597,7 @@ export function serializeContractFrequencyList(obj: T.ContractFrequencyList, ele
   return xml;
 }
 
-export function serializeSalesLineContractLine(obj: T.SalesLineContractLine, elemName: string): string {
+export function serializeSalesLineContractLine(obj: T.Input<T.SalesLineContractLine>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.lineNumber !== undefined && obj.lineNumber !== null) {
     xml += serializeNumber('lineNumber', obj.lineNumber);
@@ -1630,7 +1630,7 @@ export function serializeSalesLineContractLine(obj: T.SalesLineContractLine, ele
   return xml;
 }
 
-export function serializeSalesLineContractLineList(obj: T.SalesLineContractLineList, elemName: string): string {
+export function serializeSalesLineContractLineList(obj: T.Input<T.SalesLineContractLineList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.contractLine !== undefined && obj.contractLine !== null) {
     for (const item of obj.contractLine) {
@@ -1641,7 +1641,7 @@ export function serializeSalesLineContractLineList(obj: T.SalesLineContractLineL
   return xml;
 }
 
-export function serializeWebhookLineData(obj: T.WebhookLineData, elemName: string): string {
+export function serializeWebhookLineData(obj: T.Input<T.WebhookLineData>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.webhookLineId !== undefined && obj.webhookLineId !== null) {
     xml += serializeString('webhookLineId', String(obj.webhookLineId));
@@ -1656,7 +1656,7 @@ export function serializeWebhookLineData(obj: T.WebhookLineData, elemName: strin
   return xml;
 }
 
-export function serializeLineList(obj: T.LineList, elemName: string): string {
+export function serializeLineList(obj: T.Input<T.LineList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.line !== undefined && obj.line !== null) {
     for (const item of obj.line) {
@@ -1667,7 +1667,7 @@ export function serializeLineList(obj: T.LineList, elemName: string): string {
   return xml;
 }
 
-export function serializeLineData(obj: T.LineData, elemName: string): string {
+export function serializeLineData(obj: T.Input<T.LineData>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.quantity !== undefined && obj.quantity !== null) {
     xml += serializeNumber('quantity', obj.quantity);
@@ -1802,7 +1802,7 @@ export function serializeLineData(obj: T.LineData, elemName: string): string {
   return xml;
 }
 
-export function serializeLine(obj: T.Line, elemName: string): string {
+export function serializeLine(obj: T.Input<T.Line>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.lineId !== undefined && obj.lineId !== null) {
     xml += serializeString('lineId', String(obj.lineId));
@@ -1892,7 +1892,7 @@ export function serializeLine(obj: T.Line, elemName: string): string {
   return xml;
 }
 
-export function serializeLineDataInput(obj: T.LineDataInput, elemName: string): string {
+export function serializeLineDataInput(obj: T.Input<T.LineDataInput>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.quantity !== undefined && obj.quantity !== null) {
     xml += serializeString('quantity', String(obj.quantity));
@@ -1949,7 +1949,7 @@ export function serializeLineDataInput(obj: T.LineDataInput, elemName: string): 
   return xml;
 }
 
-export function serializeLineInputList(obj: T.LineInputList, elemName: string): string {
+export function serializeLineInputList(obj: T.Input<T.LineInputList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.line !== undefined && obj.line !== null) {
     for (const item of obj.line) {
@@ -1960,7 +1960,7 @@ export function serializeLineInputList(obj: T.LineInputList, elemName: string): 
   return xml;
 }
 
-export function serializeLineInput(obj: T.LineInput, elemName: string): string {
+export function serializeLineInput(obj: T.Input<T.LineInput>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.lineId !== undefined && obj.lineId !== null) {
     xml += serializeString('lineId', String(obj.lineId));
@@ -2016,7 +2016,7 @@ export function serializeLineInput(obj: T.LineInput, elemName: string): string {
   return xml;
 }
 
-export function serializeAnswer(obj: T.Answer, elemName: string): string {
+export function serializeAnswer(obj: T.Input<T.Answer>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.questionId !== undefined && obj.questionId !== null) {
     xml += serializeNumber('questionId', obj.questionId);
@@ -2031,7 +2031,7 @@ export function serializeAnswer(obj: T.Answer, elemName: string): string {
   return xml;
 }
 
-export function serializeAnswerList(obj: T.AnswerList, elemName: string): string {
+export function serializeAnswerList(obj: T.Input<T.AnswerList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.answer !== undefined && obj.answer !== null) {
     for (const item of obj.answer) {
@@ -2042,7 +2042,7 @@ export function serializeAnswerList(obj: T.AnswerList, elemName: string): string
   return xml;
 }
 
-export function serializeInvoice(obj: T.Invoice, elemName: string): string {
+export function serializeInvoice(obj: T.Input<T.Invoice>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.invoiceId !== undefined && obj.invoiceId !== null) {
     xml += serializeString('invoiceId', String(obj.invoiceId));
@@ -2273,7 +2273,7 @@ export function serializeInvoice(obj: T.Invoice, elemName: string): string {
   return xml;
 }
 
-export function serializeInvoiceList(obj: T.InvoiceList, elemName: string): string {
+export function serializeInvoiceList(obj: T.Input<T.InvoiceList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.invoice !== undefined && obj.invoice !== null) {
     for (const item of obj.invoice) {
@@ -2284,7 +2284,7 @@ export function serializeInvoiceList(obj: T.InvoiceList, elemName: string): stri
   return xml;
 }
 
-export function serializeInvoiceInput(obj: T.InvoiceInput, elemName: string): string {
+export function serializeInvoiceInput(obj: T.Input<T.InvoiceInput>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.invoiceId !== undefined && obj.invoiceId !== null) {
     xml += serializeString('invoiceId', String(obj.invoiceId));
@@ -2354,7 +2354,7 @@ export function serializeInvoiceInput(obj: T.InvoiceInput, elemName: string): st
   return xml;
 }
 
-export function serializeText(obj: T.Text, elemName: string): string {
+export function serializeText(obj: T.Input<T.Text>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.text !== undefined && obj.text !== null) {
     xml += serializeString('text', String(obj.text));
@@ -2363,7 +2363,7 @@ export function serializeText(obj: T.Text, elemName: string): string {
   return xml;
 }
 
-export function serializeTextList(obj: T.TextList, elemName: string): string {
+export function serializeTextList(obj: T.Input<T.TextList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.text !== undefined && obj.text !== null) {
     for (const item of obj.text) {
@@ -2374,7 +2374,7 @@ export function serializeTextList(obj: T.TextList, elemName: string): string {
   return xml;
 }
 
-export function serializeVoucherId(obj: T.VoucherId, elemName: string): string {
+export function serializeVoucherId(obj: T.Input<T.VoucherId>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.id !== undefined && obj.id !== null) {
     xml += serializeString('id', String(obj.id));
@@ -2386,7 +2386,7 @@ export function serializeVoucherId(obj: T.VoucherId, elemName: string): string {
   return xml;
 }
 
-export function serializeVoucherIdList(obj: T.VoucherIdList, elemName: string): string {
+export function serializeVoucherIdList(obj: T.Input<T.VoucherIdList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.voucherId !== undefined && obj.voucherId !== null) {
     for (const item of obj.voucherId) {
@@ -2397,7 +2397,7 @@ export function serializeVoucherIdList(obj: T.VoucherIdList, elemName: string): 
   return xml;
 }
 
-export function serializeVoucherView(obj: T.VoucherView, elemName: string): string {
+export function serializeVoucherView(obj: T.Input<T.VoucherView>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.id !== undefined && obj.id !== null) {
     xml += serializeVoucherId(obj.id, 'id');
@@ -2433,7 +2433,7 @@ export function serializeVoucherView(obj: T.VoucherView, elemName: string): stri
   return xml;
 }
 
-export function serializeVoucherViewList(obj: T.VoucherViewList, elemName: string): string {
+export function serializeVoucherViewList(obj: T.Input<T.VoucherViewList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.voucherView !== undefined && obj.voucherView !== null) {
     for (const item of obj.voucherView) {
@@ -2444,7 +2444,7 @@ export function serializeVoucherViewList(obj: T.VoucherViewList, elemName: strin
   return xml;
 }
 
-export function serializeVoucherIssuanceRedeem(obj: T.VoucherIssuanceRedeem, elemName: string): string {
+export function serializeVoucherIssuanceRedeem(obj: T.Input<T.VoucherIssuanceRedeem>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.id !== undefined && obj.id !== null) {
     xml += serializeString('id', String(obj.id));
@@ -2483,7 +2483,7 @@ export function serializeVoucherIssuanceRedeem(obj: T.VoucherIssuanceRedeem, ele
   return xml;
 }
 
-export function serializeVoucherIssuanceRedeemList(obj: T.VoucherIssuanceRedeemList, elemName: string): string {
+export function serializeVoucherIssuanceRedeemList(obj: T.Input<T.VoucherIssuanceRedeemList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.voucherIssuanceRedeem !== undefined && obj.voucherIssuanceRedeem !== null) {
     for (const item of obj.voucherIssuanceRedeem) {
@@ -2494,7 +2494,7 @@ export function serializeVoucherIssuanceRedeemList(obj: T.VoucherIssuanceRedeemL
   return xml;
 }
 
-export function serializeVoucherIssuance(obj: T.VoucherIssuance, elemName: string): string {
+export function serializeVoucherIssuance(obj: T.Input<T.VoucherIssuance>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.id !== undefined && obj.id !== null) {
     xml += serializeString('id', String(obj.id));
@@ -2546,7 +2546,7 @@ export function serializeVoucherIssuance(obj: T.VoucherIssuance, elemName: strin
   return xml;
 }
 
-export function serializeVoucherIssuanceList(obj: T.VoucherIssuanceList, elemName: string): string {
+export function serializeVoucherIssuanceList(obj: T.Input<T.VoucherIssuanceList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.voucherIssuance !== undefined && obj.voucherIssuance !== null) {
     for (const item of obj.voucherIssuance) {
@@ -2557,13 +2557,62 @@ export function serializeVoucherIssuanceList(obj: T.VoucherIssuanceList, elemNam
   return xml;
 }
 
-export function serializeVoucherIssuanceCompact(obj: T.VoucherIssuanceCompact, elemName: string): string {
+export function serializeVoucherIssuanceCompact(obj: T.Input<T.VoucherIssuanceCompact>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.id !== undefined && obj.id !== null) {
+    xml += serializeString('id', String(obj.id));
+  }
+  if (obj.scanCode !== undefined && obj.scanCode !== null) {
+    xml += serializeString('scanCode', String(obj.scanCode));
+  }
+  if (obj.groupId !== undefined && obj.groupId !== null) {
+    xml += serializeString('groupId', String(obj.groupId));
+  }
+  if (obj.voucherId !== undefined && obj.voucherId !== null) {
+    xml += serializeVoucherId(obj.voucherId, 'voucherId');
+  }
+  if (obj.salesTurnoverId !== undefined && obj.salesTurnoverId !== null) {
+    xml += serializeString('salesTurnoverId', String(obj.salesTurnoverId));
+  }
+  if (obj.salesIssuanceId !== undefined && obj.salesIssuanceId !== null) {
+    xml += serializeString('salesIssuanceId', String(obj.salesIssuanceId));
+  }
+  if (obj.salesTurnoverLineId !== undefined && obj.salesTurnoverLineId !== null) {
+    xml += serializeString('salesTurnoverLineId', String(obj.salesTurnoverLineId));
+  }
+  if (obj.salesIssuanceLineId !== undefined && obj.salesIssuanceLineId !== null) {
+    xml += serializeString('salesIssuanceLineId', String(obj.salesIssuanceLineId));
+  }
+  if (obj.relationNumber !== undefined && obj.relationNumber !== null) {
+    xml += serializeNumber('relationNumber', obj.relationNumber);
+  }
+  if (obj.cancelled !== undefined && obj.cancelled !== null) {
+    xml += serializeBoolean('cancelled', obj.cancelled);
+  }
+  if (obj.startTs !== undefined && obj.startTs !== null) {
+    xml += serializeString('startTs', obj.startTs.toISOString());
+  }
+  if (obj.endTs !== undefined && obj.endTs !== null) {
+    xml += serializeString('endTs', obj.endTs.toISOString());
+  }
+  if (obj.voucherIssuanceRedeems !== undefined && obj.voucherIssuanceRedeems !== null) {
+    xml += `<${NS_PREFIX}:voucherIssuanceRedeems>`;
+    for (const item of obj.voucherIssuanceRedeems) {
+      xml += serializeVoucherIssuanceRedeem(item, 'voucherIssuanceRedeem');
+    }
+    xml += `</${NS_PREFIX}:voucherIssuanceRedeems>`;
+  }
+  if (obj.groupScanCode !== undefined && obj.groupScanCode !== null) {
+    xml += serializeString('groupScanCode', String(obj.groupScanCode));
+  }
+  if (obj.quantity !== undefined && obj.quantity !== null) {
+    xml += serializeNumber('quantity', obj.quantity);
+  }
   xml += `</${NS_PREFIX}:${elemName}>`;
   return xml;
 }
 
-export function serializeVoucherIssuanceCompactList(obj: T.VoucherIssuanceCompactList, elemName: string): string {
+export function serializeVoucherIssuanceCompactList(obj: T.Input<T.VoucherIssuanceCompactList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.voucherIssuanceCompact !== undefined && obj.voucherIssuanceCompact !== null) {
     for (const item of obj.voucherIssuanceCompact) {
@@ -2574,13 +2623,79 @@ export function serializeVoucherIssuanceCompactList(obj: T.VoucherIssuanceCompac
   return xml;
 }
 
-export function serializeVoucherIssuanceCandidate(obj: T.VoucherIssuanceCandidate, elemName: string): string {
+export function serializeVoucherIssuanceCandidate(obj: T.Input<T.VoucherIssuanceCandidate>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.id !== undefined && obj.id !== null) {
+    xml += serializeString('id', String(obj.id));
+  }
+  if (obj.scanCode !== undefined && obj.scanCode !== null) {
+    xml += serializeString('scanCode', String(obj.scanCode));
+  }
+  if (obj.groupId !== undefined && obj.groupId !== null) {
+    xml += serializeString('groupId', String(obj.groupId));
+  }
+  if (obj.voucherId !== undefined && obj.voucherId !== null) {
+    xml += serializeVoucherId(obj.voucherId, 'voucherId');
+  }
+  if (obj.salesTurnoverId !== undefined && obj.salesTurnoverId !== null) {
+    xml += serializeString('salesTurnoverId', String(obj.salesTurnoverId));
+  }
+  if (obj.salesIssuanceId !== undefined && obj.salesIssuanceId !== null) {
+    xml += serializeString('salesIssuanceId', String(obj.salesIssuanceId));
+  }
+  if (obj.salesTurnoverLineId !== undefined && obj.salesTurnoverLineId !== null) {
+    xml += serializeString('salesTurnoverLineId', String(obj.salesTurnoverLineId));
+  }
+  if (obj.salesIssuanceLineId !== undefined && obj.salesIssuanceLineId !== null) {
+    xml += serializeString('salesIssuanceLineId', String(obj.salesIssuanceLineId));
+  }
+  if (obj.relationNumber !== undefined && obj.relationNumber !== null) {
+    xml += serializeNumber('relationNumber', obj.relationNumber);
+  }
+  if (obj.cancelled !== undefined && obj.cancelled !== null) {
+    xml += serializeBoolean('cancelled', obj.cancelled);
+  }
+  if (obj.startTs !== undefined && obj.startTs !== null) {
+    xml += serializeString('startTs', obj.startTs.toISOString());
+  }
+  if (obj.endTs !== undefined && obj.endTs !== null) {
+    xml += serializeString('endTs', obj.endTs.toISOString());
+  }
+  if (obj.voucherIssuanceRedeems !== undefined && obj.voucherIssuanceRedeems !== null) {
+    xml += `<${NS_PREFIX}:voucherIssuanceRedeems>`;
+    for (const item of obj.voucherIssuanceRedeems) {
+      xml += serializeVoucherIssuanceRedeem(item, 'voucherIssuanceRedeem');
+    }
+    xml += `</${NS_PREFIX}:voucherIssuanceRedeems>`;
+  }
+  if (obj.groupScanCode !== undefined && obj.groupScanCode !== null) {
+    xml += serializeString('groupScanCode', String(obj.groupScanCode));
+  }
+  if (obj.quantity !== undefined && obj.quantity !== null) {
+    xml += serializeNumber('quantity', obj.quantity);
+  }
+  if (obj.sourceArticleNumber !== undefined && obj.sourceArticleNumber !== null) {
+    xml += serializeNumber('sourceArticleNumber', obj.sourceArticleNumber);
+  }
+  if (obj.relationRequired !== undefined && obj.relationRequired !== null) {
+    xml += serializeBoolean('relationRequired', obj.relationRequired);
+  }
+  if (obj.pendingStartTsRequired !== undefined && obj.pendingStartTsRequired !== null) {
+    xml += serializeBoolean('pendingStartTsRequired', obj.pendingStartTsRequired);
+  }
+  if (obj.view !== undefined && obj.view !== null) {
+    xml += serializeVoucherView(obj.view, 'view');
+  }
+  if (obj.externalScanCodes !== undefined && obj.externalScanCodes !== null) {
+    for (const item of obj.externalScanCodes) {
+      xml += serializeString('externalScanCodes', String(item));
+    }
+  }
   xml += `</${NS_PREFIX}:${elemName}>`;
   return xml;
 }
 
-export function serializeVoucherIssuanceCandidateList(obj: T.VoucherIssuanceCandidateList, elemName: string): string {
+export function serializeVoucherIssuanceCandidateList(obj: T.Input<T.VoucherIssuanceCandidateList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.voucherIssuanceCandidate !== undefined && obj.voucherIssuanceCandidate !== null) {
     for (const item of obj.voucherIssuanceCandidate) {
@@ -2591,7 +2706,7 @@ export function serializeVoucherIssuanceCandidateList(obj: T.VoucherIssuanceCand
   return xml;
 }
 
-export function serializeVoucherIssuanceScanCode(obj: T.VoucherIssuanceScanCode, elemName: string): string {
+export function serializeVoucherIssuanceScanCode(obj: T.Input<T.VoucherIssuanceScanCode>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.id !== undefined && obj.id !== null) {
     xml += serializeString('id', String(obj.id));
@@ -2609,7 +2724,7 @@ export function serializeVoucherIssuanceScanCode(obj: T.VoucherIssuanceScanCode,
   return xml;
 }
 
-export function serializeVoucherRedeemCount(obj: T.VoucherRedeemCount, elemName: string): string {
+export function serializeVoucherRedeemCount(obj: T.Input<T.VoucherRedeemCount>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.period !== undefined && obj.period !== null) {
     xml += serializeString('period', String(obj.period));
@@ -2621,7 +2736,7 @@ export function serializeVoucherRedeemCount(obj: T.VoucherRedeemCount, elemName:
   return xml;
 }
 
-export function serializeVoucherRedeemCountList(obj: T.VoucherRedeemCountList, elemName: string): string {
+export function serializeVoucherRedeemCountList(obj: T.Input<T.VoucherRedeemCountList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.voucherRedeemCount !== undefined && obj.voucherRedeemCount !== null) {
     for (const item of obj.voucherRedeemCount) {
@@ -2632,7 +2747,7 @@ export function serializeVoucherRedeemCountList(obj: T.VoucherRedeemCountList, e
   return xml;
 }
 
-export function serializeVoucherCanApplyResult(obj: T.VoucherCanApplyResult, elemName: string): string {
+export function serializeVoucherCanApplyResult(obj: T.Input<T.VoucherCanApplyResult>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.recentRedeemCounts !== undefined && obj.recentRedeemCounts !== null) {
     xml += `<${NS_PREFIX}:recentRedeemCounts>`;
@@ -2672,7 +2787,7 @@ export function serializeVoucherCanApplyResult(obj: T.VoucherCanApplyResult, ele
   return xml;
 }
 
-export function serializeUnappliedVoucherIssuance(obj: T.UnappliedVoucherIssuance, elemName: string): string {
+export function serializeUnappliedVoucherIssuance(obj: T.Input<T.UnappliedVoucherIssuance>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.id !== undefined && obj.id !== null) {
     xml += serializeString('id', String(obj.id));
@@ -2690,7 +2805,7 @@ export function serializeUnappliedVoucherIssuance(obj: T.UnappliedVoucherIssuanc
   return xml;
 }
 
-export function serializeUnappliedVoucherIssuanceList(obj: T.UnappliedVoucherIssuanceList, elemName: string): string {
+export function serializeUnappliedVoucherIssuanceList(obj: T.Input<T.UnappliedVoucherIssuanceList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.unappliedVoucherIssuance !== undefined && obj.unappliedVoucherIssuance !== null) {
     for (const item of obj.unappliedVoucherIssuance) {
@@ -2701,7 +2816,7 @@ export function serializeUnappliedVoucherIssuanceList(obj: T.UnappliedVoucherIss
   return xml;
 }
 
-export function serializeVoucherIssuanceRedeemable(obj: T.VoucherIssuanceRedeemable, elemName: string): string {
+export function serializeVoucherIssuanceRedeemable(obj: T.Input<T.VoucherIssuanceRedeemable>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.issuances !== undefined && obj.issuances !== null) {
     xml += `<${NS_PREFIX}:issuances>`;
@@ -2724,7 +2839,7 @@ export function serializeVoucherIssuanceRedeemable(obj: T.VoucherIssuanceRedeema
   return xml;
 }
 
-export function serializeVoucherIssuanceRedeemableList(obj: T.VoucherIssuanceRedeemableList, elemName: string): string {
+export function serializeVoucherIssuanceRedeemableList(obj: T.Input<T.VoucherIssuanceRedeemableList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.voucherIssuanceRedeemable !== undefined && obj.voucherIssuanceRedeemable !== null) {
     for (const item of obj.voucherIssuanceRedeemable) {
@@ -2735,7 +2850,7 @@ export function serializeVoucherIssuanceRedeemableList(obj: T.VoucherIssuanceRed
   return xml;
 }
 
-export function serializeRequestSalesRepeatTemplateTypeFilter(obj: T.RequestSalesRepeatTemplateTypeFilter, elemName: string): string {
+export function serializeRequestSalesRepeatTemplateTypeFilter(obj: T.Input<T.RequestSalesRepeatTemplateTypeFilter>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.salesRepeatTemplateTypes !== undefined && obj.salesRepeatTemplateTypes !== null) {
     for (const item of obj.salesRepeatTemplateTypes) {
@@ -2746,7 +2861,7 @@ export function serializeRequestSalesRepeatTemplateTypeFilter(obj: T.RequestSale
   return xml;
 }
 
-export function serializeRequestSalesRepeatTemplateIdsFilter(obj: T.RequestSalesRepeatTemplateIdsFilter, elemName: string): string {
+export function serializeRequestSalesRepeatTemplateIdsFilter(obj: T.Input<T.RequestSalesRepeatTemplateIdsFilter>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.templateIds !== undefined && obj.templateIds !== null) {
     xml += `<${NS_PREFIX}:templateIds>`;
@@ -2759,7 +2874,7 @@ export function serializeRequestSalesRepeatTemplateIdsFilter(obj: T.RequestSales
   return xml;
 }
 
-export function serializeYearNumberVersion(obj: T.YearNumberVersion, elemName: string): string {
+export function serializeYearNumberVersion(obj: T.Input<T.YearNumberVersion>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.year !== undefined && obj.year !== null) {
     xml += serializeNumber('year', obj.year);
@@ -2774,7 +2889,7 @@ export function serializeYearNumberVersion(obj: T.YearNumberVersion, elemName: s
   return xml;
 }
 
-export function serializeWorkplaceYearNumber(obj: T.WorkplaceYearNumber, elemName: string): string {
+export function serializeWorkplaceYearNumber(obj: T.Input<T.WorkplaceYearNumber>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.branchNumber !== undefined && obj.branchNumber !== null) {
     xml += serializeNumber('branchNumber', obj.branchNumber);
@@ -2792,7 +2907,7 @@ export function serializeWorkplaceYearNumber(obj: T.WorkplaceYearNumber, elemNam
   return xml;
 }
 
-export function serializeNumberSet(obj: T.NumberSet, elemName: string): string {
+export function serializeNumberSet(obj: T.Input<T.NumberSet>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.number !== undefined && obj.number !== null) {
     for (const item of obj.number) {
@@ -2803,7 +2918,7 @@ export function serializeNumberSet(obj: T.NumberSet, elemName: string): string {
   return xml;
 }
 
-export function serializeSalesPrice(obj: T.SalesPrice, elemName: string): string {
+export function serializeSalesPrice(obj: T.Input<T.SalesPrice>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.salesPriceNumber !== undefined && obj.salesPriceNumber !== null) {
     xml += serializeNumber('salesPriceNumber', obj.salesPriceNumber);
@@ -2833,7 +2948,7 @@ export function serializeSalesPrice(obj: T.SalesPrice, elemName: string): string
   return xml;
 }
 
-export function serializeSalesPriceList(obj: T.SalesPriceList, elemName: string): string {
+export function serializeSalesPriceList(obj: T.Input<T.SalesPriceList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.salesPrice !== undefined && obj.salesPrice !== null) {
     for (const item of obj.salesPrice) {
@@ -2844,7 +2959,7 @@ export function serializeSalesPriceList(obj: T.SalesPriceList, elemName: string)
   return xml;
 }
 
-export function serializePriceGroup(obj: T.PriceGroup, elemName: string): string {
+export function serializePriceGroup(obj: T.Input<T.PriceGroup>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.priceGroupNumber !== undefined && obj.priceGroupNumber !== null) {
     xml += serializeNumber('priceGroupNumber', obj.priceGroupNumber);
@@ -2868,7 +2983,7 @@ export function serializePriceGroup(obj: T.PriceGroup, elemName: string): string
   return xml;
 }
 
-export function serializePriceGroupList(obj: T.PriceGroupList, elemName: string): string {
+export function serializePriceGroupList(obj: T.Input<T.PriceGroupList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.priceGroup !== undefined && obj.priceGroup !== null) {
     for (const item of obj.priceGroup) {
@@ -2879,7 +2994,7 @@ export function serializePriceGroupList(obj: T.PriceGroupList, elemName: string)
   return xml;
 }
 
-export function serializeMistake(obj: T.Mistake, elemName: string): string {
+export function serializeMistake(obj: T.Input<T.Mistake>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.articleNumber !== undefined && obj.articleNumber !== null) {
     xml += serializeNumber('articleNumber', obj.articleNumber);
@@ -2900,7 +3015,7 @@ export function serializeMistake(obj: T.Mistake, elemName: string): string {
   return xml;
 }
 
-export function serializeMistakeList(obj: T.MistakeList, elemName: string): string {
+export function serializeMistakeList(obj: T.Input<T.MistakeList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.mistake !== undefined && obj.mistake !== null) {
     for (const item of obj.mistake) {
@@ -2911,7 +3026,7 @@ export function serializeMistakeList(obj: T.MistakeList, elemName: string): stri
   return xml;
 }
 
-export function serializeLogMistakeRequest(obj: T.LogMistakeRequest, elemName: string): string {
+export function serializeLogMistakeRequest(obj: T.Input<T.LogMistakeRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.employeeNumber !== undefined && obj.employeeNumber !== null) {
     xml += serializeNumber('employeeNumber', obj.employeeNumber);
@@ -2927,7 +3042,7 @@ export function serializeLogMistakeRequest(obj: T.LogMistakeRequest, elemName: s
   return xml;
 }
 
-export function serializeGetRelationsRequest(obj: T.GetRelationsRequest, elemName: string): string {
+export function serializeGetRelationsRequest(obj: T.Input<T.GetRelationsRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.relationNumbers !== undefined && obj.relationNumbers !== null) {
     for (const item of obj.relationNumbers) {
@@ -2947,7 +3062,7 @@ export function serializeGetRelationsRequest(obj: T.GetRelationsRequest, elemNam
   return xml;
 }
 
-export function serializeCardCategory(obj: T.CardCategory, elemName: string): string {
+export function serializeCardCategory(obj: T.Input<T.CardCategory>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.categoryId !== undefined && obj.categoryId !== null) {
     xml += serializeNumber('categoryId', obj.categoryId);
@@ -2965,7 +3080,7 @@ export function serializeCardCategory(obj: T.CardCategory, elemName: string): st
   return xml;
 }
 
-export function serializeCardCategoryList(obj: T.CardCategoryList, elemName: string): string {
+export function serializeCardCategoryList(obj: T.Input<T.CardCategoryList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.cardCategory !== undefined && obj.cardCategory !== null) {
     for (const item of obj.cardCategory) {
@@ -2976,7 +3091,7 @@ export function serializeCardCategoryList(obj: T.CardCategoryList, elemName: str
   return xml;
 }
 
-export function serializeAdjustPointsRequest(obj: T.AdjustPointsRequest, elemName: string): string {
+export function serializeAdjustPointsRequest(obj: T.Input<T.AdjustPointsRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.relationNumber !== undefined && obj.relationNumber !== null) {
     xml += serializeNumber('relationNumber', obj.relationNumber);
@@ -2991,7 +3106,7 @@ export function serializeAdjustPointsRequest(obj: T.AdjustPointsRequest, elemNam
   return xml;
 }
 
-export function serializeGetRelationPoints(obj: T.GetRelationPoints, elemName: string): string {
+export function serializeGetRelationPoints(obj: T.Input<T.GetRelationPoints>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.relationNumber !== undefined && obj.relationNumber !== null) {
     xml += serializeNumber('relationNumber', obj.relationNumber);
@@ -3006,7 +3121,7 @@ export function serializeGetRelationPoints(obj: T.GetRelationPoints, elemName: s
   return xml;
 }
 
-export function serializeGetRelationPointsRequest(obj: T.GetRelationPointsRequest, elemName: string): string {
+export function serializeGetRelationPointsRequest(obj: T.Input<T.GetRelationPointsRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.relationNumbers !== undefined && obj.relationNumbers !== null) {
     for (const item of obj.relationNumbers) {
@@ -3023,7 +3138,7 @@ export function serializeGetRelationPointsRequest(obj: T.GetRelationPointsReques
   return xml;
 }
 
-export function serializegetEmployeesRequest(obj: T.getEmployeesRequest, elemName: string): string {
+export function serializegetEmployeesRequest(obj: T.Input<T.getEmployeesRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.employeeNumbers !== undefined && obj.employeeNumbers !== null) {
     for (const item of obj.employeeNumbers) {
@@ -3040,7 +3155,7 @@ export function serializegetEmployeesRequest(obj: T.getEmployeesRequest, elemNam
   return xml;
 }
 
-export function serializeEmployeeName(obj: T.EmployeeName, elemName: string): string {
+export function serializeEmployeeName(obj: T.Input<T.EmployeeName>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.number !== undefined && obj.number !== null) {
     xml += serializeNumber('number', obj.number);
@@ -3070,7 +3185,7 @@ export function serializeEmployeeName(obj: T.EmployeeName, elemName: string): st
   return xml;
 }
 
-export function serializeTableNumberList(obj: T.TableNumberList, elemName: string): string {
+export function serializeTableNumberList(obj: T.Input<T.TableNumberList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.tableNumber !== undefined && obj.tableNumber !== null) {
     for (const item of obj.tableNumber) {
@@ -3081,7 +3196,7 @@ export function serializeTableNumberList(obj: T.TableNumberList, elemName: strin
   return xml;
 }
 
-export function serializeTable(obj: T.Table, elemName: string): string {
+export function serializeTable(obj: T.Input<T.Table>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.number !== undefined && obj.number !== null) {
     xml += serializeNumber('number', obj.number);
@@ -3138,7 +3253,7 @@ export function serializeTable(obj: T.Table, elemName: string): string {
   return xml;
 }
 
-export function serializeTableNumber(obj: T.TableNumber, elemName: string): string {
+export function serializeTableNumber(obj: T.Input<T.TableNumber>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.tableNumber !== undefined && obj.tableNumber !== null) {
     xml += serializeNumber('tableNumber', obj.tableNumber);
@@ -3150,7 +3265,7 @@ export function serializeTableNumber(obj: T.TableNumber, elemName: string): stri
   return xml;
 }
 
-export function serializeTableRelation(obj: T.TableRelation, elemName: string): string {
+export function serializeTableRelation(obj: T.Input<T.TableRelation>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.relationNumber !== undefined && obj.relationNumber !== null) {
     xml += serializeNumber('relationNumber', obj.relationNumber);
@@ -3162,7 +3277,7 @@ export function serializeTableRelation(obj: T.TableRelation, elemName: string): 
   return xml;
 }
 
-export function serializeTableCourse(obj: T.TableCourse, elemName: string): string {
+export function serializeTableCourse(obj: T.Input<T.TableCourse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.number !== undefined && obj.number !== null) {
     xml += serializeNumber('number', obj.number);
@@ -3177,7 +3292,7 @@ export function serializeTableCourse(obj: T.TableCourse, elemName: string): stri
   return xml;
 }
 
-export function serializeOccupiedTableDetails(obj: T.OccupiedTableDetails, elemName: string): string {
+export function serializeOccupiedTableDetails(obj: T.Input<T.OccupiedTableDetails>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.createTimestamp !== undefined && obj.createTimestamp !== null) {
     xml += serializeDateTime('createTimestamp', obj.createTimestamp);
@@ -3222,7 +3337,7 @@ export function serializeOccupiedTableDetails(obj: T.OccupiedTableDetails, elemN
   return xml;
 }
 
-export function serializeSubTableState(obj: T.SubTableState, elemName: string): string {
+export function serializeSubTableState(obj: T.Input<T.SubTableState>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.tableNumber !== undefined && obj.tableNumber !== null) {
     xml += serializeTableNumber(obj.tableNumber, 'tableNumber');
@@ -3243,7 +3358,7 @@ export function serializeSubTableState(obj: T.SubTableState, elemName: string): 
   return xml;
 }
 
-export function serializeSubTableList(obj: T.SubTableList, elemName: string): string {
+export function serializeSubTableList(obj: T.Input<T.SubTableList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.subTable !== undefined && obj.subTable !== null) {
     for (const item of obj.subTable) {
@@ -3254,7 +3369,7 @@ export function serializeSubTableList(obj: T.SubTableList, elemName: string): st
   return xml;
 }
 
-export function serializeWholeTable(obj: T.WholeTable, elemName: string): string {
+export function serializeWholeTable(obj: T.Input<T.WholeTable>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.number !== undefined && obj.number !== null) {
     xml += serializeNumber('number', obj.number);
@@ -3282,7 +3397,7 @@ export function serializeWholeTable(obj: T.WholeTable, elemName: string): string
   return xml;
 }
 
-export function serializegetTableListV3Request(obj: T.getTableListV3Request, elemName: string): string {
+export function serializegetTableListV3Request(obj: T.Input<T.getTableListV3Request>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.branchNumber !== undefined && obj.branchNumber !== null) {
     xml += serializeNumber('branchNumber', obj.branchNumber);
@@ -3291,7 +3406,7 @@ export function serializegetTableListV3Request(obj: T.getTableListV3Request, ele
   return xml;
 }
 
-export function serializeMainTable(obj: T.MainTable, elemName: string): string {
+export function serializeMainTable(obj: T.Input<T.MainTable>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.number !== undefined && obj.number !== null) {
     xml += serializeNumber('number', obj.number);
@@ -3306,7 +3421,7 @@ export function serializeMainTable(obj: T.MainTable, elemName: string): string {
   return xml;
 }
 
-export function serializegetMainTableListRequest(obj: T.getMainTableListRequest, elemName: string): string {
+export function serializegetMainTableListRequest(obj: T.Input<T.getMainTableListRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.branchNumber !== undefined && obj.branchNumber !== null) {
     xml += serializeNumber('branchNumber', obj.branchNumber);
@@ -3315,7 +3430,7 @@ export function serializegetMainTableListRequest(obj: T.getMainTableListRequest,
   return xml;
 }
 
-export function serializegetSubTableListRequest(obj: T.getSubTableListRequest, elemName: string): string {
+export function serializegetSubTableListRequest(obj: T.Input<T.getSubTableListRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.branchNumber !== undefined && obj.branchNumber !== null) {
     xml += serializeNumber('branchNumber', obj.branchNumber);
@@ -3324,7 +3439,7 @@ export function serializegetSubTableListRequest(obj: T.getSubTableListRequest, e
   return xml;
 }
 
-export function serializeCourse(obj: T.Course, elemName: string): string {
+export function serializeCourse(obj: T.Input<T.Course>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.number !== undefined && obj.number !== null) {
     xml += serializeNumber('number', obj.number);
@@ -3372,7 +3487,7 @@ export function serializeCourse(obj: T.Course, elemName: string): string {
   return xml;
 }
 
-export function serializeCourseInfo(obj: T.CourseInfo, elemName: string): string {
+export function serializeCourseInfo(obj: T.Input<T.CourseInfo>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.number !== undefined && obj.number !== null) {
     xml += serializeNumber('number', obj.number);
@@ -3399,13 +3514,13 @@ export function serializeCourseInfo(obj: T.CourseInfo, elemName: string): string
   return xml;
 }
 
-export function serializeGetCourseListV2Request(obj: T.GetCourseListV2Request, elemName: string): string {
+export function serializeGetCourseListV2Request(obj: T.Input<T.GetCourseListV2Request>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   xml += `</${NS_PREFIX}:${elemName}>`;
   return xml;
 }
 
-export function serializeWebhookSessionData(obj: T.WebhookSessionData, elemName: string): string {
+export function serializeWebhookSessionData(obj: T.Input<T.WebhookSessionData>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.webhookSessionId !== undefined && obj.webhookSessionId !== null) {
     xml += serializeString('webhookSessionId', String(obj.webhookSessionId));
@@ -3414,7 +3529,7 @@ export function serializeWebhookSessionData(obj: T.WebhookSessionData, elemName:
   return xml;
 }
 
-export function serializeSaveTableOrderRequest(obj: T.SaveTableOrderRequest, elemName: string): string {
+export function serializeSaveTableOrderRequest(obj: T.Input<T.SaveTableOrderRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.order !== undefined && obj.order !== null) {
     xml += serializeOrder(obj.order, 'order');
@@ -3426,7 +3541,7 @@ export function serializeSaveTableOrderRequest(obj: T.SaveTableOrderRequest, ele
   return xml;
 }
 
-export function serializeCreateAndPayTableOrderRequest(obj: T.CreateAndPayTableOrderRequest, elemName: string): string {
+export function serializeCreateAndPayTableOrderRequest(obj: T.Input<T.CreateAndPayTableOrderRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.order !== undefined && obj.order !== null) {
     xml += serializeOrder(obj.order, 'order');
@@ -3435,7 +3550,7 @@ export function serializeCreateAndPayTableOrderRequest(obj: T.CreateAndPayTableO
   return xml;
 }
 
-export function serializeMoveTableOrderRequest(obj: T.MoveTableOrderRequest, elemName: string): string {
+export function serializeMoveTableOrderRequest(obj: T.Input<T.MoveTableOrderRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.order !== undefined && obj.order !== null) {
     xml += serializeOrder(obj.order, 'order');
@@ -3453,7 +3568,7 @@ export function serializeMoveTableOrderRequest(obj: T.MoveTableOrderRequest, ele
   return xml;
 }
 
-export function serializeMoveTableLine(obj: T.MoveTableLine, elemName: string): string {
+export function serializeMoveTableLine(obj: T.Input<T.MoveTableLine>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.lineId !== undefined && obj.lineId !== null) {
     xml += serializeString('lineId', String(obj.lineId));
@@ -3465,7 +3580,7 @@ export function serializeMoveTableLine(obj: T.MoveTableLine, elemName: string): 
   return xml;
 }
 
-export function serializeMoveTableLineList(obj: T.MoveTableLineList, elemName: string): string {
+export function serializeMoveTableLineList(obj: T.Input<T.MoveTableLineList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.line !== undefined && obj.line !== null) {
     for (const item of obj.line) {
@@ -3476,13 +3591,38 @@ export function serializeMoveTableLineList(obj: T.MoveTableLineList, elemName: s
   return xml;
 }
 
-export function serializeMoveTableOrderV3Request(obj: T.MoveTableOrderV3Request, elemName: string): string {
+export function serializeMoveTableOrderV3Request(obj: T.Input<T.MoveTableOrderV3Request>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.idempotencyKey !== undefined && obj.idempotencyKey !== null) {
+    xml += serializeString('idempotencyKey', String(obj.idempotencyKey));
+  }
+  if (obj.workplace !== undefined && obj.workplace !== null) {
+    xml += serializeWorkplaceIdentifier(obj.workplace, 'workplace');
+  }
+  if (obj.employee !== undefined && obj.employee !== null) {
+    xml += serializeEmployeeIdentifier(obj.employee, 'employee');
+  }
+  if (obj.orderId !== undefined && obj.orderId !== null) {
+    xml += serializeString('orderId', String(obj.orderId));
+  }
+  if (obj.lines !== undefined && obj.lines !== null) {
+    xml += `<${NS_PREFIX}:lines>`;
+    for (const item of obj.lines) {
+      xml += serializeMoveTableLine(item, 'line');
+    }
+    xml += `</${NS_PREFIX}:lines>`;
+  }
+  if (obj.destinationTable !== undefined && obj.destinationTable !== null) {
+    xml += serializeTableIdentifier(obj.destinationTable, 'destinationTable');
+  }
+  if (obj.releaseSourceTable !== undefined && obj.releaseSourceTable !== null) {
+    xml += serializeBoolean('releaseSourceTable', obj.releaseSourceTable);
+  }
   xml += `</${NS_PREFIX}:${elemName}>`;
   return xml;
 }
 
-export function serializeGetTableOrderRequest(obj: T.GetTableOrderRequest, elemName: string): string {
+export function serializeGetTableOrderRequest(obj: T.Input<T.GetTableOrderRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.tableNumber !== undefined && obj.tableNumber !== null) {
     xml += serializeNumber('tableNumber', obj.tableNumber);
@@ -3497,7 +3637,7 @@ export function serializeGetTableOrderRequest(obj: T.GetTableOrderRequest, elemN
   return xml;
 }
 
-export function serializeGetTableOrderV3Request(obj: T.GetTableOrderV3Request, elemName: string): string {
+export function serializeGetTableOrderV3Request(obj: T.Input<T.GetTableOrderV3Request>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.branchNumber !== undefined && obj.branchNumber !== null) {
     xml += serializeNumber('branchNumber', obj.branchNumber);
@@ -3530,7 +3670,7 @@ export function serializeGetTableOrderV3Request(obj: T.GetTableOrderV3Request, e
   return xml;
 }
 
-export function serializeReleaseTableRequest(obj: T.ReleaseTableRequest, elemName: string): string {
+export function serializeReleaseTableRequest(obj: T.Input<T.ReleaseTableRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.tableNumber !== undefined && obj.tableNumber !== null) {
     xml += serializeNumber('tableNumber', obj.tableNumber);
@@ -3542,7 +3682,7 @@ export function serializeReleaseTableRequest(obj: T.ReleaseTableRequest, elemNam
   return xml;
 }
 
-export function serializeReleaseTableV2Request(obj: T.ReleaseTableV2Request, elemName: string): string {
+export function serializeReleaseTableV2Request(obj: T.Input<T.ReleaseTableV2Request>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.workplace !== undefined && obj.workplace !== null) {
     xml += serializeWorkplaceIdentifier(obj.workplace, 'workplace');
@@ -3554,7 +3694,7 @@ export function serializeReleaseTableV2Request(obj: T.ReleaseTableV2Request, ele
   return xml;
 }
 
-export function serializeSetSubtableCountRequest(obj: T.SetSubtableCountRequest, elemName: string): string {
+export function serializeSetSubtableCountRequest(obj: T.Input<T.SetSubtableCountRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.brancheNumber !== undefined && obj.brancheNumber !== null) {
     xml += serializeNumber('brancheNumber', obj.brancheNumber);
@@ -3569,7 +3709,7 @@ export function serializeSetSubtableCountRequest(obj: T.SetSubtableCountRequest,
   return xml;
 }
 
-export function serializeCourseList(obj: T.CourseList, elemName: string): string {
+export function serializeCourseList(obj: T.Input<T.CourseList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.course !== undefined && obj.course !== null) {
     for (const item of obj.course) {
@@ -3580,7 +3720,7 @@ export function serializeCourseList(obj: T.CourseList, elemName: string): string
   return xml;
 }
 
-export function serializeGetTableOrderCourseListRequest(obj: T.GetTableOrderCourseListRequest, elemName: string): string {
+export function serializeGetTableOrderCourseListRequest(obj: T.Input<T.GetTableOrderCourseListRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.branchNumber !== undefined && obj.branchNumber !== null) {
     xml += serializeNumber('branchNumber', obj.branchNumber);
@@ -3595,7 +3735,7 @@ export function serializeGetTableOrderCourseListRequest(obj: T.GetTableOrderCour
   return xml;
 }
 
-export function serializeRequestNextTableOrderCourseRequest(obj: T.RequestNextTableOrderCourseRequest, elemName: string): string {
+export function serializeRequestNextTableOrderCourseRequest(obj: T.Input<T.RequestNextTableOrderCourseRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.branchNumber !== undefined && obj.branchNumber !== null) {
     xml += serializeNumber('branchNumber', obj.branchNumber);
@@ -3616,7 +3756,7 @@ export function serializeRequestNextTableOrderCourseRequest(obj: T.RequestNextTa
   return xml;
 }
 
-export function serializeRequestNextTableOrderCourseV3Request(obj: T.RequestNextTableOrderCourseV3Request, elemName: string): string {
+export function serializeRequestNextTableOrderCourseV3Request(obj: T.Input<T.RequestNextTableOrderCourseV3Request>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.workplace !== undefined && obj.workplace !== null) {
     xml += serializeWorkplaceIdentifier(obj.workplace, 'workplace');
@@ -3634,7 +3774,7 @@ export function serializeRequestNextTableOrderCourseV3Request(obj: T.RequestNext
   return xml;
 }
 
-export function serializeQueueBranchOrderInfo(obj: T.QueueBranchOrderInfo, elemName: string): string {
+export function serializeQueueBranchOrderInfo(obj: T.Input<T.QueueBranchOrderInfo>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.orderId !== undefined && obj.orderId !== null) {
     xml += serializeString('orderId', String(obj.orderId));
@@ -3646,7 +3786,7 @@ export function serializeQueueBranchOrderInfo(obj: T.QueueBranchOrderInfo, elemN
   return xml;
 }
 
-export function serializeQueueBranchOrderPaymentRequest(obj: T.QueueBranchOrderPaymentRequest, elemName: string): string {
+export function serializeQueueBranchOrderPaymentRequest(obj: T.Input<T.QueueBranchOrderPaymentRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.orderId !== undefined && obj.orderId !== null) {
     xml += serializeString('orderId', String(obj.orderId));
@@ -3665,7 +3805,7 @@ export function serializeQueueBranchOrderPaymentRequest(obj: T.QueueBranchOrderP
   return xml;
 }
 
-export function serializeUpdateOrderInfo(obj: T.UpdateOrderInfo, elemName: string): string {
+export function serializeUpdateOrderInfo(obj: T.Input<T.UpdateOrderInfo>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.orderId !== undefined && obj.orderId !== null) {
     xml += serializeString('orderId', String(obj.orderId));
@@ -3680,7 +3820,7 @@ export function serializeUpdateOrderInfo(obj: T.UpdateOrderInfo, elemName: strin
   return xml;
 }
 
-export function serializeUpdateOrderV2Request(obj: T.UpdateOrderV2Request, elemName: string): string {
+export function serializeUpdateOrderV2Request(obj: T.Input<T.UpdateOrderV2Request>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.order !== undefined && obj.order !== null) {
     xml += serializeOrder(obj.order, 'order');
@@ -3698,7 +3838,7 @@ export function serializeUpdateOrderV2Request(obj: T.UpdateOrderV2Request, elemN
   return xml;
 }
 
-export function serializeSaveOrderInfo(obj: T.SaveOrderInfo, elemName: string): string {
+export function serializeSaveOrderInfo(obj: T.Input<T.SaveOrderInfo>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.orderId !== undefined && obj.orderId !== null) {
     xml += serializeString('orderId', String(obj.orderId));
@@ -3713,7 +3853,7 @@ export function serializeSaveOrderInfo(obj: T.SaveOrderInfo, elemName: string): 
   return xml;
 }
 
-export function serializePackingSlip(obj: T.PackingSlip, elemName: string): string {
+export function serializePackingSlip(obj: T.Input<T.PackingSlip>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.packingSlipId !== undefined && obj.packingSlipId !== null) {
     xml += serializeString('packingSlipId', String(obj.packingSlipId));
@@ -3858,7 +3998,7 @@ export function serializePackingSlip(obj: T.PackingSlip, elemName: string): stri
   return xml;
 }
 
-export function serializePackingSlipList(obj: T.PackingSlipList, elemName: string): string {
+export function serializePackingSlipList(obj: T.Input<T.PackingSlipList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.packingSlip !== undefined && obj.packingSlip !== null) {
     for (const item of obj.packingSlip) {
@@ -3869,7 +4009,7 @@ export function serializePackingSlipList(obj: T.PackingSlipList, elemName: strin
   return xml;
 }
 
-export function serializeGetPackingSlipsRequest(obj: T.GetPackingSlipsRequest, elemName: string): string {
+export function serializeGetPackingSlipsRequest(obj: T.Input<T.GetPackingSlipsRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.syncMarker !== undefined && obj.syncMarker !== null) {
     xml += serializeNumber('syncMarker', obj.syncMarker);
@@ -3966,7 +4106,7 @@ export function serializeGetPackingSlipsRequest(obj: T.GetPackingSlipsRequest, e
   return xml;
 }
 
-export function serializeGetPackingSlipsByOrderRequest(obj: T.GetPackingSlipsByOrderRequest, elemName: string): string {
+export function serializeGetPackingSlipsByOrderRequest(obj: T.Input<T.GetPackingSlipsByOrderRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.orderId !== undefined && obj.orderId !== null) {
     xml += serializeString('orderId', String(obj.orderId));
@@ -3975,7 +4115,7 @@ export function serializeGetPackingSlipsByOrderRequest(obj: T.GetPackingSlipsByO
   return xml;
 }
 
-export function serializeLineChangeList(obj: T.LineChangeList, elemName: string): string {
+export function serializeLineChangeList(obj: T.Input<T.LineChangeList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.lineChange !== undefined && obj.lineChange !== null) {
     for (const item of obj.lineChange) {
@@ -3986,7 +4126,7 @@ export function serializeLineChangeList(obj: T.LineChangeList, elemName: string)
   return xml;
 }
 
-export function serializeLineChangeData(obj: T.LineChangeData, elemName: string): string {
+export function serializeLineChangeData(obj: T.Input<T.LineChangeData>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.quantityOld !== undefined && obj.quantityOld !== null) {
     xml += serializeNumber('quantityOld', obj.quantityOld);
@@ -4172,7 +4312,7 @@ export function serializeLineChangeData(obj: T.LineChangeData, elemName: string)
   return xml;
 }
 
-export function serializeLineChange(obj: T.LineChange, elemName: string): string {
+export function serializeLineChange(obj: T.Input<T.LineChange>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.lineId !== undefined && obj.lineId !== null) {
     xml += serializeString('lineId', String(obj.lineId));
@@ -4263,7 +4403,7 @@ export function serializeLineChange(obj: T.LineChange, elemName: string): string
   return xml;
 }
 
-export function serializeOrderChange(obj: T.OrderChange, elemName: string): string {
+export function serializeOrderChange(obj: T.Input<T.OrderChange>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.orderId !== undefined && obj.orderId !== null) {
     xml += serializeString('orderId', String(obj.orderId));
@@ -4468,7 +4608,7 @@ export function serializeOrderChange(obj: T.OrderChange, elemName: string): stri
   return xml;
 }
 
-export function serializeOrderChangeList(obj: T.OrderChangeList, elemName: string): string {
+export function serializeOrderChangeList(obj: T.Input<T.OrderChangeList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.orderChange !== undefined && obj.orderChange !== null) {
     for (const item of obj.orderChange) {
@@ -4479,7 +4619,7 @@ export function serializeOrderChangeList(obj: T.OrderChangeList, elemName: strin
   return xml;
 }
 
-export function serializeGetOrderChangesRequest(obj: T.GetOrderChangesRequest, elemName: string): string {
+export function serializeGetOrderChangesRequest(obj: T.Input<T.GetOrderChangesRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.syncMarker !== undefined && obj.syncMarker !== null) {
     xml += serializeNumber('syncMarker', obj.syncMarker);
@@ -4543,7 +4683,7 @@ export function serializeGetOrderChangesRequest(obj: T.GetOrderChangesRequest, e
   return xml;
 }
 
-export function serializeOrderPaymentList(obj: T.OrderPaymentList, elemName: string): string {
+export function serializeOrderPaymentList(obj: T.Input<T.OrderPaymentList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.orderPayment !== undefined && obj.orderPayment !== null) {
     for (const item of obj.orderPayment) {
@@ -4554,7 +4694,7 @@ export function serializeOrderPaymentList(obj: T.OrderPaymentList, elemName: str
   return xml;
 }
 
-export function serializeLineChangeEventList(obj: T.LineChangeEventList, elemName: string): string {
+export function serializeLineChangeEventList(obj: T.Input<T.LineChangeEventList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.lineChangeEvent !== undefined && obj.lineChangeEvent !== null) {
     for (const item of obj.lineChangeEvent) {
@@ -4565,7 +4705,7 @@ export function serializeLineChangeEventList(obj: T.LineChangeEventList, elemNam
   return xml;
 }
 
-export function serializeLONG64DataChange(obj: T.LONG64DataChange, elemName: string): string {
+export function serializeLONG64DataChange(obj: T.Input<T.LONG64DataChange>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.oldValue !== undefined && obj.oldValue !== null) {
     xml += serializeNumber('oldValue', obj.oldValue);
@@ -4577,7 +4717,7 @@ export function serializeLONG64DataChange(obj: T.LONG64DataChange, elemName: str
   return xml;
 }
 
-export function serializeDecimalDataChange(obj: T.DecimalDataChange, elemName: string): string {
+export function serializeDecimalDataChange(obj: T.Input<T.DecimalDataChange>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.oldValue !== undefined && obj.oldValue !== null) {
     xml += serializeString('oldValue', String(obj.oldValue));
@@ -4589,7 +4729,7 @@ export function serializeDecimalDataChange(obj: T.DecimalDataChange, elemName: s
   return xml;
 }
 
-export function serializeSoapMplusDateDataChange(obj: T.SoapMplusDateDataChange, elemName: string): string {
+export function serializeSoapMplusDateDataChange(obj: T.Input<T.SoapMplusDateDataChange>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.oldValue !== undefined && obj.oldValue !== null) {
     xml += serializeString('oldValue', obj.oldValue.toISOString().substring(0, 10));
@@ -4601,7 +4741,7 @@ export function serializeSoapMplusDateDataChange(obj: T.SoapMplusDateDataChange,
   return xml;
 }
 
-export function serializeSoapMplusDateTimeDataChange(obj: T.SoapMplusDateTimeDataChange, elemName: string): string {
+export function serializeSoapMplusDateTimeDataChange(obj: T.Input<T.SoapMplusDateTimeDataChange>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.oldValue !== undefined && obj.oldValue !== null) {
     xml += serializeString('oldValue', obj.oldValue.toISOString());
@@ -4613,7 +4753,7 @@ export function serializeSoapMplusDateTimeDataChange(obj: T.SoapMplusDateTimeDat
   return xml;
 }
 
-export function serializeIntDataChange(obj: T.IntDataChange, elemName: string): string {
+export function serializeIntDataChange(obj: T.Input<T.IntDataChange>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.oldValue !== undefined && obj.oldValue !== null) {
     xml += serializeNumber('oldValue', obj.oldValue);
@@ -4625,7 +4765,7 @@ export function serializeIntDataChange(obj: T.IntDataChange, elemName: string): 
   return xml;
 }
 
-export function serializeBoolDataChange(obj: T.BoolDataChange, elemName: string): string {
+export function serializeBoolDataChange(obj: T.Input<T.BoolDataChange>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.oldValue !== undefined && obj.oldValue !== null) {
     xml += serializeBoolean('oldValue', obj.oldValue);
@@ -4637,7 +4777,7 @@ export function serializeBoolDataChange(obj: T.BoolDataChange, elemName: string)
   return xml;
 }
 
-export function serializeStringDataChange(obj: T.StringDataChange, elemName: string): string {
+export function serializeStringDataChange(obj: T.Input<T.StringDataChange>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.oldValue !== undefined && obj.oldValue !== null) {
     xml += serializeString('oldValue', String(obj.oldValue));
@@ -4649,7 +4789,7 @@ export function serializeStringDataChange(obj: T.StringDataChange, elemName: str
   return xml;
 }
 
-export function serializeTableNumberDataChange(obj: T.TableNumberDataChange, elemName: string): string {
+export function serializeTableNumberDataChange(obj: T.Input<T.TableNumberDataChange>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.oldValue !== undefined && obj.oldValue !== null) {
     xml += serializeTableNumber(obj.oldValue, 'oldValue');
@@ -4661,7 +4801,7 @@ export function serializeTableNumberDataChange(obj: T.TableNumberDataChange, ele
   return xml;
 }
 
-export function serializeOrderCancelStateDataChange(obj: T.OrderCancelStateDataChange, elemName: string): string {
+export function serializeOrderCancelStateDataChange(obj: T.Input<T.OrderCancelStateDataChange>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.oldValue !== undefined && obj.oldValue !== null) {
     xml += serializeString('oldValue', String(obj.oldValue));
@@ -4673,7 +4813,7 @@ export function serializeOrderCancelStateDataChange(obj: T.OrderCancelStateDataC
   return xml;
 }
 
-export function serializeOrderDeliveryStateDataChange(obj: T.OrderDeliveryStateDataChange, elemName: string): string {
+export function serializeOrderDeliveryStateDataChange(obj: T.Input<T.OrderDeliveryStateDataChange>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.oldValue !== undefined && obj.oldValue !== null) {
     xml += serializeString('oldValue', String(obj.oldValue));
@@ -4685,7 +4825,7 @@ export function serializeOrderDeliveryStateDataChange(obj: T.OrderDeliveryStateD
   return xml;
 }
 
-export function serializeOrderCompleteStateDataChange(obj: T.OrderCompleteStateDataChange, elemName: string): string {
+export function serializeOrderCompleteStateDataChange(obj: T.Input<T.OrderCompleteStateDataChange>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.oldValue !== undefined && obj.oldValue !== null) {
     xml += serializeString('oldValue', String(obj.oldValue));
@@ -4697,7 +4837,7 @@ export function serializeOrderCompleteStateDataChange(obj: T.OrderCompleteStateD
   return xml;
 }
 
-export function serializeVatMethodDataChange(obj: T.VatMethodDataChange, elemName: string): string {
+export function serializeVatMethodDataChange(obj: T.Input<T.VatMethodDataChange>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.oldValue !== undefined && obj.oldValue !== null) {
     xml += serializeString('oldValue', String(obj.oldValue));
@@ -4709,7 +4849,7 @@ export function serializeVatMethodDataChange(obj: T.VatMethodDataChange, elemNam
   return xml;
 }
 
-export function serializeVatChangeDataChange(obj: T.VatChangeDataChange, elemName: string): string {
+export function serializeVatChangeDataChange(obj: T.Input<T.VatChangeDataChange>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.oldValue !== undefined && obj.oldValue !== null) {
     xml += serializeString('oldValue', String(obj.oldValue));
@@ -4721,7 +4861,7 @@ export function serializeVatChangeDataChange(obj: T.VatChangeDataChange, elemNam
   return xml;
 }
 
-export function serializeTableSplitEvent(obj: T.TableSplitEvent, elemName: string): string {
+export function serializeTableSplitEvent(obj: T.Input<T.TableSplitEvent>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.orderId !== undefined && obj.orderId !== null) {
     xml += serializeString('orderId', String(obj.orderId));
@@ -4739,7 +4879,7 @@ export function serializeTableSplitEvent(obj: T.TableSplitEvent, elemName: strin
   return xml;
 }
 
-export function serializeTurnoverGroupTypeDataChange(obj: T.TurnoverGroupTypeDataChange, elemName: string): string {
+export function serializeTurnoverGroupTypeDataChange(obj: T.Input<T.TurnoverGroupTypeDataChange>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.oldValue !== undefined && obj.oldValue !== null) {
     xml += serializeString('oldValue', String(obj.oldValue));
@@ -4751,7 +4891,7 @@ export function serializeTurnoverGroupTypeDataChange(obj: T.TurnoverGroupTypeDat
   return xml;
 }
 
-export function serializeDiscountTypeDataChange(obj: T.DiscountTypeDataChange, elemName: string): string {
+export function serializeDiscountTypeDataChange(obj: T.Input<T.DiscountTypeDataChange>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.oldValue !== undefined && obj.oldValue !== null) {
     xml += serializeString('oldValue', String(obj.oldValue));
@@ -4763,7 +4903,7 @@ export function serializeDiscountTypeDataChange(obj: T.DiscountTypeDataChange, e
   return xml;
 }
 
-export function serializeLineChangeEventData(obj: T.LineChangeEventData, elemName: string): string {
+export function serializeLineChangeEventData(obj: T.Input<T.LineChangeEventData>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.quantity !== undefined && obj.quantity !== null) {
     xml += serializeLONG64DataChange(obj.quantity, 'quantity');
@@ -4862,7 +5002,7 @@ export function serializeLineChangeEventData(obj: T.LineChangeEventData, elemNam
   return xml;
 }
 
-export function serializeLineChangeEvent(obj: T.LineChangeEvent, elemName: string): string {
+export function serializeLineChangeEvent(obj: T.Input<T.LineChangeEvent>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.lineId !== undefined && obj.lineId !== null) {
     xml += serializeString('lineId', String(obj.lineId));
@@ -4938,7 +5078,7 @@ export function serializeLineChangeEvent(obj: T.LineChangeEvent, elemName: strin
   return xml;
 }
 
-export function serializeOrderPayment(obj: T.OrderPayment, elemName: string): string {
+export function serializeOrderPayment(obj: T.Input<T.OrderPayment>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.orderId !== undefined && obj.orderId !== null) {
     xml += serializeString('orderId', String(obj.orderId));
@@ -4989,7 +5129,7 @@ export function serializeOrderPayment(obj: T.OrderPayment, elemName: string): st
   return xml;
 }
 
-export function serializeOrderHistory(obj: T.OrderHistory, elemName: string): string {
+export function serializeOrderHistory(obj: T.Input<T.OrderHistory>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.entryTimestamp !== undefined && obj.entryTimestamp !== null) {
     xml += serializeString('entryTimestamp', obj.entryTimestamp.toISOString());
@@ -5083,7 +5223,7 @@ export function serializeOrderHistory(obj: T.OrderHistory, elemName: string): st
   return xml;
 }
 
-export function serializeOrderHistoryList(obj: T.OrderHistoryList, elemName: string): string {
+export function serializeOrderHistoryList(obj: T.Input<T.OrderHistoryList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.orderHistory !== undefined && obj.orderHistory !== null) {
     for (const item of obj.orderHistory) {
@@ -5094,7 +5234,7 @@ export function serializeOrderHistoryList(obj: T.OrderHistoryList, elemName: str
   return xml;
 }
 
-export function serializeOrderHistoryOrderDetails(obj: T.OrderHistoryOrderDetails, elemName: string): string {
+export function serializeOrderHistoryOrderDetails(obj: T.Input<T.OrderHistoryOrderDetails>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.orderId !== undefined && obj.orderId !== null) {
     xml += serializeString('orderId', String(obj.orderId));
@@ -5165,7 +5305,7 @@ export function serializeOrderHistoryOrderDetails(obj: T.OrderHistoryOrderDetail
   return xml;
 }
 
-export function serializeOrderHistoryOrderDetailsList(obj: T.OrderHistoryOrderDetailsList, elemName: string): string {
+export function serializeOrderHistoryOrderDetailsList(obj: T.Input<T.OrderHistoryOrderDetailsList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.salesOrderHistory !== undefined && obj.salesOrderHistory !== null) {
     for (const item of obj.salesOrderHistory) {
@@ -5196,7 +5336,7 @@ export function serializeOrderHistoryOrderDetailsList(obj: T.OrderHistoryOrderDe
   return xml;
 }
 
-export function serializeGetOrderHistoryRequest(obj: T.GetOrderHistoryRequest, elemName: string): string {
+export function serializeGetOrderHistoryRequest(obj: T.Input<T.GetOrderHistoryRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.syncMarker !== undefined && obj.syncMarker !== null) {
     xml += serializeNumber('syncMarker', obj.syncMarker);
@@ -5250,7 +5390,7 @@ export function serializeGetOrderHistoryRequest(obj: T.GetOrderHistoryRequest, e
   return xml;
 }
 
-export function serializeCancelOrderRequest(obj: T.CancelOrderRequest, elemName: string): string {
+export function serializeCancelOrderRequest(obj: T.Input<T.CancelOrderRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.branchNumber !== undefined && obj.branchNumber !== null) {
     xml += serializeNumber('branchNumber', obj.branchNumber);
@@ -5259,7 +5399,7 @@ export function serializeCancelOrderRequest(obj: T.CancelOrderRequest, elemName:
   return xml;
 }
 
-export function serializeCancelOrderV2Request(obj: T.CancelOrderV2Request, elemName: string): string {
+export function serializeCancelOrderV2Request(obj: T.Input<T.CancelOrderV2Request>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.workplace !== undefined && obj.workplace !== null) {
     xml += serializeWorkplaceIdentifier(obj.workplace, 'workplace');
@@ -5274,7 +5414,7 @@ export function serializeCancelOrderV2Request(obj: T.CancelOrderV2Request, elemN
   return xml;
 }
 
-export function serializeCancelTableOrderRequest(obj: T.CancelTableOrderRequest, elemName: string): string {
+export function serializeCancelTableOrderRequest(obj: T.Input<T.CancelTableOrderRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.branchNumber !== undefined && obj.branchNumber !== null) {
     xml += serializeNumber('branchNumber', obj.branchNumber);
@@ -5289,7 +5429,7 @@ export function serializeCancelTableOrderRequest(obj: T.CancelTableOrderRequest,
   return xml;
 }
 
-export function serializePayInvoiceRequest(obj: T.PayInvoiceRequest, elemName: string): string {
+export function serializePayInvoiceRequest(obj: T.Input<T.PayInvoiceRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.invoiceId !== undefined && obj.invoiceId !== null) {
     xml += serializeString('invoiceId', String(obj.invoiceId));
@@ -5305,7 +5445,7 @@ export function serializePayInvoiceRequest(obj: T.PayInvoiceRequest, elemName: s
   return xml;
 }
 
-export function serializeDeliverOrderRequest(obj: T.DeliverOrderRequest, elemName: string): string {
+export function serializeDeliverOrderRequest(obj: T.Input<T.DeliverOrderRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.orderId !== undefined && obj.orderId !== null) {
     xml += serializeString('orderId', String(obj.orderId));
@@ -5317,7 +5457,7 @@ export function serializeDeliverOrderRequest(obj: T.DeliverOrderRequest, elemNam
   return xml;
 }
 
-export function serializeOrderDeliveryLine(obj: T.OrderDeliveryLine, elemName: string): string {
+export function serializeOrderDeliveryLine(obj: T.Input<T.OrderDeliveryLine>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.lineId !== undefined && obj.lineId !== null) {
     xml += serializeString('lineId', String(obj.lineId));
@@ -5332,7 +5472,7 @@ export function serializeOrderDeliveryLine(obj: T.OrderDeliveryLine, elemName: s
   return xml;
 }
 
-export function serializeOrderDeliveryLineList(obj: T.OrderDeliveryLineList, elemName: string): string {
+export function serializeOrderDeliveryLineList(obj: T.Input<T.OrderDeliveryLineList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.line !== undefined && obj.line !== null) {
     for (const item of obj.line) {
@@ -5343,7 +5483,7 @@ export function serializeOrderDeliveryLineList(obj: T.OrderDeliveryLineList, ele
   return xml;
 }
 
-export function serializeOrderDelivery(obj: T.OrderDelivery, elemName: string): string {
+export function serializeOrderDelivery(obj: T.Input<T.OrderDelivery>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.orderId !== undefined && obj.orderId !== null) {
     xml += serializeString('orderId', String(obj.orderId));
@@ -5362,7 +5502,7 @@ export function serializeOrderDelivery(obj: T.OrderDelivery, elemName: string): 
   return xml;
 }
 
-export function serializeDeliverOrderV2Request(obj: T.DeliverOrderV2Request, elemName: string): string {
+export function serializeDeliverOrderV2Request(obj: T.Input<T.DeliverOrderV2Request>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.orderDelivery !== undefined && obj.orderDelivery !== null) {
     xml += serializeOrderDelivery(obj.orderDelivery, 'orderDelivery');
@@ -5371,7 +5511,7 @@ export function serializeDeliverOrderV2Request(obj: T.DeliverOrderV2Request, ele
   return xml;
 }
 
-export function serializeOrderCategory(obj: T.OrderCategory, elemName: string): string {
+export function serializeOrderCategory(obj: T.Input<T.OrderCategory>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.orderCategoryNumber !== undefined && obj.orderCategoryNumber !== null) {
     xml += serializeNumber('orderCategoryNumber', obj.orderCategoryNumber);
@@ -5388,7 +5528,7 @@ export function serializeOrderCategory(obj: T.OrderCategory, elemName: string): 
   return xml;
 }
 
-export function serializeReceipt(obj: T.Receipt, elemName: string): string {
+export function serializeReceipt(obj: T.Input<T.Receipt>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.receiptId !== undefined && obj.receiptId !== null) {
     xml += serializeString('receiptId', String(obj.receiptId));
@@ -5544,7 +5684,7 @@ export function serializeReceipt(obj: T.Receipt, elemName: string): string {
   return xml;
 }
 
-export function serializeReceiptList(obj: T.ReceiptList, elemName: string): string {
+export function serializeReceiptList(obj: T.Input<T.ReceiptList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.receipt !== undefined && obj.receipt !== null) {
     for (const item of obj.receipt) {
@@ -5555,7 +5695,7 @@ export function serializeReceiptList(obj: T.ReceiptList, elemName: string): stri
   return xml;
 }
 
-export function serializeGetReceiptsRequest(obj: T.GetReceiptsRequest, elemName: string): string {
+export function serializeGetReceiptsRequest(obj: T.Input<T.GetReceiptsRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.syncMarker !== undefined && obj.syncMarker !== null) {
     xml += serializeNumber('syncMarker', obj.syncMarker);
@@ -5645,7 +5785,7 @@ export function serializeGetReceiptsRequest(obj: T.GetReceiptsRequest, elemName:
   return xml;
 }
 
-export function serializeGetReceiptsByCashCountRequest(obj: T.GetReceiptsByCashCountRequest, elemName: string): string {
+export function serializeGetReceiptsByCashCountRequest(obj: T.Input<T.GetReceiptsByCashCountRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.cashCountId !== undefined && obj.cashCountId !== null) {
     xml += serializeString('cashCountId', String(obj.cashCountId));
@@ -5654,13 +5794,25 @@ export function serializeGetReceiptsByCashCountRequest(obj: T.GetReceiptsByCashC
   return xml;
 }
 
-export function serializePrintReceiptV2Request(obj: T.PrintReceiptV2Request, elemName: string): string {
+export function serializePrintReceiptV2Request(obj: T.Input<T.PrintReceiptV2Request>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.idempotencyKey !== undefined && obj.idempotencyKey !== null) {
+    xml += serializeString('idempotencyKey', String(obj.idempotencyKey));
+  }
+  if (obj.workplaceIdentifier !== undefined && obj.workplaceIdentifier !== null) {
+    xml += serializeWorkplaceIdentifier(obj.workplaceIdentifier, 'workplaceIdentifier');
+  }
+  if (obj.tableIdentifier !== undefined && obj.tableIdentifier !== null) {
+    xml += serializeTableIdentifier(obj.tableIdentifier, 'tableIdentifier');
+  }
+  if (obj.receiptId !== undefined && obj.receiptId !== null) {
+    xml += serializeString('receiptId', String(obj.receiptId));
+  }
   xml += `</${NS_PREFIX}:${elemName}>`;
   return xml;
 }
 
-export function serializePrintTableReceiptRequest(obj: T.PrintTableReceiptRequest, elemName: string): string {
+export function serializePrintTableReceiptRequest(obj: T.Input<T.PrintTableReceiptRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.branchNumber !== undefined && obj.branchNumber !== null) {
     xml += serializeNumber('branchNumber', obj.branchNumber);
@@ -5675,13 +5827,22 @@ export function serializePrintTableReceiptRequest(obj: T.PrintTableReceiptReques
   return xml;
 }
 
-export function serializePrintTableReceiptV3Request(obj: T.PrintTableReceiptV3Request, elemName: string): string {
+export function serializePrintTableReceiptV3Request(obj: T.Input<T.PrintTableReceiptV3Request>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.idempotencyKey !== undefined && obj.idempotencyKey !== null) {
+    xml += serializeString('idempotencyKey', String(obj.idempotencyKey));
+  }
+  if (obj.workplaceIdentifier !== undefined && obj.workplaceIdentifier !== null) {
+    xml += serializeWorkplaceIdentifier(obj.workplaceIdentifier, 'workplaceIdentifier');
+  }
+  if (obj.tableIdentifier !== undefined && obj.tableIdentifier !== null) {
+    xml += serializeTableIdentifier(obj.tableIdentifier, 'tableIdentifier');
+  }
   xml += `</${NS_PREFIX}:${elemName}>`;
   return xml;
 }
 
-export function serializeGetInvoicesRequest(obj: T.GetInvoicesRequest, elemName: string): string {
+export function serializeGetInvoicesRequest(obj: T.Input<T.GetInvoicesRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.syncMarker !== undefined && obj.syncMarker !== null) {
     xml += serializeNumber('syncMarker', obj.syncMarker);
@@ -5776,7 +5937,7 @@ export function serializeGetInvoicesRequest(obj: T.GetInvoicesRequest, elemName:
   return xml;
 }
 
-export function serializeSaveInvoiceInfo(obj: T.SaveInvoiceInfo, elemName: string): string {
+export function serializeSaveInvoiceInfo(obj: T.Input<T.SaveInvoiceInfo>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.invoiceId !== undefined && obj.invoiceId !== null) {
     xml += serializeString('invoiceId', String(obj.invoiceId));
@@ -5794,7 +5955,7 @@ export function serializeSaveInvoiceInfo(obj: T.SaveInvoiceInfo, elemName: strin
   return xml;
 }
 
-export function serializeJournalFilterList(obj: T.JournalFilterList, elemName: string): string {
+export function serializeJournalFilterList(obj: T.Input<T.JournalFilterList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.journalFilter !== undefined && obj.journalFilter !== null) {
     for (const item of obj.journalFilter) {
@@ -5805,7 +5966,7 @@ export function serializeJournalFilterList(obj: T.JournalFilterList, elemName: s
   return xml;
 }
 
-export function serializeTurnoverGroup(obj: T.TurnoverGroup, elemName: string): string {
+export function serializeTurnoverGroup(obj: T.Input<T.TurnoverGroup>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.turnoverGroupType !== undefined && obj.turnoverGroupType !== null) {
     xml += serializeString('turnoverGroupType', String(obj.turnoverGroupType));
@@ -5863,7 +6024,7 @@ export function serializeTurnoverGroup(obj: T.TurnoverGroup, elemName: string): 
   return xml;
 }
 
-export function serializeTurnoverGroupList(obj: T.TurnoverGroupList, elemName: string): string {
+export function serializeTurnoverGroupList(obj: T.Input<T.TurnoverGroupList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.turnoverGroup !== undefined && obj.turnoverGroup !== null) {
     for (const item of obj.turnoverGroup) {
@@ -5874,7 +6035,7 @@ export function serializeTurnoverGroupList(obj: T.TurnoverGroupList, elemName: s
   return xml;
 }
 
-export function serializeCashCountLine(obj: T.CashCountLine, elemName: string): string {
+export function serializeCashCountLine(obj: T.Input<T.CashCountLine>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.paymentMethod !== undefined && obj.paymentMethod !== null) {
     xml += serializeString('paymentMethod', String(obj.paymentMethod));
@@ -5919,7 +6080,7 @@ export function serializeCashCountLine(obj: T.CashCountLine, elemName: string): 
   return xml;
 }
 
-export function serializeCashCountLineList(obj: T.CashCountLineList, elemName: string): string {
+export function serializeCashCountLineList(obj: T.Input<T.CashCountLineList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.cashCountLine !== undefined && obj.cashCountLine !== null) {
     for (const item of obj.cashCountLine) {
@@ -5930,7 +6091,7 @@ export function serializeCashCountLineList(obj: T.CashCountLineList, elemName: s
   return xml;
 }
 
-export function serializeTransaction(obj: T.Transaction, elemName: string): string {
+export function serializeTransaction(obj: T.Input<T.Transaction>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.transactionId !== undefined && obj.transactionId !== null) {
     xml += serializeString('transactionId', String(obj.transactionId));
@@ -5966,7 +6127,7 @@ export function serializeTransaction(obj: T.Transaction, elemName: string): stri
   return xml;
 }
 
-export function serializeCashCountExtraWorkplace(obj: T.CashCountExtraWorkplace, elemName: string): string {
+export function serializeCashCountExtraWorkplace(obj: T.Input<T.CashCountExtraWorkplace>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.workplaceNumber !== undefined && obj.workplaceNumber !== null) {
     xml += serializeNumber('workplaceNumber', obj.workplaceNumber);
@@ -5987,7 +6148,7 @@ export function serializeCashCountExtraWorkplace(obj: T.CashCountExtraWorkplace,
   return xml;
 }
 
-export function serializeCashCountExtraWorkplaceList(obj: T.CashCountExtraWorkplaceList, elemName: string): string {
+export function serializeCashCountExtraWorkplaceList(obj: T.Input<T.CashCountExtraWorkplaceList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.cashCountExtraWorkplace !== undefined && obj.cashCountExtraWorkplace !== null) {
     for (const item of obj.cashCountExtraWorkplace) {
@@ -5998,7 +6159,7 @@ export function serializeCashCountExtraWorkplaceList(obj: T.CashCountExtraWorkpl
   return xml;
 }
 
-export function serializeCashCount(obj: T.CashCount, elemName: string): string {
+export function serializeCashCount(obj: T.Input<T.CashCount>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.cashCountId !== undefined && obj.cashCountId !== null) {
     xml += serializeString('cashCountId', String(obj.cashCountId));
@@ -6071,7 +6232,7 @@ export function serializeCashCount(obj: T.CashCount, elemName: string): string {
   return xml;
 }
 
-export function serializeCashCountList(obj: T.CashCountList, elemName: string): string {
+export function serializeCashCountList(obj: T.Input<T.CashCountList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.cashCount !== undefined && obj.cashCount !== null) {
     for (const item of obj.cashCount) {
@@ -6082,7 +6243,7 @@ export function serializeCashCountList(obj: T.CashCountList, elemName: string): 
   return xml;
 }
 
-export function serializeJournal(obj: T.Journal, elemName: string): string {
+export function serializeJournal(obj: T.Input<T.Journal>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.financialDate !== undefined && obj.financialDate !== null) {
     xml += serializeDate('financialDate', obj.financialDate);
@@ -6125,7 +6286,7 @@ export function serializeJournal(obj: T.Journal, elemName: string): string {
   return xml;
 }
 
-export function serializeJournalList(obj: T.JournalList, elemName: string): string {
+export function serializeJournalList(obj: T.Input<T.JournalList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.journal !== undefined && obj.journal !== null) {
     for (const item of obj.journal) {
@@ -6136,7 +6297,7 @@ export function serializeJournalList(obj: T.JournalList, elemName: string): stri
   return xml;
 }
 
-export function serializeGetJournalsRequest(obj: T.GetJournalsRequest, elemName: string): string {
+export function serializeGetJournalsRequest(obj: T.Input<T.GetJournalsRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.fromFinancialDate !== undefined && obj.fromFinancialDate !== null) {
     xml += serializeDate('fromFinancialDate', obj.fromFinancialDate);
@@ -6163,7 +6324,7 @@ export function serializeGetJournalsRequest(obj: T.GetJournalsRequest, elemName:
   return xml;
 }
 
-export function serializeFinancialGroup(obj: T.FinancialGroup, elemName: string): string {
+export function serializeFinancialGroup(obj: T.Input<T.FinancialGroup>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.financialGroupType !== undefined && obj.financialGroupType !== null) {
     xml += serializeString('financialGroupType', String(obj.financialGroupType));
@@ -6241,7 +6402,7 @@ export function serializeFinancialGroup(obj: T.FinancialGroup, elemName: string)
   return xml;
 }
 
-export function serializeFinancialGroupList(obj: T.FinancialGroupList, elemName: string): string {
+export function serializeFinancialGroupList(obj: T.Input<T.FinancialGroupList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.financialGroup !== undefined && obj.financialGroup !== null) {
     for (const item of obj.financialGroup) {
@@ -6252,7 +6413,7 @@ export function serializeFinancialGroupList(obj: T.FinancialGroupList, elemName:
   return xml;
 }
 
-export function serializeGetFinancialJournalRequest(obj: T.GetFinancialJournalRequest, elemName: string): string {
+export function serializeGetFinancialJournalRequest(obj: T.Input<T.GetFinancialJournalRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.fromFinancialDate !== undefined && obj.fromFinancialDate !== null) {
     xml += serializeDate('fromFinancialDate', obj.fromFinancialDate);
@@ -6267,7 +6428,7 @@ export function serializeGetFinancialJournalRequest(obj: T.GetFinancialJournalRe
   return xml;
 }
 
-export function serializeGetFinancialJournalByCashCountRequest(obj: T.GetFinancialJournalByCashCountRequest, elemName: string): string {
+export function serializeGetFinancialJournalByCashCountRequest(obj: T.Input<T.GetFinancialJournalByCashCountRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.cashCountId !== undefined && obj.cashCountId !== null) {
     xml += serializeString('cashCountId', String(obj.cashCountId));
@@ -6279,7 +6440,7 @@ export function serializeGetFinancialJournalByCashCountRequest(obj: T.GetFinanci
   return xml;
 }
 
-export function serializeGetCashCountListRequest(obj: T.GetCashCountListRequest, elemName: string): string {
+export function serializeGetCashCountListRequest(obj: T.Input<T.GetCashCountListRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.fromFinancialDate !== undefined && obj.fromFinancialDate !== null) {
     xml += serializeDate('fromFinancialDate', obj.fromFinancialDate);
@@ -6294,7 +6455,7 @@ export function serializeGetCashCountListRequest(obj: T.GetCashCountListRequest,
   return xml;
 }
 
-export function serializeCashDrawerCountLineDenomination(obj: T.CashDrawerCountLineDenomination, elemName: string): string {
+export function serializeCashDrawerCountLineDenomination(obj: T.Input<T.CashDrawerCountLineDenomination>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.denomination !== undefined && obj.denomination !== null) {
     xml += serializeNumber('denomination', obj.denomination);
@@ -6309,7 +6470,7 @@ export function serializeCashDrawerCountLineDenomination(obj: T.CashDrawerCountL
   return xml;
 }
 
-export function serializeCashDrawerCountLineDenominationList(obj: T.CashDrawerCountLineDenominationList, elemName: string): string {
+export function serializeCashDrawerCountLineDenominationList(obj: T.Input<T.CashDrawerCountLineDenominationList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.cashDrawerCountLineDenomination !== undefined && obj.cashDrawerCountLineDenomination !== null) {
     for (const item of obj.cashDrawerCountLineDenomination) {
@@ -6320,7 +6481,7 @@ export function serializeCashDrawerCountLineDenominationList(obj: T.CashDrawerCo
   return xml;
 }
 
-export function serializeCashDrawerCountLine(obj: T.CashDrawerCountLine, elemName: string): string {
+export function serializeCashDrawerCountLine(obj: T.Input<T.CashDrawerCountLine>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.articleNumber !== undefined && obj.articleNumber !== null) {
     xml += serializeNumber('articleNumber', obj.articleNumber);
@@ -6363,7 +6524,7 @@ export function serializeCashDrawerCountLine(obj: T.CashDrawerCountLine, elemNam
   return xml;
 }
 
-export function serializeCashDrawerCountLineList(obj: T.CashDrawerCountLineList, elemName: string): string {
+export function serializeCashDrawerCountLineList(obj: T.Input<T.CashDrawerCountLineList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.cashDrawerCountLine !== undefined && obj.cashDrawerCountLine !== null) {
     for (const item of obj.cashDrawerCountLine) {
@@ -6374,7 +6535,7 @@ export function serializeCashDrawerCountLineList(obj: T.CashDrawerCountLineList,
   return xml;
 }
 
-export function serializeCashDrawerCount(obj: T.CashDrawerCount, elemName: string): string {
+export function serializeCashDrawerCount(obj: T.Input<T.CashDrawerCount>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.cashDrawerCountId !== undefined && obj.cashDrawerCountId !== null) {
     xml += serializeString('cashDrawerCountId', String(obj.cashDrawerCountId));
@@ -6408,7 +6569,7 @@ export function serializeCashDrawerCount(obj: T.CashDrawerCount, elemName: strin
   return xml;
 }
 
-export function serializeCashDrawerCountList(obj: T.CashDrawerCountList, elemName: string): string {
+export function serializeCashDrawerCountList(obj: T.Input<T.CashDrawerCountList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.cashDrawerCount !== undefined && obj.cashDrawerCount !== null) {
     for (const item of obj.cashDrawerCount) {
@@ -6419,7 +6580,7 @@ export function serializeCashDrawerCountList(obj: T.CashDrawerCountList, elemNam
   return xml;
 }
 
-export function serializeCashDrawerBalancing(obj: T.CashDrawerBalancing, elemName: string): string {
+export function serializeCashDrawerBalancing(obj: T.Input<T.CashDrawerBalancing>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.cashDrawerBalancingId !== undefined && obj.cashDrawerBalancingId !== null) {
     xml += serializeString('cashDrawerBalancingId', String(obj.cashDrawerBalancingId));
@@ -6459,7 +6620,7 @@ export function serializeCashDrawerBalancing(obj: T.CashDrawerBalancing, elemNam
   return xml;
 }
 
-export function serializeCashDrawerBalancingList(obj: T.CashDrawerBalancingList, elemName: string): string {
+export function serializeCashDrawerBalancingList(obj: T.Input<T.CashDrawerBalancingList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.cashDrawerBalancing !== undefined && obj.cashDrawerBalancing !== null) {
     for (const item of obj.cashDrawerBalancing) {
@@ -6470,7 +6631,7 @@ export function serializeCashDrawerBalancingList(obj: T.CashDrawerBalancingList,
   return xml;
 }
 
-export function serializeGetCashDrawerBalancingListRequest(obj: T.GetCashDrawerBalancingListRequest, elemName: string): string {
+export function serializeGetCashDrawerBalancingListRequest(obj: T.Input<T.GetCashDrawerBalancingListRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.fromFinancialDate !== undefined && obj.fromFinancialDate !== null) {
     xml += serializeDate('fromFinancialDate', obj.fromFinancialDate);
@@ -6488,7 +6649,7 @@ export function serializeGetCashDrawerBalancingListRequest(obj: T.GetCashDrawerB
   return xml;
 }
 
-export function serializeGetTurnoverGroupsRequest(obj: T.GetTurnoverGroupsRequest, elemName: string): string {
+export function serializeGetTurnoverGroupsRequest(obj: T.Input<T.GetTurnoverGroupsRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.onlyActive !== undefined && obj.onlyActive !== null) {
     xml += serializeBoolean('onlyActive', obj.onlyActive);
@@ -6497,7 +6658,7 @@ export function serializeGetTurnoverGroupsRequest(obj: T.GetTurnoverGroupsReques
   return xml;
 }
 
-export function serializeUpdateTurnoverGroupsRequest(obj: T.UpdateTurnoverGroupsRequest, elemName: string): string {
+export function serializeUpdateTurnoverGroupsRequest(obj: T.Input<T.UpdateTurnoverGroupsRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.turnoverGroupList !== undefined && obj.turnoverGroupList !== null) {
     xml += `<${NS_PREFIX}:turnoverGroupList>`;
@@ -6510,7 +6671,7 @@ export function serializeUpdateTurnoverGroupsRequest(obj: T.UpdateTurnoverGroups
   return xml;
 }
 
-export function serializeNutritionalCharacteristic(obj: T.NutritionalCharacteristic, elemName: string): string {
+export function serializeNutritionalCharacteristic(obj: T.Input<T.NutritionalCharacteristic>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.id !== undefined && obj.id !== null) {
     xml += serializeNumber('id', obj.id);
@@ -6537,7 +6698,7 @@ export function serializeNutritionalCharacteristic(obj: T.NutritionalCharacteris
   return xml;
 }
 
-export function serializeAllergenList(obj: T.AllergenList, elemName: string): string {
+export function serializeAllergenList(obj: T.Input<T.AllergenList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.allergen !== undefined && obj.allergen !== null) {
     for (const item of obj.allergen) {
@@ -6548,7 +6709,7 @@ export function serializeAllergenList(obj: T.AllergenList, elemName: string): st
   return xml;
 }
 
-export function serializeDietRestrictionList(obj: T.DietRestrictionList, elemName: string): string {
+export function serializeDietRestrictionList(obj: T.Input<T.DietRestrictionList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.dietRestriction !== undefined && obj.dietRestriction !== null) {
     for (const item of obj.dietRestriction) {
@@ -6559,7 +6720,7 @@ export function serializeDietRestrictionList(obj: T.DietRestrictionList, elemNam
   return xml;
 }
 
-export function serializeNutritionalCharacteristics(obj: T.NutritionalCharacteristics, elemName: string): string {
+export function serializeNutritionalCharacteristics(obj: T.Input<T.NutritionalCharacteristics>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.allergenList !== undefined && obj.allergenList !== null) {
     xml += `<${NS_PREFIX}:allergenList>`;
@@ -6579,7 +6740,7 @@ export function serializeNutritionalCharacteristics(obj: T.NutritionalCharacteri
   return xml;
 }
 
-export function serializeLinkedArticle(obj: T.LinkedArticle, elemName: string): string {
+export function serializeLinkedArticle(obj: T.Input<T.LinkedArticle>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.articleNumber !== undefined && obj.articleNumber !== null) {
     xml += serializeNumber('articleNumber', obj.articleNumber);
@@ -6594,7 +6755,7 @@ export function serializeLinkedArticle(obj: T.LinkedArticle, elemName: string): 
   return xml;
 }
 
-export function serializeLinkedArticleList(obj: T.LinkedArticleList, elemName: string): string {
+export function serializeLinkedArticleList(obj: T.Input<T.LinkedArticleList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.linkedArticle !== undefined && obj.linkedArticle !== null) {
     for (const item of obj.linkedArticle) {
@@ -6605,7 +6766,7 @@ export function serializeLinkedArticleList(obj: T.LinkedArticleList, elemName: s
   return xml;
 }
 
-export function serializeBarcode(obj: T.Barcode, elemName: string): string {
+export function serializeBarcode(obj: T.Input<T.Barcode>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.barcodeId !== undefined && obj.barcodeId !== null) {
     xml += serializeNumber('barcodeId', obj.barcodeId);
@@ -6650,7 +6811,7 @@ export function serializeBarcode(obj: T.Barcode, elemName: string): string {
   return xml;
 }
 
-export function serializeBarcodeList(obj: T.BarcodeList, elemName: string): string {
+export function serializeBarcodeList(obj: T.Input<T.BarcodeList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.barcode !== undefined && obj.barcode !== null) {
     for (const item of obj.barcode) {
@@ -6661,7 +6822,7 @@ export function serializeBarcodeList(obj: T.BarcodeList, elemName: string): stri
   return xml;
 }
 
-export function serializePreparationMethod(obj: T.PreparationMethod, elemName: string): string {
+export function serializePreparationMethod(obj: T.Input<T.PreparationMethod>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.articleNumber !== undefined && obj.articleNumber !== null) {
     xml += serializeNumber('articleNumber', obj.articleNumber);
@@ -6712,7 +6873,7 @@ export function serializePreparationMethod(obj: T.PreparationMethod, elemName: s
   return xml;
 }
 
-export function serializePreparationMethodList(obj: T.PreparationMethodList, elemName: string): string {
+export function serializePreparationMethodList(obj: T.Input<T.PreparationMethodList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.preparationMethod !== undefined && obj.preparationMethod !== null) {
     for (const item of obj.preparationMethod) {
@@ -6723,7 +6884,7 @@ export function serializePreparationMethodList(obj: T.PreparationMethodList, ele
   return xml;
 }
 
-export function serializeComponentArticle(obj: T.ComponentArticle, elemName: string): string {
+export function serializeComponentArticle(obj: T.Input<T.ComponentArticle>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.articleNumber !== undefined && obj.articleNumber !== null) {
     xml += serializeNumber('articleNumber', obj.articleNumber);
@@ -6796,7 +6957,7 @@ export function serializeComponentArticle(obj: T.ComponentArticle, elemName: str
   return xml;
 }
 
-export function serializeComponentArticleList(obj: T.ComponentArticleList, elemName: string): string {
+export function serializeComponentArticleList(obj: T.Input<T.ComponentArticleList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.componentArticle !== undefined && obj.componentArticle !== null) {
     for (const item of obj.componentArticle) {
@@ -6807,7 +6968,7 @@ export function serializeComponentArticleList(obj: T.ComponentArticleList, elemN
   return xml;
 }
 
-export function serializeArticle(obj: T.Article, elemName: string): string {
+export function serializeArticle(obj: T.Input<T.Article>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.articleNumber !== undefined && obj.articleNumber !== null) {
     xml += serializeNumber('articleNumber', obj.articleNumber);
@@ -7060,7 +7221,7 @@ export function serializeArticle(obj: T.Article, elemName: string): string {
   return xml;
 }
 
-export function serializeArticleList(obj: T.ArticleList, elemName: string): string {
+export function serializeArticleList(obj: T.Input<T.ArticleList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.article !== undefined && obj.article !== null) {
     for (const item of obj.article) {
@@ -7071,7 +7232,7 @@ export function serializeArticleList(obj: T.ArticleList, elemName: string): stri
   return xml;
 }
 
-export function serializeSortOrderGroupList(obj: T.SortOrderGroupList, elemName: string): string {
+export function serializeSortOrderGroupList(obj: T.Input<T.SortOrderGroupList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.sortOrderGroup !== undefined && obj.sortOrderGroup !== null) {
     for (const item of obj.sortOrderGroup) {
@@ -7082,7 +7243,7 @@ export function serializeSortOrderGroupList(obj: T.SortOrderGroupList, elemName:
   return xml;
 }
 
-export function serializeSortOrderGroup(obj: T.SortOrderGroup, elemName: string): string {
+export function serializeSortOrderGroup(obj: T.Input<T.SortOrderGroup>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.groupNumber !== undefined && obj.groupNumber !== null) {
     xml += serializeNumber('groupNumber', obj.groupNumber);
@@ -7094,7 +7255,7 @@ export function serializeSortOrderGroup(obj: T.SortOrderGroup, elemName: string)
   return xml;
 }
 
-export function serializeProduct(obj: T.Product, elemName: string): string {
+export function serializeProduct(obj: T.Input<T.Product>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.productNumber !== undefined && obj.productNumber !== null) {
     xml += serializeNumber('productNumber', obj.productNumber);
@@ -7131,7 +7292,7 @@ export function serializeProduct(obj: T.Product, elemName: string): string {
   return xml;
 }
 
-export function serializeProductList(obj: T.ProductList, elemName: string): string {
+export function serializeProductList(obj: T.Input<T.ProductList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.product !== undefined && obj.product !== null) {
     for (const item of obj.product) {
@@ -7142,7 +7303,7 @@ export function serializeProductList(obj: T.ProductList, elemName: string): stri
   return xml;
 }
 
-export function serializeGetProductsRequest(obj: T.GetProductsRequest, elemName: string): string {
+export function serializeGetProductsRequest(obj: T.Input<T.GetProductsRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.articleNumbers !== undefined && obj.articleNumbers !== null) {
     for (const item of obj.articleNumbers) {
@@ -7194,7 +7355,7 @@ export function serializeGetProductsRequest(obj: T.GetProductsRequest, elemName:
   return xml;
 }
 
-export function serializeArticleVariantList(obj: T.ArticleVariantList, elemName: string): string {
+export function serializeArticleVariantList(obj: T.Input<T.ArticleVariantList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.variant !== undefined && obj.variant !== null) {
     for (const item of obj.variant) {
@@ -7205,7 +7366,7 @@ export function serializeArticleVariantList(obj: T.ArticleVariantList, elemName:
   return xml;
 }
 
-export function serializeArticleVariantSupplier(obj: T.ArticleVariantSupplier, elemName: string): string {
+export function serializeArticleVariantSupplier(obj: T.Input<T.ArticleVariantSupplier>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.relationNumber !== undefined && obj.relationNumber !== null) {
     xml += serializeNumber('relationNumber', obj.relationNumber);
@@ -7220,7 +7381,7 @@ export function serializeArticleVariantSupplier(obj: T.ArticleVariantSupplier, e
   return xml;
 }
 
-export function serializeArticleVariantSupplierList(obj: T.ArticleVariantSupplierList, elemName: string): string {
+export function serializeArticleVariantSupplierList(obj: T.Input<T.ArticleVariantSupplierList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.supplier !== undefined && obj.supplier !== null) {
     for (const item of obj.supplier) {
@@ -7231,7 +7392,7 @@ export function serializeArticleVariantSupplierList(obj: T.ArticleVariantSupplie
   return xml;
 }
 
-export function serializeArticleVariant(obj: T.ArticleVariant, elemName: string): string {
+export function serializeArticleVariant(obj: T.Input<T.ArticleVariant>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.articleVariantId !== undefined && obj.articleVariantId !== null) {
     xml += serializeNumber('articleVariantId', obj.articleVariantId);
@@ -7302,7 +7463,7 @@ export function serializeArticleVariant(obj: T.ArticleVariant, elemName: string)
   return xml;
 }
 
-export function serializeGetArticleVariantsRequest(obj: T.GetArticleVariantsRequest, elemName: string): string {
+export function serializeGetArticleVariantsRequest(obj: T.Input<T.GetArticleVariantsRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.articleNumber !== undefined && obj.articleNumber !== null) {
     xml += serializeNumber('articleNumber', obj.articleNumber);
@@ -7311,7 +7472,7 @@ export function serializeGetArticleVariantsRequest(obj: T.GetArticleVariantsRequ
   return xml;
 }
 
-export function serializeGetArticlesVariantsRequest(obj: T.GetArticlesVariantsRequest, elemName: string): string {
+export function serializeGetArticlesVariantsRequest(obj: T.Input<T.GetArticlesVariantsRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.articleNumbers !== undefined && obj.articleNumbers !== null) {
     xml += `<${NS_PREFIX}:articleNumbers>`;
@@ -7324,7 +7485,7 @@ export function serializeGetArticlesVariantsRequest(obj: T.GetArticlesVariantsRe
   return xml;
 }
 
-export function serializeGetArticlesVariantsResponseElem(obj: T.GetArticlesVariantsResponseElem, elemName: string): string {
+export function serializeGetArticlesVariantsResponseElem(obj: T.Input<T.GetArticlesVariantsResponseElem>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.articleNumber !== undefined && obj.articleNumber !== null) {
     xml += serializeNumber('articleNumber', obj.articleNumber);
@@ -7340,7 +7501,7 @@ export function serializeGetArticlesVariantsResponseElem(obj: T.GetArticlesVaria
   return xml;
 }
 
-export function serializeNewArticleVariantRequest(obj: T.NewArticleVariantRequest, elemName: string): string {
+export function serializeNewArticleVariantRequest(obj: T.Input<T.NewArticleVariantRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.articleNumber !== undefined && obj.articleNumber !== null) {
     xml += serializeNumber('articleNumber', obj.articleNumber);
@@ -7358,7 +7519,7 @@ export function serializeNewArticleVariantRequest(obj: T.NewArticleVariantReques
   return xml;
 }
 
-export function serializeUpdateArticleVariantRequest(obj: T.UpdateArticleVariantRequest, elemName: string): string {
+export function serializeUpdateArticleVariantRequest(obj: T.Input<T.UpdateArticleVariantRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.articleNumber !== undefined && obj.articleNumber !== null) {
     xml += serializeNumber('articleNumber', obj.articleNumber);
@@ -7370,7 +7531,7 @@ export function serializeUpdateArticleVariantRequest(obj: T.UpdateArticleVariant
   return xml;
 }
 
-export function serializeDeleteArticleVariantsRequest(obj: T.DeleteArticleVariantsRequest, elemName: string): string {
+export function serializeDeleteArticleVariantsRequest(obj: T.Input<T.DeleteArticleVariantsRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.articleNumber !== undefined && obj.articleNumber !== null) {
     xml += serializeNumber('articleNumber', obj.articleNumber);
@@ -7386,7 +7547,7 @@ export function serializeDeleteArticleVariantsRequest(obj: T.DeleteArticleVarian
   return xml;
 }
 
-export function serializeArticleStock(obj: T.ArticleStock, elemName: string): string {
+export function serializeArticleStock(obj: T.Input<T.ArticleStock>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.branchNumber !== undefined && obj.branchNumber !== null) {
     xml += serializeNumber('branchNumber', obj.branchNumber);
@@ -7439,7 +7600,7 @@ export function serializeArticleStock(obj: T.ArticleStock, elemName: string): st
   return xml;
 }
 
-export function serializeArticleNumberList(obj: T.ArticleNumberList, elemName: string): string {
+export function serializeArticleNumberList(obj: T.Input<T.ArticleNumberList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.articleNumbers !== undefined && obj.articleNumbers !== null) {
     for (const item of obj.articleNumbers) {
@@ -7450,7 +7611,7 @@ export function serializeArticleNumberList(obj: T.ArticleNumberList, elemName: s
   return xml;
 }
 
-export function serializeGetStockRequest(obj: T.GetStockRequest, elemName: string): string {
+export function serializeGetStockRequest(obj: T.Input<T.GetStockRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.branchNumber !== undefined && obj.branchNumber !== null) {
     xml += serializeNumber('branchNumber', obj.branchNumber);
@@ -7472,7 +7633,7 @@ export function serializeGetStockRequest(obj: T.GetStockRequest, elemName: strin
   return xml;
 }
 
-export function serializeArticleStockHistory(obj: T.ArticleStockHistory, elemName: string): string {
+export function serializeArticleStockHistory(obj: T.Input<T.ArticleStockHistory>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.stockId !== undefined && obj.stockId !== null) {
     xml += serializeNumber('stockId', obj.stockId);
@@ -7547,7 +7708,7 @@ export function serializeArticleStockHistory(obj: T.ArticleStockHistory, elemNam
   return xml;
 }
 
-export function serializeGetStockHistoryRequest(obj: T.GetStockHistoryRequest, elemName: string): string {
+export function serializeGetStockHistoryRequest(obj: T.Input<T.GetStockHistoryRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.branchNumber !== undefined && obj.branchNumber !== null) {
     xml += serializeNumber('branchNumber', obj.branchNumber);
@@ -7575,7 +7736,7 @@ export function serializeGetStockHistoryRequest(obj: T.GetStockHistoryRequest, e
   return xml;
 }
 
-export function serializeGetStockHistoryV2Request(obj: T.GetStockHistoryV2Request, elemName: string): string {
+export function serializeGetStockHistoryV2Request(obj: T.Input<T.GetStockHistoryV2Request>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.branchNumbers !== undefined && obj.branchNumbers !== null) {
     for (const item of obj.branchNumbers) {
@@ -7605,7 +7766,7 @@ export function serializeGetStockHistoryV2Request(obj: T.GetStockHistoryV2Reques
   return xml;
 }
 
-export function serializeUpdateStockRequest(obj: T.UpdateStockRequest, elemName: string): string {
+export function serializeUpdateStockRequest(obj: T.Input<T.UpdateStockRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.branchNumber !== undefined && obj.branchNumber !== null) {
     xml += serializeNumber('branchNumber', obj.branchNumber);
@@ -7629,7 +7790,7 @@ export function serializeUpdateStockRequest(obj: T.UpdateStockRequest, elemName:
   return xml;
 }
 
-export function serializeSetStockRequest(obj: T.SetStockRequest, elemName: string): string {
+export function serializeSetStockRequest(obj: T.Input<T.SetStockRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.branchNumber !== undefined && obj.branchNumber !== null) {
     xml += serializeNumber('branchNumber', obj.branchNumber);
@@ -7653,7 +7814,7 @@ export function serializeSetStockRequest(obj: T.SetStockRequest, elemName: strin
   return xml;
 }
 
-export function serializeGetArticleGroupsRequest(obj: T.GetArticleGroupsRequest, elemName: string): string {
+export function serializeGetArticleGroupsRequest(obj: T.Input<T.GetArticleGroupsRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.syncMarker !== undefined && obj.syncMarker !== null) {
     xml += serializeNumber('syncMarker', obj.syncMarker);
@@ -7673,7 +7834,7 @@ export function serializeGetArticleGroupsRequest(obj: T.GetArticleGroupsRequest,
   return xml;
 }
 
-export function serializeArticleGroupList(obj: T.ArticleGroupList, elemName: string): string {
+export function serializeArticleGroupList(obj: T.Input<T.ArticleGroupList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.articleGroups !== undefined && obj.articleGroups !== null) {
     for (const item of obj.articleGroups) {
@@ -7684,7 +7845,7 @@ export function serializeArticleGroupList(obj: T.ArticleGroupList, elemName: str
   return xml;
 }
 
-export function serializeArticleGroup(obj: T.ArticleGroup, elemName: string): string {
+export function serializeArticleGroup(obj: T.Input<T.ArticleGroup>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.groupNumber !== undefined && obj.groupNumber !== null) {
     xml += serializeNumber('groupNumber', obj.groupNumber);
@@ -7732,7 +7893,7 @@ export function serializeArticleGroup(obj: T.ArticleGroup, elemName: string): st
   return xml;
 }
 
-export function serializeGetArticleGroupChangesRequest(obj: T.GetArticleGroupChangesRequest, elemName: string): string {
+export function serializeGetArticleGroupChangesRequest(obj: T.Input<T.GetArticleGroupChangesRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.syncMarker !== undefined && obj.syncMarker !== null) {
     xml += serializeNumber('syncMarker', obj.syncMarker);
@@ -7749,7 +7910,7 @@ export function serializeGetArticleGroupChangesRequest(obj: T.GetArticleGroupCha
   return xml;
 }
 
-export function serializeChangedArticleGroup(obj: T.ChangedArticleGroup, elemName: string): string {
+export function serializeChangedArticleGroup(obj: T.Input<T.ChangedArticleGroup>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.groupNumber !== undefined && obj.groupNumber !== null) {
     xml += serializeNumber('groupNumber', obj.groupNumber);
@@ -7793,7 +7954,7 @@ export function serializeChangedArticleGroup(obj: T.ChangedArticleGroup, elemNam
   return xml;
 }
 
-export function serializeChangedArticleGroupList(obj: T.ChangedArticleGroupList, elemName: string): string {
+export function serializeChangedArticleGroupList(obj: T.Input<T.ChangedArticleGroupList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.changedArticleGroups !== undefined && obj.changedArticleGroups !== null) {
     for (const item of obj.changedArticleGroups) {
@@ -7804,7 +7965,7 @@ export function serializeChangedArticleGroupList(obj: T.ChangedArticleGroupList,
   return xml;
 }
 
-export function serializeUpdateArticleGroupRequest(obj: T.UpdateArticleGroupRequest, elemName: string): string {
+export function serializeUpdateArticleGroupRequest(obj: T.Input<T.UpdateArticleGroupRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.groupNumber !== undefined && obj.groupNumber !== null) {
     xml += serializeNumber('groupNumber', obj.groupNumber);
@@ -7828,7 +7989,7 @@ export function serializeUpdateArticleGroupRequest(obj: T.UpdateArticleGroupRequ
   return xml;
 }
 
-export function serializeNewArticleGroupRequest(obj: T.NewArticleGroupRequest, elemName: string): string {
+export function serializeNewArticleGroupRequest(obj: T.Input<T.NewArticleGroupRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.parentGroupNumber !== undefined && obj.parentGroupNumber !== null) {
     xml += serializeNumber('parentGroupNumber', obj.parentGroupNumber);
@@ -7849,7 +8010,7 @@ export function serializeNewArticleGroupRequest(obj: T.NewArticleGroupRequest, e
   return xml;
 }
 
-export function serializeDeleteArticleGroupRequest(obj: T.DeleteArticleGroupRequest, elemName: string): string {
+export function serializeDeleteArticleGroupRequest(obj: T.Input<T.DeleteArticleGroupRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.groupNumber !== undefined && obj.groupNumber !== null) {
     xml += serializeNumber('groupNumber', obj.groupNumber);
@@ -7858,7 +8019,7 @@ export function serializeDeleteArticleGroupRequest(obj: T.DeleteArticleGroupRequ
   return xml;
 }
 
-export function serializeAddProductsToArticleGroupRequest(obj: T.AddProductsToArticleGroupRequest, elemName: string): string {
+export function serializeAddProductsToArticleGroupRequest(obj: T.Input<T.AddProductsToArticleGroupRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.groupNumber !== undefined && obj.groupNumber !== null) {
     xml += serializeNumber('groupNumber', obj.groupNumber);
@@ -7877,7 +8038,7 @@ export function serializeAddProductsToArticleGroupRequest(obj: T.AddProductsToAr
   return xml;
 }
 
-export function serializeReplaceProductsOfArticleGroupRequest(obj: T.ReplaceProductsOfArticleGroupRequest, elemName: string): string {
+export function serializeReplaceProductsOfArticleGroupRequest(obj: T.Input<T.ReplaceProductsOfArticleGroupRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.groupNumber !== undefined && obj.groupNumber !== null) {
     xml += serializeNumber('groupNumber', obj.groupNumber);
@@ -7893,7 +8054,7 @@ export function serializeReplaceProductsOfArticleGroupRequest(obj: T.ReplaceProd
   return xml;
 }
 
-export function serializeDeleteProductsFromArticleGroupRequest(obj: T.DeleteProductsFromArticleGroupRequest, elemName: string): string {
+export function serializeDeleteProductsFromArticleGroupRequest(obj: T.Input<T.DeleteProductsFromArticleGroupRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.groupNumber !== undefined && obj.groupNumber !== null) {
     xml += serializeNumber('groupNumber', obj.groupNumber);
@@ -7912,7 +8073,7 @@ export function serializeDeleteProductsFromArticleGroupRequest(obj: T.DeleteProd
   return xml;
 }
 
-export function serializeSendMessageRequest(obj: T.SendMessageRequest, elemName: string): string {
+export function serializeSendMessageRequest(obj: T.Input<T.SendMessageRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.branchNumber !== undefined && obj.branchNumber !== null) {
     xml += serializeNumber('branchNumber', obj.branchNumber);
@@ -7933,7 +8094,7 @@ export function serializeSendMessageRequest(obj: T.SendMessageRequest, elemName:
   return xml;
 }
 
-export function serializeGetMessagesRequest(obj: T.GetMessagesRequest, elemName: string): string {
+export function serializeGetMessagesRequest(obj: T.Input<T.GetMessagesRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.sinceMessageId !== undefined && obj.sinceMessageId !== null) {
     xml += serializeNumber('sinceMessageId', obj.sinceMessageId);
@@ -7954,7 +8115,7 @@ export function serializeGetMessagesRequest(obj: T.GetMessagesRequest, elemName:
   return xml;
 }
 
-export function serializeMessage(obj: T.Message, elemName: string): string {
+export function serializeMessage(obj: T.Input<T.Message>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.messageId !== undefined && obj.messageId !== null) {
     xml += serializeNumber('messageId', obj.messageId);
@@ -7987,7 +8148,7 @@ export function serializeMessage(obj: T.Message, elemName: string): string {
   return xml;
 }
 
-export function serializeMessageList(obj: T.MessageList, elemName: string): string {
+export function serializeMessageList(obj: T.Input<T.MessageList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.message !== undefined && obj.message !== null) {
     for (const item of obj.message) {
@@ -7998,7 +8159,7 @@ export function serializeMessageList(obj: T.MessageList, elemName: string): stri
   return xml;
 }
 
-export function serializeShift(obj: T.Shift, elemName: string): string {
+export function serializeShift(obj: T.Input<T.Shift>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.shiftNumber !== undefined && obj.shiftNumber !== null) {
     xml += serializeYearNumber(obj.shiftNumber, 'shiftNumber');
@@ -8034,7 +8195,7 @@ export function serializeShift(obj: T.Shift, elemName: string): string {
   return xml;
 }
 
-export function serializeShiftList(obj: T.ShiftList, elemName: string): string {
+export function serializeShiftList(obj: T.Input<T.ShiftList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.shift !== undefined && obj.shift !== null) {
     for (const item of obj.shift) {
@@ -8045,7 +8206,7 @@ export function serializeShiftList(obj: T.ShiftList, elemName: string): string {
   return xml;
 }
 
-export function serializeGetShiftsRequest(obj: T.GetShiftsRequest, elemName: string): string {
+export function serializeGetShiftsRequest(obj: T.Input<T.GetShiftsRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.branchNumbers !== undefined && obj.branchNumbers !== null) {
     for (const item of obj.branchNumbers) {
@@ -8067,7 +8228,7 @@ export function serializeGetShiftsRequest(obj: T.GetShiftsRequest, elemName: str
   return xml;
 }
 
-export function serializePurchaseOrderLineList(obj: T.PurchaseOrderLineList, elemName: string): string {
+export function serializePurchaseOrderLineList(obj: T.Input<T.PurchaseOrderLineList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.line !== undefined && obj.line !== null) {
     for (const item of obj.line) {
@@ -8078,7 +8239,7 @@ export function serializePurchaseOrderLineList(obj: T.PurchaseOrderLineList, ele
   return xml;
 }
 
-export function serializePurchaseOrderLineData(obj: T.PurchaseOrderLineData, elemName: string): string {
+export function serializePurchaseOrderLineData(obj: T.Input<T.PurchaseOrderLineData>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.quantity !== undefined && obj.quantity !== null) {
     xml += serializeNumber('quantity', obj.quantity);
@@ -8138,7 +8299,7 @@ export function serializePurchaseOrderLineData(obj: T.PurchaseOrderLineData, ele
   return xml;
 }
 
-export function serializePurchaseOrderLine(obj: T.PurchaseOrderLine, elemName: string): string {
+export function serializePurchaseOrderLine(obj: T.Input<T.PurchaseOrderLine>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.articleNumber !== undefined && obj.articleNumber !== null) {
     xml += serializeNumber('articleNumber', obj.articleNumber);
@@ -8192,7 +8353,7 @@ export function serializePurchaseOrderLine(obj: T.PurchaseOrderLine, elemName: s
   return xml;
 }
 
-export function serializePurchaseOrder(obj: T.PurchaseOrder, elemName: string): string {
+export function serializePurchaseOrder(obj: T.Input<T.PurchaseOrder>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.purchaseOrderNumber !== undefined && obj.purchaseOrderNumber !== null) {
     xml += serializeYearNumber(obj.purchaseOrderNumber, 'purchaseOrderNumber');
@@ -8288,7 +8449,7 @@ export function serializePurchaseOrder(obj: T.PurchaseOrder, elemName: string): 
   return xml;
 }
 
-export function serializePurchaseOrderList(obj: T.PurchaseOrderList, elemName: string): string {
+export function serializePurchaseOrderList(obj: T.Input<T.PurchaseOrderList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.purchaseOrder !== undefined && obj.purchaseOrder !== null) {
     for (const item of obj.purchaseOrder) {
@@ -8299,7 +8460,7 @@ export function serializePurchaseOrderList(obj: T.PurchaseOrderList, elemName: s
   return xml;
 }
 
-export function serializeGetPurchaseOrdersRequest(obj: T.GetPurchaseOrdersRequest, elemName: string): string {
+export function serializeGetPurchaseOrdersRequest(obj: T.Input<T.GetPurchaseOrdersRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.purchaseOrderNumber !== undefined && obj.purchaseOrderNumber !== null) {
     xml += serializeYearNumber(obj.purchaseOrderNumber, 'purchaseOrderNumber');
@@ -8376,7 +8537,7 @@ export function serializeGetPurchaseOrdersRequest(obj: T.GetPurchaseOrdersReques
   return xml;
 }
 
-export function serializeSavePurchaseOrderInfo(obj: T.SavePurchaseOrderInfo, elemName: string): string {
+export function serializeSavePurchaseOrderInfo(obj: T.Input<T.SavePurchaseOrderInfo>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.purchaseOrderNumber !== undefined && obj.purchaseOrderNumber !== null) {
     xml += serializeYearNumber(obj.purchaseOrderNumber, 'purchaseOrderNumber');
@@ -8385,7 +8546,7 @@ export function serializeSavePurchaseOrderInfo(obj: T.SavePurchaseOrderInfo, ele
   return xml;
 }
 
-export function serializePurchaseOrderV2LineList(obj: T.PurchaseOrderV2LineList, elemName: string): string {
+export function serializePurchaseOrderV2LineList(obj: T.Input<T.PurchaseOrderV2LineList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.line !== undefined && obj.line !== null) {
     for (const item of obj.line) {
@@ -8396,7 +8557,7 @@ export function serializePurchaseOrderV2LineList(obj: T.PurchaseOrderV2LineList,
   return xml;
 }
 
-export function serializePurchaseOrderV2LineData(obj: T.PurchaseOrderV2LineData, elemName: string): string {
+export function serializePurchaseOrderV2LineData(obj: T.Input<T.PurchaseOrderV2LineData>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.quantity !== undefined && obj.quantity !== null) {
     xml += serializeNumber('quantity', obj.quantity);
@@ -8474,7 +8635,7 @@ export function serializePurchaseOrderV2LineData(obj: T.PurchaseOrderV2LineData,
   return xml;
 }
 
-export function serializePurchaseOrderV2Line(obj: T.PurchaseOrderV2Line, elemName: string): string {
+export function serializePurchaseOrderV2Line(obj: T.Input<T.PurchaseOrderV2Line>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.lineNumber !== undefined && obj.lineNumber !== null) {
     xml += serializeNumber('lineNumber', obj.lineNumber);
@@ -8531,7 +8692,7 @@ export function serializePurchaseOrderV2Line(obj: T.PurchaseOrderV2Line, elemNam
   return xml;
 }
 
-export function serializePurchaseOrderV2(obj: T.PurchaseOrderV2, elemName: string): string {
+export function serializePurchaseOrderV2(obj: T.Input<T.PurchaseOrderV2>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.purchaseOrderNumber !== undefined && obj.purchaseOrderNumber !== null) {
     xml += serializeYearNumber(obj.purchaseOrderNumber, 'purchaseOrderNumber');
@@ -8627,7 +8788,7 @@ export function serializePurchaseOrderV2(obj: T.PurchaseOrderV2, elemName: strin
   return xml;
 }
 
-export function serializePurchaseOrderV2List(obj: T.PurchaseOrderV2List, elemName: string): string {
+export function serializePurchaseOrderV2List(obj: T.Input<T.PurchaseOrderV2List>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.purchaseOrder !== undefined && obj.purchaseOrder !== null) {
     for (const item of obj.purchaseOrder) {
@@ -8638,7 +8799,7 @@ export function serializePurchaseOrderV2List(obj: T.PurchaseOrderV2List, elemNam
   return xml;
 }
 
-export function serializeGetPurchaseOrdersV2Request(obj: T.GetPurchaseOrdersV2Request, elemName: string): string {
+export function serializeGetPurchaseOrdersV2Request(obj: T.Input<T.GetPurchaseOrdersV2Request>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.purchaseOrderNumber !== undefined && obj.purchaseOrderNumber !== null) {
     xml += serializeYearNumber(obj.purchaseOrderNumber, 'purchaseOrderNumber');
@@ -8715,7 +8876,7 @@ export function serializeGetPurchaseOrdersV2Request(obj: T.GetPurchaseOrdersV2Re
   return xml;
 }
 
-export function serializeSavePurchaseOrderV2LineList(obj: T.SavePurchaseOrderV2LineList, elemName: string): string {
+export function serializeSavePurchaseOrderV2LineList(obj: T.Input<T.SavePurchaseOrderV2LineList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.line !== undefined && obj.line !== null) {
     for (const item of obj.line) {
@@ -8726,7 +8887,7 @@ export function serializeSavePurchaseOrderV2LineList(obj: T.SavePurchaseOrderV2L
   return xml;
 }
 
-export function serializeSavePurchaseOrderV2LineData(obj: T.SavePurchaseOrderV2LineData, elemName: string): string {
+export function serializeSavePurchaseOrderV2LineData(obj: T.Input<T.SavePurchaseOrderV2LineData>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.quantity !== undefined && obj.quantity !== null) {
     xml += serializeNumber('quantity', obj.quantity);
@@ -8765,7 +8926,7 @@ export function serializeSavePurchaseOrderV2LineData(obj: T.SavePurchaseOrderV2L
   return xml;
 }
 
-export function serializeSavePurchaseOrderV2Line(obj: T.SavePurchaseOrderV2Line, elemName: string): string {
+export function serializeSavePurchaseOrderV2Line(obj: T.Input<T.SavePurchaseOrderV2Line>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.articleNumber !== undefined && obj.articleNumber !== null) {
     xml += serializeNumber('articleNumber', obj.articleNumber);
@@ -8804,7 +8965,7 @@ export function serializeSavePurchaseOrderV2Line(obj: T.SavePurchaseOrderV2Line,
   return xml;
 }
 
-export function serializeSavePurchaseOrderV2(obj: T.SavePurchaseOrderV2, elemName: string): string {
+export function serializeSavePurchaseOrderV2(obj: T.Input<T.SavePurchaseOrderV2>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.purchaseOrderNumber !== undefined && obj.purchaseOrderNumber !== null) {
     xml += serializeYearNumber(obj.purchaseOrderNumber, 'purchaseOrderNumber');
@@ -8853,7 +9014,7 @@ export function serializeSavePurchaseOrderV2(obj: T.SavePurchaseOrderV2, elemNam
   return xml;
 }
 
-export function serializeSavePurchaseOrderV2Request(obj: T.SavePurchaseOrderV2Request, elemName: string): string {
+export function serializeSavePurchaseOrderV2Request(obj: T.Input<T.SavePurchaseOrderV2Request>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.savePurchaseOrder !== undefined && obj.savePurchaseOrder !== null) {
     xml += serializeSavePurchaseOrderV2(obj.savePurchaseOrder, 'savePurchaseOrder');
@@ -8862,7 +9023,7 @@ export function serializeSavePurchaseOrderV2Request(obj: T.SavePurchaseOrderV2Re
   return xml;
 }
 
-export function serializeErrorDetails(obj: T.ErrorDetails, elemName: string): string {
+export function serializeErrorDetails(obj: T.Input<T.ErrorDetails>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.lineNumber !== undefined && obj.lineNumber !== null) {
     xml += serializeNumber('lineNumber', obj.lineNumber);
@@ -8886,7 +9047,7 @@ export function serializeErrorDetails(obj: T.ErrorDetails, elemName: string): st
   return xml;
 }
 
-export function serializePurchaseDeliveryLineList(obj: T.PurchaseDeliveryLineList, elemName: string): string {
+export function serializePurchaseDeliveryLineList(obj: T.Input<T.PurchaseDeliveryLineList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.line !== undefined && obj.line !== null) {
     for (const item of obj.line) {
@@ -8897,7 +9058,7 @@ export function serializePurchaseDeliveryLineList(obj: T.PurchaseDeliveryLineLis
   return xml;
 }
 
-export function serializePurchaseDeliveryLineData(obj: T.PurchaseDeliveryLineData, elemName: string): string {
+export function serializePurchaseDeliveryLineData(obj: T.Input<T.PurchaseDeliveryLineData>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.deliveredQuantity !== undefined && obj.deliveredQuantity !== null) {
     xml += serializeNumber('deliveredQuantity', obj.deliveredQuantity);
@@ -8951,7 +9112,7 @@ export function serializePurchaseDeliveryLineData(obj: T.PurchaseDeliveryLineDat
   return xml;
 }
 
-export function serializePurchaseDeliveryLine(obj: T.PurchaseDeliveryLine, elemName: string): string {
+export function serializePurchaseDeliveryLine(obj: T.Input<T.PurchaseDeliveryLine>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.articleNumber !== undefined && obj.articleNumber !== null) {
     xml += serializeNumber('articleNumber', obj.articleNumber);
@@ -8999,7 +9160,7 @@ export function serializePurchaseDeliveryLine(obj: T.PurchaseDeliveryLine, elemN
   return xml;
 }
 
-export function serializePurchaseDelivery(obj: T.PurchaseDelivery, elemName: string): string {
+export function serializePurchaseDelivery(obj: T.Input<T.PurchaseDelivery>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.purchaseDeliveryNumber !== undefined && obj.purchaseDeliveryNumber !== null) {
     xml += serializeYearNumber(obj.purchaseDeliveryNumber, 'purchaseDeliveryNumber');
@@ -9082,7 +9243,7 @@ export function serializePurchaseDelivery(obj: T.PurchaseDelivery, elemName: str
   return xml;
 }
 
-export function serializePurchaseDeliveryList(obj: T.PurchaseDeliveryList, elemName: string): string {
+export function serializePurchaseDeliveryList(obj: T.Input<T.PurchaseDeliveryList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.purchaseDelivery !== undefined && obj.purchaseDelivery !== null) {
     for (const item of obj.purchaseDelivery) {
@@ -9093,7 +9254,7 @@ export function serializePurchaseDeliveryList(obj: T.PurchaseDeliveryList, elemN
   return xml;
 }
 
-export function serializeGetPurchaseDeliveriesRequest(obj: T.GetPurchaseDeliveriesRequest, elemName: string): string {
+export function serializeGetPurchaseDeliveriesRequest(obj: T.Input<T.GetPurchaseDeliveriesRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.syncMarker !== undefined && obj.syncMarker !== null) {
     xml += serializeNumber('syncMarker', obj.syncMarker);
@@ -9153,7 +9314,7 @@ export function serializeGetPurchaseDeliveriesRequest(obj: T.GetPurchaseDeliveri
   return xml;
 }
 
-export function serializeSavePurchaseDeliveryInfo(obj: T.SavePurchaseDeliveryInfo, elemName: string): string {
+export function serializeSavePurchaseDeliveryInfo(obj: T.Input<T.SavePurchaseDeliveryInfo>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.purchaseDeliveryNumber !== undefined && obj.purchaseDeliveryNumber !== null) {
     xml += serializeYearNumber(obj.purchaseDeliveryNumber, 'purchaseDeliveryNumber');
@@ -9162,7 +9323,7 @@ export function serializeSavePurchaseDeliveryInfo(obj: T.SavePurchaseDeliveryInf
   return xml;
 }
 
-export function serializePurchaseDeliveryV2LineList(obj: T.PurchaseDeliveryV2LineList, elemName: string): string {
+export function serializePurchaseDeliveryV2LineList(obj: T.Input<T.PurchaseDeliveryV2LineList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.line !== undefined && obj.line !== null) {
     for (const item of obj.line) {
@@ -9173,7 +9334,7 @@ export function serializePurchaseDeliveryV2LineList(obj: T.PurchaseDeliveryV2Lin
   return xml;
 }
 
-export function serializePurchaseDeliveryV2LineData(obj: T.PurchaseDeliveryV2LineData, elemName: string): string {
+export function serializePurchaseDeliveryV2LineData(obj: T.Input<T.PurchaseDeliveryV2LineData>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.deliveredQuantity !== undefined && obj.deliveredQuantity !== null) {
     xml += serializeNumber('deliveredQuantity', obj.deliveredQuantity);
@@ -9245,7 +9406,7 @@ export function serializePurchaseDeliveryV2LineData(obj: T.PurchaseDeliveryV2Lin
   return xml;
 }
 
-export function serializePurchaseDeliveryV2Line(obj: T.PurchaseDeliveryV2Line, elemName: string): string {
+export function serializePurchaseDeliveryV2Line(obj: T.Input<T.PurchaseDeliveryV2Line>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.lineNumber !== undefined && obj.lineNumber !== null) {
     xml += serializeNumber('lineNumber', obj.lineNumber);
@@ -9296,7 +9457,7 @@ export function serializePurchaseDeliveryV2Line(obj: T.PurchaseDeliveryV2Line, e
   return xml;
 }
 
-export function serializePurchaseDeliveryV2(obj: T.PurchaseDeliveryV2, elemName: string): string {
+export function serializePurchaseDeliveryV2(obj: T.Input<T.PurchaseDeliveryV2>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.purchaseDeliveryNumber !== undefined && obj.purchaseDeliveryNumber !== null) {
     xml += serializeYearNumber(obj.purchaseDeliveryNumber, 'purchaseDeliveryNumber');
@@ -9379,7 +9540,7 @@ export function serializePurchaseDeliveryV2(obj: T.PurchaseDeliveryV2, elemName:
   return xml;
 }
 
-export function serializeGetPurchaseDeliveriesV2Request(obj: T.GetPurchaseDeliveriesV2Request, elemName: string): string {
+export function serializeGetPurchaseDeliveriesV2Request(obj: T.Input<T.GetPurchaseDeliveriesV2Request>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.purchaseDeliveryNumber !== undefined && obj.purchaseDeliveryNumber !== null) {
     xml += serializeYearNumber(obj.purchaseDeliveryNumber, 'purchaseDeliveryNumber');
@@ -9445,7 +9606,7 @@ export function serializeGetPurchaseDeliveriesV2Request(obj: T.GetPurchaseDelive
   return xml;
 }
 
-export function serializePurchaseDeliveryV2List(obj: T.PurchaseDeliveryV2List, elemName: string): string {
+export function serializePurchaseDeliveryV2List(obj: T.Input<T.PurchaseDeliveryV2List>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.purchaseDelivery !== undefined && obj.purchaseDelivery !== null) {
     for (const item of obj.purchaseDelivery) {
@@ -9456,7 +9617,7 @@ export function serializePurchaseDeliveryV2List(obj: T.PurchaseDeliveryV2List, e
   return xml;
 }
 
-export function serializeSavePurchaseDeliveryV2LineList(obj: T.SavePurchaseDeliveryV2LineList, elemName: string): string {
+export function serializeSavePurchaseDeliveryV2LineList(obj: T.Input<T.SavePurchaseDeliveryV2LineList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.line !== undefined && obj.line !== null) {
     for (const item of obj.line) {
@@ -9467,7 +9628,7 @@ export function serializeSavePurchaseDeliveryV2LineList(obj: T.SavePurchaseDeliv
   return xml;
 }
 
-export function serializeSavePurchaseDeliveryV2LineData(obj: T.SavePurchaseDeliveryV2LineData, elemName: string): string {
+export function serializeSavePurchaseDeliveryV2LineData(obj: T.Input<T.SavePurchaseDeliveryV2LineData>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.deliveredQuantity !== undefined && obj.deliveredQuantity !== null) {
     xml += serializeNumber('deliveredQuantity', obj.deliveredQuantity);
@@ -9509,7 +9670,7 @@ export function serializeSavePurchaseDeliveryV2LineData(obj: T.SavePurchaseDeliv
   return xml;
 }
 
-export function serializeSavePurchaseDeliveryV2Line(obj: T.SavePurchaseDeliveryV2Line, elemName: string): string {
+export function serializeSavePurchaseDeliveryV2Line(obj: T.Input<T.SavePurchaseDeliveryV2Line>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.lineNumber !== undefined && obj.lineNumber !== null) {
     xml += serializeNumber('lineNumber', obj.lineNumber);
@@ -9551,7 +9712,7 @@ export function serializeSavePurchaseDeliveryV2Line(obj: T.SavePurchaseDeliveryV
   return xml;
 }
 
-export function serializeSavePurchaseDeliveryV2(obj: T.SavePurchaseDeliveryV2, elemName: string): string {
+export function serializeSavePurchaseDeliveryV2(obj: T.Input<T.SavePurchaseDeliveryV2>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.purchaseDeliveryNumber !== undefined && obj.purchaseDeliveryNumber !== null) {
     xml += serializeYearNumber(obj.purchaseDeliveryNumber, 'purchaseDeliveryNumber');
@@ -9597,7 +9758,7 @@ export function serializeSavePurchaseDeliveryV2(obj: T.SavePurchaseDeliveryV2, e
   return xml;
 }
 
-export function serializeSavePurchaseDeliveryV2Request(obj: T.SavePurchaseDeliveryV2Request, elemName: string): string {
+export function serializeSavePurchaseDeliveryV2Request(obj: T.Input<T.SavePurchaseDeliveryV2Request>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.savePurchaseDelivery !== undefined && obj.savePurchaseDelivery !== null) {
     xml += serializeSavePurchaseDeliveryV2(obj.savePurchaseDelivery, 'savePurchaseDelivery');
@@ -9609,7 +9770,7 @@ export function serializeSavePurchaseDeliveryV2Request(obj: T.SavePurchaseDelive
   return xml;
 }
 
-export function serializeEncryptStringRequest(obj: T.EncryptStringRequest, elemName: string): string {
+export function serializeEncryptStringRequest(obj: T.Input<T.EncryptStringRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.plainString !== undefined && obj.plainString !== null) {
     xml += serializeString('plainString', String(obj.plainString));
@@ -9621,7 +9782,7 @@ export function serializeEncryptStringRequest(obj: T.EncryptStringRequest, elemN
   return xml;
 }
 
-export function serializeCardLayoutField(obj: T.CardLayoutField, elemName: string): string {
+export function serializeCardLayoutField(obj: T.Input<T.CardLayoutField>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.cardLayoutFieldId !== undefined && obj.cardLayoutFieldId !== null) {
     xml += serializeNumber('cardLayoutFieldId', obj.cardLayoutFieldId);
@@ -9705,7 +9866,7 @@ export function serializeCardLayoutField(obj: T.CardLayoutField, elemName: strin
   return xml;
 }
 
-export function serializeCardLayoutFieldList(obj: T.CardLayoutFieldList, elemName: string): string {
+export function serializeCardLayoutFieldList(obj: T.Input<T.CardLayoutFieldList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.cardLayoutField !== undefined && obj.cardLayoutField !== null) {
     for (const item of obj.cardLayoutField) {
@@ -9716,7 +9877,7 @@ export function serializeCardLayoutFieldList(obj: T.CardLayoutFieldList, elemNam
   return xml;
 }
 
-export function serializeGetArticleCardLayoutRequest(obj: T.GetArticleCardLayoutRequest, elemName: string): string {
+export function serializeGetArticleCardLayoutRequest(obj: T.Input<T.GetArticleCardLayoutRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.categoryId !== undefined && obj.categoryId !== null) {
     xml += serializeNumber('categoryId', obj.categoryId);
@@ -9725,7 +9886,7 @@ export function serializeGetArticleCardLayoutRequest(obj: T.GetArticleCardLayout
   return xml;
 }
 
-export function serializeUpdateArticleCardLayoutRequest(obj: T.UpdateArticleCardLayoutRequest, elemName: string): string {
+export function serializeUpdateArticleCardLayoutRequest(obj: T.Input<T.UpdateArticleCardLayoutRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.cardLayoutFieldList !== undefined && obj.cardLayoutFieldList !== null) {
     xml += `<${NS_PREFIX}:cardLayoutFieldList>`;
@@ -9738,7 +9899,7 @@ export function serializeUpdateArticleCardLayoutRequest(obj: T.UpdateArticleCard
   return xml;
 }
 
-export function serializeRetailSpaceRental(obj: T.RetailSpaceRental, elemName: string): string {
+export function serializeRetailSpaceRental(obj: T.Input<T.RetailSpaceRental>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.retailSpaceRentalNumber !== undefined && obj.retailSpaceRentalNumber !== null) {
     xml += serializeNumber('retailSpaceRentalNumber', obj.retailSpaceRentalNumber);
@@ -9792,7 +9953,7 @@ export function serializeRetailSpaceRental(obj: T.RetailSpaceRental, elemName: s
   return xml;
 }
 
-export function serializeRetailSpaceRentalList(obj: T.RetailSpaceRentalList, elemName: string): string {
+export function serializeRetailSpaceRentalList(obj: T.Input<T.RetailSpaceRentalList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.retailSpaceRental !== undefined && obj.retailSpaceRental !== null) {
     for (const item of obj.retailSpaceRental) {
@@ -9803,7 +9964,7 @@ export function serializeRetailSpaceRentalList(obj: T.RetailSpaceRentalList, ele
   return xml;
 }
 
-export function serializeGetRetailSpaceRentalRequest(obj: T.GetRetailSpaceRentalRequest, elemName: string): string {
+export function serializeGetRetailSpaceRentalRequest(obj: T.Input<T.GetRetailSpaceRentalRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.retailSpaceRentalNumber !== undefined && obj.retailSpaceRentalNumber !== null) {
     xml += serializeNumber('retailSpaceRentalNumber', obj.retailSpaceRentalNumber);
@@ -9815,7 +9976,7 @@ export function serializeGetRetailSpaceRentalRequest(obj: T.GetRetailSpaceRental
   return xml;
 }
 
-export function serializeGetRetailSpaceRentalsRequest(obj: T.GetRetailSpaceRentalsRequest, elemName: string): string {
+export function serializeGetRetailSpaceRentalsRequest(obj: T.Input<T.GetRetailSpaceRentalsRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.onlyActive !== undefined && obj.onlyActive !== null) {
     xml += serializeBoolean('onlyActive', obj.onlyActive);
@@ -9824,7 +9985,7 @@ export function serializeGetRetailSpaceRentalsRequest(obj: T.GetRetailSpaceRenta
   return xml;
 }
 
-export function serializeEntityTypeList(obj: T.EntityTypeList, elemName: string): string {
+export function serializeEntityTypeList(obj: T.Input<T.EntityTypeList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.entityType !== undefined && obj.entityType !== null) {
     for (const item of obj.entityType) {
@@ -9835,7 +9996,7 @@ export function serializeEntityTypeList(obj: T.EntityTypeList, elemName: string)
   return xml;
 }
 
-export function serializeEidSearchRequest(obj: T.EidSearchRequest, elemName: string): string {
+export function serializeEidSearchRequest(obj: T.Input<T.EidSearchRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.filter !== undefined && obj.filter !== null) {
     xml += `<${NS_PREFIX}:filter>`;
@@ -9854,7 +10015,7 @@ export function serializeEidSearchRequest(obj: T.EidSearchRequest, elemName: str
   return xml;
 }
 
-export function serializeOverviewFilter(obj: T.OverviewFilter, elemName: string): string {
+export function serializeOverviewFilter(obj: T.Input<T.OverviewFilter>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.fieldName !== undefined && obj.fieldName !== null) {
     xml += serializeString('fieldName', String(obj.fieldName));
@@ -9872,7 +10033,7 @@ export function serializeOverviewFilter(obj: T.OverviewFilter, elemName: string)
   return xml;
 }
 
-export function serializeOverviewFilterList(obj: T.OverviewFilterList, elemName: string): string {
+export function serializeOverviewFilterList(obj: T.Input<T.OverviewFilterList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.filter !== undefined && obj.filter !== null) {
     for (const item of obj.filter) {
@@ -9883,7 +10044,7 @@ export function serializeOverviewFilterList(obj: T.OverviewFilterList, elemName:
   return xml;
 }
 
-export function serializeOverviewSearch(obj: T.OverviewSearch, elemName: string): string {
+export function serializeOverviewSearch(obj: T.Input<T.OverviewSearch>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.term !== undefined && obj.term !== null) {
     xml += serializeString('term', String(obj.term));
@@ -9898,7 +10059,7 @@ export function serializeOverviewSearch(obj: T.OverviewSearch, elemName: string)
   return xml;
 }
 
-export function serializeScopeValues(obj: T.ScopeValues, elemName: string): string {
+export function serializeScopeValues(obj: T.Input<T.ScopeValues>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.branchNumber !== undefined && obj.branchNumber !== null) {
     xml += serializeNumber('branchNumber', obj.branchNumber);
@@ -9910,7 +10071,7 @@ export function serializeScopeValues(obj: T.ScopeValues, elemName: string): stri
   return xml;
 }
 
-export function serializeOverviewRequest(obj: T.OverviewRequest, elemName: string): string {
+export function serializeOverviewRequest(obj: T.Input<T.OverviewRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.cardType !== undefined && obj.cardType !== null) {
     xml += serializeString('cardType', String(obj.cardType));
@@ -9962,7 +10123,7 @@ export function serializeOverviewRequest(obj: T.OverviewRequest, elemName: strin
   return xml;
 }
 
-export function serializeOverviewField(obj: T.OverviewField, elemName: string): string {
+export function serializeOverviewField(obj: T.Input<T.OverviewField>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.name !== undefined && obj.name !== null) {
     xml += serializeString('name', String(obj.name));
@@ -9980,7 +10141,7 @@ export function serializeOverviewField(obj: T.OverviewField, elemName: string): 
   return xml;
 }
 
-export function serializeSimpleImage(obj: T.SimpleImage, elemName: string): string {
+export function serializeSimpleImage(obj: T.Input<T.SimpleImage>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.hash !== undefined && obj.hash !== null) {
     xml += serializeString('hash', String(obj.hash));
@@ -9998,7 +10159,7 @@ export function serializeSimpleImage(obj: T.SimpleImage, elemName: string): stri
   return xml;
 }
 
-export function serializeSimpleImageList(obj: T.SimpleImageList, elemName: string): string {
+export function serializeSimpleImageList(obj: T.Input<T.SimpleImageList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.image !== undefined && obj.image !== null) {
     for (const item of obj.image) {
@@ -10009,7 +10170,7 @@ export function serializeSimpleImageList(obj: T.SimpleImageList, elemName: strin
   return xml;
 }
 
-export function serializeOverviewFieldList(obj: T.OverviewFieldList, elemName: string): string {
+export function serializeOverviewFieldList(obj: T.Input<T.OverviewFieldList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.fieldList !== undefined && obj.fieldList !== null) {
     for (const item of obj.fieldList) {
@@ -10034,7 +10195,7 @@ export function serializeOverviewFieldList(obj: T.OverviewFieldList, elemName: s
   return xml;
 }
 
-export function serializeOverviewList(obj: T.OverviewList, elemName: string): string {
+export function serializeOverviewList(obj: T.Input<T.OverviewList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.overview !== undefined && obj.overview !== null) {
     for (const item of obj.overview) {
@@ -10045,7 +10206,7 @@ export function serializeOverviewList(obj: T.OverviewList, elemName: string): st
   return xml;
 }
 
-export function serializeGetOverviewError(obj: T.GetOverviewError, elemName: string): string {
+export function serializeGetOverviewError(obj: T.Input<T.GetOverviewError>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.field !== undefined && obj.field !== null) {
     xml += serializeString('field', String(obj.field));
@@ -10060,7 +10221,7 @@ export function serializeGetOverviewError(obj: T.GetOverviewError, elemName: str
   return xml;
 }
 
-export function serializeGetOverviewErrorList(obj: T.GetOverviewErrorList, elemName: string): string {
+export function serializeGetOverviewErrorList(obj: T.Input<T.GetOverviewErrorList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.errors !== undefined && obj.errors !== null) {
     for (const item of obj.errors) {
@@ -10071,7 +10232,7 @@ export function serializeGetOverviewErrorList(obj: T.GetOverviewErrorList, elemN
   return xml;
 }
 
-export function serializeGetOverviewFieldsRequest(obj: T.GetOverviewFieldsRequest, elemName: string): string {
+export function serializeGetOverviewFieldsRequest(obj: T.Input<T.GetOverviewFieldsRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.cardType !== undefined && obj.cardType !== null) {
     xml += serializeString('cardType', String(obj.cardType));
@@ -10086,7 +10247,7 @@ export function serializeGetOverviewFieldsRequest(obj: T.GetOverviewFieldsReques
   return xml;
 }
 
-export function serializeFieldSelectValue(obj: T.FieldSelectValue, elemName: string): string {
+export function serializeFieldSelectValue(obj: T.Input<T.FieldSelectValue>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.id !== undefined && obj.id !== null) {
     xml += serializeString('id', String(obj.id));
@@ -10098,7 +10259,7 @@ export function serializeFieldSelectValue(obj: T.FieldSelectValue, elemName: str
   return xml;
 }
 
-export function serializeOverviewFieldsField(obj: T.OverviewFieldsField, elemName: string): string {
+export function serializeOverviewFieldsField(obj: T.Input<T.OverviewFieldsField>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.name !== undefined && obj.name !== null) {
     xml += serializeString('name', String(obj.name));
@@ -10181,7 +10342,7 @@ export function serializeOverviewFieldsField(obj: T.OverviewFieldsField, elemNam
   return xml;
 }
 
-export function serializeOverviewFieldsList(obj: T.OverviewFieldsList, elemName: string): string {
+export function serializeOverviewFieldsList(obj: T.Input<T.OverviewFieldsList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.overviewFields !== undefined && obj.overviewFields !== null) {
     for (const item of obj.overviewFields) {
@@ -10192,7 +10353,7 @@ export function serializeOverviewFieldsList(obj: T.OverviewFieldsList, elemName:
   return xml;
 }
 
-export function serializeGetOverviewFieldsError(obj: T.GetOverviewFieldsError, elemName: string): string {
+export function serializeGetOverviewFieldsError(obj: T.Input<T.GetOverviewFieldsError>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.errorCode !== undefined && obj.errorCode !== null) {
     xml += serializeString('errorCode', String(obj.errorCode));
@@ -10204,7 +10365,7 @@ export function serializeGetOverviewFieldsError(obj: T.GetOverviewFieldsError, e
   return xml;
 }
 
-export function serializeGetOverviewFieldsErrorList(obj: T.GetOverviewFieldsErrorList, elemName: string): string {
+export function serializeGetOverviewFieldsErrorList(obj: T.Input<T.GetOverviewFieldsErrorList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.errors !== undefined && obj.errors !== null) {
     for (const item of obj.errors) {
@@ -10215,7 +10376,7 @@ export function serializeGetOverviewFieldsErrorList(obj: T.GetOverviewFieldsErro
   return xml;
 }
 
-export function serializeUpdateBatchField(obj: T.UpdateBatchField, elemName: string): string {
+export function serializeUpdateBatchField(obj: T.Input<T.UpdateBatchField>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.name !== undefined && obj.name !== null) {
     xml += serializeString('name', String(obj.name));
@@ -10227,7 +10388,7 @@ export function serializeUpdateBatchField(obj: T.UpdateBatchField, elemName: str
   return xml;
 }
 
-export function serializeUpdateBatchFieldList(obj: T.UpdateBatchFieldList, elemName: string): string {
+export function serializeUpdateBatchFieldList(obj: T.Input<T.UpdateBatchFieldList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.fieldList !== undefined && obj.fieldList !== null) {
     for (const item of obj.fieldList) {
@@ -10238,7 +10399,7 @@ export function serializeUpdateBatchFieldList(obj: T.UpdateBatchFieldList, elemN
   return xml;
 }
 
-export function serializeUpdateBatchRequest(obj: T.UpdateBatchRequest, elemName: string): string {
+export function serializeUpdateBatchRequest(obj: T.Input<T.UpdateBatchRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.cardType !== undefined && obj.cardType !== null) {
     xml += serializeString('cardType', String(obj.cardType));
@@ -10262,7 +10423,7 @@ export function serializeUpdateBatchRequest(obj: T.UpdateBatchRequest, elemName:
   return xml;
 }
 
-export function serializeUpdateBatchError(obj: T.UpdateBatchError, elemName: string): string {
+export function serializeUpdateBatchError(obj: T.Input<T.UpdateBatchError>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.number !== undefined && obj.number !== null) {
     xml += serializeNumber('number', obj.number);
@@ -10280,7 +10441,7 @@ export function serializeUpdateBatchError(obj: T.UpdateBatchError, elemName: str
   return xml;
 }
 
-export function serializeUpdateBatchErrorList(obj: T.UpdateBatchErrorList, elemName: string): string {
+export function serializeUpdateBatchErrorList(obj: T.Input<T.UpdateBatchErrorList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.errors !== undefined && obj.errors !== null) {
     for (const item of obj.errors) {
@@ -10291,7 +10452,7 @@ export function serializeUpdateBatchErrorList(obj: T.UpdateBatchErrorList, elemN
   return xml;
 }
 
-export function serializePrintRequest(obj: T.PrintRequest, elemName: string): string {
+export function serializePrintRequest(obj: T.Input<T.PrintRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.branchNumber !== undefined && obj.branchNumber !== null) {
     xml += serializeNumber('branchNumber', obj.branchNumber);
@@ -10309,7 +10470,7 @@ export function serializePrintRequest(obj: T.PrintRequest, elemName: string): st
   return xml;
 }
 
-export function serializeGetKitchenTicketsRequest(obj: T.GetKitchenTicketsRequest, elemName: string): string {
+export function serializeGetKitchenTicketsRequest(obj: T.Input<T.GetKitchenTicketsRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.branchNumber !== undefined && obj.branchNumber !== null) {
     xml += serializeNumber('branchNumber', obj.branchNumber);
@@ -10324,7 +10485,7 @@ export function serializeGetKitchenTicketsRequest(obj: T.GetKitchenTicketsReques
   return xml;
 }
 
-export function serializeKitchenTicketLine(obj: T.KitchenTicketLine, elemName: string): string {
+export function serializeKitchenTicketLine(obj: T.Input<T.KitchenTicketLine>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.kitchenTicketLineId !== undefined && obj.kitchenTicketLineId !== null) {
     xml += serializeString('kitchenTicketLineId', String(obj.kitchenTicketLineId));
@@ -10366,7 +10527,7 @@ export function serializeKitchenTicketLine(obj: T.KitchenTicketLine, elemName: s
   return xml;
 }
 
-export function serializeKitchenTicketLineList(obj: T.KitchenTicketLineList, elemName: string): string {
+export function serializeKitchenTicketLineList(obj: T.Input<T.KitchenTicketLineList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.kitchenTicketLine !== undefined && obj.kitchenTicketLine !== null) {
     for (const item of obj.kitchenTicketLine) {
@@ -10377,7 +10538,7 @@ export function serializeKitchenTicketLineList(obj: T.KitchenTicketLineList, ele
   return xml;
 }
 
-export function serializeKitchenTicketCourse(obj: T.KitchenTicketCourse, elemName: string): string {
+export function serializeKitchenTicketCourse(obj: T.Input<T.KitchenTicketCourse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.courseNumber !== undefined && obj.courseNumber !== null) {
     xml += serializeNumber('courseNumber', obj.courseNumber);
@@ -10423,7 +10584,7 @@ export function serializeKitchenTicketCourse(obj: T.KitchenTicketCourse, elemNam
   return xml;
 }
 
-export function serializeKitchenTicketCourseList(obj: T.KitchenTicketCourseList, elemName: string): string {
+export function serializeKitchenTicketCourseList(obj: T.Input<T.KitchenTicketCourseList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.kitchenTicketCourse !== undefined && obj.kitchenTicketCourse !== null) {
     for (const item of obj.kitchenTicketCourse) {
@@ -10434,7 +10595,7 @@ export function serializeKitchenTicketCourseList(obj: T.KitchenTicketCourseList,
   return xml;
 }
 
-export function serializeKitchenTicket(obj: T.KitchenTicket, elemName: string): string {
+export function serializeKitchenTicket(obj: T.Input<T.KitchenTicket>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.kitchenTicketId !== undefined && obj.kitchenTicketId !== null) {
     xml += serializeString('kitchenTicketId', String(obj.kitchenTicketId));
@@ -10507,7 +10668,7 @@ export function serializeKitchenTicket(obj: T.KitchenTicket, elemName: string): 
   return xml;
 }
 
-export function serializeKitchenTicketList(obj: T.KitchenTicketList, elemName: string): string {
+export function serializeKitchenTicketList(obj: T.Input<T.KitchenTicketList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.kitchenTicket !== undefined && obj.kitchenTicket !== null) {
     for (const item of obj.kitchenTicket) {
@@ -10518,7 +10679,7 @@ export function serializeKitchenTicketList(obj: T.KitchenTicketList, elemName: s
   return xml;
 }
 
-export function serializeStockCorrection(obj: T.StockCorrection, elemName: string): string {
+export function serializeStockCorrection(obj: T.Input<T.StockCorrection>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.articleNumber !== undefined && obj.articleNumber !== null) {
     xml += serializeNumber('articleNumber', obj.articleNumber);
@@ -10533,7 +10694,7 @@ export function serializeStockCorrection(obj: T.StockCorrection, elemName: strin
   return xml;
 }
 
-export function serializeStockCorrectionList(obj: T.StockCorrectionList, elemName: string): string {
+export function serializeStockCorrectionList(obj: T.Input<T.StockCorrectionList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.correction !== undefined && obj.correction !== null) {
     for (const item of obj.correction) {
@@ -10544,7 +10705,7 @@ export function serializeStockCorrectionList(obj: T.StockCorrectionList, elemNam
   return xml;
 }
 
-export function serializeSaveStockCorrectionsRequest(obj: T.SaveStockCorrectionsRequest, elemName: string): string {
+export function serializeSaveStockCorrectionsRequest(obj: T.Input<T.SaveStockCorrectionsRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.branchNumber !== undefined && obj.branchNumber !== null) {
     xml += serializeNumber('branchNumber', obj.branchNumber);
@@ -10578,7 +10739,7 @@ export function serializeSaveStockCorrectionsRequest(obj: T.SaveStockCorrections
   return xml;
 }
 
-export function serializePurchaseBookEntry(obj: T.PurchaseBookEntry, elemName: string): string {
+export function serializePurchaseBookEntry(obj: T.Input<T.PurchaseBookEntry>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.articleNumber !== undefined && obj.articleNumber !== null) {
     xml += serializeNumber('articleNumber', obj.articleNumber);
@@ -10590,7 +10751,7 @@ export function serializePurchaseBookEntry(obj: T.PurchaseBookEntry, elemName: s
   return xml;
 }
 
-export function serializePurchaseBook(obj: T.PurchaseBook, elemName: string): string {
+export function serializePurchaseBook(obj: T.Input<T.PurchaseBook>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.branchNumber !== undefined && obj.branchNumber !== null) {
     xml += serializeNumber('branchNumber', obj.branchNumber);
@@ -10604,7 +10765,7 @@ export function serializePurchaseBook(obj: T.PurchaseBook, elemName: string): st
   return xml;
 }
 
-export function serializeGetPurchaseBookRequest(obj: T.GetPurchaseBookRequest, elemName: string): string {
+export function serializeGetPurchaseBookRequest(obj: T.Input<T.GetPurchaseBookRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.branchNumber !== undefined && obj.branchNumber !== null) {
     xml += serializeNumber('branchNumber', obj.branchNumber);
@@ -10613,7 +10774,7 @@ export function serializeGetPurchaseBookRequest(obj: T.GetPurchaseBookRequest, e
   return xml;
 }
 
-export function serializeAddToPurchaseBookRequest(obj: T.AddToPurchaseBookRequest, elemName: string): string {
+export function serializeAddToPurchaseBookRequest(obj: T.Input<T.AddToPurchaseBookRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.branchNumber !== undefined && obj.branchNumber !== null) {
     xml += serializeNumber('branchNumber', obj.branchNumber);
@@ -10627,7 +10788,7 @@ export function serializeAddToPurchaseBookRequest(obj: T.AddToPurchaseBookReques
   return xml;
 }
 
-export function serializeGetStockCorrectionsRequest(obj: T.GetStockCorrectionsRequest, elemName: string): string {
+export function serializeGetStockCorrectionsRequest(obj: T.Input<T.GetStockCorrectionsRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.employeeNumbers !== undefined && obj.employeeNumbers !== null) {
     for (const item of obj.employeeNumbers) {
@@ -10663,7 +10824,7 @@ export function serializeGetStockCorrectionsRequest(obj: T.GetStockCorrectionsRe
   return xml;
 }
 
-export function serializeStockCorrectionLineV2(obj: T.StockCorrectionLineV2, elemName: string): string {
+export function serializeStockCorrectionLineV2(obj: T.Input<T.StockCorrectionLineV2>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.articleNumber !== undefined && obj.articleNumber !== null) {
     xml += serializeNumber('articleNumber', obj.articleNumber);
@@ -10681,7 +10842,7 @@ export function serializeStockCorrectionLineV2(obj: T.StockCorrectionLineV2, ele
   return xml;
 }
 
-export function serializeStockCorrectionLineV2List(obj: T.StockCorrectionLineV2List, elemName: string): string {
+export function serializeStockCorrectionLineV2List(obj: T.Input<T.StockCorrectionLineV2List>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.stockCorrectionLine !== undefined && obj.stockCorrectionLine !== null) {
     for (const item of obj.stockCorrectionLine) {
@@ -10692,7 +10853,7 @@ export function serializeStockCorrectionLineV2List(obj: T.StockCorrectionLineV2L
   return xml;
 }
 
-export function serializeStockCorrectionV2(obj: T.StockCorrectionV2, elemName: string): string {
+export function serializeStockCorrectionV2(obj: T.Input<T.StockCorrectionV2>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.stockCorrectionNumber !== undefined && obj.stockCorrectionNumber !== null) {
     xml += serializeYearNumber(obj.stockCorrectionNumber, 'stockCorrectionNumber');
@@ -10732,7 +10893,7 @@ export function serializeStockCorrectionV2(obj: T.StockCorrectionV2, elemName: s
   return xml;
 }
 
-export function serializeStockCorrectionV2List(obj: T.StockCorrectionV2List, elemName: string): string {
+export function serializeStockCorrectionV2List(obj: T.Input<T.StockCorrectionV2List>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.stockCorrection !== undefined && obj.stockCorrection !== null) {
     for (const item of obj.stockCorrection) {
@@ -10743,7 +10904,7 @@ export function serializeStockCorrectionV2List(obj: T.StockCorrectionV2List, ele
   return xml;
 }
 
-export function serializeGetArticlesNutritionalCharacteristicsRequest(obj: T.GetArticlesNutritionalCharacteristicsRequest, elemName: string): string {
+export function serializeGetArticlesNutritionalCharacteristicsRequest(obj: T.Input<T.GetArticlesNutritionalCharacteristicsRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.articleNumbers !== undefined && obj.articleNumbers !== null) {
     xml += `<${NS_PREFIX}:articleNumbers>`;
@@ -10756,7 +10917,7 @@ export function serializeGetArticlesNutritionalCharacteristicsRequest(obj: T.Get
   return xml;
 }
 
-export function serializeGetArticlesNutritionalCharacteristicsResponseElem(obj: T.GetArticlesNutritionalCharacteristicsResponseElem, elemName: string): string {
+export function serializeGetArticlesNutritionalCharacteristicsResponseElem(obj: T.Input<T.GetArticlesNutritionalCharacteristicsResponseElem>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.articleNumber !== undefined && obj.articleNumber !== null) {
     xml += serializeNumber('articleNumber', obj.articleNumber);
@@ -10768,7 +10929,7 @@ export function serializeGetArticlesNutritionalCharacteristicsResponseElem(obj: 
   return xml;
 }
 
-export function serializeNutritionalCharacteristicInput(obj: T.NutritionalCharacteristicInput, elemName: string): string {
+export function serializeNutritionalCharacteristicInput(obj: T.Input<T.NutritionalCharacteristicInput>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.id !== undefined && obj.id !== null) {
     xml += serializeNumber('id', obj.id);
@@ -10780,7 +10941,7 @@ export function serializeNutritionalCharacteristicInput(obj: T.NutritionalCharac
   return xml;
 }
 
-export function serializeNutritionalCharacteristicsInput(obj: T.NutritionalCharacteristicsInput, elemName: string): string {
+export function serializeNutritionalCharacteristicsInput(obj: T.Input<T.NutritionalCharacteristicsInput>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.allergenList !== undefined && obj.allergenList !== null) {
     for (const item of obj.allergenList) {
@@ -10796,7 +10957,7 @@ export function serializeNutritionalCharacteristicsInput(obj: T.NutritionalChara
   return xml;
 }
 
-export function serializeUpdateArticleNutritionalCharacteristicsRequest(obj: T.UpdateArticleNutritionalCharacteristicsRequest, elemName: string): string {
+export function serializeUpdateArticleNutritionalCharacteristicsRequest(obj: T.Input<T.UpdateArticleNutritionalCharacteristicsRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.articleNumber !== undefined && obj.articleNumber !== null) {
     xml += serializeNumber('articleNumber', obj.articleNumber);
@@ -10811,7 +10972,7 @@ export function serializeUpdateArticleNutritionalCharacteristicsRequest(obj: T.U
   return xml;
 }
 
-export function serializeGetPreparationMethodGroupsRequest(obj: T.GetPreparationMethodGroupsRequest, elemName: string): string {
+export function serializeGetPreparationMethodGroupsRequest(obj: T.Input<T.GetPreparationMethodGroupsRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.syncMarker !== undefined && obj.syncMarker !== null) {
     xml += serializeNumber('syncMarker', obj.syncMarker);
@@ -10823,7 +10984,7 @@ export function serializeGetPreparationMethodGroupsRequest(obj: T.GetPreparation
   return xml;
 }
 
-export function serializePreparationMethodItem(obj: T.PreparationMethodItem, elemName: string): string {
+export function serializePreparationMethodItem(obj: T.Input<T.PreparationMethodItem>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.id !== undefined && obj.id !== null) {
     xml += serializeNumber('id', obj.id);
@@ -10859,7 +11020,7 @@ export function serializePreparationMethodItem(obj: T.PreparationMethodItem, ele
   return xml;
 }
 
-export function serializePreparationMethodItemList(obj: T.PreparationMethodItemList, elemName: string): string {
+export function serializePreparationMethodItemList(obj: T.Input<T.PreparationMethodItemList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.preparationMethodItem !== undefined && obj.preparationMethodItem !== null) {
     for (const item of obj.preparationMethodItem) {
@@ -10870,7 +11031,7 @@ export function serializePreparationMethodItemList(obj: T.PreparationMethodItemL
   return xml;
 }
 
-export function serializePreparationMethodGroup(obj: T.PreparationMethodGroup, elemName: string): string {
+export function serializePreparationMethodGroup(obj: T.Input<T.PreparationMethodGroup>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.groupNumber !== undefined && obj.groupNumber !== null) {
     xml += serializeNumber('groupNumber', obj.groupNumber);
@@ -10916,7 +11077,7 @@ export function serializePreparationMethodGroup(obj: T.PreparationMethodGroup, e
   return xml;
 }
 
-export function serializePreparationMethodGroupList(obj: T.PreparationMethodGroupList, elemName: string): string {
+export function serializePreparationMethodGroupList(obj: T.Input<T.PreparationMethodGroupList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.preparationMethodGroup !== undefined && obj.preparationMethodGroup !== null) {
     for (const item of obj.preparationMethodGroup) {
@@ -10927,7 +11088,7 @@ export function serializePreparationMethodGroupList(obj: T.PreparationMethodGrou
   return xml;
 }
 
-export function serializeDeletePreparationMethodGroupRequest(obj: T.DeletePreparationMethodGroupRequest, elemName: string): string {
+export function serializeDeletePreparationMethodGroupRequest(obj: T.Input<T.DeletePreparationMethodGroupRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.groupNumber !== undefined && obj.groupNumber !== null) {
     xml += serializeNumber('groupNumber', obj.groupNumber);
@@ -10939,7 +11100,7 @@ export function serializeDeletePreparationMethodGroupRequest(obj: T.DeletePrepar
   return xml;
 }
 
-export function serializeGetArticlesPreparationMethodGroupsRequest(obj: T.GetArticlesPreparationMethodGroupsRequest, elemName: string): string {
+export function serializeGetArticlesPreparationMethodGroupsRequest(obj: T.Input<T.GetArticlesPreparationMethodGroupsRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.articleNumbers !== undefined && obj.articleNumbers !== null) {
     xml += `<${NS_PREFIX}:articleNumbers>`;
@@ -10952,7 +11113,7 @@ export function serializeGetArticlesPreparationMethodGroupsRequest(obj: T.GetArt
   return xml;
 }
 
-export function serializeArticlePreparationMethodGroups(obj: T.ArticlePreparationMethodGroups, elemName: string): string {
+export function serializeArticlePreparationMethodGroups(obj: T.Input<T.ArticlePreparationMethodGroups>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.articleNumber !== undefined && obj.articleNumber !== null) {
     xml += serializeNumber('articleNumber', obj.articleNumber);
@@ -10966,7 +11127,7 @@ export function serializeArticlePreparationMethodGroups(obj: T.ArticlePreparatio
   return xml;
 }
 
-export function serializeArticlePreparationMethodGroupsList(obj: T.ArticlePreparationMethodGroupsList, elemName: string): string {
+export function serializeArticlePreparationMethodGroupsList(obj: T.Input<T.ArticlePreparationMethodGroupsList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.articlePreparationMethodGroups !== undefined && obj.articlePreparationMethodGroups !== null) {
     for (const item of obj.articlePreparationMethodGroups) {
@@ -10977,7 +11138,7 @@ export function serializeArticlePreparationMethodGroupsList(obj: T.ArticlePrepar
   return xml;
 }
 
-export function serializeUpdateArticlePreparationMethodGroupsRequest(obj: T.UpdateArticlePreparationMethodGroupsRequest, elemName: string): string {
+export function serializeUpdateArticlePreparationMethodGroupsRequest(obj: T.Input<T.UpdateArticlePreparationMethodGroupsRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.articleNumber !== undefined && obj.articleNumber !== null) {
     xml += serializeNumber('articleNumber', obj.articleNumber);
@@ -10991,7 +11152,7 @@ export function serializeUpdateArticlePreparationMethodGroupsRequest(obj: T.Upda
   return xml;
 }
 
-export function serializePlaceTableOrderLineDataElem(obj: T.PlaceTableOrderLineDataElem, elemName: string): string {
+export function serializePlaceTableOrderLineDataElem(obj: T.Input<T.PlaceTableOrderLineDataElem>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.quantity !== undefined && obj.quantity !== null) {
     xml += serializeString('quantity', String(obj.quantity));
@@ -11033,7 +11194,7 @@ export function serializePlaceTableOrderLineDataElem(obj: T.PlaceTableOrderLineD
   return xml;
 }
 
-export function serializePlaceTableOrderLineElem(obj: T.PlaceTableOrderLineElem, elemName: string): string {
+export function serializePlaceTableOrderLineElem(obj: T.Input<T.PlaceTableOrderLineElem>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.articleNumber !== undefined && obj.articleNumber !== null) {
     xml += serializeNumber('articleNumber', obj.articleNumber);
@@ -11065,7 +11226,7 @@ export function serializePlaceTableOrderLineElem(obj: T.PlaceTableOrderLineElem,
   return xml;
 }
 
-export function serializePlaceTableOrderPaymentElem(obj: T.PlaceTableOrderPaymentElem, elemName: string): string {
+export function serializePlaceTableOrderPaymentElem(obj: T.Input<T.PlaceTableOrderPaymentElem>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.method !== undefined && obj.method !== null) {
     xml += serializeString('method', String(obj.method));
@@ -11086,7 +11247,7 @@ export function serializePlaceTableOrderPaymentElem(obj: T.PlaceTableOrderPaymen
   return xml;
 }
 
-export function serializeTableOrderIdentifierElem(obj: T.TableOrderIdentifierElem, elemName: string): string {
+export function serializeTableOrderIdentifierElem(obj: T.Input<T.TableOrderIdentifierElem>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.branchNumber !== undefined && obj.branchNumber !== null) {
     xml += serializeNumber('branchNumber', obj.branchNumber);
@@ -11107,13 +11268,70 @@ export function serializeTableOrderIdentifierElem(obj: T.TableOrderIdentifierEle
   return xml;
 }
 
-export function serializePlaceTableOrderReq(obj: T.PlaceTableOrderReq, elemName: string): string {
+export function serializePlaceTableOrderReq(obj: T.Input<T.PlaceTableOrderReq>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.idempotencyKey !== undefined && obj.idempotencyKey !== null) {
+    xml += serializeString('idempotencyKey', String(obj.idempotencyKey));
+  }
+  if (obj.tableOrderIdentifier !== undefined && obj.tableOrderIdentifier !== null) {
+    xml += serializeTableOrderIdentifierElem(obj.tableOrderIdentifier, 'tableOrderIdentifier');
+  }
+  if (obj.employeeNumber !== undefined && obj.employeeNumber !== null) {
+    xml += serializeNumber('employeeNumber', obj.employeeNumber);
+  }
+  if (obj.workplaceNumber !== undefined && obj.workplaceNumber !== null) {
+    xml += serializeNumber('workplaceNumber', obj.workplaceNumber);
+  }
+  if (obj.tableDescription !== undefined && obj.tableDescription !== null) {
+    xml += serializeString('tableDescription', String(obj.tableDescription));
+  }
+  if (obj.numberOfGuests !== undefined && obj.numberOfGuests !== null) {
+    xml += serializeNumber('numberOfGuests', obj.numberOfGuests);
+  }
+  if (obj.relationNumber !== undefined && obj.relationNumber !== null) {
+    xml += serializeNumber('relationNumber', obj.relationNumber);
+  }
+  if (obj.vatChange !== undefined && obj.vatChange !== null) {
+    xml += serializeString('vatChange', String(obj.vatChange));
+  }
+  if (obj.lines !== undefined && obj.lines !== null) {
+    for (const item of obj.lines) {
+      xml += serializePlaceTableOrderLineElem(item, 'lines');
+    }
+  }
+  if (obj.payments !== undefined && obj.payments !== null) {
+    for (const item of obj.payments) {
+      xml += serializePlaceTableOrderPaymentElem(item, 'payments');
+    }
+  }
+  if (obj.webhookSessionData !== undefined && obj.webhookSessionData !== null) {
+    xml += serializeWebhookSessionData(obj.webhookSessionData, 'webhookSessionData');
+  }
+  if (obj.keepTableName !== undefined && obj.keepTableName !== null) {
+    xml += serializeBoolean('keepTableName', obj.keepTableName);
+  }
+  if (obj.activityId !== undefined && obj.activityId !== null) {
+    xml += serializeString('activityId', String(obj.activityId));
+  }
+  if (obj.deliveryPeriodBegin !== undefined && obj.deliveryPeriodBegin !== null) {
+    xml += serializeString('deliveryPeriodBegin', obj.deliveryPeriodBegin.toISOString());
+  }
+  if (obj.automaticNewMenus !== undefined && obj.automaticNewMenus !== null) {
+    xml += serializeBoolean('automaticNewMenus', obj.automaticNewMenus);
+  }
+  if (obj.scannedVoucherIssuanceCodes !== undefined && obj.scannedVoucherIssuanceCodes !== null) {
+    for (const item of obj.scannedVoucherIssuanceCodes) {
+      xml += serializeString('scannedVoucherIssuanceCodes', String(item));
+    }
+  }
+  if (obj.releaseTable !== undefined && obj.releaseTable !== null) {
+    xml += serializeBoolean('releaseTable', obj.releaseTable);
+  }
   xml += `</${NS_PREFIX}:${elemName}>`;
   return xml;
 }
 
-export function serializeTapTickTotalsRequest(obj: T.TapTickTotalsRequest, elemName: string): string {
+export function serializeTapTickTotalsRequest(obj: T.Input<T.TapTickTotalsRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.branchNumbers !== undefined && obj.branchNumbers !== null) {
     for (const item of obj.branchNumbers) {
@@ -11124,7 +11342,7 @@ export function serializeTapTickTotalsRequest(obj: T.TapTickTotalsRequest, elemN
   return xml;
 }
 
-export function serializeTapTickTotal(obj: T.TapTickTotal, elemName: string): string {
+export function serializeTapTickTotal(obj: T.Input<T.TapTickTotal>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.articleNumber !== undefined && obj.articleNumber !== null) {
     xml += serializeNumber('articleNumber', obj.articleNumber);
@@ -11139,7 +11357,7 @@ export function serializeTapTickTotal(obj: T.TapTickTotal, elemName: string): st
   return xml;
 }
 
-export function serializeBranchTapTickTotals(obj: T.BranchTapTickTotals, elemName: string): string {
+export function serializeBranchTapTickTotals(obj: T.Input<T.BranchTapTickTotals>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.branchNumber !== undefined && obj.branchNumber !== null) {
     xml += serializeNumber('branchNumber', obj.branchNumber);
@@ -11153,7 +11371,7 @@ export function serializeBranchTapTickTotals(obj: T.BranchTapTickTotals, elemNam
   return xml;
 }
 
-export function serializeTapTickHistoryRequest(obj: T.TapTickHistoryRequest, elemName: string): string {
+export function serializeTapTickHistoryRequest(obj: T.Input<T.TapTickHistoryRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.fromTs !== undefined && obj.fromTs !== null) {
     xml += serializeString('fromTs', obj.fromTs.toISOString());
@@ -11170,7 +11388,7 @@ export function serializeTapTickHistoryRequest(obj: T.TapTickHistoryRequest, ele
   return xml;
 }
 
-export function serializeTapTickHistory(obj: T.TapTickHistory, elemName: string): string {
+export function serializeTapTickHistory(obj: T.Input<T.TapTickHistory>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.id !== undefined && obj.id !== null) {
     xml += serializeNumber('id', obj.id);
@@ -11197,7 +11415,7 @@ export function serializeTapTickHistory(obj: T.TapTickHistory, elemName: string)
   return xml;
 }
 
-export function serializeFindRelationV2Request(obj: T.FindRelationV2Request, elemName: string): string {
+export function serializeFindRelationV2Request(obj: T.Input<T.FindRelationV2Request>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.relation !== undefined && obj.relation !== null) {
     xml += serializeRelation(obj.relation, 'relation');
@@ -11209,7 +11427,7 @@ export function serializeFindRelationV2Request(obj: T.FindRelationV2Request, ele
   return xml;
 }
 
-export function serializeTodoListEntry(obj: T.TodoListEntry, elemName: string): string {
+export function serializeTodoListEntry(obj: T.Input<T.TodoListEntry>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.articleNumber !== undefined && obj.articleNumber !== null) {
     xml += serializeNumber('articleNumber', obj.articleNumber);
@@ -11224,7 +11442,7 @@ export function serializeTodoListEntry(obj: T.TodoListEntry, elemName: string): 
   return xml;
 }
 
-export function serializeGetTodoListsRequest(obj: T.GetTodoListsRequest, elemName: string): string {
+export function serializeGetTodoListsRequest(obj: T.Input<T.GetTodoListsRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.branchNumber !== undefined && obj.branchNumber !== null) {
     xml += serializeNumber('branchNumber', obj.branchNumber);
@@ -11239,7 +11457,7 @@ export function serializeGetTodoListsRequest(obj: T.GetTodoListsRequest, elemNam
   return xml;
 }
 
-export function serializeCreateTodoListRequest(obj: T.CreateTodoListRequest, elemName: string): string {
+export function serializeCreateTodoListRequest(obj: T.Input<T.CreateTodoListRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.branchNumber !== undefined && obj.branchNumber !== null) {
     xml += serializeNumber('branchNumber', obj.branchNumber);
@@ -11259,7 +11477,7 @@ export function serializeCreateTodoListRequest(obj: T.CreateTodoListRequest, ele
   return xml;
 }
 
-export function serializeSaveTodoListRequest(obj: T.SaveTodoListRequest, elemName: string): string {
+export function serializeSaveTodoListRequest(obj: T.Input<T.SaveTodoListRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.id !== undefined && obj.id !== null) {
     xml += serializeNumber('id', obj.id);
@@ -11282,13 +11500,33 @@ export function serializeSaveTodoListRequest(obj: T.SaveTodoListRequest, elemNam
   return xml;
 }
 
-export function serializeSaveTodoListV2Request(obj: T.SaveTodoListV2Request, elemName: string): string {
+export function serializeSaveTodoListV2Request(obj: T.Input<T.SaveTodoListV2Request>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.idempotencyKey !== undefined && obj.idempotencyKey !== null) {
+    xml += serializeString('idempotencyKey', String(obj.idempotencyKey));
+  }
+  if (obj.id !== undefined && obj.id !== null) {
+    xml += serializeNumber('id', obj.id);
+  }
+  if (obj.branchNumber !== undefined && obj.branchNumber !== null) {
+    xml += serializeNumber('branchNumber', obj.branchNumber);
+  }
+  if (obj.category !== undefined && obj.category !== null) {
+    xml += serializeString('category', String(obj.category));
+  }
+  if (obj.name !== undefined && obj.name !== null) {
+    xml += serializeString('name', String(obj.name));
+  }
+  if (obj.entries !== undefined && obj.entries !== null) {
+    for (const item of obj.entries) {
+      xml += serializeTodoListEntry(item, 'entries');
+    }
+  }
   xml += `</${NS_PREFIX}:${elemName}>`;
   return xml;
 }
 
-export function serializeAddToTodoListRequest(obj: T.AddToTodoListRequest, elemName: string): string {
+export function serializeAddToTodoListRequest(obj: T.Input<T.AddToTodoListRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.id !== undefined && obj.id !== null) {
     xml += serializeNumber('id', obj.id);
@@ -11302,31 +11540,31 @@ export function serializeAddToTodoListRequest(obj: T.AddToTodoListRequest, elemN
   return xml;
 }
 
-export function serializeStruct1(obj: T.Struct1, elemName: string): string {
+export function serializeStruct1(obj: T.Input<T.Struct1>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   xml += `</${NS_PREFIX}:${elemName}>`;
   return xml;
 }
 
-export function serializeStruct2(obj: T.Struct2, elemName: string): string {
+export function serializeStruct2(obj: T.Input<T.Struct2>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   xml += `</${NS_PREFIX}:${elemName}>`;
   return xml;
 }
 
-export function serializeStruct3(obj: T.Struct3, elemName: string): string {
+export function serializeStruct3(obj: T.Input<T.Struct3>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   xml += `</${NS_PREFIX}:${elemName}>`;
   return xml;
 }
 
-export function serializeGetFilterProfilesRequest(obj: T.GetFilterProfilesRequest, elemName: string): string {
+export function serializeGetFilterProfilesRequest(obj: T.Input<T.GetFilterProfilesRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   xml += `</${NS_PREFIX}:${elemName}>`;
   return xml;
 }
 
-export function serializeFilterProfile(obj: T.FilterProfile, elemName: string): string {
+export function serializeFilterProfile(obj: T.Input<T.FilterProfile>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.id !== undefined && obj.id !== null) {
     xml += serializeNumber('id', obj.id);
@@ -11341,7 +11579,7 @@ export function serializeFilterProfile(obj: T.FilterProfile, elemName: string): 
   return xml;
 }
 
-export function serializeSavePreparationMethodItem(obj: T.SavePreparationMethodItem, elemName: string): string {
+export function serializeSavePreparationMethodItem(obj: T.Input<T.SavePreparationMethodItem>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.preparationMethodItemId !== undefined && obj.preparationMethodItemId !== null) {
     xml += serializeNumber('preparationMethodItemId', obj.preparationMethodItemId);
@@ -11365,7 +11603,7 @@ export function serializeSavePreparationMethodItem(obj: T.SavePreparationMethodI
   return xml;
 }
 
-export function serializeSavePreparationMethodGroupRequest(obj: T.SavePreparationMethodGroupRequest, elemName: string): string {
+export function serializeSavePreparationMethodGroupRequest(obj: T.Input<T.SavePreparationMethodGroupRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.preparationMethodGroupNumber !== undefined && obj.preparationMethodGroupNumber !== null) {
     xml += serializeNumber('preparationMethodGroupNumber', obj.preparationMethodGroupNumber);
@@ -11397,7 +11635,7 @@ export function serializeSavePreparationMethodGroupRequest(obj: T.SavePreparatio
   return xml;
 }
 
-export function serializeGetNutritionalCharacteristicsRequest(obj: T.GetNutritionalCharacteristicsRequest, elemName: string): string {
+export function serializeGetNutritionalCharacteristicsRequest(obj: T.Input<T.GetNutritionalCharacteristicsRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.nutritionalCharacteristicsType !== undefined && obj.nutritionalCharacteristicsType !== null) {
     xml += serializeString('nutritionalCharacteristicsType', String(obj.nutritionalCharacteristicsType));
@@ -11419,7 +11657,7 @@ export function serializeGetNutritionalCharacteristicsRequest(obj: T.GetNutritio
   return xml;
 }
 
-export function serializeGetNutritionalCharacteristicsResponseElem(obj: T.GetNutritionalCharacteristicsResponseElem, elemName: string): string {
+export function serializeGetNutritionalCharacteristicsResponseElem(obj: T.Input<T.GetNutritionalCharacteristicsResponseElem>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.numbers !== undefined && obj.numbers !== null) {
     xml += serializeNumber('numbers', obj.numbers);
@@ -11434,7 +11672,7 @@ export function serializeGetNutritionalCharacteristicsResponseElem(obj: T.GetNut
   return xml;
 }
 
-export function serializeUpdateNutritionalCharacteristicsRequest(obj: T.UpdateNutritionalCharacteristicsRequest, elemName: string): string {
+export function serializeUpdateNutritionalCharacteristicsRequest(obj: T.Input<T.UpdateNutritionalCharacteristicsRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.nutritionalCharacteristicsType !== undefined && obj.nutritionalCharacteristicsType !== null) {
     xml += serializeString('nutritionalCharacteristicsType', String(obj.nutritionalCharacteristicsType));
@@ -11452,7 +11690,7 @@ export function serializeUpdateNutritionalCharacteristicsRequest(obj: T.UpdateNu
   return xml;
 }
 
-export function serializeDeterminePricingRequest(obj: T.DeterminePricingRequest, elemName: string): string {
+export function serializeDeterminePricingRequest(obj: T.Input<T.DeterminePricingRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.financialDate !== undefined && obj.financialDate !== null) {
     xml += serializeString('financialDate', obj.financialDate.toISOString().substring(0, 10));
@@ -11495,7 +11733,7 @@ export function serializeDeterminePricingRequest(obj: T.DeterminePricingRequest,
   return xml;
 }
 
-export function serializeDeterminePricingResponseLine(obj: T.DeterminePricingResponseLine, elemName: string): string {
+export function serializeDeterminePricingResponseLine(obj: T.Input<T.DeterminePricingResponseLine>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.articleNumber !== undefined && obj.articleNumber !== null) {
     xml += serializeNumber('articleNumber', obj.articleNumber);
@@ -11575,7 +11813,7 @@ export function serializeDeterminePricingResponseLine(obj: T.DeterminePricingRes
   return xml;
 }
 
-export function serializeRelationPresence(obj: T.RelationPresence, elemName: string): string {
+export function serializeRelationPresence(obj: T.Input<T.RelationPresence>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.relationNumber !== undefined && obj.relationNumber !== null) {
     xml += serializeNumber('relationNumber', obj.relationNumber);
@@ -11593,7 +11831,7 @@ export function serializeRelationPresence(obj: T.RelationPresence, elemName: str
   return xml;
 }
 
-export function serializeSetRelationPresenceRequest(obj: T.SetRelationPresenceRequest, elemName: string): string {
+export function serializeSetRelationPresenceRequest(obj: T.Input<T.SetRelationPresenceRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.relationPresence !== undefined && obj.relationPresence !== null) {
     xml += serializeRelationPresence(obj.relationPresence, 'relationPresence');
@@ -11602,7 +11840,7 @@ export function serializeSetRelationPresenceRequest(obj: T.SetRelationPresenceRe
   return xml;
 }
 
-export function serializeGetRelationPresenceRequest(obj: T.GetRelationPresenceRequest, elemName: string): string {
+export function serializeGetRelationPresenceRequest(obj: T.Input<T.GetRelationPresenceRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.relationNumber !== undefined && obj.relationNumber !== null) {
     xml += serializeNumber('relationNumber', obj.relationNumber);
@@ -11611,7 +11849,7 @@ export function serializeGetRelationPresenceRequest(obj: T.GetRelationPresenceRe
   return xml;
 }
 
-export function serializeGetArticleBranchDeviationsRequest(obj: T.GetArticleBranchDeviationsRequest, elemName: string): string {
+export function serializeGetArticleBranchDeviationsRequest(obj: T.Input<T.GetArticleBranchDeviationsRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.articleNumbers !== undefined && obj.articleNumbers !== null) {
     xml += `<${NS_PREFIX}:articleNumbers>`;
@@ -11631,7 +11869,7 @@ export function serializeGetArticleBranchDeviationsRequest(obj: T.GetArticleBran
   return xml;
 }
 
-export function serializeArticleBranchDeviationLine(obj: T.ArticleBranchDeviationLine, elemName: string): string {
+export function serializeArticleBranchDeviationLine(obj: T.Input<T.ArticleBranchDeviationLine>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.articleNumber !== undefined && obj.articleNumber !== null) {
     xml += serializeNumber('articleNumber', obj.articleNumber);
@@ -11658,7 +11896,7 @@ export function serializeArticleBranchDeviationLine(obj: T.ArticleBranchDeviatio
   return xml;
 }
 
-export function serializeSaveArticleBranchDeviationsRequest(obj: T.SaveArticleBranchDeviationsRequest, elemName: string): string {
+export function serializeSaveArticleBranchDeviationsRequest(obj: T.Input<T.SaveArticleBranchDeviationsRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.articleBranchDeviationLines !== undefined && obj.articleBranchDeviationLines !== null) {
     for (const item of obj.articleBranchDeviationLines) {
@@ -11669,7 +11907,7 @@ export function serializeSaveArticleBranchDeviationsRequest(obj: T.SaveArticleBr
   return xml;
 }
 
-export function serializeArticleNutrient(obj: T.ArticleNutrient, elemName: string): string {
+export function serializeArticleNutrient(obj: T.Input<T.ArticleNutrient>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.nutrientId !== undefined && obj.nutrientId !== null) {
     xml += serializeNumber('nutrientId', obj.nutrientId);
@@ -11681,7 +11919,7 @@ export function serializeArticleNutrient(obj: T.ArticleNutrient, elemName: strin
   return xml;
 }
 
-export function serializeUpdateArticleNutrientsRequest(obj: T.UpdateArticleNutrientsRequest, elemName: string): string {
+export function serializeUpdateArticleNutrientsRequest(obj: T.Input<T.UpdateArticleNutrientsRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.articleNumber !== undefined && obj.articleNumber !== null) {
     xml += serializeNumber('articleNumber', obj.articleNumber);
@@ -11695,7 +11933,7 @@ export function serializeUpdateArticleNutrientsRequest(obj: T.UpdateArticleNutri
   return xml;
 }
 
-export function serializeArticleDynamicMinMaxStock(obj: T.ArticleDynamicMinMaxStock, elemName: string): string {
+export function serializeArticleDynamicMinMaxStock(obj: T.Input<T.ArticleDynamicMinMaxStock>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.articleNumber !== undefined && obj.articleNumber !== null) {
     xml += serializeNumber('articleNumber', obj.articleNumber);
@@ -11719,7 +11957,7 @@ export function serializeArticleDynamicMinMaxStock(obj: T.ArticleDynamicMinMaxSt
   return xml;
 }
 
-export function serializeArticleDynamicMinMaxStockList(obj: T.ArticleDynamicMinMaxStockList, elemName: string): string {
+export function serializeArticleDynamicMinMaxStockList(obj: T.Input<T.ArticleDynamicMinMaxStockList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.articleDynamicMinMaxStock !== undefined && obj.articleDynamicMinMaxStock !== null) {
     for (const item of obj.articleDynamicMinMaxStock) {
@@ -11730,7 +11968,7 @@ export function serializeArticleDynamicMinMaxStockList(obj: T.ArticleDynamicMinM
   return xml;
 }
 
-export function serializeUpdateArticleDynamicMinMaxStockRequest(obj: T.UpdateArticleDynamicMinMaxStockRequest, elemName: string): string {
+export function serializeUpdateArticleDynamicMinMaxStockRequest(obj: T.Input<T.UpdateArticleDynamicMinMaxStockRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.articleDynamicMinMaxStocks !== undefined && obj.articleDynamicMinMaxStocks !== null) {
     xml += `<${NS_PREFIX}:articleDynamicMinMaxStocks>`;
@@ -11743,7 +11981,7 @@ export function serializeUpdateArticleDynamicMinMaxStockRequest(obj: T.UpdateArt
   return xml;
 }
 
-export function serializeGetArticleDynamicMinMaxStockRequest(obj: T.GetArticleDynamicMinMaxStockRequest, elemName: string): string {
+export function serializeGetArticleDynamicMinMaxStockRequest(obj: T.Input<T.GetArticleDynamicMinMaxStockRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.fromDateTime !== undefined && obj.fromDateTime !== null) {
     xml += serializeString('fromDateTime', obj.fromDateTime.toISOString());
@@ -11770,7 +12008,7 @@ export function serializeGetArticleDynamicMinMaxStockRequest(obj: T.GetArticleDy
   return xml;
 }
 
-export function serializeTableEmployee(obj: T.TableEmployee, elemName: string): string {
+export function serializeTableEmployee(obj: T.Input<T.TableEmployee>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.employeeNumber !== undefined && obj.employeeNumber !== null) {
     xml += serializeNumber('employeeNumber', obj.employeeNumber);
@@ -11782,7 +12020,7 @@ export function serializeTableEmployee(obj: T.TableEmployee, elemName: string): 
   return xml;
 }
 
-export function serializeCardFieldInfo(obj: T.CardFieldInfo, elemName: string): string {
+export function serializeCardFieldInfo(obj: T.Input<T.CardFieldInfo>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.name !== undefined && obj.name !== null) {
     xml += serializeString('name', String(obj.name));
@@ -11794,7 +12032,7 @@ export function serializeCardFieldInfo(obj: T.CardFieldInfo, elemName: string): 
   return xml;
 }
 
-export function serializeCardFieldInfoList(obj: T.CardFieldInfoList, elemName: string): string {
+export function serializeCardFieldInfoList(obj: T.Input<T.CardFieldInfoList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.field !== undefined && obj.field !== null) {
     for (const item of obj.field) {
@@ -11805,13 +12043,25 @@ export function serializeCardFieldInfoList(obj: T.CardFieldInfoList, elemName: s
   return xml;
 }
 
-export function serializeCardFieldInfoResponse(obj: T.CardFieldInfoResponse, elemName: string): string {
+export function serializeCardFieldInfoResponse(obj: T.Input<T.CardFieldInfoResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.name !== undefined && obj.name !== null) {
+    xml += serializeString('name', String(obj.name));
+  }
+  if (obj.optionType !== undefined && obj.optionType !== null) {
+    xml += serializeString('optionType', String(obj.optionType));
+  }
+  if (obj.optionsJson !== undefined && obj.optionsJson !== null) {
+    xml += serializeString('optionsJson', String(obj.optionsJson));
+  }
+  if (obj.numOptions !== undefined && obj.numOptions !== null) {
+    xml += serializeNumber('numOptions', obj.numOptions);
+  }
   xml += `</${NS_PREFIX}:${elemName}>`;
   return xml;
 }
 
-export function serializeCardFieldInfoResponseList(obj: T.CardFieldInfoResponseList, elemName: string): string {
+export function serializeCardFieldInfoResponseList(obj: T.Input<T.CardFieldInfoResponseList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.field !== undefined && obj.field !== null) {
     for (const item of obj.field) {
@@ -11822,7 +12072,7 @@ export function serializeCardFieldInfoResponseList(obj: T.CardFieldInfoResponseL
   return xml;
 }
 
-export function serializeGetCardFilterOptionsRequest(obj: T.GetCardFilterOptionsRequest, elemName: string): string {
+export function serializeGetCardFilterOptionsRequest(obj: T.Input<T.GetCardFilterOptionsRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.cardType !== undefined && obj.cardType !== null) {
     xml += serializeString('cardType', String(obj.cardType));
@@ -11848,7 +12098,7 @@ export function serializeGetCardFilterOptionsRequest(obj: T.GetCardFilterOptions
   return xml;
 }
 
-export function serializePlannedCycleCount(obj: T.PlannedCycleCount, elemName: string): string {
+export function serializePlannedCycleCount(obj: T.Input<T.PlannedCycleCount>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.id !== undefined && obj.id !== null) {
     xml += serializeString('id', String(obj.id));
@@ -11884,7 +12134,7 @@ export function serializePlannedCycleCount(obj: T.PlannedCycleCount, elemName: s
   return xml;
 }
 
-export function serializePlannedCycleCountList(obj: T.PlannedCycleCountList, elemName: string): string {
+export function serializePlannedCycleCountList(obj: T.Input<T.PlannedCycleCountList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.plannedCycleCount !== undefined && obj.plannedCycleCount !== null) {
     for (const item of obj.plannedCycleCount) {
@@ -11895,7 +12145,7 @@ export function serializePlannedCycleCountList(obj: T.PlannedCycleCountList, ele
   return xml;
 }
 
-export function serializeGetPlannedCycleCountsRequest(obj: T.GetPlannedCycleCountsRequest, elemName: string): string {
+export function serializeGetPlannedCycleCountsRequest(obj: T.Input<T.GetPlannedCycleCountsRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.fromDate !== undefined && obj.fromDate !== null) {
     xml += serializeString('fromDate', obj.fromDate.toISOString().substring(0, 10));
@@ -11910,7 +12160,7 @@ export function serializeGetPlannedCycleCountsRequest(obj: T.GetPlannedCycleCoun
   return xml;
 }
 
-export function serializeActiveCycleCountLine(obj: T.ActiveCycleCountLine, elemName: string): string {
+export function serializeActiveCycleCountLine(obj: T.Input<T.ActiveCycleCountLine>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.articleNumber !== undefined && obj.articleNumber !== null) {
     xml += serializeNumber('articleNumber', obj.articleNumber);
@@ -11925,7 +12175,7 @@ export function serializeActiveCycleCountLine(obj: T.ActiveCycleCountLine, elemN
   return xml;
 }
 
-export function serializeActiveCycleCountLineList(obj: T.ActiveCycleCountLineList, elemName: string): string {
+export function serializeActiveCycleCountLineList(obj: T.Input<T.ActiveCycleCountLineList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.activeCycleCountLine !== undefined && obj.activeCycleCountLine !== null) {
     for (const item of obj.activeCycleCountLine) {
@@ -11936,13 +12186,50 @@ export function serializeActiveCycleCountLineList(obj: T.ActiveCycleCountLineLis
   return xml;
 }
 
-export function serializeActiveCycleCount(obj: T.ActiveCycleCount, elemName: string): string {
+export function serializeActiveCycleCount(obj: T.Input<T.ActiveCycleCount>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.id !== undefined && obj.id !== null) {
+    xml += serializeString('id', String(obj.id));
+  }
+  if (obj.todoListId !== undefined && obj.todoListId !== null) {
+    xml += serializeNumber('todoListId', obj.todoListId);
+  }
+  if (obj.todoListName !== undefined && obj.todoListName !== null) {
+    xml += serializeString('todoListName', String(obj.todoListName));
+  }
+  if (obj.branchNumber !== undefined && obj.branchNumber !== null) {
+    xml += serializeNumber('branchNumber', obj.branchNumber);
+  }
+  if (obj.fromDate !== undefined && obj.fromDate !== null) {
+    xml += serializeString('fromDate', obj.fromDate.toISOString().substring(0, 10));
+  }
+  if (obj.throughDate !== undefined && obj.throughDate !== null) {
+    xml += serializeString('throughDate', obj.throughDate.toISOString().substring(0, 10));
+  }
+  if (obj.isRecurring !== undefined && obj.isRecurring !== null) {
+    xml += serializeBoolean('isRecurring', obj.isRecurring);
+  }
+  if (obj.colour !== undefined && obj.colour !== null) {
+    xml += serializeColour(obj.colour, 'colour');
+  }
+  if (obj.countedQuantity !== undefined && obj.countedQuantity !== null) {
+    xml += serializeNumber('countedQuantity', obj.countedQuantity);
+  }
+  if (obj.totalQuantity !== undefined && obj.totalQuantity !== null) {
+    xml += serializeNumber('totalQuantity', obj.totalQuantity);
+  }
+  if (obj.lines !== undefined && obj.lines !== null) {
+    xml += `<${NS_PREFIX}:lines>`;
+    for (const item of obj.lines) {
+      xml += serializeActiveCycleCountLine(item, 'activeCycleCountLine');
+    }
+    xml += `</${NS_PREFIX}:lines>`;
+  }
   xml += `</${NS_PREFIX}:${elemName}>`;
   return xml;
 }
 
-export function serializeGetActiveCycleCountRequest(obj: T.GetActiveCycleCountRequest, elemName: string): string {
+export function serializeGetActiveCycleCountRequest(obj: T.Input<T.GetActiveCycleCountRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.plannedCycleCountId !== undefined && obj.plannedCycleCountId !== null) {
     xml += serializeString('plannedCycleCountId', String(obj.plannedCycleCountId));
@@ -11957,7 +12244,7 @@ export function serializeGetActiveCycleCountRequest(obj: T.GetActiveCycleCountRe
   return xml;
 }
 
-export function serializeSetArticleRecalledRequest(obj: T.SetArticleRecalledRequest, elemName: string): string {
+export function serializeSetArticleRecalledRequest(obj: T.Input<T.SetArticleRecalledRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.articleNumber !== undefined && obj.articleNumber !== null) {
     xml += serializeNumber('articleNumber', obj.articleNumber);
@@ -11978,7 +12265,7 @@ export function serializeSetArticleRecalledRequest(obj: T.SetArticleRecalledRequ
   return xml;
 }
 
-export function serializeGetArticleComponentsRequest(obj: T.GetArticleComponentsRequest, elemName: string): string {
+export function serializeGetArticleComponentsRequest(obj: T.Input<T.GetArticleComponentsRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.articleNumber !== undefined && obj.articleNumber !== null) {
     xml += serializeNumber('articleNumber', obj.articleNumber);
@@ -11987,7 +12274,7 @@ export function serializeGetArticleComponentsRequest(obj: T.GetArticleComponents
   return xml;
 }
 
-export function serializeArticleComponent(obj: T.ArticleComponent, elemName: string): string {
+export function serializeArticleComponent(obj: T.Input<T.ArticleComponent>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.sequenceNumber !== undefined && obj.sequenceNumber !== null) {
     xml += serializeNumber('sequenceNumber', obj.sequenceNumber);
@@ -12011,7 +12298,7 @@ export function serializeArticleComponent(obj: T.ArticleComponent, elemName: str
   return xml;
 }
 
-export function serializeArticleComponentList(obj: T.ArticleComponentList, elemName: string): string {
+export function serializeArticleComponentList(obj: T.Input<T.ArticleComponentList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.articleComponent !== undefined && obj.articleComponent !== null) {
     for (const item of obj.articleComponent) {
@@ -12022,13 +12309,29 @@ export function serializeArticleComponentList(obj: T.ArticleComponentList, elemN
   return xml;
 }
 
-export function serializeSaveArticleComponentsRequest(obj: T.SaveArticleComponentsRequest, elemName: string): string {
+export function serializeSaveArticleComponentsRequest(obj: T.Input<T.SaveArticleComponentsRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.idempotencyKey !== undefined && obj.idempotencyKey !== null) {
+    xml += serializeString('idempotencyKey', String(obj.idempotencyKey));
+  }
+  if (obj.mode !== undefined && obj.mode !== null) {
+    xml += serializeString('mode', String(obj.mode));
+  }
+  if (obj.articleNumber !== undefined && obj.articleNumber !== null) {
+    xml += serializeNumber('articleNumber', obj.articleNumber);
+  }
+  if (obj.articleComponents !== undefined && obj.articleComponents !== null) {
+    xml += `<${NS_PREFIX}:articleComponents>`;
+    for (const item of obj.articleComponents) {
+      xml += serializeArticleComponent(item, 'articleComponent');
+    }
+    xml += `</${NS_PREFIX}:articleComponents>`;
+  }
   xml += `</${NS_PREFIX}:${elemName}>`;
   return xml;
 }
 
-export function serializegetSalesPriceListResponse(obj: T.getSalesPriceListResponse, elemName: string): string {
+export function serializegetSalesPriceListResponse(obj: T.Input<T.getSalesPriceListResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.salesPrice !== undefined && obj.salesPrice !== null) {
     for (const item of obj.salesPrice) {
@@ -12039,7 +12342,7 @@ export function serializegetSalesPriceListResponse(obj: T.getSalesPriceListRespo
   return xml;
 }
 
-export function serializegetPriceGroupListResponse(obj: T.getPriceGroupListResponse, elemName: string): string {
+export function serializegetPriceGroupListResponse(obj: T.Input<T.getPriceGroupListResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.priceGroup !== undefined && obj.priceGroup !== null) {
     for (const item of obj.priceGroup) {
@@ -12050,7 +12353,7 @@ export function serializegetPriceGroupListResponse(obj: T.getPriceGroupListRespo
   return xml;
 }
 
-export function serializeLogMistakeResponse(obj: T.LogMistakeResponse, elemName: string): string {
+export function serializeLogMistakeResponse(obj: T.Input<T.LogMistakeResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -12059,7 +12362,7 @@ export function serializeLogMistakeResponse(obj: T.LogMistakeResponse, elemName:
   return xml;
 }
 
-export function serializeCreateRelationResponse(obj: T.CreateRelationResponse, elemName: string): string {
+export function serializeCreateRelationResponse(obj: T.Input<T.CreateRelationResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -12080,7 +12383,7 @@ export function serializeCreateRelationResponse(obj: T.CreateRelationResponse, e
   return xml;
 }
 
-export function serializeUpdateRelationResponse(obj: T.UpdateRelationResponse, elemName: string): string {
+export function serializeUpdateRelationResponse(obj: T.Input<T.UpdateRelationResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -12098,7 +12401,7 @@ export function serializeUpdateRelationResponse(obj: T.UpdateRelationResponse, e
   return xml;
 }
 
-export function serializeGetRelationResponse(obj: T.GetRelationResponse, elemName: string): string {
+export function serializeGetRelationResponse(obj: T.Input<T.GetRelationResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -12110,7 +12413,7 @@ export function serializeGetRelationResponse(obj: T.GetRelationResponse, elemNam
   return xml;
 }
 
-export function serializeFindRelationResponse(obj: T.FindRelationResponse, elemName: string): string {
+export function serializeFindRelationResponse(obj: T.Input<T.FindRelationResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -12122,7 +12425,7 @@ export function serializeFindRelationResponse(obj: T.FindRelationResponse, elemN
   return xml;
 }
 
-export function serializeGetRelationsResponse(obj: T.GetRelationsResponse, elemName: string): string {
+export function serializeGetRelationsResponse(obj: T.Input<T.GetRelationsResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.relationList !== undefined && obj.relationList !== null) {
     xml += `<${NS_PREFIX}:relationList>`;
@@ -12135,7 +12438,7 @@ export function serializeGetRelationsResponse(obj: T.GetRelationsResponse, elemN
   return xml;
 }
 
-export function serializeGetCustomFieldListsResponse(obj: T.GetCustomFieldListsResponse, elemName: string): string {
+export function serializeGetCustomFieldListsResponse(obj: T.Input<T.GetCustomFieldListsResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.articleCustomFieldList !== undefined && obj.articleCustomFieldList !== null) {
     xml += `<${NS_PREFIX}:articleCustomFieldList>`;
@@ -12162,7 +12465,7 @@ export function serializeGetCustomFieldListsResponse(obj: T.GetCustomFieldListsR
   return xml;
 }
 
-export function serializeGetCardCategoriesResponse(obj: T.GetCardCategoriesResponse, elemName: string): string {
+export function serializeGetCardCategoriesResponse(obj: T.Input<T.GetCardCategoriesResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.articleCardCategoryList !== undefined && obj.articleCardCategoryList !== null) {
     xml += `<${NS_PREFIX}:articleCardCategoryList>`;
@@ -12189,7 +12492,7 @@ export function serializeGetCardCategoriesResponse(obj: T.GetCardCategoriesRespo
   return xml;
 }
 
-export function serializeAdjustPointsResponse(obj: T.AdjustPointsResponse, elemName: string): string {
+export function serializeAdjustPointsResponse(obj: T.Input<T.AdjustPointsResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -12201,7 +12504,7 @@ export function serializeAdjustPointsResponse(obj: T.AdjustPointsResponse, elemN
   return xml;
 }
 
-export function serializeGetRelationPointsResponse(obj: T.GetRelationPointsResponse, elemName: string): string {
+export function serializeGetRelationPointsResponse(obj: T.Input<T.GetRelationPointsResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.relationPointsLst !== undefined && obj.relationPointsLst !== null) {
     for (const item of obj.relationPointsLst) {
@@ -12212,7 +12515,7 @@ export function serializeGetRelationPointsResponse(obj: T.GetRelationPointsRespo
   return xml;
 }
 
-export function serializeGetEmployeesResponse(obj: T.GetEmployeesResponse, elemName: string): string {
+export function serializeGetEmployeesResponse(obj: T.Input<T.GetEmployeesResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.employeeList !== undefined && obj.employeeList !== null) {
     xml += `<${NS_PREFIX}:employeeList>`;
@@ -12225,7 +12528,7 @@ export function serializeGetEmployeesResponse(obj: T.GetEmployeesResponse, elemN
   return xml;
 }
 
-export function serializeGetEmployeeResponse(obj: T.GetEmployeeResponse, elemName: string): string {
+export function serializeGetEmployeeResponse(obj: T.Input<T.GetEmployeeResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -12237,7 +12540,7 @@ export function serializeGetEmployeeResponse(obj: T.GetEmployeeResponse, elemNam
   return xml;
 }
 
-export function serializeFindEmployeeResponse(obj: T.FindEmployeeResponse, elemName: string): string {
+export function serializeFindEmployeeResponse(obj: T.Input<T.FindEmployeeResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -12249,7 +12552,7 @@ export function serializeFindEmployeeResponse(obj: T.FindEmployeeResponse, elemN
   return xml;
 }
 
-export function serializeCreateEmployeeResponse(obj: T.CreateEmployeeResponse, elemName: string): string {
+export function serializeCreateEmployeeResponse(obj: T.Input<T.CreateEmployeeResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -12270,7 +12573,7 @@ export function serializeCreateEmployeeResponse(obj: T.CreateEmployeeResponse, e
   return xml;
 }
 
-export function serializeUpdateEmployeeResponse(obj: T.UpdateEmployeeResponse, elemName: string): string {
+export function serializeUpdateEmployeeResponse(obj: T.Input<T.UpdateEmployeeResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -12288,7 +12591,7 @@ export function serializeUpdateEmployeeResponse(obj: T.UpdateEmployeeResponse, e
   return xml;
 }
 
-export function serializegetEmployeeListResponse(obj: T.getEmployeeListResponse, elemName: string): string {
+export function serializegetEmployeeListResponse(obj: T.Input<T.getEmployeeListResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.return !== undefined && obj.return !== null) {
     for (const item of obj.return) {
@@ -12299,7 +12602,7 @@ export function serializegetEmployeeListResponse(obj: T.getEmployeeListResponse,
   return xml;
 }
 
-export function serializegetTableListResponse(obj: T.getTableListResponse, elemName: string): string {
+export function serializegetTableListResponse(obj: T.Input<T.getTableListResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.table !== undefined && obj.table !== null) {
     for (const item of obj.table) {
@@ -12310,7 +12613,7 @@ export function serializegetTableListResponse(obj: T.getTableListResponse, elemN
   return xml;
 }
 
-export function serializegetTableListV2Response(obj: T.getTableListV2Response, elemName: string): string {
+export function serializegetTableListV2Response(obj: T.Input<T.getTableListV2Response>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.wholeTable !== undefined && obj.wholeTable !== null) {
     for (const item of obj.wholeTable) {
@@ -12321,7 +12624,7 @@ export function serializegetTableListV2Response(obj: T.getTableListV2Response, e
   return xml;
 }
 
-export function serializegetTableListV3Response(obj: T.getTableListV3Response, elemName: string): string {
+export function serializegetTableListV3Response(obj: T.Input<T.getTableListV3Response>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.wholeTable !== undefined && obj.wholeTable !== null) {
     for (const item of obj.wholeTable) {
@@ -12332,7 +12635,7 @@ export function serializegetTableListV3Response(obj: T.getTableListV3Response, e
   return xml;
 }
 
-export function serializegetMainTableListResponse(obj: T.getMainTableListResponse, elemName: string): string {
+export function serializegetMainTableListResponse(obj: T.Input<T.getMainTableListResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.mainTable !== undefined && obj.mainTable !== null) {
     for (const item of obj.mainTable) {
@@ -12343,7 +12646,7 @@ export function serializegetMainTableListResponse(obj: T.getMainTableListRespons
   return xml;
 }
 
-export function serializegetSubTableListResponse(obj: T.getSubTableListResponse, elemName: string): string {
+export function serializegetSubTableListResponse(obj: T.Input<T.getSubTableListResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.subTableState !== undefined && obj.subTableState !== null) {
     for (const item of obj.subTableState) {
@@ -12354,7 +12657,7 @@ export function serializegetSubTableListResponse(obj: T.getSubTableListResponse,
   return xml;
 }
 
-export function serializegetCourseListResponse(obj: T.getCourseListResponse, elemName: string): string {
+export function serializegetCourseListResponse(obj: T.Input<T.getCourseListResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.course !== undefined && obj.course !== null) {
     for (const item of obj.course) {
@@ -12365,7 +12668,7 @@ export function serializegetCourseListResponse(obj: T.getCourseListResponse, ele
   return xml;
 }
 
-export function serializeGetCourseListV2Response(obj: T.GetCourseListV2Response, elemName: string): string {
+export function serializeGetCourseListV2Response(obj: T.Input<T.GetCourseListV2Response>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.course !== undefined && obj.course !== null) {
     for (const item of obj.course) {
@@ -12376,7 +12679,7 @@ export function serializeGetCourseListV2Response(obj: T.GetCourseListV2Response,
   return xml;
 }
 
-export function serializegetVatGroupListResponse(obj: T.getVatGroupListResponse, elemName: string): string {
+export function serializegetVatGroupListResponse(obj: T.Input<T.getVatGroupListResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.vatGroup !== undefined && obj.vatGroup !== null) {
     for (const item of obj.vatGroup) {
@@ -12387,7 +12690,7 @@ export function serializegetVatGroupListResponse(obj: T.getVatGroupListResponse,
   return xml;
 }
 
-export function serializeSaveTableOrderResponse(obj: T.SaveTableOrderResponse, elemName: string): string {
+export function serializeSaveTableOrderResponse(obj: T.Input<T.SaveTableOrderResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -12402,7 +12705,7 @@ export function serializeSaveTableOrderResponse(obj: T.SaveTableOrderResponse, e
   return xml;
 }
 
-export function serializeCreateAndPayTableOrderResponse(obj: T.CreateAndPayTableOrderResponse, elemName: string): string {
+export function serializeCreateAndPayTableOrderResponse(obj: T.Input<T.CreateAndPayTableOrderResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -12437,7 +12740,7 @@ export function serializeCreateAndPayTableOrderResponse(obj: T.CreateAndPayTable
   return xml;
 }
 
-export function serializeMoveTableOrderResponse(obj: T.MoveTableOrderResponse, elemName: string): string {
+export function serializeMoveTableOrderResponse(obj: T.Input<T.MoveTableOrderResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -12449,13 +12752,22 @@ export function serializeMoveTableOrderResponse(obj: T.MoveTableOrderResponse, e
   return xml;
 }
 
-export function serializeMoveTableOrderV3Response(obj: T.MoveTableOrderV3Response, elemName: string): string {
+export function serializeMoveTableOrderV3Response(obj: T.Input<T.MoveTableOrderV3Response>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.idempotencyResult !== undefined && obj.idempotencyResult !== null) {
+    xml += serializeString('idempotencyResult', String(obj.idempotencyResult));
+  }
+  if (obj.result !== undefined && obj.result !== null) {
+    xml += serializeString('result', String(obj.result));
+  }
+  if (obj.errorMessage !== undefined && obj.errorMessage !== null) {
+    xml += serializeString('errorMessage', String(obj.errorMessage));
+  }
   xml += `</${NS_PREFIX}:${elemName}>`;
   return xml;
 }
 
-export function serializeGetTableOrderResponse(obj: T.GetTableOrderResponse, elemName: string): string {
+export function serializeGetTableOrderResponse(obj: T.Input<T.GetTableOrderResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -12477,7 +12789,7 @@ export function serializeGetTableOrderResponse(obj: T.GetTableOrderResponse, ele
   return xml;
 }
 
-export function serializeReleaseTableResponse(obj: T.ReleaseTableResponse, elemName: string): string {
+export function serializeReleaseTableResponse(obj: T.Input<T.ReleaseTableResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -12486,7 +12798,7 @@ export function serializeReleaseTableResponse(obj: T.ReleaseTableResponse, elemN
   return xml;
 }
 
-export function serializeReleaseTableV2Response(obj: T.ReleaseTableV2Response, elemName: string): string {
+export function serializeReleaseTableV2Response(obj: T.Input<T.ReleaseTableV2Response>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -12495,7 +12807,7 @@ export function serializeReleaseTableV2Response(obj: T.ReleaseTableV2Response, e
   return xml;
 }
 
-export function serializeSetSubtableCountResponse(obj: T.SetSubtableCountResponse, elemName: string): string {
+export function serializeSetSubtableCountResponse(obj: T.Input<T.SetSubtableCountResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.ok !== undefined && obj.ok !== null) {
     xml += serializeBoolean('ok', obj.ok);
@@ -12504,7 +12816,7 @@ export function serializeSetSubtableCountResponse(obj: T.SetSubtableCountRespons
   return xml;
 }
 
-export function serializeGetTableOrderCourseListResponse(obj: T.GetTableOrderCourseListResponse, elemName: string): string {
+export function serializeGetTableOrderCourseListResponse(obj: T.Input<T.GetTableOrderCourseListResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -12532,7 +12844,7 @@ export function serializeGetTableOrderCourseListResponse(obj: T.GetTableOrderCou
   return xml;
 }
 
-export function serializeRequestTableOrderCourseResponse(obj: T.RequestTableOrderCourseResponse, elemName: string): string {
+export function serializeRequestTableOrderCourseResponse(obj: T.Input<T.RequestTableOrderCourseResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -12559,7 +12871,7 @@ export function serializeRequestTableOrderCourseResponse(obj: T.RequestTableOrde
   return xml;
 }
 
-export function serializeStoreSinglyEftTransactionResponse(obj: T.StoreSinglyEftTransactionResponse, elemName: string): string {
+export function serializeStoreSinglyEftTransactionResponse(obj: T.Input<T.StoreSinglyEftTransactionResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -12574,7 +12886,7 @@ export function serializeStoreSinglyEftTransactionResponse(obj: T.StoreSinglyEft
   return xml;
 }
 
-export function serializeQueueBranchOrderResponse(obj: T.QueueBranchOrderResponse, elemName: string): string {
+export function serializeQueueBranchOrderResponse(obj: T.Input<T.QueueBranchOrderResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -12589,7 +12901,7 @@ export function serializeQueueBranchOrderResponse(obj: T.QueueBranchOrderRespons
   return xml;
 }
 
-export function serializeQueueBranchOrderPaymentResponse(obj: T.QueueBranchOrderPaymentResponse, elemName: string): string {
+export function serializeQueueBranchOrderPaymentResponse(obj: T.Input<T.QueueBranchOrderPaymentResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -12604,7 +12916,7 @@ export function serializeQueueBranchOrderPaymentResponse(obj: T.QueueBranchOrder
   return xml;
 }
 
-export function serializeGetQueueBranchOrderPaymentStatusResponse(obj: T.GetQueueBranchOrderPaymentStatusResponse, elemName: string): string {
+export function serializeGetQueueBranchOrderPaymentStatusResponse(obj: T.Input<T.GetQueueBranchOrderPaymentStatusResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.queuedPaymentId !== undefined && obj.queuedPaymentId !== null) {
     xml += serializeString('queuedPaymentId', String(obj.queuedPaymentId));
@@ -12622,7 +12934,7 @@ export function serializeGetQueueBranchOrderPaymentStatusResponse(obj: T.GetQueu
   return xml;
 }
 
-export function serializeUpdateOrderResponse(obj: T.UpdateOrderResponse, elemName: string): string {
+export function serializeUpdateOrderResponse(obj: T.Input<T.UpdateOrderResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -12637,7 +12949,7 @@ export function serializeUpdateOrderResponse(obj: T.UpdateOrderResponse, elemNam
   return xml;
 }
 
-export function serializeUpdateOrderV2Response(obj: T.UpdateOrderV2Response, elemName: string): string {
+export function serializeUpdateOrderV2Response(obj: T.Input<T.UpdateOrderV2Response>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -12655,7 +12967,7 @@ export function serializeUpdateOrderV2Response(obj: T.UpdateOrderV2Response, ele
   return xml;
 }
 
-export function serializeSaveOrderResponse(obj: T.SaveOrderResponse, elemName: string): string {
+export function serializeSaveOrderResponse(obj: T.Input<T.SaveOrderResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -12670,7 +12982,7 @@ export function serializeSaveOrderResponse(obj: T.SaveOrderResponse, elemName: s
   return xml;
 }
 
-export function serializeGetOrderResponse(obj: T.GetOrderResponse, elemName: string): string {
+export function serializeGetOrderResponse(obj: T.Input<T.GetOrderResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -12682,7 +12994,7 @@ export function serializeGetOrderResponse(obj: T.GetOrderResponse, elemName: str
   return xml;
 }
 
-export function serializeGetPackingSlipsResponse(obj: T.GetPackingSlipsResponse, elemName: string): string {
+export function serializeGetPackingSlipsResponse(obj: T.Input<T.GetPackingSlipsResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.packingSlipList !== undefined && obj.packingSlipList !== null) {
     xml += `<${NS_PREFIX}:packingSlipList>`;
@@ -12695,7 +13007,7 @@ export function serializeGetPackingSlipsResponse(obj: T.GetPackingSlipsResponse,
   return xml;
 }
 
-export function serializeGetPackingSlipsByOrderResponse(obj: T.GetPackingSlipsByOrderResponse, elemName: string): string {
+export function serializeGetPackingSlipsByOrderResponse(obj: T.Input<T.GetPackingSlipsByOrderResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.packingSlipList !== undefined && obj.packingSlipList !== null) {
     xml += `<${NS_PREFIX}:packingSlipList>`;
@@ -12708,7 +13020,7 @@ export function serializeGetPackingSlipsByOrderResponse(obj: T.GetPackingSlipsBy
   return xml;
 }
 
-export function serializeGetOrderChangesResponse(obj: T.GetOrderChangesResponse, elemName: string): string {
+export function serializeGetOrderChangesResponse(obj: T.Input<T.GetOrderChangesResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.orderChangeList !== undefined && obj.orderChangeList !== null) {
     xml += `<${NS_PREFIX}:orderChangeList>`;
@@ -12721,7 +13033,7 @@ export function serializeGetOrderChangesResponse(obj: T.GetOrderChangesResponse,
   return xml;
 }
 
-export function serializeGetOrderHistoryResponse(obj: T.GetOrderHistoryResponse, elemName: string): string {
+export function serializeGetOrderHistoryResponse(obj: T.Input<T.GetOrderHistoryResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.orderHistoryOrderDetailsList !== undefined && obj.orderHistoryOrderDetailsList !== null) {
     xml += serializeOrderHistoryOrderDetailsList(obj.orderHistoryOrderDetailsList, 'orderHistoryOrderDetailsList');
@@ -12730,7 +13042,7 @@ export function serializeGetOrderHistoryResponse(obj: T.GetOrderHistoryResponse,
   return xml;
 }
 
-export function serializeCancelOrderResponse(obj: T.CancelOrderResponse, elemName: string): string {
+export function serializeCancelOrderResponse(obj: T.Input<T.CancelOrderResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -12742,7 +13054,7 @@ export function serializeCancelOrderResponse(obj: T.CancelOrderResponse, elemNam
   return xml;
 }
 
-export function serializePayInvoiceResponse(obj: T.PayInvoiceResponse, elemName: string): string {
+export function serializePayInvoiceResponse(obj: T.Input<T.PayInvoiceResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -12754,39 +13066,7 @@ export function serializePayInvoiceResponse(obj: T.PayInvoiceResponse, elemName:
   return xml;
 }
 
-export function serializeDeliverOrderResponse(obj: T.DeliverOrderResponse, elemName: string): string {
-  let xml = `<${NS_PREFIX}:${elemName}>`;
-  if (obj.result !== undefined && obj.result !== null) {
-    xml += serializeString('result', String(obj.result));
-  }
-  if (obj.packingSlipId !== undefined && obj.packingSlipId !== null) {
-    xml += serializeString('packingSlipId', String(obj.packingSlipId));
-  }
-  if (obj.invoiceId !== undefined && obj.invoiceId !== null) {
-    xml += serializeString('invoiceId', String(obj.invoiceId));
-  }
-  if (obj.errorMessage !== undefined && obj.errorMessage !== null) {
-    xml += serializeString('errorMessage', String(obj.errorMessage));
-  }
-  if (obj.voucherIssuances !== undefined && obj.voucherIssuances !== null) {
-    xml += `<${NS_PREFIX}:voucherIssuances>`;
-    for (const item of obj.voucherIssuances) {
-      xml += serializeVoucherIssuance(item, 'voucherIssuance');
-    }
-    xml += `</${NS_PREFIX}:voucherIssuances>`;
-  }
-  if (obj.unappliedVoucherIssuances !== undefined && obj.unappliedVoucherIssuances !== null) {
-    xml += `<${NS_PREFIX}:unappliedVoucherIssuances>`;
-    for (const item of obj.unappliedVoucherIssuances) {
-      xml += serializeUnappliedVoucherIssuance(item, 'unappliedVoucherIssuance');
-    }
-    xml += `</${NS_PREFIX}:unappliedVoucherIssuances>`;
-  }
-  xml += `</${NS_PREFIX}:${elemName}>`;
-  return xml;
-}
-
-export function serializeDeliverOrderV2Response(obj: T.DeliverOrderV2Response, elemName: string): string {
+export function serializeDeliverOrderResponse(obj: T.Input<T.DeliverOrderResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -12818,7 +13098,39 @@ export function serializeDeliverOrderV2Response(obj: T.DeliverOrderV2Response, e
   return xml;
 }
 
-export function serializeGetOrderCategoriesResponse(obj: T.GetOrderCategoriesResponse, elemName: string): string {
+export function serializeDeliverOrderV2Response(obj: T.Input<T.DeliverOrderV2Response>, elemName: string): string {
+  let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.result !== undefined && obj.result !== null) {
+    xml += serializeString('result', String(obj.result));
+  }
+  if (obj.packingSlipId !== undefined && obj.packingSlipId !== null) {
+    xml += serializeString('packingSlipId', String(obj.packingSlipId));
+  }
+  if (obj.invoiceId !== undefined && obj.invoiceId !== null) {
+    xml += serializeString('invoiceId', String(obj.invoiceId));
+  }
+  if (obj.errorMessage !== undefined && obj.errorMessage !== null) {
+    xml += serializeString('errorMessage', String(obj.errorMessage));
+  }
+  if (obj.voucherIssuances !== undefined && obj.voucherIssuances !== null) {
+    xml += `<${NS_PREFIX}:voucherIssuances>`;
+    for (const item of obj.voucherIssuances) {
+      xml += serializeVoucherIssuance(item, 'voucherIssuance');
+    }
+    xml += `</${NS_PREFIX}:voucherIssuances>`;
+  }
+  if (obj.unappliedVoucherIssuances !== undefined && obj.unappliedVoucherIssuances !== null) {
+    xml += `<${NS_PREFIX}:unappliedVoucherIssuances>`;
+    for (const item of obj.unappliedVoucherIssuances) {
+      xml += serializeUnappliedVoucherIssuance(item, 'unappliedVoucherIssuance');
+    }
+    xml += `</${NS_PREFIX}:unappliedVoucherIssuances>`;
+  }
+  xml += `</${NS_PREFIX}:${elemName}>`;
+  return xml;
+}
+
+export function serializeGetOrderCategoriesResponse(obj: T.Input<T.GetOrderCategoriesResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.orderCategory !== undefined && obj.orderCategory !== null) {
     for (const item of obj.orderCategory) {
@@ -12829,7 +13141,7 @@ export function serializeGetOrderCategoriesResponse(obj: T.GetOrderCategoriesRes
   return xml;
 }
 
-export function serializeGetReceiptsResponse(obj: T.GetReceiptsResponse, elemName: string): string {
+export function serializeGetReceiptsResponse(obj: T.Input<T.GetReceiptsResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.receiptList !== undefined && obj.receiptList !== null) {
     xml += `<${NS_PREFIX}:receiptList>`;
@@ -12842,7 +13154,7 @@ export function serializeGetReceiptsResponse(obj: T.GetReceiptsResponse, elemNam
   return xml;
 }
 
-export function serializeGetReceiptResponse(obj: T.GetReceiptResponse, elemName: string): string {
+export function serializeGetReceiptResponse(obj: T.Input<T.GetReceiptResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -12854,7 +13166,7 @@ export function serializeGetReceiptResponse(obj: T.GetReceiptResponse, elemName:
   return xml;
 }
 
-export function serializeGetReceiptsByOrderResponse(obj: T.GetReceiptsByOrderResponse, elemName: string): string {
+export function serializeGetReceiptsByOrderResponse(obj: T.Input<T.GetReceiptsByOrderResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -12870,7 +13182,7 @@ export function serializeGetReceiptsByOrderResponse(obj: T.GetReceiptsByOrderRes
   return xml;
 }
 
-export function serializeGetReceiptsByCashCountResponse(obj: T.GetReceiptsByCashCountResponse, elemName: string): string {
+export function serializeGetReceiptsByCashCountResponse(obj: T.Input<T.GetReceiptsByCashCountResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -12886,7 +13198,7 @@ export function serializeGetReceiptsByCashCountResponse(obj: T.GetReceiptsByCash
   return xml;
 }
 
-export function serializePrintReceiptResponse(obj: T.PrintReceiptResponse, elemName: string): string {
+export function serializePrintReceiptResponse(obj: T.Input<T.PrintReceiptResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -12898,13 +13210,22 @@ export function serializePrintReceiptResponse(obj: T.PrintReceiptResponse, elemN
   return xml;
 }
 
-export function serializePrintReceiptV2Response(obj: T.PrintReceiptV2Response, elemName: string): string {
+export function serializePrintReceiptV2Response(obj: T.Input<T.PrintReceiptV2Response>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.idempotencyResult !== undefined && obj.idempotencyResult !== null) {
+    xml += serializeString('idempotencyResult', String(obj.idempotencyResult));
+  }
+  if (obj.result !== undefined && obj.result !== null) {
+    xml += serializeString('result', String(obj.result));
+  }
+  if (obj.errorMessage !== undefined && obj.errorMessage !== null) {
+    xml += serializeString('errorMessage', String(obj.errorMessage));
+  }
   xml += `</${NS_PREFIX}:${elemName}>`;
   return xml;
 }
 
-export function serializePrintTableReceiptResponse(obj: T.PrintTableReceiptResponse, elemName: string): string {
+export function serializePrintTableReceiptResponse(obj: T.Input<T.PrintTableReceiptResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -12916,13 +13237,22 @@ export function serializePrintTableReceiptResponse(obj: T.PrintTableReceiptRespo
   return xml;
 }
 
-export function serializePrintTableReceiptV3Response(obj: T.PrintTableReceiptV3Response, elemName: string): string {
+export function serializePrintTableReceiptV3Response(obj: T.Input<T.PrintTableReceiptV3Response>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.idempotencyResult !== undefined && obj.idempotencyResult !== null) {
+    xml += serializeString('idempotencyResult', String(obj.idempotencyResult));
+  }
+  if (obj.result !== undefined && obj.result !== null) {
+    xml += serializeString('result', String(obj.result));
+  }
+  if (obj.errorMessage !== undefined && obj.errorMessage !== null) {
+    xml += serializeString('errorMessage', String(obj.errorMessage));
+  }
   xml += `</${NS_PREFIX}:${elemName}>`;
   return xml;
 }
 
-export function serializeGetInvoicesResponse(obj: T.GetInvoicesResponse, elemName: string): string {
+export function serializeGetInvoicesResponse(obj: T.Input<T.GetInvoicesResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.invoiceList !== undefined && obj.invoiceList !== null) {
     xml += `<${NS_PREFIX}:invoiceList>`;
@@ -12935,7 +13265,7 @@ export function serializeGetInvoicesResponse(obj: T.GetInvoicesResponse, elemNam
   return xml;
 }
 
-export function serializeSaveInvoiceResponse(obj: T.SaveInvoiceResponse, elemName: string): string {
+export function serializeSaveInvoiceResponse(obj: T.Input<T.SaveInvoiceResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -12964,7 +13294,7 @@ export function serializeSaveInvoiceResponse(obj: T.SaveInvoiceResponse, elemNam
   return xml;
 }
 
-export function serializeGetInvoiceResponse(obj: T.GetInvoiceResponse, elemName: string): string {
+export function serializeGetInvoiceResponse(obj: T.Input<T.GetInvoiceResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -12976,7 +13306,7 @@ export function serializeGetInvoiceResponse(obj: T.GetInvoiceResponse, elemName:
   return xml;
 }
 
-export function serializeCreditInvoiceResponse(obj: T.CreditInvoiceResponse, elemName: string): string {
+export function serializeCreditInvoiceResponse(obj: T.Input<T.CreditInvoiceResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -12988,7 +13318,7 @@ export function serializeCreditInvoiceResponse(obj: T.CreditInvoiceResponse, ele
   return xml;
 }
 
-export function serializeGetJournalsResponse(obj: T.GetJournalsResponse, elemName: string): string {
+export function serializeGetJournalsResponse(obj: T.Input<T.GetJournalsResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.journalList !== undefined && obj.journalList !== null) {
     xml += `<${NS_PREFIX}:journalList>`;
@@ -13001,7 +13331,7 @@ export function serializeGetJournalsResponse(obj: T.GetJournalsResponse, elemNam
   return xml;
 }
 
-export function serializeGetFinancialJournalResponse(obj: T.GetFinancialJournalResponse, elemName: string): string {
+export function serializeGetFinancialJournalResponse(obj: T.Input<T.GetFinancialJournalResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.financialGroupList !== undefined && obj.financialGroupList !== null) {
     xml += `<${NS_PREFIX}:financialGroupList>`;
@@ -13017,7 +13347,7 @@ export function serializeGetFinancialJournalResponse(obj: T.GetFinancialJournalR
   return xml;
 }
 
-export function serializeGetCashCountListResponse(obj: T.GetCashCountListResponse, elemName: string): string {
+export function serializeGetCashCountListResponse(obj: T.Input<T.GetCashCountListResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.cashCountList !== undefined && obj.cashCountList !== null) {
     xml += `<${NS_PREFIX}:cashCountList>`;
@@ -13030,7 +13360,7 @@ export function serializeGetCashCountListResponse(obj: T.GetCashCountListRespons
   return xml;
 }
 
-export function serializeGetCashDrawerBalancingListResponse(obj: T.GetCashDrawerBalancingListResponse, elemName: string): string {
+export function serializeGetCashDrawerBalancingListResponse(obj: T.Input<T.GetCashDrawerBalancingListResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.cashDrawerBalancingList !== undefined && obj.cashDrawerBalancingList !== null) {
     xml += `<${NS_PREFIX}:cashDrawerBalancingList>`;
@@ -13043,7 +13373,7 @@ export function serializeGetCashDrawerBalancingListResponse(obj: T.GetCashDrawer
   return xml;
 }
 
-export function serializeGetTurnoverGroupsResponse(obj: T.GetTurnoverGroupsResponse, elemName: string): string {
+export function serializeGetTurnoverGroupsResponse(obj: T.Input<T.GetTurnoverGroupsResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.turnoverGroupList !== undefined && obj.turnoverGroupList !== null) {
     xml += `<${NS_PREFIX}:turnoverGroupList>`;
@@ -13056,7 +13386,7 @@ export function serializeGetTurnoverGroupsResponse(obj: T.GetTurnoverGroupsRespo
   return xml;
 }
 
-export function serializeUpdateTurnoverGroupsResponse(obj: T.UpdateTurnoverGroupsResponse, elemName: string): string {
+export function serializeUpdateTurnoverGroupsResponse(obj: T.Input<T.UpdateTurnoverGroupsResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -13065,7 +13395,7 @@ export function serializeUpdateTurnoverGroupsResponse(obj: T.UpdateTurnoverGroup
   return xml;
 }
 
-export function serializeGetProductsResponse(obj: T.GetProductsResponse, elemName: string): string {
+export function serializeGetProductsResponse(obj: T.Input<T.GetProductsResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.productList !== undefined && obj.productList !== null) {
     xml += `<${NS_PREFIX}:productList>`;
@@ -13078,7 +13408,7 @@ export function serializeGetProductsResponse(obj: T.GetProductsResponse, elemNam
   return xml;
 }
 
-export function serializeCreateProductResponse(obj: T.CreateProductResponse, elemName: string): string {
+export function serializeCreateProductResponse(obj: T.Input<T.CreateProductResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -13104,7 +13434,7 @@ export function serializeCreateProductResponse(obj: T.CreateProductResponse, ele
   return xml;
 }
 
-export function serializeUpdateProductResponse(obj: T.UpdateProductResponse, elemName: string): string {
+export function serializeUpdateProductResponse(obj: T.Input<T.UpdateProductResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -13132,7 +13462,7 @@ export function serializeUpdateProductResponse(obj: T.UpdateProductResponse, ele
   return xml;
 }
 
-export function serializeGetArticleVariantsResponse(obj: T.GetArticleVariantsResponse, elemName: string): string {
+export function serializeGetArticleVariantsResponse(obj: T.Input<T.GetArticleVariantsResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -13148,7 +13478,7 @@ export function serializeGetArticleVariantsResponse(obj: T.GetArticleVariantsRes
   return xml;
 }
 
-export function serializeGetArticlesVariantsResponse(obj: T.GetArticlesVariantsResponse, elemName: string): string {
+export function serializeGetArticlesVariantsResponse(obj: T.Input<T.GetArticlesVariantsResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -13162,7 +13492,7 @@ export function serializeGetArticlesVariantsResponse(obj: T.GetArticlesVariantsR
   return xml;
 }
 
-export function serializeNewArticleVariantResponse(obj: T.NewArticleVariantResponse, elemName: string): string {
+export function serializeNewArticleVariantResponse(obj: T.Input<T.NewArticleVariantResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -13177,7 +13507,7 @@ export function serializeNewArticleVariantResponse(obj: T.NewArticleVariantRespo
   return xml;
 }
 
-export function serializeUpdateArticleVariantResponse(obj: T.UpdateArticleVariantResponse, elemName: string): string {
+export function serializeUpdateArticleVariantResponse(obj: T.Input<T.UpdateArticleVariantResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -13189,7 +13519,7 @@ export function serializeUpdateArticleVariantResponse(obj: T.UpdateArticleVarian
   return xml;
 }
 
-export function serializeDeleteArticleVariantsResponse(obj: T.DeleteArticleVariantsResponse, elemName: string): string {
+export function serializeDeleteArticleVariantsResponse(obj: T.Input<T.DeleteArticleVariantsResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -13198,7 +13528,7 @@ export function serializeDeleteArticleVariantsResponse(obj: T.DeleteArticleVaria
   return xml;
 }
 
-export function serializeGetStockResponse(obj: T.GetStockResponse, elemName: string): string {
+export function serializeGetStockResponse(obj: T.Input<T.GetStockResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.articleStocks !== undefined && obj.articleStocks !== null) {
     for (const item of obj.articleStocks) {
@@ -13209,7 +13539,7 @@ export function serializeGetStockResponse(obj: T.GetStockResponse, elemName: str
   return xml;
 }
 
-export function serializeGetStockHistoryResponse(obj: T.GetStockHistoryResponse, elemName: string): string {
+export function serializeGetStockHistoryResponse(obj: T.Input<T.GetStockHistoryResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.articleStockHistory !== undefined && obj.articleStockHistory !== null) {
     for (const item of obj.articleStockHistory) {
@@ -13220,7 +13550,7 @@ export function serializeGetStockHistoryResponse(obj: T.GetStockHistoryResponse,
   return xml;
 }
 
-export function serializeUpdateStockResponse(obj: T.UpdateStockResponse, elemName: string): string {
+export function serializeUpdateStockResponse(obj: T.Input<T.UpdateStockResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -13232,7 +13562,7 @@ export function serializeUpdateStockResponse(obj: T.UpdateStockResponse, elemNam
   return xml;
 }
 
-export function serializeSetStockResponse(obj: T.SetStockResponse, elemName: string): string {
+export function serializeSetStockResponse(obj: T.Input<T.SetStockResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -13244,7 +13574,7 @@ export function serializeSetStockResponse(obj: T.SetStockResponse, elemName: str
   return xml;
 }
 
-export function serializeGetArticleGroupsResponse(obj: T.GetArticleGroupsResponse, elemName: string): string {
+export function serializeGetArticleGroupsResponse(obj: T.Input<T.GetArticleGroupsResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.articleGroupList !== undefined && obj.articleGroupList !== null) {
     xml += `<${NS_PREFIX}:articleGroupList>`;
@@ -13257,7 +13587,7 @@ export function serializeGetArticleGroupsResponse(obj: T.GetArticleGroupsRespons
   return xml;
 }
 
-export function serializeGetArticleGroupChangesResponse(obj: T.GetArticleGroupChangesResponse, elemName: string): string {
+export function serializeGetArticleGroupChangesResponse(obj: T.Input<T.GetArticleGroupChangesResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.changedArticleGroupList !== undefined && obj.changedArticleGroupList !== null) {
     xml += `<${NS_PREFIX}:changedArticleGroupList>`;
@@ -13270,7 +13600,7 @@ export function serializeGetArticleGroupChangesResponse(obj: T.GetArticleGroupCh
   return xml;
 }
 
-export function serializeUpdateArticleGroupResponse(obj: T.UpdateArticleGroupResponse, elemName: string): string {
+export function serializeUpdateArticleGroupResponse(obj: T.Input<T.UpdateArticleGroupResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -13279,7 +13609,7 @@ export function serializeUpdateArticleGroupResponse(obj: T.UpdateArticleGroupRes
   return xml;
 }
 
-export function serializeNewArticleGroupResponse(obj: T.NewArticleGroupResponse, elemName: string): string {
+export function serializeNewArticleGroupResponse(obj: T.Input<T.NewArticleGroupResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -13291,7 +13621,7 @@ export function serializeNewArticleGroupResponse(obj: T.NewArticleGroupResponse,
   return xml;
 }
 
-export function serializeDeleteArticleGroupResponse(obj: T.DeleteArticleGroupResponse, elemName: string): string {
+export function serializeDeleteArticleGroupResponse(obj: T.Input<T.DeleteArticleGroupResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -13300,7 +13630,7 @@ export function serializeDeleteArticleGroupResponse(obj: T.DeleteArticleGroupRes
   return xml;
 }
 
-export function serializeAddProductsToArticleGroupResponse(obj: T.AddProductsToArticleGroupResponse, elemName: string): string {
+export function serializeAddProductsToArticleGroupResponse(obj: T.Input<T.AddProductsToArticleGroupResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -13309,7 +13639,7 @@ export function serializeAddProductsToArticleGroupResponse(obj: T.AddProductsToA
   return xml;
 }
 
-export function serializeReplaceProductsOfArticleGroupResponse(obj: T.ReplaceProductsOfArticleGroupResponse, elemName: string): string {
+export function serializeReplaceProductsOfArticleGroupResponse(obj: T.Input<T.ReplaceProductsOfArticleGroupResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -13318,7 +13648,7 @@ export function serializeReplaceProductsOfArticleGroupResponse(obj: T.ReplacePro
   return xml;
 }
 
-export function serializeDeleteProductsFromArticleGroupResponse(obj: T.DeleteProductsFromArticleGroupResponse, elemName: string): string {
+export function serializeDeleteProductsFromArticleGroupResponse(obj: T.Input<T.DeleteProductsFromArticleGroupResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -13327,7 +13657,7 @@ export function serializeDeleteProductsFromArticleGroupResponse(obj: T.DeletePro
   return xml;
 }
 
-export function serializeGetMessagesResponse(obj: T.GetMessagesResponse, elemName: string): string {
+export function serializeGetMessagesResponse(obj: T.Input<T.GetMessagesResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.messageList !== undefined && obj.messageList !== null) {
     xml += `<${NS_PREFIX}:messageList>`;
@@ -13340,7 +13670,7 @@ export function serializeGetMessagesResponse(obj: T.GetMessagesResponse, elemNam
   return xml;
 }
 
-export function serializeGetShiftsResponse(obj: T.GetShiftsResponse, elemName: string): string {
+export function serializeGetShiftsResponse(obj: T.Input<T.GetShiftsResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.shiftList !== undefined && obj.shiftList !== null) {
     xml += `<${NS_PREFIX}:shiftList>`;
@@ -13353,7 +13683,7 @@ export function serializeGetShiftsResponse(obj: T.GetShiftsResponse, elemName: s
   return xml;
 }
 
-export function serializeGetPurchaseOrdersResponse(obj: T.GetPurchaseOrdersResponse, elemName: string): string {
+export function serializeGetPurchaseOrdersResponse(obj: T.Input<T.GetPurchaseOrdersResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.purchaseOrderList !== undefined && obj.purchaseOrderList !== null) {
     xml += `<${NS_PREFIX}:purchaseOrderList>`;
@@ -13366,7 +13696,7 @@ export function serializeGetPurchaseOrdersResponse(obj: T.GetPurchaseOrdersRespo
   return xml;
 }
 
-export function serializeSavePurchaseOrderResponse(obj: T.SavePurchaseOrderResponse, elemName: string): string {
+export function serializeSavePurchaseOrderResponse(obj: T.Input<T.SavePurchaseOrderResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -13381,7 +13711,7 @@ export function serializeSavePurchaseOrderResponse(obj: T.SavePurchaseOrderRespo
   return xml;
 }
 
-export function serializeGetPurchaseOrdersV2Response(obj: T.GetPurchaseOrdersV2Response, elemName: string): string {
+export function serializeGetPurchaseOrdersV2Response(obj: T.Input<T.GetPurchaseOrdersV2Response>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.purchaseOrderList !== undefined && obj.purchaseOrderList !== null) {
     xml += `<${NS_PREFIX}:purchaseOrderList>`;
@@ -13394,7 +13724,7 @@ export function serializeGetPurchaseOrdersV2Response(obj: T.GetPurchaseOrdersV2R
   return xml;
 }
 
-export function serializeSavePurchaseOrderV2Response(obj: T.SavePurchaseOrderV2Response, elemName: string): string {
+export function serializeSavePurchaseOrderV2Response(obj: T.Input<T.SavePurchaseOrderV2Response>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -13412,7 +13742,7 @@ export function serializeSavePurchaseOrderV2Response(obj: T.SavePurchaseOrderV2R
   return xml;
 }
 
-export function serializeGetPurchaseDeliveriesResponse(obj: T.GetPurchaseDeliveriesResponse, elemName: string): string {
+export function serializeGetPurchaseDeliveriesResponse(obj: T.Input<T.GetPurchaseDeliveriesResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.purchaseDeliveryList !== undefined && obj.purchaseDeliveryList !== null) {
     xml += `<${NS_PREFIX}:purchaseDeliveryList>`;
@@ -13425,7 +13755,7 @@ export function serializeGetPurchaseDeliveriesResponse(obj: T.GetPurchaseDeliver
   return xml;
 }
 
-export function serializeSavePurchaseDeliveryResponse(obj: T.SavePurchaseDeliveryResponse, elemName: string): string {
+export function serializeSavePurchaseDeliveryResponse(obj: T.Input<T.SavePurchaseDeliveryResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -13440,7 +13770,7 @@ export function serializeSavePurchaseDeliveryResponse(obj: T.SavePurchaseDeliver
   return xml;
 }
 
-export function serializeGetPurchaseDeliveriesV2Response(obj: T.GetPurchaseDeliveriesV2Response, elemName: string): string {
+export function serializeGetPurchaseDeliveriesV2Response(obj: T.Input<T.GetPurchaseDeliveriesV2Response>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.purchaseDeliveryList !== undefined && obj.purchaseDeliveryList !== null) {
     xml += `<${NS_PREFIX}:purchaseDeliveryList>`;
@@ -13453,7 +13783,7 @@ export function serializeGetPurchaseDeliveriesV2Response(obj: T.GetPurchaseDeliv
   return xml;
 }
 
-export function serializeSavePurchaseDeliveryV2Response(obj: T.SavePurchaseDeliveryV2Response, elemName: string): string {
+export function serializeSavePurchaseDeliveryV2Response(obj: T.Input<T.SavePurchaseDeliveryV2Response>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -13468,7 +13798,7 @@ export function serializeSavePurchaseDeliveryV2Response(obj: T.SavePurchaseDeliv
   return xml;
 }
 
-export function serializeEncryptStringResponse(obj: T.EncryptStringResponse, elemName: string): string {
+export function serializeEncryptStringResponse(obj: T.Input<T.EncryptStringResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.encryptedString !== undefined && obj.encryptedString !== null) {
     xml += serializeString('encryptedString', String(obj.encryptedString));
@@ -13477,7 +13807,7 @@ export function serializeEncryptStringResponse(obj: T.EncryptStringResponse, ele
   return xml;
 }
 
-export function serializeGetArticleCardLayoutResponse(obj: T.GetArticleCardLayoutResponse, elemName: string): string {
+export function serializeGetArticleCardLayoutResponse(obj: T.Input<T.GetArticleCardLayoutResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.cardLayoutFieldList !== undefined && obj.cardLayoutFieldList !== null) {
     xml += `<${NS_PREFIX}:cardLayoutFieldList>`;
@@ -13490,7 +13820,7 @@ export function serializeGetArticleCardLayoutResponse(obj: T.GetArticleCardLayou
   return xml;
 }
 
-export function serializeUpdateArticleCardLayoutResponse(obj: T.UpdateArticleCardLayoutResponse, elemName: string): string {
+export function serializeUpdateArticleCardLayoutResponse(obj: T.Input<T.UpdateArticleCardLayoutResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -13502,7 +13832,7 @@ export function serializeUpdateArticleCardLayoutResponse(obj: T.UpdateArticleCar
   return xml;
 }
 
-export function serializeGetRetailSpaceRentalResponse(obj: T.GetRetailSpaceRentalResponse, elemName: string): string {
+export function serializeGetRetailSpaceRentalResponse(obj: T.Input<T.GetRetailSpaceRentalResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -13514,7 +13844,7 @@ export function serializeGetRetailSpaceRentalResponse(obj: T.GetRetailSpaceRenta
   return xml;
 }
 
-export function serializeGetRetailSpaceRentalsResponse(obj: T.GetRetailSpaceRentalsResponse, elemName: string): string {
+export function serializeGetRetailSpaceRentalsResponse(obj: T.Input<T.GetRetailSpaceRentalsResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.retailSpaceRentalList !== undefined && obj.retailSpaceRentalList !== null) {
     xml += `<${NS_PREFIX}:retailSpaceRentalList>`;
@@ -13527,7 +13857,7 @@ export function serializeGetRetailSpaceRentalsResponse(obj: T.GetRetailSpaceRent
   return xml;
 }
 
-export function serializeEidSearchResponse(obj: T.EidSearchResponse, elemName: string): string {
+export function serializeEidSearchResponse(obj: T.Input<T.EidSearchResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.entityType !== undefined && obj.entityType !== null) {
     xml += serializeString('entityType', String(obj.entityType));
@@ -13542,7 +13872,7 @@ export function serializeEidSearchResponse(obj: T.EidSearchResponse, elemName: s
   return xml;
 }
 
-export function serializeOverviewResponse(obj: T.OverviewResponse, elemName: string): string {
+export function serializeOverviewResponse(obj: T.Input<T.OverviewResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.currentPageNumber !== undefined && obj.currentPageNumber !== null) {
     xml += serializeNumber('currentPageNumber', obj.currentPageNumber);
@@ -13577,7 +13907,7 @@ export function serializeOverviewResponse(obj: T.OverviewResponse, elemName: str
   return xml;
 }
 
-export function serializeGetOverviewFieldsResponse(obj: T.GetOverviewFieldsResponse, elemName: string): string {
+export function serializeGetOverviewFieldsResponse(obj: T.Input<T.GetOverviewFieldsResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.overviewFieldsList !== undefined && obj.overviewFieldsList !== null) {
     xml += `<${NS_PREFIX}:overviewFieldsList>`;
@@ -13600,7 +13930,7 @@ export function serializeGetOverviewFieldsResponse(obj: T.GetOverviewFieldsRespo
   return xml;
 }
 
-export function serializeUpdateBatchResponse(obj: T.UpdateBatchResponse, elemName: string): string {
+export function serializeUpdateBatchResponse(obj: T.Input<T.UpdateBatchResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -13619,7 +13949,7 @@ export function serializeUpdateBatchResponse(obj: T.UpdateBatchResponse, elemNam
   return xml;
 }
 
-export function serializePrintResponse(obj: T.PrintResponse, elemName: string): string {
+export function serializePrintResponse(obj: T.Input<T.PrintResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -13631,7 +13961,7 @@ export function serializePrintResponse(obj: T.PrintResponse, elemName: string): 
   return xml;
 }
 
-export function serializeGetKitchenTicketsResponse(obj: T.GetKitchenTicketsResponse, elemName: string): string {
+export function serializeGetKitchenTicketsResponse(obj: T.Input<T.GetKitchenTicketsResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.kitchenTicketList !== undefined && obj.kitchenTicketList !== null) {
     xml += `<${NS_PREFIX}:kitchenTicketList>`;
@@ -13647,7 +13977,7 @@ export function serializeGetKitchenTicketsResponse(obj: T.GetKitchenTicketsRespo
   return xml;
 }
 
-export function serializeSaveStockCorrectionsResponse(obj: T.SaveStockCorrectionsResponse, elemName: string): string {
+export function serializeSaveStockCorrectionsResponse(obj: T.Input<T.SaveStockCorrectionsResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -13662,7 +13992,7 @@ export function serializeSaveStockCorrectionsResponse(obj: T.SaveStockCorrection
   return xml;
 }
 
-export function serializeGetPurchaseBookResponse(obj: T.GetPurchaseBookResponse, elemName: string): string {
+export function serializeGetPurchaseBookResponse(obj: T.Input<T.GetPurchaseBookResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -13677,7 +14007,7 @@ export function serializeGetPurchaseBookResponse(obj: T.GetPurchaseBookResponse,
   return xml;
 }
 
-export function serializeSavePurchaseBookResponse(obj: T.SavePurchaseBookResponse, elemName: string): string {
+export function serializeSavePurchaseBookResponse(obj: T.Input<T.SavePurchaseBookResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -13689,7 +14019,7 @@ export function serializeSavePurchaseBookResponse(obj: T.SavePurchaseBookRespons
   return xml;
 }
 
-export function serializeAddToPurchaseBookResponse(obj: T.AddToPurchaseBookResponse, elemName: string): string {
+export function serializeAddToPurchaseBookResponse(obj: T.Input<T.AddToPurchaseBookResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -13701,7 +14031,7 @@ export function serializeAddToPurchaseBookResponse(obj: T.AddToPurchaseBookRespo
   return xml;
 }
 
-export function serializeGetStockCorrectionsResponse(obj: T.GetStockCorrectionsResponse, elemName: string): string {
+export function serializeGetStockCorrectionsResponse(obj: T.Input<T.GetStockCorrectionsResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.stockCorrectionList !== undefined && obj.stockCorrectionList !== null) {
     xml += `<${NS_PREFIX}:stockCorrectionList>`;
@@ -13714,7 +14044,7 @@ export function serializeGetStockCorrectionsResponse(obj: T.GetStockCorrectionsR
   return xml;
 }
 
-export function serializeGetArticlesNutritionalCharacteristicsResponse(obj: T.GetArticlesNutritionalCharacteristicsResponse, elemName: string): string {
+export function serializeGetArticlesNutritionalCharacteristicsResponse(obj: T.Input<T.GetArticlesNutritionalCharacteristicsResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -13731,7 +14061,7 @@ export function serializeGetArticlesNutritionalCharacteristicsResponse(obj: T.Ge
   return xml;
 }
 
-export function serializeUpdateArticleNutritionalCharacteristicsResponse(obj: T.UpdateArticleNutritionalCharacteristicsResponse, elemName: string): string {
+export function serializeUpdateArticleNutritionalCharacteristicsResponse(obj: T.Input<T.UpdateArticleNutritionalCharacteristicsResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -13743,7 +14073,7 @@ export function serializeUpdateArticleNutritionalCharacteristicsResponse(obj: T.
   return xml;
 }
 
-export function serializeGetPreparationMethodGroupsResponse(obj: T.GetPreparationMethodGroupsResponse, elemName: string): string {
+export function serializeGetPreparationMethodGroupsResponse(obj: T.Input<T.GetPreparationMethodGroupsResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -13759,7 +14089,7 @@ export function serializeGetPreparationMethodGroupsResponse(obj: T.GetPreparatio
   return xml;
 }
 
-export function serializeDeletePreparationMethodGroupResponse(obj: T.DeletePreparationMethodGroupResponse, elemName: string): string {
+export function serializeDeletePreparationMethodGroupResponse(obj: T.Input<T.DeletePreparationMethodGroupResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -13771,7 +14101,7 @@ export function serializeDeletePreparationMethodGroupResponse(obj: T.DeletePrepa
   return xml;
 }
 
-export function serializeGetArticlesPreparationMethodGroupsResponse(obj: T.GetArticlesPreparationMethodGroupsResponse, elemName: string): string {
+export function serializeGetArticlesPreparationMethodGroupsResponse(obj: T.Input<T.GetArticlesPreparationMethodGroupsResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -13790,7 +14120,7 @@ export function serializeGetArticlesPreparationMethodGroupsResponse(obj: T.GetAr
   return xml;
 }
 
-export function serializeUpdateArticlePreparationMethodGroupsResponse(obj: T.UpdateArticlePreparationMethodGroupsResponse, elemName: string): string {
+export function serializeUpdateArticlePreparationMethodGroupsResponse(obj: T.Input<T.UpdateArticlePreparationMethodGroupsResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -13802,13 +14132,48 @@ export function serializeUpdateArticlePreparationMethodGroupsResponse(obj: T.Upd
   return xml;
 }
 
-export function serializePlaceTableOrderResp(obj: T.PlaceTableOrderResp, elemName: string): string {
+export function serializePlaceTableOrderResp(obj: T.Input<T.PlaceTableOrderResp>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.idempotencyResult !== undefined && obj.idempotencyResult !== null) {
+    xml += serializeString('idempotencyResult', String(obj.idempotencyResult));
+  }
+  if (obj.result !== undefined && obj.result !== null) {
+    xml += serializeString('result', String(obj.result));
+  }
+  if (obj.errorMessage !== undefined && obj.errorMessage !== null) {
+    xml += serializeString('errorMessage', String(obj.errorMessage));
+  }
+  if (obj.linesResult !== undefined && obj.linesResult !== null) {
+    xml += serializeString('linesResult', String(obj.linesResult));
+  }
+  if (obj.orderId !== undefined && obj.orderId !== null) {
+    xml += serializeString('orderId', String(obj.orderId));
+  }
+  if (obj.paymentsResult !== undefined && obj.paymentsResult !== null) {
+    xml += serializeString('paymentsResult', String(obj.paymentsResult));
+  }
+  if (obj.receiptId !== undefined && obj.receiptId !== null) {
+    xml += serializeString('receiptId', String(obj.receiptId));
+  }
+  if (obj.voucherIssuances !== undefined && obj.voucherIssuances !== null) {
+    xml += `<${NS_PREFIX}:voucherIssuances>`;
+    for (const item of obj.voucherIssuances) {
+      xml += serializeVoucherIssuance(item, 'voucherIssuance');
+    }
+    xml += `</${NS_PREFIX}:voucherIssuances>`;
+  }
+  if (obj.unappliedVoucherIssuances !== undefined && obj.unappliedVoucherIssuances !== null) {
+    xml += `<${NS_PREFIX}:unappliedVoucherIssuances>`;
+    for (const item of obj.unappliedVoucherIssuances) {
+      xml += serializeUnappliedVoucherIssuance(item, 'unappliedVoucherIssuance');
+    }
+    xml += `</${NS_PREFIX}:unappliedVoucherIssuances>`;
+  }
   xml += `</${NS_PREFIX}:${elemName}>`;
   return xml;
 }
 
-export function serializeTapTickTotalsResponse(obj: T.TapTickTotalsResponse, elemName: string): string {
+export function serializeTapTickTotalsResponse(obj: T.Input<T.TapTickTotalsResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.branchTotals !== undefined && obj.branchTotals !== null) {
     for (const item of obj.branchTotals) {
@@ -13819,7 +14184,7 @@ export function serializeTapTickTotalsResponse(obj: T.TapTickTotalsResponse, ele
   return xml;
 }
 
-export function serializeTapTickHistoryResponse(obj: T.TapTickHistoryResponse, elemName: string): string {
+export function serializeTapTickHistoryResponse(obj: T.Input<T.TapTickHistoryResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.records !== undefined && obj.records !== null) {
     for (const item of obj.records) {
@@ -13830,7 +14195,7 @@ export function serializeTapTickHistoryResponse(obj: T.TapTickHistoryResponse, e
   return xml;
 }
 
-export function serializeFindRelationV2Response(obj: T.FindRelationV2Response, elemName: string): string {
+export function serializeFindRelationV2Response(obj: T.Input<T.FindRelationV2Response>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -13842,7 +14207,7 @@ export function serializeFindRelationV2Response(obj: T.FindRelationV2Response, e
   return xml;
 }
 
-export function serializeGetTodoListsResponse(obj: T.GetTodoListsResponse, elemName: string): string {
+export function serializeGetTodoListsResponse(obj: T.Input<T.GetTodoListsResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.todoLists !== undefined && obj.todoLists !== null) {
     for (const item of obj.todoLists) {
@@ -13853,7 +14218,7 @@ export function serializeGetTodoListsResponse(obj: T.GetTodoListsResponse, elemN
   return xml;
 }
 
-export function serializeTodoList(obj: T.TodoList, elemName: string): string {
+export function serializeTodoList(obj: T.Input<T.TodoList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.id !== undefined && obj.id !== null) {
     xml += serializeNumber('id', obj.id);
@@ -13879,7 +14244,7 @@ export function serializeTodoList(obj: T.TodoList, elemName: string): string {
   return xml;
 }
 
-export function serializeCreateTodoListResponse(obj: T.CreateTodoListResponse, elemName: string): string {
+export function serializeCreateTodoListResponse(obj: T.Input<T.CreateTodoListResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.id !== undefined && obj.id !== null) {
     xml += serializeNumber('id', obj.id);
@@ -13888,13 +14253,19 @@ export function serializeCreateTodoListResponse(obj: T.CreateTodoListResponse, e
   return xml;
 }
 
-export function serializeSaveTodoListV2Response(obj: T.SaveTodoListV2Response, elemName: string): string {
+export function serializeSaveTodoListV2Response(obj: T.Input<T.SaveTodoListV2Response>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.idempotencyResult !== undefined && obj.idempotencyResult !== null) {
+    xml += serializeString('idempotencyResult', String(obj.idempotencyResult));
+  }
+  if (obj.id !== undefined && obj.id !== null) {
+    xml += serializeNumber('id', obj.id);
+  }
   xml += `</${NS_PREFIX}:${elemName}>`;
   return xml;
 }
 
-export function serializeGetFilterProfilesResponse(obj: T.GetFilterProfilesResponse, elemName: string): string {
+export function serializeGetFilterProfilesResponse(obj: T.Input<T.GetFilterProfilesResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.filterProfiles !== undefined && obj.filterProfiles !== null) {
     for (const item of obj.filterProfiles) {
@@ -13905,7 +14276,7 @@ export function serializeGetFilterProfilesResponse(obj: T.GetFilterProfilesRespo
   return xml;
 }
 
-export function serializeSavePreparationMethodGroupResponse(obj: T.SavePreparationMethodGroupResponse, elemName: string): string {
+export function serializeSavePreparationMethodGroupResponse(obj: T.Input<T.SavePreparationMethodGroupResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -13920,7 +14291,7 @@ export function serializeSavePreparationMethodGroupResponse(obj: T.SavePreparati
   return xml;
 }
 
-export function serializeGetNutritionalCharacteristicsResponse(obj: T.GetNutritionalCharacteristicsResponse, elemName: string): string {
+export function serializeGetNutritionalCharacteristicsResponse(obj: T.Input<T.GetNutritionalCharacteristicsResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -13937,7 +14308,7 @@ export function serializeGetNutritionalCharacteristicsResponse(obj: T.GetNutriti
   return xml;
 }
 
-export function serializeUpdateNutritionalCharacteristicsResponse(obj: T.UpdateNutritionalCharacteristicsResponse, elemName: string): string {
+export function serializeUpdateNutritionalCharacteristicsResponse(obj: T.Input<T.UpdateNutritionalCharacteristicsResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -13949,7 +14320,7 @@ export function serializeUpdateNutritionalCharacteristicsResponse(obj: T.UpdateN
   return xml;
 }
 
-export function serializeDeterminePricingResponse(obj: T.DeterminePricingResponse, elemName: string): string {
+export function serializeDeterminePricingResponse(obj: T.Input<T.DeterminePricingResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.lines !== undefined && obj.lines !== null) {
     for (const item of obj.lines) {
@@ -13981,7 +14352,7 @@ export function serializeDeterminePricingResponse(obj: T.DeterminePricingRespons
   return xml;
 }
 
-export function serializeSetRelationPresenceResponse(obj: T.SetRelationPresenceResponse, elemName: string): string {
+export function serializeSetRelationPresenceResponse(obj: T.Input<T.SetRelationPresenceResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -13996,7 +14367,7 @@ export function serializeSetRelationPresenceResponse(obj: T.SetRelationPresenceR
   return xml;
 }
 
-export function serializeGetRelationPresenceResponse(obj: T.GetRelationPresenceResponse, elemName: string): string {
+export function serializeGetRelationPresenceResponse(obj: T.Input<T.GetRelationPresenceResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -14011,7 +14382,7 @@ export function serializeGetRelationPresenceResponse(obj: T.GetRelationPresenceR
   return xml;
 }
 
-export function serializeGetArticleBranchDeviationsResponse(obj: T.GetArticleBranchDeviationsResponse, elemName: string): string {
+export function serializeGetArticleBranchDeviationsResponse(obj: T.Input<T.GetArticleBranchDeviationsResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.articleBranchDeviationLines !== undefined && obj.articleBranchDeviationLines !== null) {
     for (const item of obj.articleBranchDeviationLines) {
@@ -14022,7 +14393,7 @@ export function serializeGetArticleBranchDeviationsResponse(obj: T.GetArticleBra
   return xml;
 }
 
-export function serializeSaveArticleBranchDeviationsResponse(obj: T.SaveArticleBranchDeviationsResponse, elemName: string): string {
+export function serializeSaveArticleBranchDeviationsResponse(obj: T.Input<T.SaveArticleBranchDeviationsResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -14034,7 +14405,7 @@ export function serializeSaveArticleBranchDeviationsResponse(obj: T.SaveArticleB
   return xml;
 }
 
-export function serializeUpdateArticleNutrientsResponse(obj: T.UpdateArticleNutrientsResponse, elemName: string): string {
+export function serializeUpdateArticleNutrientsResponse(obj: T.Input<T.UpdateArticleNutrientsResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -14046,7 +14417,7 @@ export function serializeUpdateArticleNutrientsResponse(obj: T.UpdateArticleNutr
   return xml;
 }
 
-export function serializeUpdateArticleDynamicMinMaxStockResponse(obj: T.UpdateArticleDynamicMinMaxStockResponse, elemName: string): string {
+export function serializeUpdateArticleDynamicMinMaxStockResponse(obj: T.Input<T.UpdateArticleDynamicMinMaxStockResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.articleDynamicMinMaxStocks !== undefined && obj.articleDynamicMinMaxStocks !== null) {
     xml += `<${NS_PREFIX}:articleDynamicMinMaxStocks>`;
@@ -14059,7 +14430,7 @@ export function serializeUpdateArticleDynamicMinMaxStockResponse(obj: T.UpdateAr
   return xml;
 }
 
-export function serializeGetArticleDynamicMinMaxStockResponse(obj: T.GetArticleDynamicMinMaxStockResponse, elemName: string): string {
+export function serializeGetArticleDynamicMinMaxStockResponse(obj: T.Input<T.GetArticleDynamicMinMaxStockResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.articleDynamicMinMaxStocks !== undefined && obj.articleDynamicMinMaxStocks !== null) {
     xml += `<${NS_PREFIX}:articleDynamicMinMaxStocks>`;
@@ -14072,7 +14443,7 @@ export function serializeGetArticleDynamicMinMaxStockResponse(obj: T.GetArticleD
   return xml;
 }
 
-export function serializeGetCardFilterOptionsResponse(obj: T.GetCardFilterOptionsResponse, elemName: string): string {
+export function serializeGetCardFilterOptionsResponse(obj: T.Input<T.GetCardFilterOptionsResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.fields !== undefined && obj.fields !== null) {
     xml += `<${NS_PREFIX}:fields>`;
@@ -14092,7 +14463,7 @@ export function serializeGetCardFilterOptionsResponse(obj: T.GetCardFilterOption
   return xml;
 }
 
-export function serializeGetPlannedCycleCountsResponse(obj: T.GetPlannedCycleCountsResponse, elemName: string): string {
+export function serializeGetPlannedCycleCountsResponse(obj: T.Input<T.GetPlannedCycleCountsResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.plannedCycleCounts !== undefined && obj.plannedCycleCounts !== null) {
     xml += `<${NS_PREFIX}:plannedCycleCounts>`;
@@ -14105,7 +14476,7 @@ export function serializeGetPlannedCycleCountsResponse(obj: T.GetPlannedCycleCou
   return xml;
 }
 
-export function serializeGetActiveCycleCountResponse(obj: T.GetActiveCycleCountResponse, elemName: string): string {
+export function serializeGetActiveCycleCountResponse(obj: T.Input<T.GetActiveCycleCountResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.activeCycleCount !== undefined && obj.activeCycleCount !== null) {
     xml += serializeActiveCycleCount(obj.activeCycleCount, 'activeCycleCount');
@@ -14114,7 +14485,7 @@ export function serializeGetActiveCycleCountResponse(obj: T.GetActiveCycleCountR
   return xml;
 }
 
-export function serializeSetArticleRecalledResponse(obj: T.SetArticleRecalledResponse, elemName: string): string {
+export function serializeSetArticleRecalledResponse(obj: T.Input<T.SetArticleRecalledResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -14126,7 +14497,7 @@ export function serializeSetArticleRecalledResponse(obj: T.SetArticleRecalledRes
   return xml;
 }
 
-export function serializeGetArticleComponentsResponse(obj: T.GetArticleComponentsResponse, elemName: string): string {
+export function serializeGetArticleComponentsResponse(obj: T.Input<T.GetArticleComponentsResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.articleComponents !== undefined && obj.articleComponents !== null) {
     xml += `<${NS_PREFIX}:articleComponents>`;
@@ -14139,13 +14510,26 @@ export function serializeGetArticleComponentsResponse(obj: T.GetArticleComponent
   return xml;
 }
 
-export function serializeSaveArticleComponentsResponse(obj: T.SaveArticleComponentsResponse, elemName: string): string {
+export function serializeSaveArticleComponentsResponse(obj: T.Input<T.SaveArticleComponentsResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.idempotencyResult !== undefined && obj.idempotencyResult !== null) {
+    xml += serializeString('idempotencyResult', String(obj.idempotencyResult));
+  }
+  if (obj.result !== undefined && obj.result !== null) {
+    xml += serializeString('result', String(obj.result));
+  }
+  if (obj.newArticleComponents !== undefined && obj.newArticleComponents !== null) {
+    xml += `<${NS_PREFIX}:newArticleComponents>`;
+    for (const item of obj.newArticleComponents) {
+      xml += serializeArticleComponent(item, 'articleComponent');
+    }
+    xml += `</${NS_PREFIX}:newArticleComponents>`;
+  }
   xml += `</${NS_PREFIX}:${elemName}>`;
   return xml;
 }
 
-export function serializeRequestDateFilter(obj: T.RequestDateFilter, elemName: string): string {
+export function serializeRequestDateFilter(obj: T.Input<T.RequestDateFilter>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.fromFinancialDate !== undefined && obj.fromFinancialDate !== null) {
     xml += serializeString('fromFinancialDate', obj.fromFinancialDate.toISOString().substring(0, 10));
@@ -14157,7 +14541,7 @@ export function serializeRequestDateFilter(obj: T.RequestDateFilter, elemName: s
   return xml;
 }
 
-export function serializeRequestBranchFilter(obj: T.RequestBranchFilter, elemName: string): string {
+export function serializeRequestBranchFilter(obj: T.Input<T.RequestBranchFilter>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.branchNumbers !== undefined && obj.branchNumbers !== null) {
     for (const item of obj.branchNumbers) {
@@ -14168,7 +14552,7 @@ export function serializeRequestBranchFilter(obj: T.RequestBranchFilter, elemNam
   return xml;
 }
 
-export function serializeRequestEmployeeFilter(obj: T.RequestEmployeeFilter, elemName: string): string {
+export function serializeRequestEmployeeFilter(obj: T.Input<T.RequestEmployeeFilter>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.employeeNumbers !== undefined && obj.employeeNumbers !== null) {
     for (const item of obj.employeeNumbers) {
@@ -14179,7 +14563,7 @@ export function serializeRequestEmployeeFilter(obj: T.RequestEmployeeFilter, ele
   return xml;
 }
 
-export function serializeRequestTurnoverGroupFilter(obj: T.RequestTurnoverGroupFilter, elemName: string): string {
+export function serializeRequestTurnoverGroupFilter(obj: T.Input<T.RequestTurnoverGroupFilter>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.turnoverGroups !== undefined && obj.turnoverGroups !== null) {
     for (const item of obj.turnoverGroups) {
@@ -14190,7 +14574,7 @@ export function serializeRequestTurnoverGroupFilter(obj: T.RequestTurnoverGroupF
   return xml;
 }
 
-export function serializeRequestTurnoverGroupTypeFilter(obj: T.RequestTurnoverGroupTypeFilter, elemName: string): string {
+export function serializeRequestTurnoverGroupTypeFilter(obj: T.Input<T.RequestTurnoverGroupTypeFilter>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.turnoverGroupTypes !== undefined && obj.turnoverGroupTypes !== null) {
     for (const item of obj.turnoverGroupTypes) {
@@ -14201,7 +14585,7 @@ export function serializeRequestTurnoverGroupTypeFilter(obj: T.RequestTurnoverGr
   return xml;
 }
 
-export function serializeRequestArticleFilter(obj: T.RequestArticleFilter, elemName: string): string {
+export function serializeRequestArticleFilter(obj: T.Input<T.RequestArticleFilter>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.articleNumbers !== undefined && obj.articleNumbers !== null) {
     for (const item of obj.articleNumbers) {
@@ -14212,7 +14596,7 @@ export function serializeRequestArticleFilter(obj: T.RequestArticleFilter, elemN
   return xml;
 }
 
-export function serializeRequestActivityFilter(obj: T.RequestActivityFilter, elemName: string): string {
+export function serializeRequestActivityFilter(obj: T.Input<T.RequestActivityFilter>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.activityNumbers !== undefined && obj.activityNumbers !== null) {
     for (const item of obj.activityNumbers) {
@@ -14223,7 +14607,7 @@ export function serializeRequestActivityFilter(obj: T.RequestActivityFilter, ele
   return xml;
 }
 
-export function serializeRequestRelationFilter(obj: T.RequestRelationFilter, elemName: string): string {
+export function serializeRequestRelationFilter(obj: T.Input<T.RequestRelationFilter>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.relationNumbers !== undefined && obj.relationNumbers !== null) {
     for (const item of obj.relationNumbers) {
@@ -14234,7 +14618,7 @@ export function serializeRequestRelationFilter(obj: T.RequestRelationFilter, ele
   return xml;
 }
 
-export function serializeRequestSyncMarkerFilter(obj: T.RequestSyncMarkerFilter, elemName: string): string {
+export function serializeRequestSyncMarkerFilter(obj: T.Input<T.RequestSyncMarkerFilter>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.syncMarker !== undefined && obj.syncMarker !== null) {
     xml += serializeNumber('syncMarker', obj.syncMarker);
@@ -14246,7 +14630,7 @@ export function serializeRequestSyncMarkerFilter(obj: T.RequestSyncMarkerFilter,
   return xml;
 }
 
-export function serializeConfigurationList(obj: T.ConfigurationList, elemName: string): string {
+export function serializeConfigurationList(obj: T.Input<T.ConfigurationList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.configuration !== undefined && obj.configuration !== null) {
     for (const item of obj.configuration) {
@@ -14257,7 +14641,7 @@ export function serializeConfigurationList(obj: T.ConfigurationList, elemName: s
   return xml;
 }
 
-export function serializeConfiguration(obj: T.Configuration, elemName: string): string {
+export function serializeConfiguration(obj: T.Input<T.Configuration>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.branchNumber !== undefined && obj.branchNumber !== null) {
     xml += serializeNumber('branchNumber', obj.branchNumber);
@@ -14312,7 +14696,7 @@ export function serializeConfiguration(obj: T.Configuration, elemName: string): 
   return xml;
 }
 
-export function serializeGetConfigurationRequest(obj: T.GetConfigurationRequest, elemName: string): string {
+export function serializeGetConfigurationRequest(obj: T.Input<T.GetConfigurationRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.branchNumber !== undefined && obj.branchNumber !== null) {
     xml += serializeNumber('branchNumber', obj.branchNumber);
@@ -14333,7 +14717,7 @@ export function serializeGetConfigurationRequest(obj: T.GetConfigurationRequest,
   return xml;
 }
 
-export function serializeUpdateConfigurationRequest(obj: T.UpdateConfigurationRequest, elemName: string): string {
+export function serializeUpdateConfigurationRequest(obj: T.Input<T.UpdateConfigurationRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.configurationList !== undefined && obj.configurationList !== null) {
     xml += `<${NS_PREFIX}:configurationList>`;
@@ -14346,7 +14730,7 @@ export function serializeUpdateConfigurationRequest(obj: T.UpdateConfigurationRe
   return xml;
 }
 
-export function serializeConfigurationOption(obj: T.ConfigurationOption, elemName: string): string {
+export function serializeConfigurationOption(obj: T.Input<T.ConfigurationOption>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.key !== undefined && obj.key !== null) {
     xml += serializeString('key', String(obj.key));
@@ -14358,7 +14742,7 @@ export function serializeConfigurationOption(obj: T.ConfigurationOption, elemNam
   return xml;
 }
 
-export function serializeConfigurationItem(obj: T.ConfigurationItem, elemName: string): string {
+export function serializeConfigurationItem(obj: T.Input<T.ConfigurationItem>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.configurationKey !== undefined && obj.configurationKey !== null) {
     xml += serializeString('configurationKey', String(obj.configurationKey));
@@ -14423,7 +14807,7 @@ export function serializeConfigurationItem(obj: T.ConfigurationItem, elemName: s
   return xml;
 }
 
-export function serializeConfigurationGroup(obj: T.ConfigurationGroup, elemName: string): string {
+export function serializeConfigurationGroup(obj: T.Input<T.ConfigurationGroup>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.configurationGroupName !== undefined && obj.configurationGroupName !== null) {
     xml += serializeString('configurationGroupName', String(obj.configurationGroupName));
@@ -14442,13 +14826,13 @@ export function serializeConfigurationGroup(obj: T.ConfigurationGroup, elemName:
   return xml;
 }
 
-export function serializeGetConfigurationTreeRequest(obj: T.GetConfigurationTreeRequest, elemName: string): string {
+export function serializeGetConfigurationTreeRequest(obj: T.Input<T.GetConfigurationTreeRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   xml += `</${NS_PREFIX}:${elemName}>`;
   return xml;
 }
 
-export function serializeGetConfigurationValuesRequest(obj: T.GetConfigurationValuesRequest, elemName: string): string {
+export function serializeGetConfigurationValuesRequest(obj: T.Input<T.GetConfigurationValuesRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.branchNumber !== undefined && obj.branchNumber !== null) {
     xml += serializeNumber('branchNumber', obj.branchNumber);
@@ -14465,7 +14849,7 @@ export function serializeGetConfigurationValuesRequest(obj: T.GetConfigurationVa
   return xml;
 }
 
-export function serializeConfigurationValue(obj: T.ConfigurationValue, elemName: string): string {
+export function serializeConfigurationValue(obj: T.Input<T.ConfigurationValue>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.value !== undefined && obj.value !== null) {
     xml += serializeString('value', String(obj.value));
@@ -14480,7 +14864,7 @@ export function serializeConfigurationValue(obj: T.ConfigurationValue, elemName:
   return xml;
 }
 
-export function serializeConfigurationKeyValues(obj: T.ConfigurationKeyValues, elemName: string): string {
+export function serializeConfigurationKeyValues(obj: T.Input<T.ConfigurationKeyValues>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.configurationKey !== undefined && obj.configurationKey !== null) {
     xml += serializeString('configurationKey', String(obj.configurationKey));
@@ -14494,7 +14878,7 @@ export function serializeConfigurationKeyValues(obj: T.ConfigurationKeyValues, e
   return xml;
 }
 
-export function serializeUpdateConfigurationValuesRequest(obj: T.UpdateConfigurationValuesRequest, elemName: string): string {
+export function serializeUpdateConfigurationValuesRequest(obj: T.Input<T.UpdateConfigurationValuesRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.configurationKeyValues !== undefined && obj.configurationKeyValues !== null) {
     for (const item of obj.configurationKeyValues) {
@@ -14505,7 +14889,7 @@ export function serializeUpdateConfigurationValuesRequest(obj: T.UpdateConfigura
   return xml;
 }
 
-export function serializeButtonLayoutButton(obj: T.ButtonLayoutButton, elemName: string): string {
+export function serializeButtonLayoutButton(obj: T.Input<T.ButtonLayoutButton>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.name !== undefined && obj.name !== null) {
     xml += serializeString('name', String(obj.name));
@@ -14541,7 +14925,7 @@ export function serializeButtonLayoutButton(obj: T.ButtonLayoutButton, elemName:
   return xml;
 }
 
-export function serializeButtonLayoutButtonList(obj: T.ButtonLayoutButtonList, elemName: string): string {
+export function serializeButtonLayoutButtonList(obj: T.Input<T.ButtonLayoutButtonList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.button !== undefined && obj.button !== null) {
     for (const item of obj.button) {
@@ -14552,7 +14936,7 @@ export function serializeButtonLayoutButtonList(obj: T.ButtonLayoutButtonList, e
   return xml;
 }
 
-export function serializeButtonLayoutSubGroup(obj: T.ButtonLayoutSubGroup, elemName: string): string {
+export function serializeButtonLayoutSubGroup(obj: T.Input<T.ButtonLayoutSubGroup>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.name !== undefined && obj.name !== null) {
     xml += serializeString('name', String(obj.name));
@@ -14577,7 +14961,7 @@ export function serializeButtonLayoutSubGroup(obj: T.ButtonLayoutSubGroup, elemN
   return xml;
 }
 
-export function serializeButtonLayoutSubGroupList(obj: T.ButtonLayoutSubGroupList, elemName: string): string {
+export function serializeButtonLayoutSubGroupList(obj: T.Input<T.ButtonLayoutSubGroupList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.subGroup !== undefined && obj.subGroup !== null) {
     for (const item of obj.subGroup) {
@@ -14588,7 +14972,7 @@ export function serializeButtonLayoutSubGroupList(obj: T.ButtonLayoutSubGroupLis
   return xml;
 }
 
-export function serializeButtonLayoutMainGroup(obj: T.ButtonLayoutMainGroup, elemName: string): string {
+export function serializeButtonLayoutMainGroup(obj: T.Input<T.ButtonLayoutMainGroup>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.name !== undefined && obj.name !== null) {
     xml += serializeString('name', String(obj.name));
@@ -14613,7 +14997,7 @@ export function serializeButtonLayoutMainGroup(obj: T.ButtonLayoutMainGroup, ele
   return xml;
 }
 
-export function serializeButtonLayoutMainGroupList(obj: T.ButtonLayoutMainGroupList, elemName: string): string {
+export function serializeButtonLayoutMainGroupList(obj: T.Input<T.ButtonLayoutMainGroupList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.mainGroup !== undefined && obj.mainGroup !== null) {
     for (const item of obj.mainGroup) {
@@ -14624,7 +15008,7 @@ export function serializeButtonLayoutMainGroupList(obj: T.ButtonLayoutMainGroupL
   return xml;
 }
 
-export function serializeButtonLayout(obj: T.ButtonLayout, elemName: string): string {
+export function serializeButtonLayout(obj: T.Input<T.ButtonLayout>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.buttonColumnCount !== undefined && obj.buttonColumnCount !== null) {
     xml += serializeNumber('buttonColumnCount', obj.buttonColumnCount);
@@ -14709,7 +15093,7 @@ export function serializeButtonLayout(obj: T.ButtonLayout, elemName: string): st
   return xml;
 }
 
-export function serializeButtonLayoutTabBranchLayout(obj: T.ButtonLayoutTabBranchLayout, elemName: string): string {
+export function serializeButtonLayoutTabBranchLayout(obj: T.Input<T.ButtonLayoutTabBranchLayout>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.branchNumber !== undefined && obj.branchNumber !== null) {
     xml += serializeNumber('branchNumber', obj.branchNumber);
@@ -14724,7 +15108,7 @@ export function serializeButtonLayoutTabBranchLayout(obj: T.ButtonLayoutTabBranc
   return xml;
 }
 
-export function serializeButtonLayoutTab(obj: T.ButtonLayoutTab, elemName: string): string {
+export function serializeButtonLayoutTab(obj: T.Input<T.ButtonLayoutTab>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.id !== undefined && obj.id !== null) {
     xml += serializeNumber('id', obj.id);
@@ -14747,7 +15131,7 @@ export function serializeButtonLayoutTab(obj: T.ButtonLayoutTab, elemName: strin
   return xml;
 }
 
-export function serializeButtonLayoutGroup(obj: T.ButtonLayoutGroup, elemName: string): string {
+export function serializeButtonLayoutGroup(obj: T.Input<T.ButtonLayoutGroup>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.id !== undefined && obj.id !== null) {
     xml += serializeNumber('id', obj.id);
@@ -14767,7 +15151,7 @@ export function serializeButtonLayoutGroup(obj: T.ButtonLayoutGroup, elemName: s
   return xml;
 }
 
-export function serializeButtonLayoutGroupForBranchRequest(obj: T.ButtonLayoutGroupForBranchRequest, elemName: string): string {
+export function serializeButtonLayoutGroupForBranchRequest(obj: T.Input<T.ButtonLayoutGroupForBranchRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.terminal !== undefined && obj.terminal !== null) {
     xml += serializeTerminalId(obj.terminal, 'terminal');
@@ -14785,13 +15169,13 @@ export function serializeButtonLayoutGroupForBranchRequest(obj: T.ButtonLayoutGr
   return xml;
 }
 
-export function serializeGetButtonLayoutGroupsWithAssignedWorkplacesRequest(obj: T.GetButtonLayoutGroupsWithAssignedWorkplacesRequest, elemName: string): string {
+export function serializeGetButtonLayoutGroupsWithAssignedWorkplacesRequest(obj: T.Input<T.GetButtonLayoutGroupsWithAssignedWorkplacesRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   xml += `</${NS_PREFIX}:${elemName}>`;
   return xml;
 }
 
-export function serializeButtonLayoutGroupsWithAssignedWorkplaces(obj: T.ButtonLayoutGroupsWithAssignedWorkplaces, elemName: string): string {
+export function serializeButtonLayoutGroupsWithAssignedWorkplaces(obj: T.Input<T.ButtonLayoutGroupsWithAssignedWorkplaces>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.id !== undefined && obj.id !== null) {
     xml += serializeNumber('id', obj.id);
@@ -14808,7 +15192,7 @@ export function serializeButtonLayoutGroupsWithAssignedWorkplaces(obj: T.ButtonL
   return xml;
 }
 
-export function serializeGetButtonLayoutGroupDetailsRequest(obj: T.GetButtonLayoutGroupDetailsRequest, elemName: string): string {
+export function serializeGetButtonLayoutGroupDetailsRequest(obj: T.Input<T.GetButtonLayoutGroupDetailsRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.buttonLayoutGroupId !== undefined && obj.buttonLayoutGroupId !== null) {
     xml += serializeNumber('buttonLayoutGroupId', obj.buttonLayoutGroupId);
@@ -14823,7 +15207,7 @@ export function serializeGetButtonLayoutGroupDetailsRequest(obj: T.GetButtonLayo
   return xml;
 }
 
-export function serializeSaveButtonLayoutGroupDetailsRequest(obj: T.SaveButtonLayoutGroupDetailsRequest, elemName: string): string {
+export function serializeSaveButtonLayoutGroupDetailsRequest(obj: T.Input<T.SaveButtonLayoutGroupDetailsRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.branchNumber !== undefined && obj.branchNumber !== null) {
     xml += serializeNumber('branchNumber', obj.branchNumber);
@@ -14835,7 +15219,7 @@ export function serializeSaveButtonLayoutGroupDetailsRequest(obj: T.SaveButtonLa
   return xml;
 }
 
-export function serializeDeleteButtonLayoutGroupRequest(obj: T.DeleteButtonLayoutGroupRequest, elemName: string): string {
+export function serializeDeleteButtonLayoutGroupRequest(obj: T.Input<T.DeleteButtonLayoutGroupRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.buttonLayoutGroupId !== undefined && obj.buttonLayoutGroupId !== null) {
     xml += serializeNumber('buttonLayoutGroupId', obj.buttonLayoutGroupId);
@@ -14844,7 +15228,7 @@ export function serializeDeleteButtonLayoutGroupRequest(obj: T.DeleteButtonLayou
   return xml;
 }
 
-export function serializeAssignButtonLayoutGroupToWorkplacesRequest(obj: T.AssignButtonLayoutGroupToWorkplacesRequest, elemName: string): string {
+export function serializeAssignButtonLayoutGroupToWorkplacesRequest(obj: T.Input<T.AssignButtonLayoutGroupToWorkplacesRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.buttonLayoutGroupId !== undefined && obj.buttonLayoutGroupId !== null) {
     xml += serializeNumber('buttonLayoutGroupId', obj.buttonLayoutGroupId);
@@ -14858,7 +15242,7 @@ export function serializeAssignButtonLayoutGroupToWorkplacesRequest(obj: T.Assig
   return xml;
 }
 
-export function serializePreparationMethodSimple(obj: T.PreparationMethodSimple, elemName: string): string {
+export function serializePreparationMethodSimple(obj: T.Input<T.PreparationMethodSimple>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.number !== undefined && obj.number !== null) {
     xml += serializeNumber('number', obj.number);
@@ -14891,7 +15275,7 @@ export function serializePreparationMethodSimple(obj: T.PreparationMethodSimple,
   return xml;
 }
 
-export function serializePreparationMethodSimpleList(obj: T.PreparationMethodSimpleList, elemName: string): string {
+export function serializePreparationMethodSimpleList(obj: T.Input<T.PreparationMethodSimpleList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.preparationMethod !== undefined && obj.preparationMethod !== null) {
     for (const item of obj.preparationMethod) {
@@ -14902,7 +15286,7 @@ export function serializePreparationMethodSimpleList(obj: T.PreparationMethodSim
   return xml;
 }
 
-export function serializeComponentArticleSimple(obj: T.ComponentArticleSimple, elemName: string): string {
+export function serializeComponentArticleSimple(obj: T.Input<T.ComponentArticleSimple>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.number !== undefined && obj.number !== null) {
     xml += serializeNumber('number', obj.number);
@@ -14926,7 +15310,7 @@ export function serializeComponentArticleSimple(obj: T.ComponentArticleSimple, e
   return xml;
 }
 
-export function serializeComponentArticleSimpleList(obj: T.ComponentArticleSimpleList, elemName: string): string {
+export function serializeComponentArticleSimpleList(obj: T.Input<T.ComponentArticleSimpleList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.componentArticle !== undefined && obj.componentArticle !== null) {
     for (const item of obj.componentArticle) {
@@ -14937,7 +15321,7 @@ export function serializeComponentArticleSimpleList(obj: T.ComponentArticleSimpl
   return xml;
 }
 
-export function serializeArticleSimple(obj: T.ArticleSimple, elemName: string): string {
+export function serializeArticleSimple(obj: T.Input<T.ArticleSimple>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.number !== undefined && obj.number !== null) {
     xml += serializeNumber('number', obj.number);
@@ -14987,7 +15371,7 @@ export function serializeArticleSimple(obj: T.ArticleSimple, elemName: string): 
   return xml;
 }
 
-export function serializeGetDayStockConfigurationRequest(obj: T.GetDayStockConfigurationRequest, elemName: string): string {
+export function serializeGetDayStockConfigurationRequest(obj: T.Input<T.GetDayStockConfigurationRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.branchFilter !== undefined && obj.branchFilter !== null) {
     xml += `<${NS_PREFIX}:branchFilter>`;
@@ -15003,7 +15387,7 @@ export function serializeGetDayStockConfigurationRequest(obj: T.GetDayStockConfi
   return xml;
 }
 
-export function serializeDayStockConfiguration(obj: T.DayStockConfiguration, elemName: string): string {
+export function serializeDayStockConfiguration(obj: T.Input<T.DayStockConfiguration>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.branchNumber !== undefined && obj.branchNumber !== null) {
     xml += serializeNumber('branchNumber', obj.branchNumber);
@@ -15022,7 +15406,7 @@ export function serializeDayStockConfiguration(obj: T.DayStockConfiguration, ele
   return xml;
 }
 
-export function serializeDayStockConfigurationList(obj: T.DayStockConfigurationList, elemName: string): string {
+export function serializeDayStockConfigurationList(obj: T.Input<T.DayStockConfigurationList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.dayStockConfiguration !== undefined && obj.dayStockConfiguration !== null) {
     for (const item of obj.dayStockConfiguration) {
@@ -15033,7 +15417,7 @@ export function serializeDayStockConfigurationList(obj: T.DayStockConfigurationL
   return xml;
 }
 
-export function serializeSaveDayStockConfiguration(obj: T.SaveDayStockConfiguration, elemName: string): string {
+export function serializeSaveDayStockConfiguration(obj: T.Input<T.SaveDayStockConfiguration>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.branchNumber !== undefined && obj.branchNumber !== null) {
     xml += serializeNumber('branchNumber', obj.branchNumber);
@@ -15049,7 +15433,7 @@ export function serializeSaveDayStockConfiguration(obj: T.SaveDayStockConfigurat
   return xml;
 }
 
-export function serializeSaveDayStockConfigurationList(obj: T.SaveDayStockConfigurationList, elemName: string): string {
+export function serializeSaveDayStockConfigurationList(obj: T.Input<T.SaveDayStockConfigurationList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.saveDayStockConfiguration !== undefined && obj.saveDayStockConfiguration !== null) {
     for (const item of obj.saveDayStockConfiguration) {
@@ -15060,7 +15444,7 @@ export function serializeSaveDayStockConfigurationList(obj: T.SaveDayStockConfig
   return xml;
 }
 
-export function serializeSaveDayStockConfigurationRequest(obj: T.SaveDayStockConfigurationRequest, elemName: string): string {
+export function serializeSaveDayStockConfigurationRequest(obj: T.Input<T.SaveDayStockConfigurationRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.saveDayStockConfigurationList !== undefined && obj.saveDayStockConfigurationList !== null) {
     xml += `<${NS_PREFIX}:saveDayStockConfigurationList>`;
@@ -15073,7 +15457,7 @@ export function serializeSaveDayStockConfigurationRequest(obj: T.SaveDayStockCon
   return xml;
 }
 
-export function serializeActivity(obj: T.Activity, elemName: string): string {
+export function serializeActivity(obj: T.Input<T.Activity>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.activityId !== undefined && obj.activityId !== null) {
     xml += serializeString('activityId', String(obj.activityId));
@@ -15130,7 +15514,7 @@ export function serializeActivity(obj: T.Activity, elemName: string): string {
   return xml;
 }
 
-export function serializeActivityList(obj: T.ActivityList, elemName: string): string {
+export function serializeActivityList(obj: T.Input<T.ActivityList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.activity !== undefined && obj.activity !== null) {
     for (const item of obj.activity) {
@@ -15141,7 +15525,7 @@ export function serializeActivityList(obj: T.ActivityList, elemName: string): st
   return xml;
 }
 
-export function serializeGetActivitiesRequest(obj: T.GetActivitiesRequest, elemName: string): string {
+export function serializeGetActivitiesRequest(obj: T.Input<T.GetActivitiesRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.syncMarker !== undefined && obj.syncMarker !== null) {
     xml += serializeNumber('syncMarker', obj.syncMarker);
@@ -15153,7 +15537,7 @@ export function serializeGetActivitiesRequest(obj: T.GetActivitiesRequest, elemN
   return xml;
 }
 
-export function serializeGetActivityTypesRequest(obj: T.GetActivityTypesRequest, elemName: string): string {
+export function serializeGetActivityTypesRequest(obj: T.Input<T.GetActivityTypesRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.syncMarker !== undefined && obj.syncMarker !== null) {
     xml += serializeNumber('syncMarker', obj.syncMarker);
@@ -15165,7 +15549,7 @@ export function serializeGetActivityTypesRequest(obj: T.GetActivityTypesRequest,
   return xml;
 }
 
-export function serializeActivityType(obj: T.ActivityType, elemName: string): string {
+export function serializeActivityType(obj: T.Input<T.ActivityType>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.id !== undefined && obj.id !== null) {
     xml += serializeNumber('id', obj.id);
@@ -15180,7 +15564,7 @@ export function serializeActivityType(obj: T.ActivityType, elemName: string): st
   return xml;
 }
 
-export function serializeActivityTypeList(obj: T.ActivityTypeList, elemName: string): string {
+export function serializeActivityTypeList(obj: T.Input<T.ActivityTypeList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.activityType !== undefined && obj.activityType !== null) {
     for (const item of obj.activityType) {
@@ -15191,7 +15575,7 @@ export function serializeActivityTypeList(obj: T.ActivityTypeList, elemName: str
   return xml;
 }
 
-export function serializeSaveActivityType(obj: T.SaveActivityType, elemName: string): string {
+export function serializeSaveActivityType(obj: T.Input<T.SaveActivityType>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.id !== undefined && obj.id !== null) {
     xml += serializeNumber('id', obj.id);
@@ -15203,7 +15587,7 @@ export function serializeSaveActivityType(obj: T.SaveActivityType, elemName: str
   return xml;
 }
 
-export function serializeSaveActivityTypeList(obj: T.SaveActivityTypeList, elemName: string): string {
+export function serializeSaveActivityTypeList(obj: T.Input<T.SaveActivityTypeList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.activityType !== undefined && obj.activityType !== null) {
     for (const item of obj.activityType) {
@@ -15214,7 +15598,7 @@ export function serializeSaveActivityTypeList(obj: T.SaveActivityTypeList, elemN
   return xml;
 }
 
-export function serializeSaveActivityTypesRequest(obj: T.SaveActivityTypesRequest, elemName: string): string {
+export function serializeSaveActivityTypesRequest(obj: T.Input<T.SaveActivityTypesRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.activityTypeList !== undefined && obj.activityTypeList !== null) {
     xml += `<${NS_PREFIX}:activityTypeList>`;
@@ -15227,7 +15611,7 @@ export function serializeSaveActivityTypesRequest(obj: T.SaveActivityTypesReques
   return xml;
 }
 
-export function serializeCreateActivity(obj: T.CreateActivity, elemName: string): string {
+export function serializeCreateActivity(obj: T.Input<T.CreateActivity>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.activityNumber !== undefined && obj.activityNumber !== null) {
     xml += serializeString('activityNumber', String(obj.activityNumber));
@@ -15266,7 +15650,7 @@ export function serializeCreateActivity(obj: T.CreateActivity, elemName: string)
   return xml;
 }
 
-export function serializeCreateActivityRequest(obj: T.CreateActivityRequest, elemName: string): string {
+export function serializeCreateActivityRequest(obj: T.Input<T.CreateActivityRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.createActivity !== undefined && obj.createActivity !== null) {
     xml += serializeCreateActivity(obj.createActivity, 'createActivity');
@@ -15275,7 +15659,7 @@ export function serializeCreateActivityRequest(obj: T.CreateActivityRequest, ele
   return xml;
 }
 
-export function serializeUpdateActivity(obj: T.UpdateActivity, elemName: string): string {
+export function serializeUpdateActivity(obj: T.Input<T.UpdateActivity>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.activityId !== undefined && obj.activityId !== null) {
     xml += serializeString('activityId', String(obj.activityId));
@@ -15317,7 +15701,7 @@ export function serializeUpdateActivity(obj: T.UpdateActivity, elemName: string)
   return xml;
 }
 
-export function serializeUpdateActivityRequest(obj: T.UpdateActivityRequest, elemName: string): string {
+export function serializeUpdateActivityRequest(obj: T.Input<T.UpdateActivityRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.updateActivity !== undefined && obj.updateActivity !== null) {
     xml += serializeUpdateActivity(obj.updateActivity, 'updateActivity');
@@ -15326,7 +15710,7 @@ export function serializeUpdateActivityRequest(obj: T.UpdateActivityRequest, ele
   return xml;
 }
 
-export function serializeSaveActivity(obj: T.SaveActivity, elemName: string): string {
+export function serializeSaveActivity(obj: T.Input<T.SaveActivity>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.activityId !== undefined && obj.activityId !== null) {
     xml += serializeString('activityId', String(obj.activityId));
@@ -15368,7 +15752,7 @@ export function serializeSaveActivity(obj: T.SaveActivity, elemName: string): st
   return xml;
 }
 
-export function serializeSaveActivityRequest(obj: T.SaveActivityRequest, elemName: string): string {
+export function serializeSaveActivityRequest(obj: T.Input<T.SaveActivityRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.saveActivity !== undefined && obj.saveActivity !== null) {
     xml += serializeSaveActivity(obj.saveActivity, 'saveActivity');
@@ -15377,7 +15761,7 @@ export function serializeSaveActivityRequest(obj: T.SaveActivityRequest, elemNam
   return xml;
 }
 
-export function serializeDeleteActivityRequest(obj: T.DeleteActivityRequest, elemName: string): string {
+export function serializeDeleteActivityRequest(obj: T.Input<T.DeleteActivityRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.activityId !== undefined && obj.activityId !== null) {
     xml += serializeString('activityId', String(obj.activityId));
@@ -15386,7 +15770,7 @@ export function serializeDeleteActivityRequest(obj: T.DeleteActivityRequest, ele
   return xml;
 }
 
-export function serializeGetGksInformationRequest(obj: T.GetGksInformationRequest, elemName: string): string {
+export function serializeGetGksInformationRequest(obj: T.Input<T.GetGksInformationRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.workplace !== undefined && obj.workplace !== null) {
     xml += serializeWorkplaceIdentifier(obj.workplace, 'workplace');
@@ -15395,13 +15779,13 @@ export function serializeGetGksInformationRequest(obj: T.GetGksInformationReques
   return xml;
 }
 
-export function serializeGetMealplanMomentsConfigurationRequest(obj: T.GetMealplanMomentsConfigurationRequest, elemName: string): string {
+export function serializeGetMealplanMomentsConfigurationRequest(obj: T.Input<T.GetMealplanMomentsConfigurationRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   xml += `</${NS_PREFIX}:${elemName}>`;
   return xml;
 }
 
-export function serializeMealmomentConfiguration(obj: T.MealmomentConfiguration, elemName: string): string {
+export function serializeMealmomentConfiguration(obj: T.Input<T.MealmomentConfiguration>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.MealmomentId !== undefined && obj.MealmomentId !== null) {
     xml += serializeString('MealmomentId', String(obj.MealmomentId));
@@ -15428,7 +15812,7 @@ export function serializeMealmomentConfiguration(obj: T.MealmomentConfiguration,
   return xml;
 }
 
-export function serializeGetScheduledMealPlansRequest(obj: T.GetScheduledMealPlansRequest, elemName: string): string {
+export function serializeGetScheduledMealPlansRequest(obj: T.Input<T.GetScheduledMealPlansRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.fromDate !== undefined && obj.fromDate !== null) {
     xml += serializeString('fromDate', obj.fromDate.toISOString().substring(0, 10));
@@ -15443,7 +15827,7 @@ export function serializeGetScheduledMealPlansRequest(obj: T.GetScheduledMealPla
   return xml;
 }
 
-export function serializeMealPlanArticleGroup(obj: T.MealPlanArticleGroup, elemName: string): string {
+export function serializeMealPlanArticleGroup(obj: T.Input<T.MealPlanArticleGroup>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.groupDescription !== undefined && obj.groupDescription !== null) {
     xml += serializeString('groupDescription', String(obj.groupDescription));
@@ -15468,7 +15852,7 @@ export function serializeMealPlanArticleGroup(obj: T.MealPlanArticleGroup, elemN
   return xml;
 }
 
-export function serializeMealmoment(obj: T.Mealmoment, elemName: string): string {
+export function serializeMealmoment(obj: T.Input<T.Mealmoment>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.mealmomentId !== undefined && obj.mealmomentId !== null) {
     xml += serializeString('mealmomentId', String(obj.mealmomentId));
@@ -15482,7 +15866,7 @@ export function serializeMealmoment(obj: T.Mealmoment, elemName: string): string
   return xml;
 }
 
-export function serializeMealPlan(obj: T.MealPlan, elemName: string): string {
+export function serializeMealPlan(obj: T.Input<T.MealPlan>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.mealPlanDescription !== undefined && obj.mealPlanDescription !== null) {
     xml += serializeString('mealPlanDescription', String(obj.mealPlanDescription));
@@ -15499,7 +15883,7 @@ export function serializeMealPlan(obj: T.MealPlan, elemName: string): string {
   return xml;
 }
 
-export function serializeScheduledMealPlan(obj: T.ScheduledMealPlan, elemName: string): string {
+export function serializeScheduledMealPlan(obj: T.Input<T.ScheduledMealPlan>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.scheduledDate !== undefined && obj.scheduledDate !== null) {
     xml += serializeString('scheduledDate', obj.scheduledDate.toISOString());
@@ -15514,7 +15898,7 @@ export function serializeScheduledMealPlan(obj: T.ScheduledMealPlan, elemName: s
   return xml;
 }
 
-export function serializeGetArticleAlterationsGroupsRequest(obj: T.GetArticleAlterationsGroupsRequest, elemName: string): string {
+export function serializeGetArticleAlterationsGroupsRequest(obj: T.Input<T.GetArticleAlterationsGroupsRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.syncMarker !== undefined && obj.syncMarker !== null) {
     xml += serializeNumber('syncMarker', obj.syncMarker);
@@ -15529,7 +15913,7 @@ export function serializeGetArticleAlterationsGroupsRequest(obj: T.GetArticleAlt
   return xml;
 }
 
-export function serializeArticleAlteration(obj: T.ArticleAlteration, elemName: string): string {
+export function serializeArticleAlteration(obj: T.Input<T.ArticleAlteration>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.id !== undefined && obj.id !== null) {
     xml += serializeNumber('id', obj.id);
@@ -15559,7 +15943,7 @@ export function serializeArticleAlteration(obj: T.ArticleAlteration, elemName: s
   return xml;
 }
 
-export function serializeArticleAlterationList(obj: T.ArticleAlterationList, elemName: string): string {
+export function serializeArticleAlterationList(obj: T.Input<T.ArticleAlterationList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.articleAlteration !== undefined && obj.articleAlteration !== null) {
     for (const item of obj.articleAlteration) {
@@ -15570,7 +15954,7 @@ export function serializeArticleAlterationList(obj: T.ArticleAlterationList, ele
   return xml;
 }
 
-export function serializeArticleAlterationsGroup(obj: T.ArticleAlterationsGroup, elemName: string): string {
+export function serializeArticleAlterationsGroup(obj: T.Input<T.ArticleAlterationsGroup>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.groupNumber !== undefined && obj.groupNumber !== null) {
     xml += serializeNumber('groupNumber', obj.groupNumber);
@@ -15619,7 +16003,7 @@ export function serializeArticleAlterationsGroup(obj: T.ArticleAlterationsGroup,
   return xml;
 }
 
-export function serializeArticleAlterationsGroupList(obj: T.ArticleAlterationsGroupList, elemName: string): string {
+export function serializeArticleAlterationsGroupList(obj: T.Input<T.ArticleAlterationsGroupList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.articleAlterationsGroup !== undefined && obj.articleAlterationsGroup !== null) {
     for (const item of obj.articleAlterationsGroup) {
@@ -15630,7 +16014,7 @@ export function serializeArticleAlterationsGroupList(obj: T.ArticleAlterationsGr
   return xml;
 }
 
-export function serializeSaveArticleAlteration(obj: T.SaveArticleAlteration, elemName: string): string {
+export function serializeSaveArticleAlteration(obj: T.Input<T.SaveArticleAlteration>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.id !== undefined && obj.id !== null) {
     xml += serializeNumber('id', obj.id);
@@ -15654,7 +16038,7 @@ export function serializeSaveArticleAlteration(obj: T.SaveArticleAlteration, ele
   return xml;
 }
 
-export function serializeSaveArticleAlterationList(obj: T.SaveArticleAlterationList, elemName: string): string {
+export function serializeSaveArticleAlterationList(obj: T.Input<T.SaveArticleAlterationList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.saveArticleAlteration !== undefined && obj.saveArticleAlteration !== null) {
     for (const item of obj.saveArticleAlteration) {
@@ -15665,7 +16049,7 @@ export function serializeSaveArticleAlterationList(obj: T.SaveArticleAlterationL
   return xml;
 }
 
-export function serializeSaveArticleAlterationsGroupRequest(obj: T.SaveArticleAlterationsGroupRequest, elemName: string): string {
+export function serializeSaveArticleAlterationsGroupRequest(obj: T.Input<T.SaveArticleAlterationsGroupRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.groupNumber !== undefined && obj.groupNumber !== null) {
     xml += serializeNumber('groupNumber', obj.groupNumber);
@@ -15705,7 +16089,7 @@ export function serializeSaveArticleAlterationsGroupRequest(obj: T.SaveArticleAl
   return xml;
 }
 
-export function serializeDeleteArticleAlterationsGroupRequest(obj: T.DeleteArticleAlterationsGroupRequest, elemName: string): string {
+export function serializeDeleteArticleAlterationsGroupRequest(obj: T.Input<T.DeleteArticleAlterationsGroupRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.groupNumber !== undefined && obj.groupNumber !== null) {
     xml += serializeNumber('groupNumber', obj.groupNumber);
@@ -15717,7 +16101,7 @@ export function serializeDeleteArticleAlterationsGroupRequest(obj: T.DeleteArtic
   return xml;
 }
 
-export function serializeUpdateAttachedArticleAlterationsGroupsRequest(obj: T.UpdateAttachedArticleAlterationsGroupsRequest, elemName: string): string {
+export function serializeUpdateAttachedArticleAlterationsGroupsRequest(obj: T.Input<T.UpdateAttachedArticleAlterationsGroupsRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.articleNumber !== undefined && obj.articleNumber !== null) {
     xml += serializeNumber('articleNumber', obj.articleNumber);
@@ -15731,7 +16115,7 @@ export function serializeUpdateAttachedArticleAlterationsGroupsRequest(obj: T.Up
   return xml;
 }
 
-export function serializeSaveArticleMenuArticleSettings(obj: T.SaveArticleMenuArticleSettings, elemName: string): string {
+export function serializeSaveArticleMenuArticleSettings(obj: T.Input<T.SaveArticleMenuArticleSettings>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.groupNumber !== undefined && obj.groupNumber !== null) {
     xml += serializeNumber('groupNumber', obj.groupNumber);
@@ -15746,7 +16130,7 @@ export function serializeSaveArticleMenuArticleSettings(obj: T.SaveArticleMenuAr
   return xml;
 }
 
-export function serializeSaveArticleMenuArticleSettingsList(obj: T.SaveArticleMenuArticleSettingsList, elemName: string): string {
+export function serializeSaveArticleMenuArticleSettingsList(obj: T.Input<T.SaveArticleMenuArticleSettingsList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.articleSettings !== undefined && obj.articleSettings !== null) {
     for (const item of obj.articleSettings) {
@@ -15757,7 +16141,7 @@ export function serializeSaveArticleMenuArticleSettingsList(obj: T.SaveArticleMe
   return xml;
 }
 
-export function serializeUpdateArticleMenuRequest(obj: T.UpdateArticleMenuRequest, elemName: string): string {
+export function serializeUpdateArticleMenuRequest(obj: T.Input<T.UpdateArticleMenuRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.articleNumber !== undefined && obj.articleNumber !== null) {
     xml += serializeNumber('articleNumber', obj.articleNumber);
@@ -15794,7 +16178,7 @@ export function serializeUpdateArticleMenuRequest(obj: T.UpdateArticleMenuReques
   return xml;
 }
 
-export function serializeUpdateOnlineAuthorizationTreeRequest(obj: T.UpdateOnlineAuthorizationTreeRequest, elemName: string): string {
+export function serializeUpdateOnlineAuthorizationTreeRequest(obj: T.Input<T.UpdateOnlineAuthorizationTreeRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.authorizationList !== undefined && obj.authorizationList !== null) {
     xml += `<${NS_PREFIX}:authorizationList>`;
@@ -15813,7 +16197,7 @@ export function serializeUpdateOnlineAuthorizationTreeRequest(obj: T.UpdateOnlin
   return xml;
 }
 
-export function serializeGetOwnerLabelsRequest(obj: T.GetOwnerLabelsRequest, elemName: string): string {
+export function serializeGetOwnerLabelsRequest(obj: T.Input<T.GetOwnerLabelsRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.activeOnly !== undefined && obj.activeOnly !== null) {
     xml += serializeBoolean('activeOnly', obj.activeOnly);
@@ -15822,7 +16206,7 @@ export function serializeGetOwnerLabelsRequest(obj: T.GetOwnerLabelsRequest, ele
   return xml;
 }
 
-export function serializeOwnerLabel(obj: T.OwnerLabel, elemName: string): string {
+export function serializeOwnerLabel(obj: T.Input<T.OwnerLabel>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.id !== undefined && obj.id !== null) {
     xml += serializeString('id', String(obj.id));
@@ -15843,7 +16227,7 @@ export function serializeOwnerLabel(obj: T.OwnerLabel, elemName: string): string
   return xml;
 }
 
-export function serializeWordAlias(obj: T.WordAlias, elemName: string): string {
+export function serializeWordAlias(obj: T.Input<T.WordAlias>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.word !== undefined && obj.word !== null) {
     xml += serializeString('word', String(obj.word));
@@ -15855,7 +16239,7 @@ export function serializeWordAlias(obj: T.WordAlias, elemName: string): string {
   return xml;
 }
 
-export function serializeWordAliasList(obj: T.WordAliasList, elemName: string): string {
+export function serializeWordAliasList(obj: T.Input<T.WordAliasList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.wordAlias !== undefined && obj.wordAlias !== null) {
     for (const item of obj.wordAlias) {
@@ -15866,7 +16250,7 @@ export function serializeWordAliasList(obj: T.WordAliasList, elemName: string): 
   return xml;
 }
 
-export function serializeGetWordAliasesRequest(obj: T.GetWordAliasesRequest, elemName: string): string {
+export function serializeGetWordAliasesRequest(obj: T.Input<T.GetWordAliasesRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.locale !== undefined && obj.locale !== null) {
     xml += serializeString('locale', String(obj.locale));
@@ -15875,7 +16259,7 @@ export function serializeGetWordAliasesRequest(obj: T.GetWordAliasesRequest, ele
   return xml;
 }
 
-export function serializeLicensedModule(obj: T.LicensedModule, elemName: string): string {
+export function serializeLicensedModule(obj: T.Input<T.LicensedModule>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.moduleGroup !== undefined && obj.moduleGroup !== null) {
     xml += serializeNumber('moduleGroup', obj.moduleGroup);
@@ -15890,7 +16274,7 @@ export function serializeLicensedModule(obj: T.LicensedModule, elemName: string)
   return xml;
 }
 
-export function serializeLicensedModuleList(obj: T.LicensedModuleList, elemName: string): string {
+export function serializeLicensedModuleList(obj: T.Input<T.LicensedModuleList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.licensedModule !== undefined && obj.licensedModule !== null) {
     for (const item of obj.licensedModule) {
@@ -15901,7 +16285,7 @@ export function serializeLicensedModuleList(obj: T.LicensedModuleList, elemName:
   return xml;
 }
 
-export function serializeLicensedBranch(obj: T.LicensedBranch, elemName: string): string {
+export function serializeLicensedBranch(obj: T.Input<T.LicensedBranch>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.branchNumber !== undefined && obj.branchNumber !== null) {
     xml += serializeNumber('branchNumber', obj.branchNumber);
@@ -15926,7 +16310,7 @@ export function serializeLicensedBranch(obj: T.LicensedBranch, elemName: string)
   return xml;
 }
 
-export function serializeLicensedBranchList(obj: T.LicensedBranchList, elemName: string): string {
+export function serializeLicensedBranchList(obj: T.Input<T.LicensedBranchList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.licensedBranch !== undefined && obj.licensedBranch !== null) {
     for (const item of obj.licensedBranch) {
@@ -15937,7 +16321,7 @@ export function serializeLicensedBranchList(obj: T.LicensedBranchList, elemName:
   return xml;
 }
 
-export function serializeGetBranchInformationRequest(obj: T.GetBranchInformationRequest, elemName: string): string {
+export function serializeGetBranchInformationRequest(obj: T.Input<T.GetBranchInformationRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.branchNumber !== undefined && obj.branchNumber !== null) {
     xml += serializeNumber('branchNumber', obj.branchNumber);
@@ -15946,7 +16330,7 @@ export function serializeGetBranchInformationRequest(obj: T.GetBranchInformation
   return xml;
 }
 
-export function serializeDeliveryAddressSupplier(obj: T.DeliveryAddressSupplier, elemName: string): string {
+export function serializeDeliveryAddressSupplier(obj: T.Input<T.DeliveryAddressSupplier>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.supplierRelationNumber !== undefined && obj.supplierRelationNumber !== null) {
     xml += serializeNumber('supplierRelationNumber', obj.supplierRelationNumber);
@@ -15958,7 +16342,7 @@ export function serializeDeliveryAddressSupplier(obj: T.DeliveryAddressSupplier,
   return xml;
 }
 
-export function serializeDeliveryAddressSupplierList(obj: T.DeliveryAddressSupplierList, elemName: string): string {
+export function serializeDeliveryAddressSupplierList(obj: T.Input<T.DeliveryAddressSupplierList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.deliveryAddressSupplier !== undefined && obj.deliveryAddressSupplier !== null) {
     for (const item of obj.deliveryAddressSupplier) {
@@ -15969,7 +16353,7 @@ export function serializeDeliveryAddressSupplierList(obj: T.DeliveryAddressSuppl
   return xml;
 }
 
-export function serializeDeliveryAddress(obj: T.DeliveryAddress, elemName: string): string {
+export function serializeDeliveryAddress(obj: T.Input<T.DeliveryAddress>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.address !== undefined && obj.address !== null) {
     xml += serializeAddress(obj.address, 'address');
@@ -15994,7 +16378,7 @@ export function serializeDeliveryAddress(obj: T.DeliveryAddress, elemName: strin
   return xml;
 }
 
-export function serializeDeliveryAddressList(obj: T.DeliveryAddressList, elemName: string): string {
+export function serializeDeliveryAddressList(obj: T.Input<T.DeliveryAddressList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.deliveryAddress !== undefined && obj.deliveryAddress !== null) {
     for (const item of obj.deliveryAddress) {
@@ -16005,7 +16389,7 @@ export function serializeDeliveryAddressList(obj: T.DeliveryAddressList, elemNam
   return xml;
 }
 
-export function serializeBranchInformation(obj: T.BranchInformation, elemName: string): string {
+export function serializeBranchInformation(obj: T.Input<T.BranchInformation>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.branchNumber !== undefined && obj.branchNumber !== null) {
     xml += serializeNumber('branchNumber', obj.branchNumber);
@@ -16069,13 +16453,13 @@ export function serializeBranchInformation(obj: T.BranchInformation, elemName: s
   return xml;
 }
 
-export function serializeGetBranchGroupsRequest(obj: T.GetBranchGroupsRequest, elemName: string): string {
+export function serializeGetBranchGroupsRequest(obj: T.Input<T.GetBranchGroupsRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   xml += `</${NS_PREFIX}:${elemName}>`;
   return xml;
 }
 
-export function serializeBranchGroup(obj: T.BranchGroup, elemName: string): string {
+export function serializeBranchGroup(obj: T.Input<T.BranchGroup>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.groupName !== undefined && obj.groupName !== null) {
     xml += serializeString('groupName', String(obj.groupName));
@@ -16101,7 +16485,7 @@ export function serializeBranchGroup(obj: T.BranchGroup, elemName: string): stri
   return xml;
 }
 
-export function serializeBranchGroups(obj: T.BranchGroups, elemName: string): string {
+export function serializeBranchGroups(obj: T.Input<T.BranchGroups>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.branchGroup !== undefined && obj.branchGroup !== null) {
     xml += serializeBranchGroup(obj.branchGroup, 'branchGroup');
@@ -16115,7 +16499,7 @@ export function serializeBranchGroups(obj: T.BranchGroups, elemName: string): st
   return xml;
 }
 
-export function serializeBranchGroupsList(obj: T.BranchGroupsList, elemName: string): string {
+export function serializeBranchGroupsList(obj: T.Input<T.BranchGroupsList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.branchGroups !== undefined && obj.branchGroups !== null) {
     for (const item of obj.branchGroups) {
@@ -16126,7 +16510,7 @@ export function serializeBranchGroupsList(obj: T.BranchGroupsList, elemName: str
   return xml;
 }
 
-export function serializeDeliveryMethod(obj: T.DeliveryMethod, elemName: string): string {
+export function serializeDeliveryMethod(obj: T.Input<T.DeliveryMethod>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.deliveryMethod !== undefined && obj.deliveryMethod !== null) {
     xml += serializeString('deliveryMethod', String(obj.deliveryMethod));
@@ -16144,7 +16528,7 @@ export function serializeDeliveryMethod(obj: T.DeliveryMethod, elemName: string)
   return xml;
 }
 
-export function serializeDeliveryMethodList(obj: T.DeliveryMethodList, elemName: string): string {
+export function serializeDeliveryMethodList(obj: T.Input<T.DeliveryMethodList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.deliveryMethod !== undefined && obj.deliveryMethod !== null) {
     for (const item of obj.deliveryMethod) {
@@ -16155,7 +16539,7 @@ export function serializeDeliveryMethodList(obj: T.DeliveryMethodList, elemName:
   return xml;
 }
 
-export function serializeGetDeliveryMethodsV2Request(obj: T.GetDeliveryMethodsV2Request, elemName: string): string {
+export function serializeGetDeliveryMethodsV2Request(obj: T.Input<T.GetDeliveryMethodsV2Request>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.onlyEnabled !== undefined && obj.onlyEnabled !== null) {
     xml += serializeBoolean('onlyEnabled', obj.onlyEnabled);
@@ -16164,7 +16548,7 @@ export function serializeGetDeliveryMethodsV2Request(obj: T.GetDeliveryMethodsV2
   return xml;
 }
 
-export function serializeCreateDeliveryMethodRequest(obj: T.CreateDeliveryMethodRequest, elemName: string): string {
+export function serializeCreateDeliveryMethodRequest(obj: T.Input<T.CreateDeliveryMethodRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.deliveryMethod !== undefined && obj.deliveryMethod !== null) {
     xml += serializeDeliveryMethod(obj.deliveryMethod, 'deliveryMethod');
@@ -16173,7 +16557,7 @@ export function serializeCreateDeliveryMethodRequest(obj: T.CreateDeliveryMethod
   return xml;
 }
 
-export function serializeUpdateDeliveryMethodRequest(obj: T.UpdateDeliveryMethodRequest, elemName: string): string {
+export function serializeUpdateDeliveryMethodRequest(obj: T.Input<T.UpdateDeliveryMethodRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.deliveryMethod !== undefined && obj.deliveryMethod !== null) {
     xml += serializeDeliveryMethod(obj.deliveryMethod, 'deliveryMethod');
@@ -16182,7 +16566,7 @@ export function serializeUpdateDeliveryMethodRequest(obj: T.UpdateDeliveryMethod
   return xml;
 }
 
-export function serializeWorkplace(obj: T.Workplace, elemName: string): string {
+export function serializeWorkplace(obj: T.Input<T.Workplace>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.workplaceNumber !== undefined && obj.workplaceNumber !== null) {
     xml += serializeNumber('workplaceNumber', obj.workplaceNumber);
@@ -16212,7 +16596,7 @@ export function serializeWorkplace(obj: T.Workplace, elemName: string): string {
   return xml;
 }
 
-export function serializeWorkplaceList(obj: T.WorkplaceList, elemName: string): string {
+export function serializeWorkplaceList(obj: T.Input<T.WorkplaceList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.workplace !== undefined && obj.workplace !== null) {
     for (const item of obj.workplace) {
@@ -16223,7 +16607,7 @@ export function serializeWorkplaceList(obj: T.WorkplaceList, elemName: string): 
   return xml;
 }
 
-export function serializeBranch(obj: T.Branch, elemName: string): string {
+export function serializeBranch(obj: T.Input<T.Branch>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.branchNumber !== undefined && obj.branchNumber !== null) {
     xml += serializeNumber('branchNumber', obj.branchNumber);
@@ -16266,7 +16650,7 @@ export function serializeBranch(obj: T.Branch, elemName: string): string {
   return xml;
 }
 
-export function serializeBranchList(obj: T.BranchList, elemName: string): string {
+export function serializeBranchList(obj: T.Input<T.BranchList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.branch !== undefined && obj.branch !== null) {
     for (const item of obj.branch) {
@@ -16277,7 +16661,7 @@ export function serializeBranchList(obj: T.BranchList, elemName: string): string
   return xml;
 }
 
-export function serializeGetCurrentSyncMarkersV2Request(obj: T.GetCurrentSyncMarkersV2Request, elemName: string): string {
+export function serializeGetCurrentSyncMarkersV2Request(obj: T.Input<T.GetCurrentSyncMarkersV2Request>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.includeArticleSyncMarker !== undefined && obj.includeArticleSyncMarker !== null) {
     xml += serializeBoolean('includeArticleSyncMarker', obj.includeArticleSyncMarker);
@@ -16349,7 +16733,7 @@ export function serializeGetCurrentSyncMarkersV2Request(obj: T.GetCurrentSyncMar
   return xml;
 }
 
-export function serializensNutrientType(obj: T.nsNutrientType, elemName: string): string {
+export function serializensNutrientType(obj: T.Input<T.nsNutrientType>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.id !== undefined && obj.id !== null) {
     xml += serializeNumber('id', obj.id);
@@ -16378,13 +16762,13 @@ export function serializensNutrientType(obj: T.nsNutrientType, elemName: string)
   return xml;
 }
 
-export function serializeGetNutrientTypesRequest(obj: T.GetNutrientTypesRequest, elemName: string): string {
+export function serializeGetNutrientTypesRequest(obj: T.Input<T.GetNutrientTypesRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   xml += `</${NS_PREFIX}:${elemName}>`;
   return xml;
 }
 
-export function serializeVerifyCredentialsRequest(obj: T.VerifyCredentialsRequest, elemName: string): string {
+export function serializeVerifyCredentialsRequest(obj: T.Input<T.VerifyCredentialsRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.username !== undefined && obj.username !== null) {
     xml += serializeString('username', String(obj.username));
@@ -16399,7 +16783,7 @@ export function serializeVerifyCredentialsRequest(obj: T.VerifyCredentialsReques
   return xml;
 }
 
-export function serializeSaveCredentialsRequest(obj: T.SaveCredentialsRequest, elemName: string): string {
+export function serializeSaveCredentialsRequest(obj: T.Input<T.SaveCredentialsRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.cardType !== undefined && obj.cardType !== null) {
     xml += serializeString('cardType', String(obj.cardType));
@@ -16426,7 +16810,7 @@ export function serializeSaveCredentialsRequest(obj: T.SaveCredentialsRequest, e
   return xml;
 }
 
-export function serializePasswordRequirementsRequest(obj: T.PasswordRequirementsRequest, elemName: string): string {
+export function serializePasswordRequirementsRequest(obj: T.Input<T.PasswordRequirementsRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.cardType !== undefined && obj.cardType !== null) {
     xml += serializeString('cardType', String(obj.cardType));
@@ -16435,7 +16819,7 @@ export function serializePasswordRequirementsRequest(obj: T.PasswordRequirements
   return xml;
 }
 
-export function serializePasswordResetRequest(obj: T.PasswordResetRequest, elemName: string): string {
+export function serializePasswordResetRequest(obj: T.Input<T.PasswordResetRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.cardType !== undefined && obj.cardType !== null) {
     xml += serializeString('cardType', String(obj.cardType));
@@ -16447,7 +16831,7 @@ export function serializePasswordResetRequest(obj: T.PasswordResetRequest, elemN
   return xml;
 }
 
-export function serializeFloorplanNeighbourhood(obj: T.FloorplanNeighbourhood, elemName: string): string {
+export function serializeFloorplanNeighbourhood(obj: T.Input<T.FloorplanNeighbourhood>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.branchNumber !== undefined && obj.branchNumber !== null) {
     xml += serializeNumber('branchNumber', obj.branchNumber);
@@ -16468,7 +16852,7 @@ export function serializeFloorplanNeighbourhood(obj: T.FloorplanNeighbourhood, e
   return xml;
 }
 
-export function serializeFloorplanNeighbourhoodList(obj: T.FloorplanNeighbourhoodList, elemName: string): string {
+export function serializeFloorplanNeighbourhoodList(obj: T.Input<T.FloorplanNeighbourhoodList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.neighbourhood !== undefined && obj.neighbourhood !== null) {
     for (const item of obj.neighbourhood) {
@@ -16479,7 +16863,7 @@ export function serializeFloorplanNeighbourhoodList(obj: T.FloorplanNeighbourhoo
   return xml;
 }
 
-export function serializeFloorplan(obj: T.Floorplan, elemName: string): string {
+export function serializeFloorplan(obj: T.Input<T.Floorplan>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.branchNumber !== undefined && obj.branchNumber !== null) {
     xml += serializeNumber('branchNumber', obj.branchNumber);
@@ -16510,7 +16894,7 @@ export function serializeFloorplan(obj: T.Floorplan, elemName: string): string {
   return xml;
 }
 
-export function serializeFloorplanList(obj: T.FloorplanList, elemName: string): string {
+export function serializeFloorplanList(obj: T.Input<T.FloorplanList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.floorplan !== undefined && obj.floorplan !== null) {
     for (const item of obj.floorplan) {
@@ -16521,7 +16905,7 @@ export function serializeFloorplanList(obj: T.FloorplanList, elemName: string): 
   return xml;
 }
 
-export function serializeGetFloorplansRequest(obj: T.GetFloorplansRequest, elemName: string): string {
+export function serializeGetFloorplansRequest(obj: T.Input<T.GetFloorplansRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.branchNumber !== undefined && obj.branchNumber !== null) {
     xml += serializeNumber('branchNumber', obj.branchNumber);
@@ -16530,7 +16914,7 @@ export function serializeGetFloorplansRequest(obj: T.GetFloorplansRequest, elemN
   return xml;
 }
 
-export function serializeTableProperties(obj: T.TableProperties, elemName: string): string {
+export function serializeTableProperties(obj: T.Input<T.TableProperties>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.isVip !== undefined && obj.isVip !== null) {
     xml += serializeBoolean('isVip', obj.isVip);
@@ -16548,13 +16932,28 @@ export function serializeTableProperties(obj: T.TableProperties, elemName: strin
   return xml;
 }
 
-export function serializeChangeTablePropertyReq(obj: T.ChangeTablePropertyReq, elemName: string): string {
+export function serializeChangeTablePropertyReq(obj: T.Input<T.ChangeTablePropertyReq>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.idempotencyKey !== undefined && obj.idempotencyKey !== null) {
+    xml += serializeString('idempotencyKey', String(obj.idempotencyKey));
+  }
+  if (obj.workplaceIdentifier !== undefined && obj.workplaceIdentifier !== null) {
+    xml += serializeWorkplaceIdentifier(obj.workplaceIdentifier, 'workplaceIdentifier');
+  }
+  if (obj.employeeIdentifier !== undefined && obj.employeeIdentifier !== null) {
+    xml += serializeEmployeeIdentifier(obj.employeeIdentifier, 'employeeIdentifier');
+  }
+  if (obj.tableIdentifier !== undefined && obj.tableIdentifier !== null) {
+    xml += serializeTableIdentifier(obj.tableIdentifier, 'tableIdentifier');
+  }
+  if (obj.tableProperties !== undefined && obj.tableProperties !== null) {
+    xml += serializeTableProperties(obj.tableProperties, 'tableProperties');
+  }
   xml += `</${NS_PREFIX}:${elemName}>`;
   return xml;
 }
 
-export function serializeAuthorizationGroup(obj: T.AuthorizationGroup, elemName: string): string {
+export function serializeAuthorizationGroup(obj: T.Input<T.AuthorizationGroup>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.number !== undefined && obj.number !== null) {
     xml += serializeNumber('number', obj.number);
@@ -16572,7 +16971,7 @@ export function serializeAuthorizationGroup(obj: T.AuthorizationGroup, elemName:
   return xml;
 }
 
-export function serializeGroupAuthorization(obj: T.GroupAuthorization, elemName: string): string {
+export function serializeGroupAuthorization(obj: T.Input<T.GroupAuthorization>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.id !== undefined && obj.id !== null) {
     xml += serializeString('id', String(obj.id));
@@ -16587,7 +16986,7 @@ export function serializeGroupAuthorization(obj: T.GroupAuthorization, elemName:
   return xml;
 }
 
-export function serializeGroupAuthorizationsList(obj: T.GroupAuthorizationsList, elemName: string): string {
+export function serializeGroupAuthorizationsList(obj: T.Input<T.GroupAuthorizationsList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.authorizations !== undefined && obj.authorizations !== null) {
     for (const item of obj.authorizations) {
@@ -16598,7 +16997,7 @@ export function serializeGroupAuthorizationsList(obj: T.GroupAuthorizationsList,
   return xml;
 }
 
-export function serializeGetEmployeeAuthorizationsRequest(obj: T.GetEmployeeAuthorizationsRequest, elemName: string): string {
+export function serializeGetEmployeeAuthorizationsRequest(obj: T.Input<T.GetEmployeeAuthorizationsRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.employeeNumber !== undefined && obj.employeeNumber !== null) {
     xml += serializeNumber('employeeNumber', obj.employeeNumber);
@@ -16613,7 +17012,7 @@ export function serializeGetEmployeeAuthorizationsRequest(obj: T.GetEmployeeAuth
   return xml;
 }
 
-export function serializeEmployeeAuthorization(obj: T.EmployeeAuthorization, elemName: string): string {
+export function serializeEmployeeAuthorization(obj: T.Input<T.EmployeeAuthorization>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.id !== undefined && obj.id !== null) {
     xml += serializeString('id', String(obj.id));
@@ -16628,7 +17027,7 @@ export function serializeEmployeeAuthorization(obj: T.EmployeeAuthorization, ele
   return xml;
 }
 
-export function serializeEmployeeAuthorizationsList(obj: T.EmployeeAuthorizationsList, elemName: string): string {
+export function serializeEmployeeAuthorizationsList(obj: T.Input<T.EmployeeAuthorizationsList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.authorizations !== undefined && obj.authorizations !== null) {
     for (const item of obj.authorizations) {
@@ -16639,7 +17038,7 @@ export function serializeEmployeeAuthorizationsList(obj: T.EmployeeAuthorization
   return xml;
 }
 
-export function serializeGetGroupAuthorizationsRequest(obj: T.GetGroupAuthorizationsRequest, elemName: string): string {
+export function serializeGetGroupAuthorizationsRequest(obj: T.Input<T.GetGroupAuthorizationsRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.groupNumber !== undefined && obj.groupNumber !== null) {
     xml += serializeNumber('groupNumber', obj.groupNumber);
@@ -16648,7 +17047,7 @@ export function serializeGetGroupAuthorizationsRequest(obj: T.GetGroupAuthorizat
   return xml;
 }
 
-export function serializeGroupAuthorizationV2(obj: T.GroupAuthorizationV2, elemName: string): string {
+export function serializeGroupAuthorizationV2(obj: T.Input<T.GroupAuthorizationV2>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.id !== undefined && obj.id !== null) {
     xml += serializeString('id', String(obj.id));
@@ -16660,7 +17059,7 @@ export function serializeGroupAuthorizationV2(obj: T.GroupAuthorizationV2, elemN
   return xml;
 }
 
-export function serializeGroupAuthorizationsV2List(obj: T.GroupAuthorizationsV2List, elemName: string): string {
+export function serializeGroupAuthorizationsV2List(obj: T.Input<T.GroupAuthorizationsV2List>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.authorizations !== undefined && obj.authorizations !== null) {
     for (const item of obj.authorizations) {
@@ -16671,7 +17070,7 @@ export function serializeGroupAuthorizationsV2List(obj: T.GroupAuthorizationsV2L
   return xml;
 }
 
-export function serializeUpdateGroupAuthorizationsRequest(obj: T.UpdateGroupAuthorizationsRequest, elemName: string): string {
+export function serializeUpdateGroupAuthorizationsRequest(obj: T.Input<T.UpdateGroupAuthorizationsRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.groupNumber !== undefined && obj.groupNumber !== null) {
     xml += serializeNumber('groupNumber', obj.groupNumber);
@@ -16690,13 +17089,13 @@ export function serializeUpdateGroupAuthorizationsRequest(obj: T.UpdateGroupAuth
   return xml;
 }
 
-export function serializeGetAuthorizationGroupsRequest(obj: T.GetAuthorizationGroupsRequest, elemName: string): string {
+export function serializeGetAuthorizationGroupsRequest(obj: T.Input<T.GetAuthorizationGroupsRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   xml += `</${NS_PREFIX}:${elemName}>`;
   return xml;
 }
 
-export function serializeAuthorizationGroupList(obj: T.AuthorizationGroupList, elemName: string): string {
+export function serializeAuthorizationGroupList(obj: T.Input<T.AuthorizationGroupList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.groups !== undefined && obj.groups !== null) {
     for (const item of obj.groups) {
@@ -16707,7 +17106,7 @@ export function serializeAuthorizationGroupList(obj: T.AuthorizationGroupList, e
   return xml;
 }
 
-export function serializeGetAuthorizationTreeRequest(obj: T.GetAuthorizationTreeRequest, elemName: string): string {
+export function serializeGetAuthorizationTreeRequest(obj: T.Input<T.GetAuthorizationTreeRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.branchNumber !== undefined && obj.branchNumber !== null) {
     xml += serializeNumber('branchNumber', obj.branchNumber);
@@ -16716,7 +17115,7 @@ export function serializeGetAuthorizationTreeRequest(obj: T.GetAuthorizationTree
   return xml;
 }
 
-export function serializeGetEmployeeBranchAuthorizationsRequest(obj: T.GetEmployeeBranchAuthorizationsRequest, elemName: string): string {
+export function serializeGetEmployeeBranchAuthorizationsRequest(obj: T.Input<T.GetEmployeeBranchAuthorizationsRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.employeeNumber !== undefined && obj.employeeNumber !== null) {
     xml += serializeNumber('employeeNumber', obj.employeeNumber);
@@ -16725,7 +17124,7 @@ export function serializeGetEmployeeBranchAuthorizationsRequest(obj: T.GetEmploy
   return xml;
 }
 
-export function serializeEmployeeBranchAuthorization(obj: T.EmployeeBranchAuthorization, elemName: string): string {
+export function serializeEmployeeBranchAuthorization(obj: T.Input<T.EmployeeBranchAuthorization>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.branchNumber !== undefined && obj.branchNumber !== null) {
     xml += serializeNumber('branchNumber', obj.branchNumber);
@@ -16741,7 +17140,7 @@ export function serializeEmployeeBranchAuthorization(obj: T.EmployeeBranchAuthor
   return xml;
 }
 
-export function serializeEmployeeBranchAuthorizationsList(obj: T.EmployeeBranchAuthorizationsList, elemName: string): string {
+export function serializeEmployeeBranchAuthorizationsList(obj: T.Input<T.EmployeeBranchAuthorizationsList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.branchAuthorizations !== undefined && obj.branchAuthorizations !== null) {
     for (const item of obj.branchAuthorizations) {
@@ -16752,7 +17151,7 @@ export function serializeEmployeeBranchAuthorizationsList(obj: T.EmployeeBranchA
   return xml;
 }
 
-export function serializeSaveAuthorizationGroupRequest(obj: T.SaveAuthorizationGroupRequest, elemName: string): string {
+export function serializeSaveAuthorizationGroupRequest(obj: T.Input<T.SaveAuthorizationGroupRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.groupNumber !== undefined && obj.groupNumber !== null) {
     xml += serializeNumber('groupNumber', obj.groupNumber);
@@ -16773,7 +17172,7 @@ export function serializeSaveAuthorizationGroupRequest(obj: T.SaveAuthorizationG
   return xml;
 }
 
-export function serializeDeleteAuthorizationGroupRequest(obj: T.DeleteAuthorizationGroupRequest, elemName: string): string {
+export function serializeDeleteAuthorizationGroupRequest(obj: T.Input<T.DeleteAuthorizationGroupRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.groupNumber !== undefined && obj.groupNumber !== null) {
     xml += serializeNumber('groupNumber', obj.groupNumber);
@@ -16782,7 +17181,7 @@ export function serializeDeleteAuthorizationGroupRequest(obj: T.DeleteAuthorizat
   return xml;
 }
 
-export function serializeGetEmployeeAuthorizationGroupsRequest(obj: T.GetEmployeeAuthorizationGroupsRequest, elemName: string): string {
+export function serializeGetEmployeeAuthorizationGroupsRequest(obj: T.Input<T.GetEmployeeAuthorizationGroupsRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.employeeNumber !== undefined && obj.employeeNumber !== null) {
     xml += serializeNumber('employeeNumber', obj.employeeNumber);
@@ -16794,7 +17193,7 @@ export function serializeGetEmployeeAuthorizationGroupsRequest(obj: T.GetEmploye
   return xml;
 }
 
-export function serializeBranchAuthorizationGroup(obj: T.BranchAuthorizationGroup, elemName: string): string {
+export function serializeBranchAuthorizationGroup(obj: T.Input<T.BranchAuthorizationGroup>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.branchNumber !== undefined && obj.branchNumber !== null) {
     xml += serializeNumber('branchNumber', obj.branchNumber);
@@ -16806,7 +17205,7 @@ export function serializeBranchAuthorizationGroup(obj: T.BranchAuthorizationGrou
   return xml;
 }
 
-export function serializeBranchGroupAuthorizationGroup(obj: T.BranchGroupAuthorizationGroup, elemName: string): string {
+export function serializeBranchGroupAuthorizationGroup(obj: T.Input<T.BranchGroupAuthorizationGroup>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.branchGroupNumber !== undefined && obj.branchGroupNumber !== null) {
     xml += serializeNumber('branchGroupNumber', obj.branchGroupNumber);
@@ -16818,7 +17217,7 @@ export function serializeBranchGroupAuthorizationGroup(obj: T.BranchGroupAuthori
   return xml;
 }
 
-export function serializeBranchAuthorizationGroupNumber(obj: T.BranchAuthorizationGroupNumber, elemName: string): string {
+export function serializeBranchAuthorizationGroupNumber(obj: T.Input<T.BranchAuthorizationGroupNumber>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.branchNumber !== undefined && obj.branchNumber !== null) {
     xml += serializeNumber('branchNumber', obj.branchNumber);
@@ -16830,7 +17229,7 @@ export function serializeBranchAuthorizationGroupNumber(obj: T.BranchAuthorizati
   return xml;
 }
 
-export function serializeBranchGroupAuthorizationGroupNumber(obj: T.BranchGroupAuthorizationGroupNumber, elemName: string): string {
+export function serializeBranchGroupAuthorizationGroupNumber(obj: T.Input<T.BranchGroupAuthorizationGroupNumber>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.branchGroupNumber !== undefined && obj.branchGroupNumber !== null) {
     xml += serializeNumber('branchGroupNumber', obj.branchGroupNumber);
@@ -16842,7 +17241,7 @@ export function serializeBranchGroupAuthorizationGroupNumber(obj: T.BranchGroupA
   return xml;
 }
 
-export function serializeUpdateEmployeeAuthorizationGroupsRequest(obj: T.UpdateEmployeeAuthorizationGroupsRequest, elemName: string): string {
+export function serializeUpdateEmployeeAuthorizationGroupsRequest(obj: T.Input<T.UpdateEmployeeAuthorizationGroupsRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.employeeNumber !== undefined && obj.employeeNumber !== null) {
     xml += serializeNumber('employeeNumber', obj.employeeNumber);
@@ -16861,7 +17260,7 @@ export function serializeUpdateEmployeeAuthorizationGroupsRequest(obj: T.UpdateE
   return xml;
 }
 
-export function serializeGetEmployeeAuthorizationSyncMarkersRequest(obj: T.GetEmployeeAuthorizationSyncMarkersRequest, elemName: string): string {
+export function serializeGetEmployeeAuthorizationSyncMarkersRequest(obj: T.Input<T.GetEmployeeAuthorizationSyncMarkersRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.employeeNumber !== undefined && obj.employeeNumber !== null) {
     xml += serializeNumber('employeeNumber', obj.employeeNumber);
@@ -16870,13 +17269,13 @@ export function serializeGetEmployeeAuthorizationSyncMarkersRequest(obj: T.GetEm
   return xml;
 }
 
-export function serializeGetSpecialBarcodePatternsRequest(obj: T.GetSpecialBarcodePatternsRequest, elemName: string): string {
+export function serializeGetSpecialBarcodePatternsRequest(obj: T.Input<T.GetSpecialBarcodePatternsRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   xml += `</${NS_PREFIX}:${elemName}>`;
   return xml;
 }
 
-export function serializeBarcodePattern(obj: T.BarcodePattern, elemName: string): string {
+export function serializeBarcodePattern(obj: T.Input<T.BarcodePattern>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.regex !== undefined && obj.regex !== null) {
     xml += serializeString('regex', String(obj.regex));
@@ -16888,7 +17287,7 @@ export function serializeBarcodePattern(obj: T.BarcodePattern, elemName: string)
   return xml;
 }
 
-export function serializeParseSpecialBarcodeRequest(obj: T.ParseSpecialBarcodeRequest, elemName: string): string {
+export function serializeParseSpecialBarcodeRequest(obj: T.Input<T.ParseSpecialBarcodeRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.barcode !== undefined && obj.barcode !== null) {
     xml += serializeString('barcode', String(obj.barcode));
@@ -16897,7 +17296,7 @@ export function serializeParseSpecialBarcodeRequest(obj: T.ParseSpecialBarcodeRe
   return xml;
 }
 
-export function serializeSpecialBarcodeArticleResult(obj: T.SpecialBarcodeArticleResult, elemName: string): string {
+export function serializeSpecialBarcodeArticleResult(obj: T.Input<T.SpecialBarcodeArticleResult>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.articleNumber !== undefined && obj.articleNumber !== null) {
     xml += serializeNumber('articleNumber', obj.articleNumber);
@@ -16912,7 +17311,7 @@ export function serializeSpecialBarcodeArticleResult(obj: T.SpecialBarcodeArticl
   return xml;
 }
 
-export function serializeGetConfigurationResponse(obj: T.GetConfigurationResponse, elemName: string): string {
+export function serializeGetConfigurationResponse(obj: T.Input<T.GetConfigurationResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.configurationList !== undefined && obj.configurationList !== null) {
     xml += `<${NS_PREFIX}:configurationList>`;
@@ -16925,7 +17324,7 @@ export function serializeGetConfigurationResponse(obj: T.GetConfigurationRespons
   return xml;
 }
 
-export function serializeUpdateConfigurationResponse(obj: T.UpdateConfigurationResponse, elemName: string): string {
+export function serializeUpdateConfigurationResponse(obj: T.Input<T.UpdateConfigurationResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -16934,7 +17333,7 @@ export function serializeUpdateConfigurationResponse(obj: T.UpdateConfigurationR
   return xml;
 }
 
-export function serializeGetConfigurationTreeResponse(obj: T.GetConfigurationTreeResponse, elemName: string): string {
+export function serializeGetConfigurationTreeResponse(obj: T.Input<T.GetConfigurationTreeResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.configurations !== undefined && obj.configurations !== null) {
     for (const item of obj.configurations) {
@@ -16945,7 +17344,7 @@ export function serializeGetConfigurationTreeResponse(obj: T.GetConfigurationTre
   return xml;
 }
 
-export function serializeGetConfigurationValuesResponse(obj: T.GetConfigurationValuesResponse, elemName: string): string {
+export function serializeGetConfigurationValuesResponse(obj: T.Input<T.GetConfigurationValuesResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.configurationKeyValues !== undefined && obj.configurationKeyValues !== null) {
     for (const item of obj.configurationKeyValues) {
@@ -16956,7 +17355,7 @@ export function serializeGetConfigurationValuesResponse(obj: T.GetConfigurationV
   return xml;
 }
 
-export function serializeUpdateConfigurationValuesResponse(obj: T.UpdateConfigurationValuesResponse, elemName: string): string {
+export function serializeUpdateConfigurationValuesResponse(obj: T.Input<T.UpdateConfigurationValuesResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -16968,7 +17367,7 @@ export function serializeUpdateConfigurationValuesResponse(obj: T.UpdateConfigur
   return xml;
 }
 
-export function serializegetButtonLayoutResponse(obj: T.getButtonLayoutResponse, elemName: string): string {
+export function serializegetButtonLayoutResponse(obj: T.Input<T.getButtonLayoutResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.return !== undefined && obj.return !== null) {
     xml += serializeButtonLayout(obj.return, 'return');
@@ -16977,7 +17376,7 @@ export function serializegetButtonLayoutResponse(obj: T.getButtonLayoutResponse,
   return xml;
 }
 
-export function serializeButtonLayoutGroupForBranchResponse(obj: T.ButtonLayoutGroupForBranchResponse, elemName: string): string {
+export function serializeButtonLayoutGroupForBranchResponse(obj: T.Input<T.ButtonLayoutGroupForBranchResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.buttonLayoutGroup !== undefined && obj.buttonLayoutGroup !== null) {
     xml += serializeButtonLayoutGroup(obj.buttonLayoutGroup, 'buttonLayoutGroup');
@@ -16991,7 +17390,7 @@ export function serializeButtonLayoutGroupForBranchResponse(obj: T.ButtonLayoutG
   return xml;
 }
 
-export function serializeGetButtonLayoutGroupsWithAssignedWorkplacesResponse(obj: T.GetButtonLayoutGroupsWithAssignedWorkplacesResponse, elemName: string): string {
+export function serializeGetButtonLayoutGroupsWithAssignedWorkplacesResponse(obj: T.Input<T.GetButtonLayoutGroupsWithAssignedWorkplacesResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.buttonLayoutGroups !== undefined && obj.buttonLayoutGroups !== null) {
     for (const item of obj.buttonLayoutGroups) {
@@ -17002,7 +17401,7 @@ export function serializeGetButtonLayoutGroupsWithAssignedWorkplacesResponse(obj
   return xml;
 }
 
-export function serializeGetButtonLayoutGroupDetailsResponse(obj: T.GetButtonLayoutGroupDetailsResponse, elemName: string): string {
+export function serializeGetButtonLayoutGroupDetailsResponse(obj: T.Input<T.GetButtonLayoutGroupDetailsResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -17017,7 +17416,7 @@ export function serializeGetButtonLayoutGroupDetailsResponse(obj: T.GetButtonLay
   return xml;
 }
 
-export function serializeSaveButtonLayoutGroupDetailsResponse(obj: T.SaveButtonLayoutGroupDetailsResponse, elemName: string): string {
+export function serializeSaveButtonLayoutGroupDetailsResponse(obj: T.Input<T.SaveButtonLayoutGroupDetailsResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -17032,7 +17431,7 @@ export function serializeSaveButtonLayoutGroupDetailsResponse(obj: T.SaveButtonL
   return xml;
 }
 
-export function serializeDeleteButtonLayoutGroupResponse(obj: T.DeleteButtonLayoutGroupResponse, elemName: string): string {
+export function serializeDeleteButtonLayoutGroupResponse(obj: T.Input<T.DeleteButtonLayoutGroupResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -17044,7 +17443,7 @@ export function serializeDeleteButtonLayoutGroupResponse(obj: T.DeleteButtonLayo
   return xml;
 }
 
-export function serializeAssignButtonLayoutGroupToWorkplacesResponse(obj: T.AssignButtonLayoutGroupToWorkplacesResponse, elemName: string): string {
+export function serializeAssignButtonLayoutGroupToWorkplacesResponse(obj: T.Input<T.AssignButtonLayoutGroupToWorkplacesResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -17056,7 +17455,7 @@ export function serializeAssignButtonLayoutGroupToWorkplacesResponse(obj: T.Assi
   return xml;
 }
 
-export function serializegetArticlesInLayoutResponse(obj: T.getArticlesInLayoutResponse, elemName: string): string {
+export function serializegetArticlesInLayoutResponse(obj: T.Input<T.getArticlesInLayoutResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.return !== undefined && obj.return !== null) {
     for (const item of obj.return) {
@@ -17067,7 +17466,7 @@ export function serializegetArticlesInLayoutResponse(obj: T.getArticlesInLayoutR
   return xml;
 }
 
-export function serializeGetDayStockConfigurationResponse(obj: T.GetDayStockConfigurationResponse, elemName: string): string {
+export function serializeGetDayStockConfigurationResponse(obj: T.Input<T.GetDayStockConfigurationResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.dayStockConfigurationList !== undefined && obj.dayStockConfigurationList !== null) {
     xml += `<${NS_PREFIX}:dayStockConfigurationList>`;
@@ -17080,7 +17479,7 @@ export function serializeGetDayStockConfigurationResponse(obj: T.GetDayStockConf
   return xml;
 }
 
-export function serializeSaveDayStockConfigurationResponse(obj: T.SaveDayStockConfigurationResponse, elemName: string): string {
+export function serializeSaveDayStockConfigurationResponse(obj: T.Input<T.SaveDayStockConfigurationResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -17089,7 +17488,7 @@ export function serializeSaveDayStockConfigurationResponse(obj: T.SaveDayStockCo
   return xml;
 }
 
-export function serializeGetActivitiesResponse(obj: T.GetActivitiesResponse, elemName: string): string {
+export function serializeGetActivitiesResponse(obj: T.Input<T.GetActivitiesResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.activityList !== undefined && obj.activityList !== null) {
     xml += `<${NS_PREFIX}:activityList>`;
@@ -17102,7 +17501,7 @@ export function serializeGetActivitiesResponse(obj: T.GetActivitiesResponse, ele
   return xml;
 }
 
-export function serializeGetActivityTypesResponse(obj: T.GetActivityTypesResponse, elemName: string): string {
+export function serializeGetActivityTypesResponse(obj: T.Input<T.GetActivityTypesResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.activityTypeList !== undefined && obj.activityTypeList !== null) {
     xml += `<${NS_PREFIX}:activityTypeList>`;
@@ -17115,7 +17514,7 @@ export function serializeGetActivityTypesResponse(obj: T.GetActivityTypesRespons
   return xml;
 }
 
-export function serializeSaveActivityTypesResponse(obj: T.SaveActivityTypesResponse, elemName: string): string {
+export function serializeSaveActivityTypesResponse(obj: T.Input<T.SaveActivityTypesResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -17124,22 +17523,7 @@ export function serializeSaveActivityTypesResponse(obj: T.SaveActivityTypesRespo
   return xml;
 }
 
-export function serializeCreateActivityResponse(obj: T.CreateActivityResponse, elemName: string): string {
-  let xml = `<${NS_PREFIX}:${elemName}>`;
-  if (obj.result !== undefined && obj.result !== null) {
-    xml += serializeString('result', String(obj.result));
-  }
-  if (obj.activity !== undefined && obj.activity !== null) {
-    xml += serializeActivity(obj.activity, 'activity');
-  }
-  if (obj.errorMessage !== undefined && obj.errorMessage !== null) {
-    xml += serializeString('errorMessage', String(obj.errorMessage));
-  }
-  xml += `</${NS_PREFIX}:${elemName}>`;
-  return xml;
-}
-
-export function serializeUpdateActivityResponse(obj: T.UpdateActivityResponse, elemName: string): string {
+export function serializeCreateActivityResponse(obj: T.Input<T.CreateActivityResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -17154,7 +17538,7 @@ export function serializeUpdateActivityResponse(obj: T.UpdateActivityResponse, e
   return xml;
 }
 
-export function serializeSaveActivityResponse(obj: T.SaveActivityResponse, elemName: string): string {
+export function serializeUpdateActivityResponse(obj: T.Input<T.UpdateActivityResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -17169,7 +17553,22 @@ export function serializeSaveActivityResponse(obj: T.SaveActivityResponse, elemN
   return xml;
 }
 
-export function serializeDeleteActivityResponse(obj: T.DeleteActivityResponse, elemName: string): string {
+export function serializeSaveActivityResponse(obj: T.Input<T.SaveActivityResponse>, elemName: string): string {
+  let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.result !== undefined && obj.result !== null) {
+    xml += serializeString('result', String(obj.result));
+  }
+  if (obj.activity !== undefined && obj.activity !== null) {
+    xml += serializeActivity(obj.activity, 'activity');
+  }
+  if (obj.errorMessage !== undefined && obj.errorMessage !== null) {
+    xml += serializeString('errorMessage', String(obj.errorMessage));
+  }
+  xml += `</${NS_PREFIX}:${elemName}>`;
+  return xml;
+}
+
+export function serializeDeleteActivityResponse(obj: T.Input<T.DeleteActivityResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -17181,7 +17580,7 @@ export function serializeDeleteActivityResponse(obj: T.DeleteActivityResponse, e
   return xml;
 }
 
-export function serializeGetGksInformationResponse(obj: T.GetGksInformationResponse, elemName: string): string {
+export function serializeGetGksInformationResponse(obj: T.Input<T.GetGksInformationResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.gksProductionNumber !== undefined && obj.gksProductionNumber !== null) {
     xml += serializeString('gksProductionNumber', String(obj.gksProductionNumber));
@@ -17190,7 +17589,7 @@ export function serializeGetGksInformationResponse(obj: T.GetGksInformationRespo
   return xml;
 }
 
-export function serializeGetMealplanMomentsConfigurationResponse(obj: T.GetMealplanMomentsConfigurationResponse, elemName: string): string {
+export function serializeGetMealplanMomentsConfigurationResponse(obj: T.Input<T.GetMealplanMomentsConfigurationResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.mealMomentConfigurationList !== undefined && obj.mealMomentConfigurationList !== null) {
     for (const item of obj.mealMomentConfigurationList) {
@@ -17201,7 +17600,7 @@ export function serializeGetMealplanMomentsConfigurationResponse(obj: T.GetMealp
   return xml;
 }
 
-export function serializeGetScheduledMealPlansResponse(obj: T.GetScheduledMealPlansResponse, elemName: string): string {
+export function serializeGetScheduledMealPlansResponse(obj: T.Input<T.GetScheduledMealPlansResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -17215,7 +17614,7 @@ export function serializeGetScheduledMealPlansResponse(obj: T.GetScheduledMealPl
   return xml;
 }
 
-export function serializeGetArticleAlterationsGroupsResponse(obj: T.GetArticleAlterationsGroupsResponse, elemName: string): string {
+export function serializeGetArticleAlterationsGroupsResponse(obj: T.Input<T.GetArticleAlterationsGroupsResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.articleAlterationsGroupList !== undefined && obj.articleAlterationsGroupList !== null) {
     xml += `<${NS_PREFIX}:articleAlterationsGroupList>`;
@@ -17228,7 +17627,7 @@ export function serializeGetArticleAlterationsGroupsResponse(obj: T.GetArticleAl
   return xml;
 }
 
-export function serializeSaveArticleAlterationsGroupResponse(obj: T.SaveArticleAlterationsGroupResponse, elemName: string): string {
+export function serializeSaveArticleAlterationsGroupResponse(obj: T.Input<T.SaveArticleAlterationsGroupResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -17240,7 +17639,7 @@ export function serializeSaveArticleAlterationsGroupResponse(obj: T.SaveArticleA
   return xml;
 }
 
-export function serializeDeleteArticleAlterationsGroupResponse(obj: T.DeleteArticleAlterationsGroupResponse, elemName: string): string {
+export function serializeDeleteArticleAlterationsGroupResponse(obj: T.Input<T.DeleteArticleAlterationsGroupResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -17249,7 +17648,7 @@ export function serializeDeleteArticleAlterationsGroupResponse(obj: T.DeleteArti
   return xml;
 }
 
-export function serializeUpdateAttachedArticleAlterationsGroupsResponse(obj: T.UpdateAttachedArticleAlterationsGroupsResponse, elemName: string): string {
+export function serializeUpdateAttachedArticleAlterationsGroupsResponse(obj: T.Input<T.UpdateAttachedArticleAlterationsGroupsResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -17258,19 +17657,7 @@ export function serializeUpdateAttachedArticleAlterationsGroupsResponse(obj: T.U
   return xml;
 }
 
-export function serializeUpdateArticleMenuResponse(obj: T.UpdateArticleMenuResponse, elemName: string): string {
-  let xml = `<${NS_PREFIX}:${elemName}>`;
-  if (obj.result !== undefined && obj.result !== null) {
-    xml += serializeString('result', String(obj.result));
-  }
-  if (obj.errorMessage !== undefined && obj.errorMessage !== null) {
-    xml += serializeString('errorMessage', String(obj.errorMessage));
-  }
-  xml += `</${NS_PREFIX}:${elemName}>`;
-  return xml;
-}
-
-export function serializeUpdateOnlineAuthorizationTreeResponse(obj: T.UpdateOnlineAuthorizationTreeResponse, elemName: string): string {
+export function serializeUpdateArticleMenuResponse(obj: T.Input<T.UpdateArticleMenuResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -17282,7 +17669,19 @@ export function serializeUpdateOnlineAuthorizationTreeResponse(obj: T.UpdateOnli
   return xml;
 }
 
-export function serializeGetOwnerLabelsResponse(obj: T.GetOwnerLabelsResponse, elemName: string): string {
+export function serializeUpdateOnlineAuthorizationTreeResponse(obj: T.Input<T.UpdateOnlineAuthorizationTreeResponse>, elemName: string): string {
+  let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.result !== undefined && obj.result !== null) {
+    xml += serializeString('result', String(obj.result));
+  }
+  if (obj.errorMessage !== undefined && obj.errorMessage !== null) {
+    xml += serializeString('errorMessage', String(obj.errorMessage));
+  }
+  xml += `</${NS_PREFIX}:${elemName}>`;
+  return xml;
+}
+
+export function serializeGetOwnerLabelsResponse(obj: T.Input<T.GetOwnerLabelsResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.ownerLabels !== undefined && obj.ownerLabels !== null) {
     for (const item of obj.ownerLabels) {
@@ -17293,7 +17692,7 @@ export function serializeGetOwnerLabelsResponse(obj: T.GetOwnerLabelsResponse, e
   return xml;
 }
 
-export function serializeGetWordAliasesResponse(obj: T.GetWordAliasesResponse, elemName: string): string {
+export function serializeGetWordAliasesResponse(obj: T.Input<T.GetWordAliasesResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.wordAliasList !== undefined && obj.wordAliasList !== null) {
     xml += `<${NS_PREFIX}:wordAliasList>`;
@@ -17306,7 +17705,7 @@ export function serializeGetWordAliasesResponse(obj: T.GetWordAliasesResponse, e
   return xml;
 }
 
-export function serializegetApiVersionResponse(obj: T.getApiVersionResponse, elemName: string): string {
+export function serializegetApiVersionResponse(obj: T.Input<T.getApiVersionResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.majorNumber !== undefined && obj.majorNumber !== null) {
     xml += serializeNumber('majorNumber', obj.majorNumber);
@@ -17395,7 +17794,7 @@ export function serializegetApiVersionResponse(obj: T.getApiVersionResponse, ele
   return xml;
 }
 
-export function serializegetDatabaseVersionResponse(obj: T.getDatabaseVersionResponse, elemName: string): string {
+export function serializegetDatabaseVersionResponse(obj: T.Input<T.getDatabaseVersionResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.majorNumber !== undefined && obj.majorNumber !== null) {
     xml += serializeNumber('majorNumber', obj.majorNumber);
@@ -17425,7 +17824,7 @@ export function serializegetDatabaseVersionResponse(obj: T.getDatabaseVersionRes
   return xml;
 }
 
-export function serializeGetLicenseInformationResponse(obj: T.GetLicenseInformationResponse, elemName: string): string {
+export function serializeGetLicenseInformationResponse(obj: T.Input<T.GetLicenseInformationResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.obscuredLicenseKey !== undefined && obj.obscuredLicenseKey !== null) {
     xml += serializeString('obscuredLicenseKey', String(obj.obscuredLicenseKey));
@@ -17447,7 +17846,7 @@ export function serializeGetLicenseInformationResponse(obj: T.GetLicenseInformat
   return xml;
 }
 
-export function serializegetAvailableTerminalListResponse(obj: T.getAvailableTerminalListResponse, elemName: string): string {
+export function serializegetAvailableTerminalListResponse(obj: T.Input<T.getAvailableTerminalListResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.return !== undefined && obj.return !== null) {
     for (const item of obj.return) {
@@ -17458,7 +17857,7 @@ export function serializegetAvailableTerminalListResponse(obj: T.getAvailableTer
   return xml;
 }
 
-export function serializeRegisterTerminalResponse(obj: T.RegisterTerminalResponse, elemName: string): string {
+export function serializeRegisterTerminalResponse(obj: T.Input<T.RegisterTerminalResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -17470,7 +17869,7 @@ export function serializeRegisterTerminalResponse(obj: T.RegisterTerminalRespons
   return xml;
 }
 
-export function serializeGetTerminalSettingsResponse(obj: T.GetTerminalSettingsResponse, elemName: string): string {
+export function serializeGetTerminalSettingsResponse(obj: T.Input<T.GetTerminalSettingsResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.condenseLines !== undefined && obj.condenseLines !== null) {
     xml += serializeString('condenseLines', String(obj.condenseLines));
@@ -17530,7 +17929,7 @@ export function serializeGetTerminalSettingsResponse(obj: T.GetTerminalSettingsR
   return xml;
 }
 
-export function serializeGetBranchInformationResponse(obj: T.GetBranchInformationResponse, elemName: string): string {
+export function serializeGetBranchInformationResponse(obj: T.Input<T.GetBranchInformationResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -17545,7 +17944,7 @@ export function serializeGetBranchInformationResponse(obj: T.GetBranchInformatio
   return xml;
 }
 
-export function serializeGetBranchGroupsResponse(obj: T.GetBranchGroupsResponse, elemName: string): string {
+export function serializeGetBranchGroupsResponse(obj: T.Input<T.GetBranchGroupsResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.branchGroupsList !== undefined && obj.branchGroupsList !== null) {
     xml += `<${NS_PREFIX}:branchGroupsList>`;
@@ -17558,7 +17957,7 @@ export function serializeGetBranchGroupsResponse(obj: T.GetBranchGroupsResponse,
   return xml;
 }
 
-export function serializeGetDeliveryMethodsResponse(obj: T.GetDeliveryMethodsResponse, elemName: string): string {
+export function serializeGetDeliveryMethodsResponse(obj: T.Input<T.GetDeliveryMethodsResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.deliveryMethodList !== undefined && obj.deliveryMethodList !== null) {
     xml += `<${NS_PREFIX}:deliveryMethodList>`;
@@ -17571,7 +17970,7 @@ export function serializeGetDeliveryMethodsResponse(obj: T.GetDeliveryMethodsRes
   return xml;
 }
 
-export function serializeGetDeliveryMethodsV2Response(obj: T.GetDeliveryMethodsV2Response, elemName: string): string {
+export function serializeGetDeliveryMethodsV2Response(obj: T.Input<T.GetDeliveryMethodsV2Response>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.deliveryMethodList !== undefined && obj.deliveryMethodList !== null) {
     xml += `<${NS_PREFIX}:deliveryMethodList>`;
@@ -17584,7 +17983,7 @@ export function serializeGetDeliveryMethodsV2Response(obj: T.GetDeliveryMethodsV
   return xml;
 }
 
-export function serializeCreateDeliveryMethodResponse(obj: T.CreateDeliveryMethodResponse, elemName: string): string {
+export function serializeCreateDeliveryMethodResponse(obj: T.Input<T.CreateDeliveryMethodResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -17599,7 +17998,7 @@ export function serializeCreateDeliveryMethodResponse(obj: T.CreateDeliveryMetho
   return xml;
 }
 
-export function serializeUpdateDeliveryMethodResponse(obj: T.UpdateDeliveryMethodResponse, elemName: string): string {
+export function serializeUpdateDeliveryMethodResponse(obj: T.Input<T.UpdateDeliveryMethodResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -17614,7 +18013,7 @@ export function serializeUpdateDeliveryMethodResponse(obj: T.UpdateDeliveryMetho
   return xml;
 }
 
-export function serializegetBranchesResponse(obj: T.getBranchesResponse, elemName: string): string {
+export function serializegetBranchesResponse(obj: T.Input<T.getBranchesResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.branches !== undefined && obj.branches !== null) {
     xml += `<${NS_PREFIX}:branches>`;
@@ -17627,7 +18026,7 @@ export function serializegetBranchesResponse(obj: T.getBranchesResponse, elemNam
   return xml;
 }
 
-export function serializegetCurrentSyncMarkersResponse(obj: T.getCurrentSyncMarkersResponse, elemName: string): string {
+export function serializegetCurrentSyncMarkersResponse(obj: T.Input<T.getCurrentSyncMarkersResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.articleSyncMarker !== undefined && obj.articleSyncMarker !== null) {
     xml += serializeNumber('articleSyncMarker', obj.articleSyncMarker);
@@ -17684,7 +18083,7 @@ export function serializegetCurrentSyncMarkersResponse(obj: T.getCurrentSyncMark
   return xml;
 }
 
-export function serializeGetCurrentSyncMarkersV2Response(obj: T.GetCurrentSyncMarkersV2Response, elemName: string): string {
+export function serializeGetCurrentSyncMarkersV2Response(obj: T.Input<T.GetCurrentSyncMarkersV2Response>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.articleSyncMarker !== undefined && obj.articleSyncMarker !== null) {
     xml += serializeNumber('articleSyncMarker', obj.articleSyncMarker);
@@ -17756,7 +18155,7 @@ export function serializeGetCurrentSyncMarkersV2Response(obj: T.GetCurrentSyncMa
   return xml;
 }
 
-export function serializeGetNutrientTypesResponse(obj: T.GetNutrientTypesResponse, elemName: string): string {
+export function serializeGetNutrientTypesResponse(obj: T.Input<T.GetNutrientTypesResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.nutrientTypes !== undefined && obj.nutrientTypes !== null) {
     for (const item of obj.nutrientTypes) {
@@ -17767,7 +18166,7 @@ export function serializeGetNutrientTypesResponse(obj: T.GetNutrientTypesRespons
   return xml;
 }
 
-export function serializeVerifyCredentialsResponse(obj: T.VerifyCredentialsResponse, elemName: string): string {
+export function serializeVerifyCredentialsResponse(obj: T.Input<T.VerifyCredentialsResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.verified !== undefined && obj.verified !== null) {
     xml += serializeBoolean('verified', obj.verified);
@@ -17788,7 +18187,7 @@ export function serializeVerifyCredentialsResponse(obj: T.VerifyCredentialsRespo
   return xml;
 }
 
-export function serializeSaveCredentialsResponse(obj: T.SaveCredentialsResponse, elemName: string): string {
+export function serializeSaveCredentialsResponse(obj: T.Input<T.SaveCredentialsResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -17797,7 +18196,7 @@ export function serializeSaveCredentialsResponse(obj: T.SaveCredentialsResponse,
   return xml;
 }
 
-export function serializePasswordRequirementsResponse(obj: T.PasswordRequirementsResponse, elemName: string): string {
+export function serializePasswordRequirementsResponse(obj: T.Input<T.PasswordRequirementsResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.minPasswordLength !== undefined && obj.minPasswordLength !== null) {
     xml += serializeNumber('minPasswordLength', obj.minPasswordLength);
@@ -17821,7 +18220,7 @@ export function serializePasswordRequirementsResponse(obj: T.PasswordRequirement
   return xml;
 }
 
-export function serializePasswordResetResponse(obj: T.PasswordResetResponse, elemName: string): string {
+export function serializePasswordResetResponse(obj: T.Input<T.PasswordResetResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.passwordResetKey !== undefined && obj.passwordResetKey !== null) {
     xml += serializeString('passwordResetKey', String(obj.passwordResetKey));
@@ -17833,7 +18232,7 @@ export function serializePasswordResetResponse(obj: T.PasswordResetResponse, ele
   return xml;
 }
 
-export function serializeGetFloorplansResponse(obj: T.GetFloorplansResponse, elemName: string): string {
+export function serializeGetFloorplansResponse(obj: T.Input<T.GetFloorplansResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.floorplans !== undefined && obj.floorplans !== null) {
     xml += `<${NS_PREFIX}:floorplans>`;
@@ -17846,13 +18245,28 @@ export function serializeGetFloorplansResponse(obj: T.GetFloorplansResponse, ele
   return xml;
 }
 
-export function serializeChangeTablePropertyResp(obj: T.ChangeTablePropertyResp, elemName: string): string {
+export function serializeChangeTablePropertyResp(obj: T.Input<T.ChangeTablePropertyResp>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.idempotencyResult !== undefined && obj.idempotencyResult !== null) {
+    xml += serializeString('idempotencyResult', String(obj.idempotencyResult));
+  }
+  if (obj.result !== undefined && obj.result !== null) {
+    xml += serializeString('result', String(obj.result));
+  }
+  if (obj.errorMessage !== undefined && obj.errorMessage !== null) {
+    xml += serializeString('errorMessage', String(obj.errorMessage));
+  }
+  if (obj.tableIdentifier !== undefined && obj.tableIdentifier !== null) {
+    xml += serializeTableIdentifier(obj.tableIdentifier, 'tableIdentifier');
+  }
+  if (obj.tableProperties !== undefined && obj.tableProperties !== null) {
+    xml += serializeTableProperties(obj.tableProperties, 'tableProperties');
+  }
   xml += `</${NS_PREFIX}:${elemName}>`;
   return xml;
 }
 
-export function serializeGetEmployeeAuthorizationsResponse(obj: T.GetEmployeeAuthorizationsResponse, elemName: string): string {
+export function serializeGetEmployeeAuthorizationsResponse(obj: T.Input<T.GetEmployeeAuthorizationsResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.authorizationsList !== undefined && obj.authorizationsList !== null) {
     xml += `<${NS_PREFIX}:authorizationsList>`;
@@ -17865,7 +18279,7 @@ export function serializeGetEmployeeAuthorizationsResponse(obj: T.GetEmployeeAut
   return xml;
 }
 
-export function serializeGetGroupAuthorizationsResponse(obj: T.GetGroupAuthorizationsResponse, elemName: string): string {
+export function serializeGetGroupAuthorizationsResponse(obj: T.Input<T.GetGroupAuthorizationsResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.authorizationsList !== undefined && obj.authorizationsList !== null) {
     xml += `<${NS_PREFIX}:authorizationsList>`;
@@ -17878,7 +18292,7 @@ export function serializeGetGroupAuthorizationsResponse(obj: T.GetGroupAuthoriza
   return xml;
 }
 
-export function serializeUpdateGroupAuthorizationsResponse(obj: T.UpdateGroupAuthorizationsResponse, elemName: string): string {
+export function serializeUpdateGroupAuthorizationsResponse(obj: T.Input<T.UpdateGroupAuthorizationsResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.authorizationsList !== undefined && obj.authorizationsList !== null) {
     xml += `<${NS_PREFIX}:authorizationsList>`;
@@ -17891,7 +18305,7 @@ export function serializeUpdateGroupAuthorizationsResponse(obj: T.UpdateGroupAut
   return xml;
 }
 
-export function serializeGetAuthorizationGroupsResponse(obj: T.GetAuthorizationGroupsResponse, elemName: string): string {
+export function serializeGetAuthorizationGroupsResponse(obj: T.Input<T.GetAuthorizationGroupsResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.groupList !== undefined && obj.groupList !== null) {
     xml += `<${NS_PREFIX}:groupList>`;
@@ -17904,7 +18318,7 @@ export function serializeGetAuthorizationGroupsResponse(obj: T.GetAuthorizationG
   return xml;
 }
 
-export function serializeGetAuthorizationTreeResponse(obj: T.GetAuthorizationTreeResponse, elemName: string): string {
+export function serializeGetAuthorizationTreeResponse(obj: T.Input<T.GetAuthorizationTreeResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.backOfficeAuthorizationsList !== undefined && obj.backOfficeAuthorizationsList !== null) {
     xml += `<${NS_PREFIX}:backOfficeAuthorizationsList>`;
@@ -17958,7 +18372,7 @@ export function serializeGetAuthorizationTreeResponse(obj: T.GetAuthorizationTre
   return xml;
 }
 
-export function serializeGetEmployeeBranchAuthorizationsResponse(obj: T.GetEmployeeBranchAuthorizationsResponse, elemName: string): string {
+export function serializeGetEmployeeBranchAuthorizationsResponse(obj: T.Input<T.GetEmployeeBranchAuthorizationsResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.branchAuthorizationsList !== undefined && obj.branchAuthorizationsList !== null) {
     xml += `<${NS_PREFIX}:branchAuthorizationsList>`;
@@ -17971,7 +18385,7 @@ export function serializeGetEmployeeBranchAuthorizationsResponse(obj: T.GetEmplo
   return xml;
 }
 
-export function serializeSaveAuthorizationGroupResponse(obj: T.SaveAuthorizationGroupResponse, elemName: string): string {
+export function serializeSaveAuthorizationGroupResponse(obj: T.Input<T.SaveAuthorizationGroupResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -17986,7 +18400,7 @@ export function serializeSaveAuthorizationGroupResponse(obj: T.SaveAuthorization
   return xml;
 }
 
-export function serializeDeleteAuthorizationGroupResponse(obj: T.DeleteAuthorizationGroupResponse, elemName: string): string {
+export function serializeDeleteAuthorizationGroupResponse(obj: T.Input<T.DeleteAuthorizationGroupResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -17998,7 +18412,7 @@ export function serializeDeleteAuthorizationGroupResponse(obj: T.DeleteAuthoriza
   return xml;
 }
 
-export function serializeGetEmployeeAuthorizationGroupsResponse(obj: T.GetEmployeeAuthorizationGroupsResponse, elemName: string): string {
+export function serializeGetEmployeeAuthorizationGroupsResponse(obj: T.Input<T.GetEmployeeAuthorizationGroupsResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.branchAuthorizationGroups !== undefined && obj.branchAuthorizationGroups !== null) {
     for (const item of obj.branchAuthorizationGroups) {
@@ -18014,7 +18428,7 @@ export function serializeGetEmployeeAuthorizationGroupsResponse(obj: T.GetEmploy
   return xml;
 }
 
-export function serializeUpdateEmployeeAuthorizationGroupsResponse(obj: T.UpdateEmployeeAuthorizationGroupsResponse, elemName: string): string {
+export function serializeUpdateEmployeeAuthorizationGroupsResponse(obj: T.Input<T.UpdateEmployeeAuthorizationGroupsResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -18026,7 +18440,7 @@ export function serializeUpdateEmployeeAuthorizationGroupsResponse(obj: T.Update
   return xml;
 }
 
-export function serializeGetEmployeeAuthorizationSyncMarkersResponse(obj: T.GetEmployeeAuthorizationSyncMarkersResponse, elemName: string): string {
+export function serializeGetEmployeeAuthorizationSyncMarkersResponse(obj: T.Input<T.GetEmployeeAuthorizationSyncMarkersResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.authGroepSyncMarker !== undefined && obj.authGroepSyncMarker !== null) {
     xml += serializeNumber('authGroepSyncMarker', obj.authGroepSyncMarker);
@@ -18050,7 +18464,7 @@ export function serializeGetEmployeeAuthorizationSyncMarkersResponse(obj: T.GetE
   return xml;
 }
 
-export function serializeGetSpecialBarcodePatternsResponse(obj: T.GetSpecialBarcodePatternsResponse, elemName: string): string {
+export function serializeGetSpecialBarcodePatternsResponse(obj: T.Input<T.GetSpecialBarcodePatternsResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.patterns !== undefined && obj.patterns !== null) {
     for (const item of obj.patterns) {
@@ -18061,7 +18475,7 @@ export function serializeGetSpecialBarcodePatternsResponse(obj: T.GetSpecialBarc
   return xml;
 }
 
-export function serializeParseSpecialBarcodeResponse(obj: T.ParseSpecialBarcodeResponse, elemName: string): string {
+export function serializeParseSpecialBarcodeResponse(obj: T.Input<T.ParseSpecialBarcodeResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -18076,7 +18490,7 @@ export function serializeParseSpecialBarcodeResponse(obj: T.ParseSpecialBarcodeR
   return xml;
 }
 
-export function serializeImageLabel(obj: T.ImageLabel, elemName: string): string {
+export function serializeImageLabel(obj: T.Input<T.ImageLabel>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.id !== undefined && obj.id !== null) {
     xml += serializeNumber('id', obj.id);
@@ -18094,7 +18508,7 @@ export function serializeImageLabel(obj: T.ImageLabel, elemName: string): string
   return xml;
 }
 
-export function serializeImageCardLabelIds(obj: T.ImageCardLabelIds, elemName: string): string {
+export function serializeImageCardLabelIds(obj: T.Input<T.ImageCardLabelIds>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.labelId !== undefined && obj.labelId !== null) {
     for (const item of obj.labelId) {
@@ -18105,7 +18519,7 @@ export function serializeImageCardLabelIds(obj: T.ImageCardLabelIds, elemName: s
   return xml;
 }
 
-export function serializeImageData(obj: T.ImageData, elemName: string): string {
+export function serializeImageData(obj: T.Input<T.ImageData>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.imageId !== undefined && obj.imageId !== null) {
     xml += serializeNumber('imageId', obj.imageId);
@@ -18142,7 +18556,7 @@ export function serializeImageData(obj: T.ImageData, elemName: string): string {
   return xml;
 }
 
-export function serializeCardImageData(obj: T.CardImageData, elemName: string): string {
+export function serializeCardImageData(obj: T.Input<T.CardImageData>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.cardNumber !== undefined && obj.cardNumber !== null) {
     xml += serializeNumber('cardNumber', obj.cardNumber);
@@ -18156,7 +18570,7 @@ export function serializeCardImageData(obj: T.CardImageData, elemName: string): 
   return xml;
 }
 
-export function serializeCreateImageCardLink(obj: T.CreateImageCardLink, elemName: string): string {
+export function serializeCreateImageCardLink(obj: T.Input<T.CreateImageCardLink>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.cardType !== undefined && obj.cardType !== null) {
     xml += serializeString('cardType', String(obj.cardType));
@@ -18177,7 +18591,7 @@ export function serializeCreateImageCardLink(obj: T.CreateImageCardLink, elemNam
   return xml;
 }
 
-export function serializeCreateImageRequest(obj: T.CreateImageRequest, elemName: string): string {
+export function serializeCreateImageRequest(obj: T.Input<T.CreateImageRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.imageName !== undefined && obj.imageName !== null) {
     xml += serializeString('imageName', String(obj.imageName));
@@ -18195,7 +18609,7 @@ export function serializeCreateImageRequest(obj: T.CreateImageRequest, elemName:
   return xml;
 }
 
-export function serializeCreateImageFromUrlRequest(obj: T.CreateImageFromUrlRequest, elemName: string): string {
+export function serializeCreateImageFromUrlRequest(obj: T.Input<T.CreateImageFromUrlRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.imageName !== undefined && obj.imageName !== null) {
     xml += serializeString('imageName', String(obj.imageName));
@@ -18213,7 +18627,7 @@ export function serializeCreateImageFromUrlRequest(obj: T.CreateImageFromUrlRequ
   return xml;
 }
 
-export function serializeGetCardImageLabelsRequest(obj: T.GetCardImageLabelsRequest, elemName: string): string {
+export function serializeGetCardImageLabelsRequest(obj: T.Input<T.GetCardImageLabelsRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.cardType !== undefined && obj.cardType !== null) {
     xml += serializeString('cardType', String(obj.cardType));
@@ -18222,7 +18636,7 @@ export function serializeGetCardImageLabelsRequest(obj: T.GetCardImageLabelsRequ
   return xml;
 }
 
-export function serializeGetCardImagesRequest(obj: T.GetCardImagesRequest, elemName: string): string {
+export function serializeGetCardImagesRequest(obj: T.Input<T.GetCardImagesRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.cardType !== undefined && obj.cardType !== null) {
     xml += serializeString('cardType', String(obj.cardType));
@@ -18236,7 +18650,7 @@ export function serializeGetCardImagesRequest(obj: T.GetCardImagesRequest, elemN
   return xml;
 }
 
-export function serializeSaveImageData(obj: T.SaveImageData, elemName: string): string {
+export function serializeSaveImageData(obj: T.Input<T.SaveImageData>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.imageId !== undefined && obj.imageId !== null) {
     xml += serializeNumber('imageId', obj.imageId);
@@ -18252,7 +18666,7 @@ export function serializeSaveImageData(obj: T.SaveImageData, elemName: string): 
   return xml;
 }
 
-export function serializeSaveCardImageData(obj: T.SaveCardImageData, elemName: string): string {
+export function serializeSaveCardImageData(obj: T.Input<T.SaveCardImageData>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.cardNumber !== undefined && obj.cardNumber !== null) {
     xml += serializeNumber('cardNumber', obj.cardNumber);
@@ -18266,7 +18680,7 @@ export function serializeSaveCardImageData(obj: T.SaveCardImageData, elemName: s
   return xml;
 }
 
-export function serializeSaveCardImagesRequest(obj: T.SaveCardImagesRequest, elemName: string): string {
+export function serializeSaveCardImagesRequest(obj: T.Input<T.SaveCardImagesRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.cardType !== undefined && obj.cardType !== null) {
     xml += serializeString('cardType', String(obj.cardType));
@@ -18280,7 +18694,7 @@ export function serializeSaveCardImagesRequest(obj: T.SaveCardImagesRequest, ele
   return xml;
 }
 
-export function serializeGetImagesRequest(obj: T.GetImagesRequest, elemName: string): string {
+export function serializeGetImagesRequest(obj: T.Input<T.GetImagesRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.imageIds !== undefined && obj.imageIds !== null) {
     for (const item of obj.imageIds) {
@@ -18297,7 +18711,7 @@ export function serializeGetImagesRequest(obj: T.GetImagesRequest, elemName: str
   return xml;
 }
 
-export function serializeCreateImageResponse(obj: T.CreateImageResponse, elemName: string): string {
+export function serializeCreateImageResponse(obj: T.Input<T.CreateImageResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -18318,7 +18732,7 @@ export function serializeCreateImageResponse(obj: T.CreateImageResponse, elemNam
   return xml;
 }
 
-export function serializeGetCardImageLabelsResponse(obj: T.GetCardImageLabelsResponse, elemName: string): string {
+export function serializeGetCardImageLabelsResponse(obj: T.Input<T.GetCardImageLabelsResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.labels !== undefined && obj.labels !== null) {
     for (const item of obj.labels) {
@@ -18329,7 +18743,7 @@ export function serializeGetCardImageLabelsResponse(obj: T.GetCardImageLabelsRes
   return xml;
 }
 
-export function serializeGetCardImagesResponse(obj: T.GetCardImagesResponse, elemName: string): string {
+export function serializeGetCardImagesResponse(obj: T.Input<T.GetCardImagesResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.items !== undefined && obj.items !== null) {
     for (const item of obj.items) {
@@ -18340,13 +18754,13 @@ export function serializeGetCardImagesResponse(obj: T.GetCardImagesResponse, ele
   return xml;
 }
 
-export function serializeSaveCardImagesResponse(obj: T.SaveCardImagesResponse, elemName: string): string {
+export function serializeSaveCardImagesResponse(obj: T.Input<T.SaveCardImagesResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   xml += `</${NS_PREFIX}:${elemName}>`;
   return xml;
 }
 
-export function serializeGetImagesResponse(obj: T.GetImagesResponse, elemName: string): string {
+export function serializeGetImagesResponse(obj: T.Input<T.GetImagesResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.imageList !== undefined && obj.imageList !== null) {
     xml += `<${NS_PREFIX}:imageList>`;
@@ -18359,7 +18773,7 @@ export function serializeGetImagesResponse(obj: T.GetImagesResponse, elemName: s
   return xml;
 }
 
-export function serializeVoucherSettingsV1(obj: T.VoucherSettingsV1, elemName: string): string {
+export function serializeVoucherSettingsV1(obj: T.Input<T.VoucherSettingsV1>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.requestedVoucherId !== undefined && obj.requestedVoucherId !== null) {
     xml += serializeVoucherId(obj.requestedVoucherId, 'requestedVoucherId');
@@ -18398,7 +18812,7 @@ export function serializeVoucherSettingsV1(obj: T.VoucherSettingsV1, elemName: s
   return xml;
 }
 
-export function serializeVoucherSettingsV1List(obj: T.VoucherSettingsV1List, elemName: string): string {
+export function serializeVoucherSettingsV1List(obj: T.Input<T.VoucherSettingsV1List>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.voucherSettingsV1 !== undefined && obj.voucherSettingsV1 !== null) {
     for (const item of obj.voucherSettingsV1) {
@@ -18409,7 +18823,7 @@ export function serializeVoucherSettingsV1List(obj: T.VoucherSettingsV1List, ele
   return xml;
 }
 
-export function serializeVoucherRedeemLocations(obj: T.VoucherRedeemLocations, elemName: string): string {
+export function serializeVoucherRedeemLocations(obj: T.Input<T.VoucherRedeemLocations>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.branchGroupIds !== undefined && obj.branchGroupIds !== null) {
     for (const item of obj.branchGroupIds) {
@@ -18430,7 +18844,7 @@ export function serializeVoucherRedeemLocations(obj: T.VoucherRedeemLocations, e
   return xml;
 }
 
-export function serializeVoucherLine(obj: T.VoucherLine, elemName: string): string {
+export function serializeVoucherLine(obj: T.Input<T.VoucherLine>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.id !== undefined && obj.id !== null) {
     xml += serializeString('id', String(obj.id));
@@ -18457,7 +18871,7 @@ export function serializeVoucherLine(obj: T.VoucherLine, elemName: string): stri
   return xml;
 }
 
-export function serializeVoucherLineList(obj: T.VoucherLineList, elemName: string): string {
+export function serializeVoucherLineList(obj: T.Input<T.VoucherLineList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.voucherLine !== undefined && obj.voucherLine !== null) {
     for (const item of obj.voucherLine) {
@@ -18468,7 +18882,7 @@ export function serializeVoucherLineList(obj: T.VoucherLineList, elemName: strin
   return xml;
 }
 
-export function serializeVoucher(obj: T.Voucher, elemName: string): string {
+export function serializeVoucher(obj: T.Input<T.Voucher>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.view !== undefined && obj.view !== null) {
     xml += serializeVoucherView(obj.view, 'view');
@@ -18497,7 +18911,7 @@ export function serializeVoucher(obj: T.Voucher, elemName: string): string {
   return xml;
 }
 
-export function serializeVoucherCategory(obj: T.VoucherCategory, elemName: string): string {
+export function serializeVoucherCategory(obj: T.Input<T.VoucherCategory>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.id !== undefined && obj.id !== null) {
     xml += serializeNumber('id', obj.id);
@@ -18515,7 +18929,7 @@ export function serializeVoucherCategory(obj: T.VoucherCategory, elemName: strin
   return xml;
 }
 
-export function serializeVoucherCategoryList(obj: T.VoucherCategoryList, elemName: string): string {
+export function serializeVoucherCategoryList(obj: T.Input<T.VoucherCategoryList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.voucherCategory !== undefined && obj.voucherCategory !== null) {
     for (const item of obj.voucherCategory) {
@@ -18526,7 +18940,7 @@ export function serializeVoucherCategoryList(obj: T.VoucherCategoryList, elemNam
   return xml;
 }
 
-export function serializeVoucherExternalScanCode(obj: T.VoucherExternalScanCode, elemName: string): string {
+export function serializeVoucherExternalScanCode(obj: T.Input<T.VoucherExternalScanCode>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.scanCode !== undefined && obj.scanCode !== null) {
     xml += serializeString('scanCode', String(obj.scanCode));
@@ -18547,7 +18961,7 @@ export function serializeVoucherExternalScanCode(obj: T.VoucherExternalScanCode,
   return xml;
 }
 
-export function serializeVoucherExternalScanCodeList(obj: T.VoucherExternalScanCodeList, elemName: string): string {
+export function serializeVoucherExternalScanCodeList(obj: T.Input<T.VoucherExternalScanCodeList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.voucherScanCode !== undefined && obj.voucherScanCode !== null) {
     for (const item of obj.voucherScanCode) {
@@ -18558,7 +18972,7 @@ export function serializeVoucherExternalScanCodeList(obj: T.VoucherExternalScanC
   return xml;
 }
 
-export function serializeIssueVoucher(obj: T.IssueVoucher, elemName: string): string {
+export function serializeIssueVoucher(obj: T.Input<T.IssueVoucher>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.voucherId !== undefined && obj.voucherId !== null) {
     xml += serializeVoucherId(obj.voucherId, 'voucherId');
@@ -18582,7 +18996,7 @@ export function serializeIssueVoucher(obj: T.IssueVoucher, elemName: string): st
   return xml;
 }
 
-export function serializeIssueVoucherList(obj: T.IssueVoucherList, elemName: string): string {
+export function serializeIssueVoucherList(obj: T.Input<T.IssueVoucherList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.issueVoucher !== undefined && obj.issueVoucher !== null) {
     for (const item of obj.issueVoucher) {
@@ -18593,7 +19007,7 @@ export function serializeIssueVoucherList(obj: T.IssueVoucherList, elemName: str
   return xml;
 }
 
-export function serializeRedeemableVoucherIssuance(obj: T.RedeemableVoucherIssuance, elemName: string): string {
+export function serializeRedeemableVoucherIssuance(obj: T.Input<T.RedeemableVoucherIssuance>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.voucherIssuance !== undefined && obj.voucherIssuance !== null) {
     xml += serializeVoucherIssuance(obj.voucherIssuance, 'voucherIssuance');
@@ -18605,7 +19019,7 @@ export function serializeRedeemableVoucherIssuance(obj: T.RedeemableVoucherIssua
   return xml;
 }
 
-export function serializeRedeemableVoucherIssuanceList(obj: T.RedeemableVoucherIssuanceList, elemName: string): string {
+export function serializeRedeemableVoucherIssuanceList(obj: T.Input<T.RedeemableVoucherIssuanceList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.redeemableVoucherIssuance !== undefined && obj.redeemableVoucherIssuance !== null) {
     for (const item of obj.redeemableVoucherIssuance) {
@@ -18616,7 +19030,7 @@ export function serializeRedeemableVoucherIssuanceList(obj: T.RedeemableVoucherI
   return xml;
 }
 
-export function serializeCheckGiftcardPaymentRequest(obj: T.CheckGiftcardPaymentRequest, elemName: string): string {
+export function serializeCheckGiftcardPaymentRequest(obj: T.Input<T.CheckGiftcardPaymentRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.cardNumber !== undefined && obj.cardNumber !== null) {
     xml += serializeString('cardNumber', String(obj.cardNumber));
@@ -18631,7 +19045,7 @@ export function serializeCheckGiftcardPaymentRequest(obj: T.CheckGiftcardPayment
   return xml;
 }
 
-export function serializeGiftcardInfo(obj: T.GiftcardInfo, elemName: string): string {
+export function serializeGiftcardInfo(obj: T.Input<T.GiftcardInfo>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.id !== undefined && obj.id !== null) {
     xml += serializeString('id', String(obj.id));
@@ -18683,7 +19097,7 @@ export function serializeGiftcardInfo(obj: T.GiftcardInfo, elemName: string): st
   return xml;
 }
 
-export function serializeGiftcard(obj: T.Giftcard, elemName: string): string {
+export function serializeGiftcard(obj: T.Input<T.Giftcard>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.id !== undefined && obj.id !== null) {
     xml += serializeString('id', String(obj.id));
@@ -18719,7 +19133,7 @@ export function serializeGiftcard(obj: T.Giftcard, elemName: string): string {
   return xml;
 }
 
-export function serializeGiftcardPaymentLine(obj: T.GiftcardPaymentLine, elemName: string): string {
+export function serializeGiftcardPaymentLine(obj: T.Input<T.GiftcardPaymentLine>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.text !== undefined && obj.text !== null) {
     xml += serializeString('text', String(obj.text));
@@ -18737,7 +19151,7 @@ export function serializeGiftcardPaymentLine(obj: T.GiftcardPaymentLine, elemNam
   return xml;
 }
 
-export function serializeGiftcardPaymentLineList(obj: T.GiftcardPaymentLineList, elemName: string): string {
+export function serializeGiftcardPaymentLineList(obj: T.Input<T.GiftcardPaymentLineList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.line !== undefined && obj.line !== null) {
     for (const item of obj.line) {
@@ -18748,7 +19162,7 @@ export function serializeGiftcardPaymentLineList(obj: T.GiftcardPaymentLineList,
   return xml;
 }
 
-export function serializeRegisterGiftcardPaymentRequest(obj: T.RegisterGiftcardPaymentRequest, elemName: string): string {
+export function serializeRegisterGiftcardPaymentRequest(obj: T.Input<T.RegisterGiftcardPaymentRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.cardNumber !== undefined && obj.cardNumber !== null) {
     xml += serializeString('cardNumber', String(obj.cardNumber));
@@ -18773,13 +19187,35 @@ export function serializeRegisterGiftcardPaymentRequest(obj: T.RegisterGiftcardP
   return xml;
 }
 
-export function serializeRegisterGiftcardPaymentV2Request(obj: T.RegisterGiftcardPaymentV2Request, elemName: string): string {
+export function serializeRegisterGiftcardPaymentV2Request(obj: T.Input<T.RegisterGiftcardPaymentV2Request>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.idempotencyKey !== undefined && obj.idempotencyKey !== null) {
+    xml += serializeString('idempotencyKey', String(obj.idempotencyKey));
+  }
+  if (obj.cardNumber !== undefined && obj.cardNumber !== null) {
+    xml += serializeString('cardNumber', String(obj.cardNumber));
+  }
+  if (obj.branchNumber !== undefined && obj.branchNumber !== null) {
+    xml += serializeNumber('branchNumber', obj.branchNumber);
+  }
+  if (obj.employeeNumber !== undefined && obj.employeeNumber !== null) {
+    xml += serializeNumber('employeeNumber', obj.employeeNumber);
+  }
+  if (obj.externalReference !== undefined && obj.externalReference !== null) {
+    xml += serializeString('externalReference', String(obj.externalReference));
+  }
+  if (obj.lineList !== undefined && obj.lineList !== null) {
+    xml += `<${NS_PREFIX}:lineList>`;
+    for (const item of obj.lineList) {
+      xml += serializeGiftcardPaymentLine(item, 'line');
+    }
+    xml += `</${NS_PREFIX}:lineList>`;
+  }
   xml += `</${NS_PREFIX}:${elemName}>`;
   return xml;
 }
 
-export function serializeCreateGiftcardRequest(obj: T.CreateGiftcardRequest, elemName: string): string {
+export function serializeCreateGiftcardRequest(obj: T.Input<T.CreateGiftcardRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.cardNumber !== undefined && obj.cardNumber !== null) {
     xml += serializeString('cardNumber', String(obj.cardNumber));
@@ -18806,7 +19242,7 @@ export function serializeCreateGiftcardRequest(obj: T.CreateGiftcardRequest, ele
   return xml;
 }
 
-export function serializeReloadGiftcardRequest(obj: T.ReloadGiftcardRequest, elemName: string): string {
+export function serializeReloadGiftcardRequest(obj: T.Input<T.ReloadGiftcardRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.cardNumber !== undefined && obj.cardNumber !== null) {
     xml += serializeString('cardNumber', String(obj.cardNumber));
@@ -18827,7 +19263,7 @@ export function serializeReloadGiftcardRequest(obj: T.ReloadGiftcardRequest, ele
   return xml;
 }
 
-export function serializeGetGiftcardTypesRequest(obj: T.GetGiftcardTypesRequest, elemName: string): string {
+export function serializeGetGiftcardTypesRequest(obj: T.Input<T.GetGiftcardTypesRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.branchNumber !== undefined && obj.branchNumber !== null) {
     xml += serializeNumber('branchNumber', obj.branchNumber);
@@ -18836,7 +19272,7 @@ export function serializeGetGiftcardTypesRequest(obj: T.GetGiftcardTypesRequest,
   return xml;
 }
 
-export function serializeGiftcardTypesList(obj: T.GiftcardTypesList, elemName: string): string {
+export function serializeGiftcardTypesList(obj: T.Input<T.GiftcardTypesList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.giftcardTypes !== undefined && obj.giftcardTypes !== null) {
     for (const item of obj.giftcardTypes) {
@@ -18847,7 +19283,7 @@ export function serializeGiftcardTypesList(obj: T.GiftcardTypesList, elemName: s
   return xml;
 }
 
-export function serializeGetRelationGiftcardsRequest(obj: T.GetRelationGiftcardsRequest, elemName: string): string {
+export function serializeGetRelationGiftcardsRequest(obj: T.Input<T.GetRelationGiftcardsRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.relationNumber !== undefined && obj.relationNumber !== null) {
     xml += serializeNumber('relationNumber', obj.relationNumber);
@@ -18856,7 +19292,7 @@ export function serializeGetRelationGiftcardsRequest(obj: T.GetRelationGiftcards
   return xml;
 }
 
-export function serializeRelationGiftcard(obj: T.RelationGiftcard, elemName: string): string {
+export function serializeRelationGiftcard(obj: T.Input<T.RelationGiftcard>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.cardId !== undefined && obj.cardId !== null) {
     xml += serializeString('cardId', String(obj.cardId));
@@ -18889,7 +19325,7 @@ export function serializeRelationGiftcard(obj: T.RelationGiftcard, elemName: str
   return xml;
 }
 
-export function serializeRelationGiftcardList(obj: T.RelationGiftcardList, elemName: string): string {
+export function serializeRelationGiftcardList(obj: T.Input<T.RelationGiftcardList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.relationGiftcards !== undefined && obj.relationGiftcards !== null) {
     for (const item of obj.relationGiftcards) {
@@ -18900,7 +19336,7 @@ export function serializeRelationGiftcardList(obj: T.RelationGiftcardList, elemN
   return xml;
 }
 
-export function serializeGetGiftcardRequest(obj: T.GetGiftcardRequest, elemName: string): string {
+export function serializeGetGiftcardRequest(obj: T.Input<T.GetGiftcardRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.cardNumber !== undefined && obj.cardNumber !== null) {
     xml += serializeString('cardNumber', String(obj.cardNumber));
@@ -18912,7 +19348,7 @@ export function serializeGetGiftcardRequest(obj: T.GetGiftcardRequest, elemName:
   return xml;
 }
 
-export function serializeGetGiftcard(obj: T.GetGiftcard, elemName: string): string {
+export function serializeGetGiftcard(obj: T.Input<T.GetGiftcard>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.cardId !== undefined && obj.cardId !== null) {
     xml += serializeString('cardId', String(obj.cardId));
@@ -18954,7 +19390,7 @@ export function serializeGetGiftcard(obj: T.GetGiftcard, elemName: string): stri
   return xml;
 }
 
-export function serializeGetGiftcardHistoryRequest(obj: T.GetGiftcardHistoryRequest, elemName: string): string {
+export function serializeGetGiftcardHistoryRequest(obj: T.Input<T.GetGiftcardHistoryRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.cardNumber !== undefined && obj.cardNumber !== null) {
     xml += serializeString('cardNumber', String(obj.cardNumber));
@@ -18966,7 +19402,7 @@ export function serializeGetGiftcardHistoryRequest(obj: T.GetGiftcardHistoryRequ
   return xml;
 }
 
-export function serializeGiftcardHistory(obj: T.GiftcardHistory, elemName: string): string {
+export function serializeGiftcardHistory(obj: T.Input<T.GiftcardHistory>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.employeeNumber !== undefined && obj.employeeNumber !== null) {
     xml += serializeNumber('employeeNumber', obj.employeeNumber);
@@ -18999,7 +19435,7 @@ export function serializeGiftcardHistory(obj: T.GiftcardHistory, elemName: strin
   return xml;
 }
 
-export function serializeGiftcardHistoryList(obj: T.GiftcardHistoryList, elemName: string): string {
+export function serializeGiftcardHistoryList(obj: T.Input<T.GiftcardHistoryList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.giftcardHistory !== undefined && obj.giftcardHistory !== null) {
     for (const item of obj.giftcardHistory) {
@@ -19010,7 +19446,7 @@ export function serializeGiftcardHistoryList(obj: T.GiftcardHistoryList, elemNam
   return xml;
 }
 
-export function serializeGetGiftcardsRequest(obj: T.GetGiftcardsRequest, elemName: string): string {
+export function serializeGetGiftcardsRequest(obj: T.Input<T.GetGiftcardsRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.cardTypeId !== undefined && obj.cardTypeId !== null) {
     xml += serializeString('cardTypeId', String(obj.cardTypeId));
@@ -19032,7 +19468,7 @@ export function serializeGetGiftcardsRequest(obj: T.GetGiftcardsRequest, elemNam
   return xml;
 }
 
-export function serializeGiftcardList(obj: T.GiftcardList, elemName: string): string {
+export function serializeGiftcardList(obj: T.Input<T.GiftcardList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.giftcard !== undefined && obj.giftcard !== null) {
     for (const item of obj.giftcard) {
@@ -19043,7 +19479,7 @@ export function serializeGiftcardList(obj: T.GiftcardList, elemName: string): st
   return xml;
 }
 
-export function serializeSaveGiftcard(obj: T.SaveGiftcard, elemName: string): string {
+export function serializeSaveGiftcard(obj: T.Input<T.SaveGiftcard>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.cardId !== undefined && obj.cardId !== null) {
     xml += serializeString('cardId', String(obj.cardId));
@@ -19055,7 +19491,7 @@ export function serializeSaveGiftcard(obj: T.SaveGiftcard, elemName: string): st
   return xml;
 }
 
-export function serializeSaveGiftcardList(obj: T.SaveGiftcardList, elemName: string): string {
+export function serializeSaveGiftcardList(obj: T.Input<T.SaveGiftcardList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.giftcard !== undefined && obj.giftcard !== null) {
     for (const item of obj.giftcard) {
@@ -19066,25 +19502,69 @@ export function serializeSaveGiftcardList(obj: T.SaveGiftcardList, elemName: str
   return xml;
 }
 
-export function serializeSaveGiftcardsRequest(obj: T.SaveGiftcardsRequest, elemName: string): string {
+export function serializeSaveGiftcardsRequest(obj: T.Input<T.SaveGiftcardsRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.idempotencyKey !== undefined && obj.idempotencyKey !== null) {
+    xml += serializeString('idempotencyKey', String(obj.idempotencyKey));
+  }
+  if (obj.giftcardList !== undefined && obj.giftcardList !== null) {
+    xml += `<${NS_PREFIX}:giftcardList>`;
+    for (const item of obj.giftcardList) {
+      xml += serializeSaveGiftcard(item, 'giftcard');
+    }
+    xml += `</${NS_PREFIX}:giftcardList>`;
+  }
   xml += `</${NS_PREFIX}:${elemName}>`;
   return xml;
 }
 
-export function serializeRestituteGiftcardsRequest(obj: T.RestituteGiftcardsRequest, elemName: string): string {
+export function serializeRestituteGiftcardsRequest(obj: T.Input<T.RestituteGiftcardsRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.idempotencyKey !== undefined && obj.idempotencyKey !== null) {
+    xml += serializeString('idempotencyKey', String(obj.idempotencyKey));
+  }
+  if (obj.cardIds !== undefined && obj.cardIds !== null) {
+    for (const item of obj.cardIds) {
+      xml += serializeString('cardIds', String(item));
+    }
+  }
+  if (obj.workplaceIdentifier !== undefined && obj.workplaceIdentifier !== null) {
+    xml += serializeWorkplaceIdentifier(obj.workplaceIdentifier, 'workplaceIdentifier');
+  }
+  if (obj.employeeIdentifier !== undefined && obj.employeeIdentifier !== null) {
+    xml += serializeEmployeeIdentifier(obj.employeeIdentifier, 'employeeIdentifier');
+  }
+  if (obj.relationIdentifier !== undefined && obj.relationIdentifier !== null) {
+    xml += serializeRelationIdentifier(obj.relationIdentifier, 'relationIdentifier');
+  }
   xml += `</${NS_PREFIX}:${elemName}>`;
   return xml;
 }
 
-export function serializeLinkGiftcardsToRelationRequest(obj: T.LinkGiftcardsToRelationRequest, elemName: string): string {
+export function serializeLinkGiftcardsToRelationRequest(obj: T.Input<T.LinkGiftcardsToRelationRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.idempotencyKey !== undefined && obj.idempotencyKey !== null) {
+    xml += serializeString('idempotencyKey', String(obj.idempotencyKey));
+  }
+  if (obj.cardIds !== undefined && obj.cardIds !== null) {
+    for (const item of obj.cardIds) {
+      xml += serializeString('cardIds', String(item));
+    }
+  }
+  if (obj.workplaceIdentifier !== undefined && obj.workplaceIdentifier !== null) {
+    xml += serializeWorkplaceIdentifier(obj.workplaceIdentifier, 'workplaceIdentifier');
+  }
+  if (obj.relationIdentifier !== undefined && obj.relationIdentifier !== null) {
+    xml += serializeRelationIdentifier(obj.relationIdentifier, 'relationIdentifier');
+  }
+  if (obj.employeeIdentifier !== undefined && obj.employeeIdentifier !== null) {
+    xml += serializeEmployeeIdentifier(obj.employeeIdentifier, 'employeeIdentifier');
+  }
   xml += `</${NS_PREFIX}:${elemName}>`;
   return xml;
 }
 
-export function serializeGetVouchersRequest(obj: T.GetVouchersRequest, elemName: string): string {
+export function serializeGetVouchersRequest(obj: T.Input<T.GetVouchersRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.voucherIdFilter !== undefined && obj.voucherIdFilter !== null) {
     xml += `<${NS_PREFIX}:voucherIdFilter>`;
@@ -19106,7 +19586,7 @@ export function serializeGetVouchersRequest(obj: T.GetVouchersRequest, elemName:
   return xml;
 }
 
-export function serializeGetVoucherRequest(obj: T.GetVoucherRequest, elemName: string): string {
+export function serializeGetVoucherRequest(obj: T.Input<T.GetVoucherRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.voucherId !== undefined && obj.voucherId !== null) {
     xml += serializeVoucherId(obj.voucherId, 'voucherId');
@@ -19115,7 +19595,7 @@ export function serializeGetVoucherRequest(obj: T.GetVoucherRequest, elemName: s
   return xml;
 }
 
-export function serializeVoucherCategoryIdList(obj: T.VoucherCategoryIdList, elemName: string): string {
+export function serializeVoucherCategoryIdList(obj: T.Input<T.VoucherCategoryIdList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.voucherCategoryId !== undefined && obj.voucherCategoryId !== null) {
     for (const item of obj.voucherCategoryId) {
@@ -19126,7 +19606,7 @@ export function serializeVoucherCategoryIdList(obj: T.VoucherCategoryIdList, ele
   return xml;
 }
 
-export function serializeGetVoucherCategoriesRequest(obj: T.GetVoucherCategoriesRequest, elemName: string): string {
+export function serializeGetVoucherCategoriesRequest(obj: T.Input<T.GetVoucherCategoriesRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.voucherCategoryIdFilter !== undefined && obj.voucherCategoryIdFilter !== null) {
     xml += `<${NS_PREFIX}:voucherCategoryIdFilter>`;
@@ -19139,7 +19619,7 @@ export function serializeGetVoucherCategoriesRequest(obj: T.GetVoucherCategories
   return xml;
 }
 
-export function serializeGetVoucherIssuancesRequest(obj: T.GetVoucherIssuancesRequest, elemName: string): string {
+export function serializeGetVoucherIssuancesRequest(obj: T.Input<T.GetVoucherIssuancesRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.relationNumber !== undefined && obj.relationNumber !== null) {
     xml += serializeNumber('relationNumber', obj.relationNumber);
@@ -19154,7 +19634,7 @@ export function serializeGetVoucherIssuancesRequest(obj: T.GetVoucherIssuancesRe
   return xml;
 }
 
-export function serializeGetVoucherSettingsRequest(obj: T.GetVoucherSettingsRequest, elemName: string): string {
+export function serializeGetVoucherSettingsRequest(obj: T.Input<T.GetVoucherSettingsRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.voucherIds !== undefined && obj.voucherIds !== null) {
     xml += `<${NS_PREFIX}:voucherIds>`;
@@ -19167,13 +19647,26 @@ export function serializeGetVoucherSettingsRequest(obj: T.GetVoucherSettingsRequ
   return xml;
 }
 
-export function serializeIssueVouchersRequest(obj: T.IssueVouchersRequest, elemName: string): string {
+export function serializeIssueVouchersRequest(obj: T.Input<T.IssueVouchersRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.idempotencyKey !== undefined && obj.idempotencyKey !== null) {
+    xml += serializeString('idempotencyKey', String(obj.idempotencyKey));
+  }
+  if (obj.issueVouchers !== undefined && obj.issueVouchers !== null) {
+    xml += `<${NS_PREFIX}:issueVouchers>`;
+    for (const item of obj.issueVouchers) {
+      xml += serializeIssueVoucher(item, 'issueVoucher');
+    }
+    xml += `</${NS_PREFIX}:issueVouchers>`;
+  }
+  if (obj.financialWorkplaceIdentifier !== undefined && obj.financialWorkplaceIdentifier !== null) {
+    xml += serializeWorkplaceIdentifier(obj.financialWorkplaceIdentifier, 'financialWorkplaceIdentifier');
+  }
   xml += `</${NS_PREFIX}:${elemName}>`;
   return xml;
 }
 
-export function serializeIssueVoucherExternalScanCodeSet(obj: T.IssueVoucherExternalScanCodeSet, elemName: string): string {
+export function serializeIssueVoucherExternalScanCodeSet(obj: T.Input<T.IssueVoucherExternalScanCodeSet>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.scanCode !== undefined && obj.scanCode !== null) {
     for (const item of obj.scanCode) {
@@ -19184,13 +19677,26 @@ export function serializeIssueVoucherExternalScanCodeSet(obj: T.IssueVoucherExte
   return xml;
 }
 
-export function serializeIssueVoucherExternalScanCodesRequest(obj: T.IssueVoucherExternalScanCodesRequest, elemName: string): string {
+export function serializeIssueVoucherExternalScanCodesRequest(obj: T.Input<T.IssueVoucherExternalScanCodesRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.idempotencyKey !== undefined && obj.idempotencyKey !== null) {
+    xml += serializeString('idempotencyKey', String(obj.idempotencyKey));
+  }
+  if (obj.voucherId !== undefined && obj.voucherId !== null) {
+    xml += serializeString('voucherId', String(obj.voucherId));
+  }
+  if (obj.scanCodes !== undefined && obj.scanCodes !== null) {
+    xml += `<${NS_PREFIX}:scanCodes>`;
+    for (const item of obj.scanCodes) {
+      xml += serializeString('scanCode', String(item));
+    }
+    xml += `</${NS_PREFIX}:scanCodes>`;
+  }
   xml += `</${NS_PREFIX}:${elemName}>`;
   return xml;
 }
 
-export function serializeGetVoucherExternalScanCodesRequest(obj: T.GetVoucherExternalScanCodesRequest, elemName: string): string {
+export function serializeGetVoucherExternalScanCodesRequest(obj: T.Input<T.GetVoucherExternalScanCodesRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.voucherId !== undefined && obj.voucherId !== null) {
     xml += serializeString('voucherId', String(obj.voucherId));
@@ -19214,7 +19720,7 @@ export function serializeGetVoucherExternalScanCodesRequest(obj: T.GetVoucherExt
   return xml;
 }
 
-export function serializeGetRedeemableVoucherIssuancesRequest(obj: T.GetRedeemableVoucherIssuancesRequest, elemName: string): string {
+export function serializeGetRedeemableVoucherIssuancesRequest(obj: T.Input<T.GetRedeemableVoucherIssuancesRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.voucherType !== undefined && obj.voucherType !== null) {
     xml += serializeString('voucherType', String(obj.voucherType));
@@ -19226,7 +19732,7 @@ export function serializeGetRedeemableVoucherIssuancesRequest(obj: T.GetRedeemab
   return xml;
 }
 
-export function serializeRedeemVoucherIssuanceRequest(obj: T.RedeemVoucherIssuanceRequest, elemName: string): string {
+export function serializeRedeemVoucherIssuanceRequest(obj: T.Input<T.RedeemVoucherIssuanceRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.voucherScanCode !== undefined && obj.voucherScanCode !== null) {
     xml += serializeString('voucherScanCode', String(obj.voucherScanCode));
@@ -19247,7 +19753,7 @@ export function serializeRedeemVoucherIssuanceRequest(obj: T.RedeemVoucherIssuan
   return xml;
 }
 
-export function serializeCheckGiftcardPaymentResponse(obj: T.CheckGiftcardPaymentResponse, elemName: string): string {
+export function serializeCheckGiftcardPaymentResponse(obj: T.Input<T.CheckGiftcardPaymentResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -19259,7 +19765,7 @@ export function serializeCheckGiftcardPaymentResponse(obj: T.CheckGiftcardPaymen
   return xml;
 }
 
-export function serializeRegisterGiftcardPaymentResponse(obj: T.RegisterGiftcardPaymentResponse, elemName: string): string {
+export function serializeRegisterGiftcardPaymentResponse(obj: T.Input<T.RegisterGiftcardPaymentResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -19277,13 +19783,28 @@ export function serializeRegisterGiftcardPaymentResponse(obj: T.RegisterGiftcard
   return xml;
 }
 
-export function serializeRegisterGiftcardPaymentV2Response(obj: T.RegisterGiftcardPaymentV2Response, elemName: string): string {
+export function serializeRegisterGiftcardPaymentV2Response(obj: T.Input<T.RegisterGiftcardPaymentV2Response>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.idempotencyResult !== undefined && obj.idempotencyResult !== null) {
+    xml += serializeString('idempotencyResult', String(obj.idempotencyResult));
+  }
+  if (obj.result !== undefined && obj.result !== null) {
+    xml += serializeString('result', String(obj.result));
+  }
+  if (obj.newBalance !== undefined && obj.newBalance !== null) {
+    xml += serializeString('newBalance', String(obj.newBalance));
+  }
+  if (obj.receiptId !== undefined && obj.receiptId !== null) {
+    xml += serializeString('receiptId', String(obj.receiptId));
+  }
+  if (obj.errorMessage !== undefined && obj.errorMessage !== null) {
+    xml += serializeString('errorMessage', String(obj.errorMessage));
+  }
   xml += `</${NS_PREFIX}:${elemName}>`;
   return xml;
 }
 
-export function serializeCreateGiftcardResponse(obj: T.CreateGiftcardResponse, elemName: string): string {
+export function serializeCreateGiftcardResponse(obj: T.Input<T.CreateGiftcardResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -19295,7 +19816,7 @@ export function serializeCreateGiftcardResponse(obj: T.CreateGiftcardResponse, e
   return xml;
 }
 
-export function serializeReloadGiftcardResponse(obj: T.ReloadGiftcardResponse, elemName: string): string {
+export function serializeReloadGiftcardResponse(obj: T.Input<T.ReloadGiftcardResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -19307,7 +19828,7 @@ export function serializeReloadGiftcardResponse(obj: T.ReloadGiftcardResponse, e
   return xml;
 }
 
-export function serializeGetGiftcardTypesResponse(obj: T.GetGiftcardTypesResponse, elemName: string): string {
+export function serializeGetGiftcardTypesResponse(obj: T.Input<T.GetGiftcardTypesResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.giftcardTypesList !== undefined && obj.giftcardTypesList !== null) {
     xml += `<${NS_PREFIX}:giftcardTypesList>`;
@@ -19320,7 +19841,7 @@ export function serializeGetGiftcardTypesResponse(obj: T.GetGiftcardTypesRespons
   return xml;
 }
 
-export function serializeGetRelationGiftcardsResponse(obj: T.GetRelationGiftcardsResponse, elemName: string): string {
+export function serializeGetRelationGiftcardsResponse(obj: T.Input<T.GetRelationGiftcardsResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.relationGiftcardList !== undefined && obj.relationGiftcardList !== null) {
     xml += `<${NS_PREFIX}:relationGiftcardList>`;
@@ -19333,7 +19854,7 @@ export function serializeGetRelationGiftcardsResponse(obj: T.GetRelationGiftcard
   return xml;
 }
 
-export function serializeGetGiftcardResponse(obj: T.GetGiftcardResponse, elemName: string): string {
+export function serializeGetGiftcardResponse(obj: T.Input<T.GetGiftcardResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.giftcard !== undefined && obj.giftcard !== null) {
     xml += serializeGetGiftcard(obj.giftcard, 'giftcard');
@@ -19345,7 +19866,7 @@ export function serializeGetGiftcardResponse(obj: T.GetGiftcardResponse, elemNam
   return xml;
 }
 
-export function serializeGetGiftcardHistoryResponse(obj: T.GetGiftcardHistoryResponse, elemName: string): string {
+export function serializeGetGiftcardHistoryResponse(obj: T.Input<T.GetGiftcardHistoryResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.giftcardHistoryList !== undefined && obj.giftcardHistoryList !== null) {
     xml += `<${NS_PREFIX}:giftcardHistoryList>`;
@@ -19361,7 +19882,7 @@ export function serializeGetGiftcardHistoryResponse(obj: T.GetGiftcardHistoryRes
   return xml;
 }
 
-export function serializeGetGiftcardsResponse(obj: T.GetGiftcardsResponse, elemName: string): string {
+export function serializeGetGiftcardsResponse(obj: T.Input<T.GetGiftcardsResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.giftcardList !== undefined && obj.giftcardList !== null) {
     xml += `<${NS_PREFIX}:giftcardList>`;
@@ -19374,25 +19895,55 @@ export function serializeGetGiftcardsResponse(obj: T.GetGiftcardsResponse, elemN
   return xml;
 }
 
-export function serializeSaveGiftcardsResponse(obj: T.SaveGiftcardsResponse, elemName: string): string {
+export function serializeSaveGiftcardsResponse(obj: T.Input<T.SaveGiftcardsResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.idempotencyResult !== undefined && obj.idempotencyResult !== null) {
+    xml += serializeString('idempotencyResult', String(obj.idempotencyResult));
+  }
+  if (obj.result !== undefined && obj.result !== null) {
+    xml += serializeString('result', String(obj.result));
+  }
+  if (obj.errorMessage !== undefined && obj.errorMessage !== null) {
+    xml += serializeString('errorMessage', String(obj.errorMessage));
+  }
   xml += `</${NS_PREFIX}:${elemName}>`;
   return xml;
 }
 
-export function serializeRestituteGiftcardsResponse(obj: T.RestituteGiftcardsResponse, elemName: string): string {
+export function serializeRestituteGiftcardsResponse(obj: T.Input<T.RestituteGiftcardsResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.idempotencyResult !== undefined && obj.idempotencyResult !== null) {
+    xml += serializeString('idempotencyResult', String(obj.idempotencyResult));
+  }
+  if (obj.result !== undefined && obj.result !== null) {
+    xml += serializeString('result', String(obj.result));
+  }
+  if (obj.errorMessage !== undefined && obj.errorMessage !== null) {
+    xml += serializeString('errorMessage', String(obj.errorMessage));
+  }
+  if (obj.packingSlipId !== undefined && obj.packingSlipId !== null) {
+    xml += serializeString('packingSlipId', String(obj.packingSlipId));
+  }
   xml += `</${NS_PREFIX}:${elemName}>`;
   return xml;
 }
 
-export function serializeLinkGiftcardsToRelationResponse(obj: T.LinkGiftcardsToRelationResponse, elemName: string): string {
+export function serializeLinkGiftcardsToRelationResponse(obj: T.Input<T.LinkGiftcardsToRelationResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.idempotencyResult !== undefined && obj.idempotencyResult !== null) {
+    xml += serializeString('idempotencyResult', String(obj.idempotencyResult));
+  }
+  if (obj.result !== undefined && obj.result !== null) {
+    xml += serializeString('result', String(obj.result));
+  }
+  if (obj.errorMessage !== undefined && obj.errorMessage !== null) {
+    xml += serializeString('errorMessage', String(obj.errorMessage));
+  }
   xml += `</${NS_PREFIX}:${elemName}>`;
   return xml;
 }
 
-export function serializeGetVouchersResponse(obj: T.GetVouchersResponse, elemName: string): string {
+export function serializeGetVouchersResponse(obj: T.Input<T.GetVouchersResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.voucherViews !== undefined && obj.voucherViews !== null) {
     xml += `<${NS_PREFIX}:voucherViews>`;
@@ -19405,7 +19956,7 @@ export function serializeGetVouchersResponse(obj: T.GetVouchersResponse, elemNam
   return xml;
 }
 
-export function serializeGetVoucherResponse(obj: T.GetVoucherResponse, elemName: string): string {
+export function serializeGetVoucherResponse(obj: T.Input<T.GetVoucherResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.voucher !== undefined && obj.voucher !== null) {
     xml += serializeVoucher(obj.voucher, 'voucher');
@@ -19414,7 +19965,7 @@ export function serializeGetVoucherResponse(obj: T.GetVoucherResponse, elemName:
   return xml;
 }
 
-export function serializeGetVoucherCategoriesResponse(obj: T.GetVoucherCategoriesResponse, elemName: string): string {
+export function serializeGetVoucherCategoriesResponse(obj: T.Input<T.GetVoucherCategoriesResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.voucherCategories !== undefined && obj.voucherCategories !== null) {
     xml += `<${NS_PREFIX}:voucherCategories>`;
@@ -19427,7 +19978,7 @@ export function serializeGetVoucherCategoriesResponse(obj: T.GetVoucherCategorie
   return xml;
 }
 
-export function serializeGetVoucherIssuancesResponse(obj: T.GetVoucherIssuancesResponse, elemName: string): string {
+export function serializeGetVoucherIssuancesResponse(obj: T.Input<T.GetVoucherIssuancesResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.voucherIssuances !== undefined && obj.voucherIssuances !== null) {
     xml += `<${NS_PREFIX}:voucherIssuances>`;
@@ -19440,7 +19991,7 @@ export function serializeGetVoucherIssuancesResponse(obj: T.GetVoucherIssuancesR
   return xml;
 }
 
-export function serializeGetVoucherSettingsResponse(obj: T.GetVoucherSettingsResponse, elemName: string): string {
+export function serializeGetVoucherSettingsResponse(obj: T.Input<T.GetVoucherSettingsResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.voucherSettingsV1 !== undefined && obj.voucherSettingsV1 !== null) {
     xml += `<${NS_PREFIX}:voucherSettingsV1>`;
@@ -19453,19 +20004,38 @@ export function serializeGetVoucherSettingsResponse(obj: T.GetVoucherSettingsRes
   return xml;
 }
 
-export function serializeIssueVouchersResponse(obj: T.IssueVouchersResponse, elemName: string): string {
+export function serializeIssueVouchersResponse(obj: T.Input<T.IssueVouchersResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.idempotencyResult !== undefined && obj.idempotencyResult !== null) {
+    xml += serializeString('idempotencyResult', String(obj.idempotencyResult));
+  }
+  if (obj.result !== undefined && obj.result !== null) {
+    xml += serializeString('result', String(obj.result));
+  }
+  if (obj.voucherIssuances !== undefined && obj.voucherIssuances !== null) {
+    xml += `<${NS_PREFIX}:voucherIssuances>`;
+    for (const item of obj.voucherIssuances) {
+      xml += serializeVoucherIssuance(item, 'voucherIssuance');
+    }
+    xml += `</${NS_PREFIX}:voucherIssuances>`;
+  }
   xml += `</${NS_PREFIX}:${elemName}>`;
   return xml;
 }
 
-export function serializeIssueVoucherExternalScanCodesResponse(obj: T.IssueVoucherExternalScanCodesResponse, elemName: string): string {
+export function serializeIssueVoucherExternalScanCodesResponse(obj: T.Input<T.IssueVoucherExternalScanCodesResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.idempotencyResult !== undefined && obj.idempotencyResult !== null) {
+    xml += serializeString('idempotencyResult', String(obj.idempotencyResult));
+  }
+  if (obj.result !== undefined && obj.result !== null) {
+    xml += serializeString('result', String(obj.result));
+  }
   xml += `</${NS_PREFIX}:${elemName}>`;
   return xml;
 }
 
-export function serializeGetVoucherExternalScanCodesResponse(obj: T.GetVoucherExternalScanCodesResponse, elemName: string): string {
+export function serializeGetVoucherExternalScanCodesResponse(obj: T.Input<T.GetVoucherExternalScanCodesResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.scanCodes !== undefined && obj.scanCodes !== null) {
     xml += `<${NS_PREFIX}:scanCodes>`;
@@ -19478,7 +20048,7 @@ export function serializeGetVoucherExternalScanCodesResponse(obj: T.GetVoucherEx
   return xml;
 }
 
-export function serializeGetRedeemableVoucherIssuancesResponse(obj: T.GetRedeemableVoucherIssuancesResponse, elemName: string): string {
+export function serializeGetRedeemableVoucherIssuancesResponse(obj: T.Input<T.GetRedeemableVoucherIssuancesResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.redeemableVoucherIssuances !== undefined && obj.redeemableVoucherIssuances !== null) {
     xml += `<${NS_PREFIX}:redeemableVoucherIssuances>`;
@@ -19491,7 +20061,7 @@ export function serializeGetRedeemableVoucherIssuancesResponse(obj: T.GetRedeema
   return xml;
 }
 
-export function serializeRedeemVoucherIssuanceResponse(obj: T.RedeemVoucherIssuanceResponse, elemName: string): string {
+export function serializeRedeemVoucherIssuanceResponse(obj: T.Input<T.RedeemVoucherIssuanceResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.voucherIssuanceRedeems !== undefined && obj.voucherIssuanceRedeems !== null) {
     xml += `<${NS_PREFIX}:voucherIssuanceRedeems>`;
@@ -19513,7 +20083,7 @@ export function serializeRedeemVoucherIssuanceResponse(obj: T.RedeemVoucherIssua
   return xml;
 }
 
-export function serializeReportDateFilter(obj: T.ReportDateFilter, elemName: string): string {
+export function serializeReportDateFilter(obj: T.Input<T.ReportDateFilter>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.fromFinancialDate !== undefined && obj.fromFinancialDate !== null) {
     xml += serializeString('fromFinancialDate', obj.fromFinancialDate.toISOString().substring(0, 10));
@@ -19525,7 +20095,7 @@ export function serializeReportDateFilter(obj: T.ReportDateFilter, elemName: str
   return xml;
 }
 
-export function serializeReportBranchFilter(obj: T.ReportBranchFilter, elemName: string): string {
+export function serializeReportBranchFilter(obj: T.Input<T.ReportBranchFilter>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.branchNumbers !== undefined && obj.branchNumbers !== null) {
     for (const item of obj.branchNumbers) {
@@ -19536,7 +20106,7 @@ export function serializeReportBranchFilter(obj: T.ReportBranchFilter, elemName:
   return xml;
 }
 
-export function serializeReportWorkplaceFilter(obj: T.ReportWorkplaceFilter, elemName: string): string {
+export function serializeReportWorkplaceFilter(obj: T.Input<T.ReportWorkplaceFilter>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.workplaceNumbers !== undefined && obj.workplaceNumbers !== null) {
     for (const item of obj.workplaceNumbers) {
@@ -19547,7 +20117,7 @@ export function serializeReportWorkplaceFilter(obj: T.ReportWorkplaceFilter, ele
   return xml;
 }
 
-export function serializeReportEmployeeFilter(obj: T.ReportEmployeeFilter, elemName: string): string {
+export function serializeReportEmployeeFilter(obj: T.Input<T.ReportEmployeeFilter>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.employeeNumbers !== undefined && obj.employeeNumbers !== null) {
     for (const item of obj.employeeNumbers) {
@@ -19558,7 +20128,7 @@ export function serializeReportEmployeeFilter(obj: T.ReportEmployeeFilter, elemN
   return xml;
 }
 
-export function serializeReportTurnoverGroupFilter(obj: T.ReportTurnoverGroupFilter, elemName: string): string {
+export function serializeReportTurnoverGroupFilter(obj: T.Input<T.ReportTurnoverGroupFilter>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.turnoverGroups !== undefined && obj.turnoverGroups !== null) {
     for (const item of obj.turnoverGroups) {
@@ -19569,7 +20139,7 @@ export function serializeReportTurnoverGroupFilter(obj: T.ReportTurnoverGroupFil
   return xml;
 }
 
-export function serializeReportTurnoverGroupTypeFilter(obj: T.ReportTurnoverGroupTypeFilter, elemName: string): string {
+export function serializeReportTurnoverGroupTypeFilter(obj: T.Input<T.ReportTurnoverGroupTypeFilter>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.turnoverGroupTypes !== undefined && obj.turnoverGroupTypes !== null) {
     for (const item of obj.turnoverGroupTypes) {
@@ -19580,7 +20150,7 @@ export function serializeReportTurnoverGroupTypeFilter(obj: T.ReportTurnoverGrou
   return xml;
 }
 
-export function serializeReportArticleFilter(obj: T.ReportArticleFilter, elemName: string): string {
+export function serializeReportArticleFilter(obj: T.Input<T.ReportArticleFilter>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.articleNumbers !== undefined && obj.articleNumbers !== null) {
     for (const item of obj.articleNumbers) {
@@ -19591,7 +20161,7 @@ export function serializeReportArticleFilter(obj: T.ReportArticleFilter, elemNam
   return xml;
 }
 
-export function serializeReportActivityFilter(obj: T.ReportActivityFilter, elemName: string): string {
+export function serializeReportActivityFilter(obj: T.Input<T.ReportActivityFilter>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.activityNumbers !== undefined && obj.activityNumbers !== null) {
     for (const item of obj.activityNumbers) {
@@ -19602,7 +20172,7 @@ export function serializeReportActivityFilter(obj: T.ReportActivityFilter, elemN
   return xml;
 }
 
-export function serializeReportRelationFilter(obj: T.ReportRelationFilter, elemName: string): string {
+export function serializeReportRelationFilter(obj: T.Input<T.ReportRelationFilter>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.relationNumbers !== undefined && obj.relationNumbers !== null) {
     for (const item of obj.relationNumbers) {
@@ -19613,7 +20183,7 @@ export function serializeReportRelationFilter(obj: T.ReportRelationFilter, elemN
   return xml;
 }
 
-export function serializeReportTurnoverByBranchRequest(obj: T.ReportTurnoverByBranchRequest, elemName: string): string {
+export function serializeReportTurnoverByBranchRequest(obj: T.Input<T.ReportTurnoverByBranchRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.dateFilter !== undefined && obj.dateFilter !== null) {
     xml += serializeReportDateFilter(obj.dateFilter, 'dateFilter');
@@ -19646,7 +20216,7 @@ export function serializeReportTurnoverByBranchRequest(obj: T.ReportTurnoverByBr
   return xml;
 }
 
-export function serializeReportTurnoverByBranch(obj: T.ReportTurnoverByBranch, elemName: string): string {
+export function serializeReportTurnoverByBranch(obj: T.Input<T.ReportTurnoverByBranch>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.financialDate !== undefined && obj.financialDate !== null) {
     xml += serializeString('financialDate', obj.financialDate.toISOString().substring(0, 10));
@@ -19673,7 +20243,7 @@ export function serializeReportTurnoverByBranch(obj: T.ReportTurnoverByBranch, e
   return xml;
 }
 
-export function serializeReportTurnoverByBranchList(obj: T.ReportTurnoverByBranchList, elemName: string): string {
+export function serializeReportTurnoverByBranchList(obj: T.Input<T.ReportTurnoverByBranchList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.turnover !== undefined && obj.turnover !== null) {
     for (const item of obj.turnover) {
@@ -19684,7 +20254,7 @@ export function serializeReportTurnoverByBranchList(obj: T.ReportTurnoverByBranc
   return xml;
 }
 
-export function serializeReportTurnoverByEmployeeRequest(obj: T.ReportTurnoverByEmployeeRequest, elemName: string): string {
+export function serializeReportTurnoverByEmployeeRequest(obj: T.Input<T.ReportTurnoverByEmployeeRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.dateFilter !== undefined && obj.dateFilter !== null) {
     xml += serializeReportDateFilter(obj.dateFilter, 'dateFilter');
@@ -19724,7 +20294,7 @@ export function serializeReportTurnoverByEmployeeRequest(obj: T.ReportTurnoverBy
   return xml;
 }
 
-export function serializeReportTurnoverByEmployee(obj: T.ReportTurnoverByEmployee, elemName: string): string {
+export function serializeReportTurnoverByEmployee(obj: T.Input<T.ReportTurnoverByEmployee>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.financialDate !== undefined && obj.financialDate !== null) {
     xml += serializeString('financialDate', obj.financialDate.toISOString().substring(0, 10));
@@ -19751,7 +20321,7 @@ export function serializeReportTurnoverByEmployee(obj: T.ReportTurnoverByEmploye
   return xml;
 }
 
-export function serializeReportTurnoverByEmployeeList(obj: T.ReportTurnoverByEmployeeList, elemName: string): string {
+export function serializeReportTurnoverByEmployeeList(obj: T.Input<T.ReportTurnoverByEmployeeList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.turnover !== undefined && obj.turnover !== null) {
     for (const item of obj.turnover) {
@@ -19762,7 +20332,7 @@ export function serializeReportTurnoverByEmployeeList(obj: T.ReportTurnoverByEmp
   return xml;
 }
 
-export function serializeReportTurnoverByActivityRequest(obj: T.ReportTurnoverByActivityRequest, elemName: string): string {
+export function serializeReportTurnoverByActivityRequest(obj: T.Input<T.ReportTurnoverByActivityRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.dateFilter !== undefined && obj.dateFilter !== null) {
     xml += serializeReportDateFilter(obj.dateFilter, 'dateFilter');
@@ -19802,7 +20372,7 @@ export function serializeReportTurnoverByActivityRequest(obj: T.ReportTurnoverBy
   return xml;
 }
 
-export function serializeReportTurnoverByActivity(obj: T.ReportTurnoverByActivity, elemName: string): string {
+export function serializeReportTurnoverByActivity(obj: T.Input<T.ReportTurnoverByActivity>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.financialDate !== undefined && obj.financialDate !== null) {
     xml += serializeString('financialDate', obj.financialDate.toISOString().substring(0, 10));
@@ -19829,7 +20399,7 @@ export function serializeReportTurnoverByActivity(obj: T.ReportTurnoverByActivit
   return xml;
 }
 
-export function serializeReportTurnoverByActivityList(obj: T.ReportTurnoverByActivityList, elemName: string): string {
+export function serializeReportTurnoverByActivityList(obj: T.Input<T.ReportTurnoverByActivityList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.turnover !== undefined && obj.turnover !== null) {
     for (const item of obj.turnover) {
@@ -19840,7 +20410,7 @@ export function serializeReportTurnoverByActivityList(obj: T.ReportTurnoverByAct
   return xml;
 }
 
-export function serializeReportTurnoverByTurnoverGroupRequest(obj: T.ReportTurnoverByTurnoverGroupRequest, elemName: string): string {
+export function serializeReportTurnoverByTurnoverGroupRequest(obj: T.Input<T.ReportTurnoverByTurnoverGroupRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.dateFilter !== undefined && obj.dateFilter !== null) {
     xml += serializeReportDateFilter(obj.dateFilter, 'dateFilter');
@@ -19880,7 +20450,7 @@ export function serializeReportTurnoverByTurnoverGroupRequest(obj: T.ReportTurno
   return xml;
 }
 
-export function serializeReportTurnoverByTurnoverGroup(obj: T.ReportTurnoverByTurnoverGroup, elemName: string): string {
+export function serializeReportTurnoverByTurnoverGroup(obj: T.Input<T.ReportTurnoverByTurnoverGroup>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.financialDate !== undefined && obj.financialDate !== null) {
     xml += serializeString('financialDate', obj.financialDate.toISOString().substring(0, 10));
@@ -19907,7 +20477,7 @@ export function serializeReportTurnoverByTurnoverGroup(obj: T.ReportTurnoverByTu
   return xml;
 }
 
-export function serializeReportTurnoverByTurnoverGroupList(obj: T.ReportTurnoverByTurnoverGroupList, elemName: string): string {
+export function serializeReportTurnoverByTurnoverGroupList(obj: T.Input<T.ReportTurnoverByTurnoverGroupList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.turnover !== undefined && obj.turnover !== null) {
     for (const item of obj.turnover) {
@@ -19918,7 +20488,7 @@ export function serializeReportTurnoverByTurnoverGroupList(obj: T.ReportTurnover
   return xml;
 }
 
-export function serializeReportTurnoverByArticleRequest(obj: T.ReportTurnoverByArticleRequest, elemName: string): string {
+export function serializeReportTurnoverByArticleRequest(obj: T.Input<T.ReportTurnoverByArticleRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.dateFilter !== undefined && obj.dateFilter !== null) {
     xml += serializeReportDateFilter(obj.dateFilter, 'dateFilter');
@@ -19965,7 +20535,7 @@ export function serializeReportTurnoverByArticleRequest(obj: T.ReportTurnoverByA
   return xml;
 }
 
-export function serializeReportTurnoverByArticle(obj: T.ReportTurnoverByArticle, elemName: string): string {
+export function serializeReportTurnoverByArticle(obj: T.Input<T.ReportTurnoverByArticle>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.financialDate !== undefined && obj.financialDate !== null) {
     xml += serializeString('financialDate', obj.financialDate.toISOString().substring(0, 10));
@@ -20004,7 +20574,7 @@ export function serializeReportTurnoverByArticle(obj: T.ReportTurnoverByArticle,
   return xml;
 }
 
-export function serializeReportTurnoverByArticleList(obj: T.ReportTurnoverByArticleList, elemName: string): string {
+export function serializeReportTurnoverByArticleList(obj: T.Input<T.ReportTurnoverByArticleList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.turnover !== undefined && obj.turnover !== null) {
     for (const item of obj.turnover) {
@@ -20015,7 +20585,7 @@ export function serializeReportTurnoverByArticleList(obj: T.ReportTurnoverByArti
   return xml;
 }
 
-export function serializeReportHoursByEmployeeRequest(obj: T.ReportHoursByEmployeeRequest, elemName: string): string {
+export function serializeReportHoursByEmployeeRequest(obj: T.Input<T.ReportHoursByEmployeeRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.dateFilter !== undefined && obj.dateFilter !== null) {
     xml += serializeReportDateFilter(obj.dateFilter, 'dateFilter');
@@ -20038,7 +20608,7 @@ export function serializeReportHoursByEmployeeRequest(obj: T.ReportHoursByEmploy
   return xml;
 }
 
-export function serializeReportHoursByEmployee(obj: T.ReportHoursByEmployee, elemName: string): string {
+export function serializeReportHoursByEmployee(obj: T.Input<T.ReportHoursByEmployee>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.financialDate !== undefined && obj.financialDate !== null) {
     xml += serializeString('financialDate', obj.financialDate.toISOString().substring(0, 10));
@@ -20069,7 +20639,7 @@ export function serializeReportHoursByEmployee(obj: T.ReportHoursByEmployee, ele
   return xml;
 }
 
-export function serializeReportHoursByEmployeeList(obj: T.ReportHoursByEmployeeList, elemName: string): string {
+export function serializeReportHoursByEmployeeList(obj: T.Input<T.ReportHoursByEmployeeList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.hours !== undefined && obj.hours !== null) {
     for (const item of obj.hours) {
@@ -20080,7 +20650,7 @@ export function serializeReportHoursByEmployeeList(obj: T.ReportHoursByEmployeeL
   return xml;
 }
 
-export function serializeReportPaymentMethodsRequest(obj: T.ReportPaymentMethodsRequest, elemName: string): string {
+export function serializeReportPaymentMethodsRequest(obj: T.Input<T.ReportPaymentMethodsRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.dateFilter !== undefined && obj.dateFilter !== null) {
     xml += serializeReportDateFilter(obj.dateFilter, 'dateFilter');
@@ -20119,7 +20689,7 @@ export function serializeReportPaymentMethodsRequest(obj: T.ReportPaymentMethods
   return xml;
 }
 
-export function serializeReportPaymentMethods(obj: T.ReportPaymentMethods, elemName: string): string {
+export function serializeReportPaymentMethods(obj: T.Input<T.ReportPaymentMethods>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.financialDate !== undefined && obj.financialDate !== null) {
     xml += serializeString('financialDate', obj.financialDate.toISOString().substring(0, 10));
@@ -20143,7 +20713,7 @@ export function serializeReportPaymentMethods(obj: T.ReportPaymentMethods, elemN
   return xml;
 }
 
-export function serializeReportPaymentMethodsList(obj: T.ReportPaymentMethodsList, elemName: string): string {
+export function serializeReportPaymentMethodsList(obj: T.Input<T.ReportPaymentMethodsList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.paymentMethods !== undefined && obj.paymentMethods !== null) {
     for (const item of obj.paymentMethods) {
@@ -20154,7 +20724,7 @@ export function serializeReportPaymentMethodsList(obj: T.ReportPaymentMethodsLis
   return xml;
 }
 
-export function serializeReportTablesRequest(obj: T.ReportTablesRequest, elemName: string): string {
+export function serializeReportTablesRequest(obj: T.Input<T.ReportTablesRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.branchFilter !== undefined && obj.branchFilter !== null) {
     xml += `<${NS_PREFIX}:branchFilter>`;
@@ -20181,7 +20751,7 @@ export function serializeReportTablesRequest(obj: T.ReportTablesRequest, elemNam
   return xml;
 }
 
-export function serializeReportTables(obj: T.ReportTables, elemName: string): string {
+export function serializeReportTables(obj: T.Input<T.ReportTables>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.branchNumber !== undefined && obj.branchNumber !== null) {
     xml += serializeNumber('branchNumber', obj.branchNumber);
@@ -20211,7 +20781,7 @@ export function serializeReportTables(obj: T.ReportTables, elemName: string): st
   return xml;
 }
 
-export function serializeReportTablesList(obj: T.ReportTablesList, elemName: string): string {
+export function serializeReportTablesList(obj: T.Input<T.ReportTablesList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.tables !== undefined && obj.tables !== null) {
     for (const item of obj.tables) {
@@ -20222,7 +20792,7 @@ export function serializeReportTablesList(obj: T.ReportTablesList, elemName: str
   return xml;
 }
 
-export function serializeReportCancellationsRequest(obj: T.ReportCancellationsRequest, elemName: string): string {
+export function serializeReportCancellationsRequest(obj: T.Input<T.ReportCancellationsRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.dateFilter !== undefined && obj.dateFilter !== null) {
     xml += serializeReportDateFilter(obj.dateFilter, 'dateFilter');
@@ -20259,7 +20829,7 @@ export function serializeReportCancellationsRequest(obj: T.ReportCancellationsRe
   return xml;
 }
 
-export function serializeReportCancellations(obj: T.ReportCancellations, elemName: string): string {
+export function serializeReportCancellations(obj: T.Input<T.ReportCancellations>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.financialDate !== undefined && obj.financialDate !== null) {
     xml += serializeString('financialDate', obj.financialDate.toISOString().substring(0, 10));
@@ -20292,7 +20862,7 @@ export function serializeReportCancellations(obj: T.ReportCancellations, elemNam
   return xml;
 }
 
-export function serializeReportCancellationsList(obj: T.ReportCancellationsList, elemName: string): string {
+export function serializeReportCancellationsList(obj: T.Input<T.ReportCancellationsList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.cancellations !== undefined && obj.cancellations !== null) {
     for (const item of obj.cancellations) {
@@ -20303,7 +20873,7 @@ export function serializeReportCancellationsList(obj: T.ReportCancellationsList,
   return xml;
 }
 
-export function serializeReportBPERequest(obj: T.ReportBPERequest, elemName: string): string {
+export function serializeReportBPERequest(obj: T.Input<T.ReportBPERequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.dateFilter !== undefined && obj.dateFilter !== null) {
     xml += serializeReportDateFilter(obj.dateFilter, 'dateFilter');
@@ -20350,7 +20920,7 @@ export function serializeReportBPERequest(obj: T.ReportBPERequest, elemName: str
   return xml;
 }
 
-export function serializeReportBPE(obj: T.ReportBPE, elemName: string): string {
+export function serializeReportBPE(obj: T.Input<T.ReportBPE>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.financialDate !== undefined && obj.financialDate !== null) {
     xml += serializeString('financialDate', obj.financialDate.toISOString().substring(0, 10));
@@ -20407,7 +20977,7 @@ export function serializeReportBPE(obj: T.ReportBPE, elemName: string): string {
   return xml;
 }
 
-export function serializeReportBPEList(obj: T.ReportBPEList, elemName: string): string {
+export function serializeReportBPEList(obj: T.Input<T.ReportBPEList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.bpes !== undefined && obj.bpes !== null) {
     for (const item of obj.bpes) {
@@ -20418,7 +20988,7 @@ export function serializeReportBPEList(obj: T.ReportBPEList, elemName: string): 
   return xml;
 }
 
-export function serializeReportBranchPerformanceRequest(obj: T.ReportBranchPerformanceRequest, elemName: string): string {
+export function serializeReportBranchPerformanceRequest(obj: T.Input<T.ReportBranchPerformanceRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.dateFilter !== undefined && obj.dateFilter !== null) {
     xml += serializeReportDateFilter(obj.dateFilter, 'dateFilter');
@@ -20448,7 +21018,7 @@ export function serializeReportBranchPerformanceRequest(obj: T.ReportBranchPerfo
   return xml;
 }
 
-export function serializeReportBranchPerformance(obj: T.ReportBranchPerformance, elemName: string): string {
+export function serializeReportBranchPerformance(obj: T.Input<T.ReportBranchPerformance>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.branchNumber !== undefined && obj.branchNumber !== null) {
     xml += serializeNumber('branchNumber', obj.branchNumber);
@@ -20472,7 +21042,7 @@ export function serializeReportBranchPerformance(obj: T.ReportBranchPerformance,
   return xml;
 }
 
-export function serializeReportBranchPerformanceList(obj: T.ReportBranchPerformanceList, elemName: string): string {
+export function serializeReportBranchPerformanceList(obj: T.Input<T.ReportBranchPerformanceList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.branchPerformance !== undefined && obj.branchPerformance !== null) {
     for (const item of obj.branchPerformance) {
@@ -20483,7 +21053,7 @@ export function serializeReportBranchPerformanceList(obj: T.ReportBranchPerforma
   return xml;
 }
 
-export function serializeReportAverageSpendingRequest(obj: T.ReportAverageSpendingRequest, elemName: string): string {
+export function serializeReportAverageSpendingRequest(obj: T.Input<T.ReportAverageSpendingRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.dateFilter !== undefined && obj.dateFilter !== null) {
     xml += serializeReportDateFilter(obj.dateFilter, 'dateFilter');
@@ -20523,7 +21093,7 @@ export function serializeReportAverageSpendingRequest(obj: T.ReportAverageSpendi
   return xml;
 }
 
-export function serializeReportAverageSpending(obj: T.ReportAverageSpending, elemName: string): string {
+export function serializeReportAverageSpending(obj: T.Input<T.ReportAverageSpending>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.totalInclAmount !== undefined && obj.totalInclAmount !== null) {
     xml += serializeNumber('totalInclAmount', obj.totalInclAmount);
@@ -20553,7 +21123,7 @@ export function serializeReportAverageSpending(obj: T.ReportAverageSpending, ele
   return xml;
 }
 
-export function serializeReportAverageSpendingList(obj: T.ReportAverageSpendingList, elemName: string): string {
+export function serializeReportAverageSpendingList(obj: T.Input<T.ReportAverageSpendingList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.averageSpending !== undefined && obj.averageSpending !== null) {
     for (const item of obj.averageSpending) {
@@ -20564,7 +21134,7 @@ export function serializeReportAverageSpendingList(obj: T.ReportAverageSpendingL
   return xml;
 }
 
-export function serializeReportTurnoverRequest(obj: T.ReportTurnoverRequest, elemName: string): string {
+export function serializeReportTurnoverRequest(obj: T.Input<T.ReportTurnoverRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.dateFilter !== undefined && obj.dateFilter !== null) {
     xml += serializeReportDateFilter(obj.dateFilter, 'dateFilter');
@@ -20611,7 +21181,7 @@ export function serializeReportTurnoverRequest(obj: T.ReportTurnoverRequest, ele
   return xml;
 }
 
-export function serializeReportTurnover(obj: T.ReportTurnover, elemName: string): string {
+export function serializeReportTurnover(obj: T.Input<T.ReportTurnover>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.financialDate !== undefined && obj.financialDate !== null) {
     xml += serializeString('financialDate', obj.financialDate.toISOString().substring(0, 10));
@@ -20647,7 +21217,7 @@ export function serializeReportTurnover(obj: T.ReportTurnover, elemName: string)
   return xml;
 }
 
-export function serializeReportTurnoverList(obj: T.ReportTurnoverList, elemName: string): string {
+export function serializeReportTurnoverList(obj: T.Input<T.ReportTurnoverList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.turnover !== undefined && obj.turnover !== null) {
     for (const item of obj.turnover) {
@@ -20658,7 +21228,7 @@ export function serializeReportTurnoverList(obj: T.ReportTurnoverList, elemName:
   return xml;
 }
 
-export function serializeReportPaymentMethodDetailsRequest(obj: T.ReportPaymentMethodDetailsRequest, elemName: string): string {
+export function serializeReportPaymentMethodDetailsRequest(obj: T.Input<T.ReportPaymentMethodDetailsRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.dateFilter !== undefined && obj.dateFilter !== null) {
     xml += serializeReportDateFilter(obj.dateFilter, 'dateFilter');
@@ -20677,7 +21247,7 @@ export function serializeReportPaymentMethodDetailsRequest(obj: T.ReportPaymentM
   return xml;
 }
 
-export function serializeReportPaymentSourceDetails(obj: T.ReportPaymentSourceDetails, elemName: string): string {
+export function serializeReportPaymentSourceDetails(obj: T.Input<T.ReportPaymentSourceDetails>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.id !== undefined && obj.id !== null) {
     xml += serializeString('id', String(obj.id));
@@ -20701,7 +21271,7 @@ export function serializeReportPaymentSourceDetails(obj: T.ReportPaymentSourceDe
   return xml;
 }
 
-export function serializeReportPaymentSource(obj: T.ReportPaymentSource, elemName: string): string {
+export function serializeReportPaymentSource(obj: T.Input<T.ReportPaymentSource>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.payment !== undefined && obj.payment !== null) {
     xml += serializePayment(obj.payment, 'payment');
@@ -20713,7 +21283,7 @@ export function serializeReportPaymentSource(obj: T.ReportPaymentSource, elemNam
   return xml;
 }
 
-export function serializeReportPrintableFinancialTotalsRequest(obj: T.ReportPrintableFinancialTotalsRequest, elemName: string): string {
+export function serializeReportPrintableFinancialTotalsRequest(obj: T.Input<T.ReportPrintableFinancialTotalsRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.dateFilter !== undefined && obj.dateFilter !== null) {
     xml += serializeReportDateFilter(obj.dateFilter, 'dateFilter');
@@ -20769,7 +21339,7 @@ export function serializeReportPrintableFinancialTotalsRequest(obj: T.ReportPrin
   return xml;
 }
 
-export function serializeReportPrintableFinancialTotalsLine(obj: T.ReportPrintableFinancialTotalsLine, elemName: string): string {
+export function serializeReportPrintableFinancialTotalsLine(obj: T.Input<T.ReportPrintableFinancialTotalsLine>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.isHeader !== undefined && obj.isHeader !== null) {
     xml += serializeBoolean('isHeader', obj.isHeader);
@@ -20802,7 +21372,7 @@ export function serializeReportPrintableFinancialTotalsLine(obj: T.ReportPrintab
   return xml;
 }
 
-export function serializeReportPrintableFinancialTotalsList(obj: T.ReportPrintableFinancialTotalsList, elemName: string): string {
+export function serializeReportPrintableFinancialTotalsList(obj: T.Input<T.ReportPrintableFinancialTotalsList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.printableFinancialTotals !== undefined && obj.printableFinancialTotals !== null) {
     for (const item of obj.printableFinancialTotals) {
@@ -20813,7 +21383,7 @@ export function serializeReportPrintableFinancialTotalsList(obj: T.ReportPrintab
   return xml;
 }
 
-export function serializeReportArticlePerformanceRequest(obj: T.ReportArticlePerformanceRequest, elemName: string): string {
+export function serializeReportArticlePerformanceRequest(obj: T.Input<T.ReportArticlePerformanceRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.dateFilter !== undefined && obj.dateFilter !== null) {
     xml += serializeReportDateFilter(obj.dateFilter, 'dateFilter');
@@ -20888,7 +21458,7 @@ export function serializeReportArticlePerformanceRequest(obj: T.ReportArticlePer
   return xml;
 }
 
-export function serializeReportArticlePerformanceBranch(obj: T.ReportArticlePerformanceBranch, elemName: string): string {
+export function serializeReportArticlePerformanceBranch(obj: T.Input<T.ReportArticlePerformanceBranch>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.branchNumber !== undefined && obj.branchNumber !== null) {
     xml += serializeNumber('branchNumber', obj.branchNumber);
@@ -20912,7 +21482,7 @@ export function serializeReportArticlePerformanceBranch(obj: T.ReportArticlePerf
   return xml;
 }
 
-export function serializeReportArticlePerformanceBranchList(obj: T.ReportArticlePerformanceBranchList, elemName: string): string {
+export function serializeReportArticlePerformanceBranchList(obj: T.Input<T.ReportArticlePerformanceBranchList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.branch !== undefined && obj.branch !== null) {
     for (const item of obj.branch) {
@@ -20923,7 +21493,7 @@ export function serializeReportArticlePerformanceBranchList(obj: T.ReportArticle
   return xml;
 }
 
-export function serializeReportArticlePerformance(obj: T.ReportArticlePerformance, elemName: string): string {
+export function serializeReportArticlePerformance(obj: T.Input<T.ReportArticlePerformance>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.articleNumber !== undefined && obj.articleNumber !== null) {
     xml += serializeNumber('articleNumber', obj.articleNumber);
@@ -20984,7 +21554,7 @@ export function serializeReportArticlePerformance(obj: T.ReportArticlePerformanc
   return xml;
 }
 
-export function serializeReportArticlePerformanceList(obj: T.ReportArticlePerformanceList, elemName: string): string {
+export function serializeReportArticlePerformanceList(obj: T.Input<T.ReportArticlePerformanceList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.articlePerformance !== undefined && obj.articlePerformance !== null) {
     for (const item of obj.articlePerformance) {
@@ -20995,7 +21565,7 @@ export function serializeReportArticlePerformanceList(obj: T.ReportArticlePerfor
   return xml;
 }
 
-export function serializeReportTurnoverByBranchResponse(obj: T.ReportTurnoverByBranchResponse, elemName: string): string {
+export function serializeReportTurnoverByBranchResponse(obj: T.Input<T.ReportTurnoverByBranchResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.turnoverList !== undefined && obj.turnoverList !== null) {
     xml += `<${NS_PREFIX}:turnoverList>`;
@@ -21008,7 +21578,7 @@ export function serializeReportTurnoverByBranchResponse(obj: T.ReportTurnoverByB
   return xml;
 }
 
-export function serializeReportTurnoverByEmployeeResponse(obj: T.ReportTurnoverByEmployeeResponse, elemName: string): string {
+export function serializeReportTurnoverByEmployeeResponse(obj: T.Input<T.ReportTurnoverByEmployeeResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.turnoverList !== undefined && obj.turnoverList !== null) {
     xml += `<${NS_PREFIX}:turnoverList>`;
@@ -21021,7 +21591,7 @@ export function serializeReportTurnoverByEmployeeResponse(obj: T.ReportTurnoverB
   return xml;
 }
 
-export function serializeReportTurnoverByActivityResponse(obj: T.ReportTurnoverByActivityResponse, elemName: string): string {
+export function serializeReportTurnoverByActivityResponse(obj: T.Input<T.ReportTurnoverByActivityResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.turnoverList !== undefined && obj.turnoverList !== null) {
     xml += `<${NS_PREFIX}:turnoverList>`;
@@ -21034,7 +21604,7 @@ export function serializeReportTurnoverByActivityResponse(obj: T.ReportTurnoverB
   return xml;
 }
 
-export function serializeReportTurnoverByTurnoverGroupResponse(obj: T.ReportTurnoverByTurnoverGroupResponse, elemName: string): string {
+export function serializeReportTurnoverByTurnoverGroupResponse(obj: T.Input<T.ReportTurnoverByTurnoverGroupResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.turnoverList !== undefined && obj.turnoverList !== null) {
     xml += `<${NS_PREFIX}:turnoverList>`;
@@ -21047,7 +21617,7 @@ export function serializeReportTurnoverByTurnoverGroupResponse(obj: T.ReportTurn
   return xml;
 }
 
-export function serializeReportTurnoverByArticleResponse(obj: T.ReportTurnoverByArticleResponse, elemName: string): string {
+export function serializeReportTurnoverByArticleResponse(obj: T.Input<T.ReportTurnoverByArticleResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.turnoverList !== undefined && obj.turnoverList !== null) {
     xml += `<${NS_PREFIX}:turnoverList>`;
@@ -21060,7 +21630,7 @@ export function serializeReportTurnoverByArticleResponse(obj: T.ReportTurnoverBy
   return xml;
 }
 
-export function serializeReportHoursByEmployeeResponse(obj: T.ReportHoursByEmployeeResponse, elemName: string): string {
+export function serializeReportHoursByEmployeeResponse(obj: T.Input<T.ReportHoursByEmployeeResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.hoursList !== undefined && obj.hoursList !== null) {
     xml += `<${NS_PREFIX}:hoursList>`;
@@ -21073,7 +21643,7 @@ export function serializeReportHoursByEmployeeResponse(obj: T.ReportHoursByEmplo
   return xml;
 }
 
-export function serializeReportPaymentMethodsResponse(obj: T.ReportPaymentMethodsResponse, elemName: string): string {
+export function serializeReportPaymentMethodsResponse(obj: T.Input<T.ReportPaymentMethodsResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.paymentMethodsList !== undefined && obj.paymentMethodsList !== null) {
     xml += `<${NS_PREFIX}:paymentMethodsList>`;
@@ -21086,7 +21656,7 @@ export function serializeReportPaymentMethodsResponse(obj: T.ReportPaymentMethod
   return xml;
 }
 
-export function serializeReportTablesResponse(obj: T.ReportTablesResponse, elemName: string): string {
+export function serializeReportTablesResponse(obj: T.Input<T.ReportTablesResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.tablesList !== undefined && obj.tablesList !== null) {
     xml += `<${NS_PREFIX}:tablesList>`;
@@ -21099,7 +21669,7 @@ export function serializeReportTablesResponse(obj: T.ReportTablesResponse, elemN
   return xml;
 }
 
-export function serializeReportCancellationsResponse(obj: T.ReportCancellationsResponse, elemName: string): string {
+export function serializeReportCancellationsResponse(obj: T.Input<T.ReportCancellationsResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.cancellationsList !== undefined && obj.cancellationsList !== null) {
     xml += `<${NS_PREFIX}:cancellationsList>`;
@@ -21112,7 +21682,7 @@ export function serializeReportCancellationsResponse(obj: T.ReportCancellationsR
   return xml;
 }
 
-export function serializeReportBPEResponse(obj: T.ReportBPEResponse, elemName: string): string {
+export function serializeReportBPEResponse(obj: T.Input<T.ReportBPEResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.bpeList !== undefined && obj.bpeList !== null) {
     xml += `<${NS_PREFIX}:bpeList>`;
@@ -21125,7 +21695,7 @@ export function serializeReportBPEResponse(obj: T.ReportBPEResponse, elemName: s
   return xml;
 }
 
-export function serializeReportBranchPerformanceResponse(obj: T.ReportBranchPerformanceResponse, elemName: string): string {
+export function serializeReportBranchPerformanceResponse(obj: T.Input<T.ReportBranchPerformanceResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.branchPerformanceList !== undefined && obj.branchPerformanceList !== null) {
     xml += `<${NS_PREFIX}:branchPerformanceList>`;
@@ -21138,7 +21708,7 @@ export function serializeReportBranchPerformanceResponse(obj: T.ReportBranchPerf
   return xml;
 }
 
-export function serializeReportAverageSpendingResponse(obj: T.ReportAverageSpendingResponse, elemName: string): string {
+export function serializeReportAverageSpendingResponse(obj: T.Input<T.ReportAverageSpendingResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.averageSpendingList !== undefined && obj.averageSpendingList !== null) {
     xml += `<${NS_PREFIX}:averageSpendingList>`;
@@ -21151,7 +21721,7 @@ export function serializeReportAverageSpendingResponse(obj: T.ReportAverageSpend
   return xml;
 }
 
-export function serializeReportTurnoverResponse(obj: T.ReportTurnoverResponse, elemName: string): string {
+export function serializeReportTurnoverResponse(obj: T.Input<T.ReportTurnoverResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.turnoverList !== undefined && obj.turnoverList !== null) {
     xml += `<${NS_PREFIX}:turnoverList>`;
@@ -21164,7 +21734,7 @@ export function serializeReportTurnoverResponse(obj: T.ReportTurnoverResponse, e
   return xml;
 }
 
-export function serializeReportPaymentMethodDetailsResponse(obj: T.ReportPaymentMethodDetailsResponse, elemName: string): string {
+export function serializeReportPaymentMethodDetailsResponse(obj: T.Input<T.ReportPaymentMethodDetailsResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.paymentSourceList !== undefined && obj.paymentSourceList !== null) {
     for (const item of obj.paymentSourceList) {
@@ -21175,7 +21745,7 @@ export function serializeReportPaymentMethodDetailsResponse(obj: T.ReportPayment
   return xml;
 }
 
-export function serializeReportPrintableFinancialTotalsResponse(obj: T.ReportPrintableFinancialTotalsResponse, elemName: string): string {
+export function serializeReportPrintableFinancialTotalsResponse(obj: T.Input<T.ReportPrintableFinancialTotalsResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.printableFinancialTotalsList !== undefined && obj.printableFinancialTotalsList !== null) {
     xml += `<${NS_PREFIX}:printableFinancialTotalsList>`;
@@ -21188,7 +21758,7 @@ export function serializeReportPrintableFinancialTotalsResponse(obj: T.ReportPri
   return xml;
 }
 
-export function serializeReportArticlePerformanceResponse(obj: T.ReportArticlePerformanceResponse, elemName: string): string {
+export function serializeReportArticlePerformanceResponse(obj: T.Input<T.ReportArticlePerformanceResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.articlePerformanceList !== undefined && obj.articlePerformanceList !== null) {
     xml += `<${NS_PREFIX}:articlePerformanceList>`;
@@ -21201,7 +21771,7 @@ export function serializeReportArticlePerformanceResponse(obj: T.ReportArticlePe
   return xml;
 }
 
-export function serializeGetSalesRepeatTemplatesRequest(obj: T.GetSalesRepeatTemplatesRequest, elemName: string): string {
+export function serializeGetSalesRepeatTemplatesRequest(obj: T.Input<T.GetSalesRepeatTemplatesRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.dateFilter !== undefined && obj.dateFilter !== null) {
     xml += serializeRequestDateFilter(obj.dateFilter, 'dateFilter');
@@ -21259,7 +21829,7 @@ export function serializeGetSalesRepeatTemplatesRequest(obj: T.GetSalesRepeatTem
   return xml;
 }
 
-export function serializeSalesRepeatTemplateLine(obj: T.SalesRepeatTemplateLine, elemName: string): string {
+export function serializeSalesRepeatTemplateLine(obj: T.Input<T.SalesRepeatTemplateLine>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.salesRepeatTemplateLineId !== undefined && obj.salesRepeatTemplateLineId !== null) {
     xml += serializeString('salesRepeatTemplateLineId', String(obj.salesRepeatTemplateLineId));
@@ -21333,7 +21903,7 @@ export function serializeSalesRepeatTemplateLine(obj: T.SalesRepeatTemplateLine,
   return xml;
 }
 
-export function serializeSalesRepeatTemplateLineList(obj: T.SalesRepeatTemplateLineList, elemName: string): string {
+export function serializeSalesRepeatTemplateLineList(obj: T.Input<T.SalesRepeatTemplateLineList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.line !== undefined && obj.line !== null) {
     for (const item of obj.line) {
@@ -21344,7 +21914,7 @@ export function serializeSalesRepeatTemplateLineList(obj: T.SalesRepeatTemplateL
   return xml;
 }
 
-export function serializeSalesRepeatTemplateWeeklySchedule(obj: T.SalesRepeatTemplateWeeklySchedule, elemName: string): string {
+export function serializeSalesRepeatTemplateWeeklySchedule(obj: T.Input<T.SalesRepeatTemplateWeeklySchedule>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.whichWeeks !== undefined && obj.whichWeeks !== null) {
     xml += serializeString('whichWeeks', String(obj.whichWeeks));
@@ -21389,7 +21959,7 @@ export function serializeSalesRepeatTemplateWeeklySchedule(obj: T.SalesRepeatTem
   return xml;
 }
 
-export function serializeSalesRepeatTemplateSchedule(obj: T.SalesRepeatTemplateSchedule, elemName: string): string {
+export function serializeSalesRepeatTemplateSchedule(obj: T.Input<T.SalesRepeatTemplateSchedule>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.specificDates !== undefined && obj.specificDates !== null) {
     for (const item of obj.specificDates) {
@@ -21412,7 +21982,7 @@ export function serializeSalesRepeatTemplateSchedule(obj: T.SalesRepeatTemplateS
   return xml;
 }
 
-export function serializeSalesRepeatTemplate(obj: T.SalesRepeatTemplate, elemName: string): string {
+export function serializeSalesRepeatTemplate(obj: T.Input<T.SalesRepeatTemplate>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.salesRepeatTemplateId !== undefined && obj.salesRepeatTemplateId !== null) {
     xml += serializeString('salesRepeatTemplateId', String(obj.salesRepeatTemplateId));
@@ -21505,7 +22075,7 @@ export function serializeSalesRepeatTemplate(obj: T.SalesRepeatTemplate, elemNam
   return xml;
 }
 
-export function serializeSalesRepeatTemplateList(obj: T.SalesRepeatTemplateList, elemName: string): string {
+export function serializeSalesRepeatTemplateList(obj: T.Input<T.SalesRepeatTemplateList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.salesRepeatTemplate !== undefined && obj.salesRepeatTemplate !== null) {
     for (const item of obj.salesRepeatTemplate) {
@@ -21516,7 +22086,7 @@ export function serializeSalesRepeatTemplateList(obj: T.SalesRepeatTemplateList,
   return xml;
 }
 
-export function serializeSaveSalesRepeatTemplateLine(obj: T.SaveSalesRepeatTemplateLine, elemName: string): string {
+export function serializeSaveSalesRepeatTemplateLine(obj: T.Input<T.SaveSalesRepeatTemplateLine>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.text !== undefined && obj.text !== null) {
     xml += serializeString('text', String(obj.text));
@@ -21578,7 +22148,7 @@ export function serializeSaveSalesRepeatTemplateLine(obj: T.SaveSalesRepeatTempl
   return xml;
 }
 
-export function serializeSaveSalesRepeatTemplateLineList(obj: T.SaveSalesRepeatTemplateLineList, elemName: string): string {
+export function serializeSaveSalesRepeatTemplateLineList(obj: T.Input<T.SaveSalesRepeatTemplateLineList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.line !== undefined && obj.line !== null) {
     for (const item of obj.line) {
@@ -21589,7 +22159,7 @@ export function serializeSaveSalesRepeatTemplateLineList(obj: T.SaveSalesRepeatT
   return xml;
 }
 
-export function serializeSaveSalesRepeatTemplate(obj: T.SaveSalesRepeatTemplate, elemName: string): string {
+export function serializeSaveSalesRepeatTemplate(obj: T.Input<T.SaveSalesRepeatTemplate>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.salesRepeatTemplateId !== undefined && obj.salesRepeatTemplateId !== null) {
     xml += serializeString('salesRepeatTemplateId', String(obj.salesRepeatTemplateId));
@@ -21641,13 +22211,22 @@ export function serializeSaveSalesRepeatTemplate(obj: T.SaveSalesRepeatTemplate,
   return xml;
 }
 
-export function serializeSaveSalesRepeatTemplateRequest(obj: T.SaveSalesRepeatTemplateRequest, elemName: string): string {
+export function serializeSaveSalesRepeatTemplateRequest(obj: T.Input<T.SaveSalesRepeatTemplateRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.idempotencyKey !== undefined && obj.idempotencyKey !== null) {
+    xml += serializeString('idempotencyKey', String(obj.idempotencyKey));
+  }
+  if (obj.workplaceIdentifier !== undefined && obj.workplaceIdentifier !== null) {
+    xml += serializeWorkplaceIdentifier(obj.workplaceIdentifier, 'workplaceIdentifier');
+  }
+  if (obj.salesRepeatTemplate !== undefined && obj.salesRepeatTemplate !== null) {
+    xml += serializeSaveSalesRepeatTemplate(obj.salesRepeatTemplate, 'salesRepeatTemplate');
+  }
   xml += `</${NS_PREFIX}:${elemName}>`;
   return xml;
 }
 
-export function serializeBpeBudgetCheck(obj: T.BpeBudgetCheck, elemName: string): string {
+export function serializeBpeBudgetCheck(obj: T.Input<T.BpeBudgetCheck>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.bpeId !== undefined && obj.bpeId !== null) {
     xml += serializeString('bpeId', String(obj.bpeId));
@@ -21659,7 +22238,7 @@ export function serializeBpeBudgetCheck(obj: T.BpeBudgetCheck, elemName: string)
   return xml;
 }
 
-export function serializeBpeBudgetCheckList(obj: T.BpeBudgetCheckList, elemName: string): string {
+export function serializeBpeBudgetCheckList(obj: T.Input<T.BpeBudgetCheckList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.item !== undefined && obj.item !== null) {
     for (const item of obj.item) {
@@ -21670,7 +22249,7 @@ export function serializeBpeBudgetCheckList(obj: T.BpeBudgetCheckList, elemName:
   return xml;
 }
 
-export function serializePerformBpeBudgetChecksRequest(obj: T.PerformBpeBudgetChecksRequest, elemName: string): string {
+export function serializePerformBpeBudgetChecksRequest(obj: T.Input<T.PerformBpeBudgetChecksRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.employeeNumber !== undefined && obj.employeeNumber !== null) {
     xml += serializeNumber('employeeNumber', obj.employeeNumber);
@@ -21689,7 +22268,7 @@ export function serializePerformBpeBudgetChecksRequest(obj: T.PerformBpeBudgetCh
   return xml;
 }
 
-export function serializeBpeBudgetCheckResponse(obj: T.BpeBudgetCheckResponse, elemName: string): string {
+export function serializeBpeBudgetCheckResponse(obj: T.Input<T.BpeBudgetCheckResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.bpeId !== undefined && obj.bpeId !== null) {
     xml += serializeString('bpeId', String(obj.bpeId));
@@ -21707,7 +22286,7 @@ export function serializeBpeBudgetCheckResponse(obj: T.BpeBudgetCheckResponse, e
   return xml;
 }
 
-export function serializeBpeBudgetCheckResponseList(obj: T.BpeBudgetCheckResponseList, elemName: string): string {
+export function serializeBpeBudgetCheckResponseList(obj: T.Input<T.BpeBudgetCheckResponseList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     for (const item of obj.result) {
@@ -21718,7 +22297,7 @@ export function serializeBpeBudgetCheckResponseList(obj: T.BpeBudgetCheckRespons
   return xml;
 }
 
-export function serializeTicketCounterSale(obj: T.TicketCounterSale, elemName: string): string {
+export function serializeTicketCounterSale(obj: T.Input<T.TicketCounterSale>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.syncMarker !== undefined && obj.syncMarker !== null) {
     xml += serializeNumber('syncMarker', obj.syncMarker);
@@ -21754,7 +22333,7 @@ export function serializeTicketCounterSale(obj: T.TicketCounterSale, elemName: s
   return xml;
 }
 
-export function serializeTicketCounterSaleList(obj: T.TicketCounterSaleList, elemName: string): string {
+export function serializeTicketCounterSaleList(obj: T.Input<T.TicketCounterSaleList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.ticketCounterSale !== undefined && obj.ticketCounterSale !== null) {
     for (const item of obj.ticketCounterSale) {
@@ -21765,7 +22344,7 @@ export function serializeTicketCounterSaleList(obj: T.TicketCounterSaleList, ele
   return xml;
 }
 
-export function serializeGetTicketCounterSalesRequest(obj: T.GetTicketCounterSalesRequest, elemName: string): string {
+export function serializeGetTicketCounterSalesRequest(obj: T.Input<T.GetTicketCounterSalesRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.syncMarker !== undefined && obj.syncMarker !== null) {
     xml += serializeNumber('syncMarker', obj.syncMarker);
@@ -21777,7 +22356,7 @@ export function serializeGetTicketCounterSalesRequest(obj: T.GetTicketCounterSal
   return xml;
 }
 
-export function serializeGetSalePromotionsRequest(obj: T.GetSalePromotionsRequest, elemName: string): string {
+export function serializeGetSalePromotionsRequest(obj: T.Input<T.GetSalePromotionsRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.branchFilter !== undefined && obj.branchFilter !== null) {
     xml += `<${NS_PREFIX}:branchFilter>`;
@@ -21790,7 +22369,7 @@ export function serializeGetSalePromotionsRequest(obj: T.GetSalePromotionsReques
   return xml;
 }
 
-export function serializeSalePromotionLineDiscount(obj: T.SalePromotionLineDiscount, elemName: string): string {
+export function serializeSalePromotionLineDiscount(obj: T.Input<T.SalePromotionLineDiscount>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.articleNumber !== undefined && obj.articleNumber !== null) {
     xml += serializeNumber('articleNumber', obj.articleNumber);
@@ -21817,7 +22396,7 @@ export function serializeSalePromotionLineDiscount(obj: T.SalePromotionLineDisco
   return xml;
 }
 
-export function serializeSalePromotionLineDiscountList(obj: T.SalePromotionLineDiscountList, elemName: string): string {
+export function serializeSalePromotionLineDiscountList(obj: T.Input<T.SalePromotionLineDiscountList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.salePromotionLineDiscountList !== undefined && obj.salePromotionLineDiscountList !== null) {
     for (const item of obj.salePromotionLineDiscountList) {
@@ -21828,7 +22407,7 @@ export function serializeSalePromotionLineDiscountList(obj: T.SalePromotionLineD
   return xml;
 }
 
-export function serializeSalePromotionLine(obj: T.SalePromotionLine, elemName: string): string {
+export function serializeSalePromotionLine(obj: T.Input<T.SalePromotionLine>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.id !== undefined && obj.id !== null) {
     xml += serializeString('id', String(obj.id));
@@ -21914,7 +22493,7 @@ export function serializeSalePromotionLine(obj: T.SalePromotionLine, elemName: s
   return xml;
 }
 
-export function serializeSalePromotionLineList(obj: T.SalePromotionLineList, elemName: string): string {
+export function serializeSalePromotionLineList(obj: T.Input<T.SalePromotionLineList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.salePromotionLineList !== undefined && obj.salePromotionLineList !== null) {
     for (const item of obj.salePromotionLineList) {
@@ -21925,7 +22504,7 @@ export function serializeSalePromotionLineList(obj: T.SalePromotionLineList, ele
   return xml;
 }
 
-export function serializeSalePromotions(obj: T.SalePromotions, elemName: string): string {
+export function serializeSalePromotions(obj: T.Input<T.SalePromotions>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.branchNumber !== undefined && obj.branchNumber !== null) {
     xml += serializeNumber('branchNumber', obj.branchNumber);
@@ -21953,7 +22532,7 @@ export function serializeSalePromotions(obj: T.SalePromotions, elemName: string)
   return xml;
 }
 
-export function serializeSalePromotionsList(obj: T.SalePromotionsList, elemName: string): string {
+export function serializeSalePromotionsList(obj: T.Input<T.SalePromotionsList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.salePromotions !== undefined && obj.salePromotions !== null) {
     for (const item of obj.salePromotions) {
@@ -21964,7 +22543,7 @@ export function serializeSalePromotionsList(obj: T.SalePromotionsList, elemName:
   return xml;
 }
 
-export function serializeGetPaymentMethodsRequest(obj: T.GetPaymentMethodsRequest, elemName: string): string {
+export function serializeGetPaymentMethodsRequest(obj: T.Input<T.GetPaymentMethodsRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.accountNumber !== undefined && obj.accountNumber !== null) {
     xml += serializeNumber('accountNumber', obj.accountNumber);
@@ -21984,7 +22563,7 @@ export function serializeGetPaymentMethodsRequest(obj: T.GetPaymentMethodsReques
   return xml;
 }
 
-export function serializeGetAvailablePaymentMethodsV2Request(obj: T.GetAvailablePaymentMethodsV2Request, elemName: string): string {
+export function serializeGetAvailablePaymentMethodsV2Request(obj: T.Input<T.GetAvailablePaymentMethodsV2Request>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.workplace !== undefined && obj.workplace !== null) {
     xml += serializeWorkplaceIdentifier(obj.workplace, 'workplace');
@@ -21999,7 +22578,7 @@ export function serializeGetAvailablePaymentMethodsV2Request(obj: T.GetAvailable
   return xml;
 }
 
-export function serializeCreateOrderInfo(obj: T.CreateOrderInfo, elemName: string): string {
+export function serializeCreateOrderInfo(obj: T.Input<T.CreateOrderInfo>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.orderId !== undefined && obj.orderId !== null) {
     xml += serializeString('orderId', String(obj.orderId));
@@ -22014,7 +22593,7 @@ export function serializeCreateOrderInfo(obj: T.CreateOrderInfo, elemName: strin
   return xml;
 }
 
-export function serializeCreateOrderV2Request(obj: T.CreateOrderV2Request, elemName: string): string {
+export function serializeCreateOrderV2Request(obj: T.Input<T.CreateOrderV2Request>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.order !== undefined && obj.order !== null) {
     xml += serializeOrder(obj.order, 'order');
@@ -22037,13 +22616,43 @@ export function serializeCreateOrderV2Request(obj: T.CreateOrderV2Request, elemN
   return xml;
 }
 
-export function serializeCreateOrderV3Request(obj: T.CreateOrderV3Request, elemName: string): string {
+export function serializeCreateOrderV3Request(obj: T.Input<T.CreateOrderV3Request>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.idempotencyKey !== undefined && obj.idempotencyKey !== null) {
+    xml += serializeString('idempotencyKey', String(obj.idempotencyKey));
+  }
+  if (obj.order !== undefined && obj.order !== null) {
+    xml += serializeOrder(obj.order, 'order');
+  }
+  if (obj.applySalesAndActions !== undefined && obj.applySalesAndActions !== null) {
+    xml += serializeBoolean('applySalesAndActions', obj.applySalesAndActions);
+  }
+  if (obj.applySalesPrices !== undefined && obj.applySalesPrices !== null) {
+    xml += serializeBoolean('applySalesPrices', obj.applySalesPrices);
+  }
+  if (obj.applyPriceGroups !== undefined && obj.applyPriceGroups !== null) {
+    xml += serializeBoolean('applyPriceGroups', obj.applyPriceGroups);
+  }
+  if (obj.scannedVoucherIssuanceCodes !== undefined && obj.scannedVoucherIssuanceCodes !== null) {
+    for (const item of obj.scannedVoucherIssuanceCodes) {
+      xml += serializeString('scannedVoucherIssuanceCodes', String(item));
+    }
+  }
+  if (obj.prepay !== undefined && obj.prepay !== null) {
+    xml += serializeBoolean('prepay', obj.prepay);
+  }
+  if (obj.paymentList !== undefined && obj.paymentList !== null) {
+    xml += `<${NS_PREFIX}:paymentList>`;
+    for (const item of obj.paymentList) {
+      xml += serializePayment(item, 'payment');
+    }
+    xml += `</${NS_PREFIX}:paymentList>`;
+  }
   xml += `</${NS_PREFIX}:${elemName}>`;
   return xml;
 }
 
-export function serializePayOrderRequest(obj: T.PayOrderRequest, elemName: string): string {
+export function serializePayOrderRequest(obj: T.Input<T.PayOrderRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.orderId !== undefined && obj.orderId !== null) {
     xml += serializeString('orderId', String(obj.orderId));
@@ -22062,13 +22671,29 @@ export function serializePayOrderRequest(obj: T.PayOrderRequest, elemName: strin
   return xml;
 }
 
-export function serializePayOrderV2Request(obj: T.PayOrderV2Request, elemName: string): string {
+export function serializePayOrderV2Request(obj: T.Input<T.PayOrderV2Request>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.idempotencyKey !== undefined && obj.idempotencyKey !== null) {
+    xml += serializeString('idempotencyKey', String(obj.idempotencyKey));
+  }
+  if (obj.orderId !== undefined && obj.orderId !== null) {
+    xml += serializeString('orderId', String(obj.orderId));
+  }
+  if (obj.prepay !== undefined && obj.prepay !== null) {
+    xml += serializeBoolean('prepay', obj.prepay);
+  }
+  if (obj.paymentList !== undefined && obj.paymentList !== null) {
+    xml += `<${NS_PREFIX}:paymentList>`;
+    for (const item of obj.paymentList) {
+      xml += serializePayment(item, 'payment');
+    }
+    xml += `</${NS_PREFIX}:paymentList>`;
+  }
   xml += `</${NS_PREFIX}:${elemName}>`;
   return xml;
 }
 
-export function serializePayTableOrderRequest(obj: T.PayTableOrderRequest, elemName: string): string {
+export function serializePayTableOrderRequest(obj: T.Input<T.PayTableOrderRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.order !== undefined && obj.order !== null) {
     xml += serializeOrder(obj.order, 'order');
@@ -22090,7 +22715,7 @@ export function serializePayTableOrderRequest(obj: T.PayTableOrderRequest, elemN
   return xml;
 }
 
-export function serializePrepayTableOrderRequest(obj: T.PrepayTableOrderRequest, elemName: string): string {
+export function serializePrepayTableOrderRequest(obj: T.Input<T.PrepayTableOrderRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.order !== undefined && obj.order !== null) {
     xml += serializeOrder(obj.order, 'order');
@@ -22112,7 +22737,7 @@ export function serializePrepayTableOrderRequest(obj: T.PrepayTableOrderRequest,
   return xml;
 }
 
-export function serializeGetOrdersByExtOrderIdsRequest(obj: T.GetOrdersByExtOrderIdsRequest, elemName: string): string {
+export function serializeGetOrdersByExtOrderIdsRequest(obj: T.Input<T.GetOrdersByExtOrderIdsRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.syncMarker !== undefined && obj.syncMarker !== null) {
     xml += serializeNumber('syncMarker', obj.syncMarker);
@@ -22131,7 +22756,7 @@ export function serializeGetOrdersByExtOrderIdsRequest(obj: T.GetOrdersByExtOrde
   return xml;
 }
 
-export function serializeProposal(obj: T.Proposal, elemName: string): string {
+export function serializeProposal(obj: T.Input<T.Proposal>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.proposalId !== undefined && obj.proposalId !== null) {
     xml += serializeString('proposalId', String(obj.proposalId));
@@ -22291,7 +22916,7 @@ export function serializeProposal(obj: T.Proposal, elemName: string): string {
   return xml;
 }
 
-export function serializeProposalList(obj: T.ProposalList, elemName: string): string {
+export function serializeProposalList(obj: T.Input<T.ProposalList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.proposal !== undefined && obj.proposal !== null) {
     for (const item of obj.proposal) {
@@ -22302,7 +22927,7 @@ export function serializeProposalList(obj: T.ProposalList, elemName: string): st
   return xml;
 }
 
-export function serializeGetProposalsRequest(obj: T.GetProposalsRequest, elemName: string): string {
+export function serializeGetProposalsRequest(obj: T.Input<T.GetProposalsRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.syncMarker !== undefined && obj.syncMarker !== null) {
     xml += serializeNumber('syncMarker', obj.syncMarker);
@@ -22394,7 +23019,7 @@ export function serializeGetProposalsRequest(obj: T.GetProposalsRequest, elemNam
   return xml;
 }
 
-export function serializeSaveProposalInfo(obj: T.SaveProposalInfo, elemName: string): string {
+export function serializeSaveProposalInfo(obj: T.Input<T.SaveProposalInfo>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.proposalId !== undefined && obj.proposalId !== null) {
     xml += serializeString('proposalId', String(obj.proposalId));
@@ -22409,7 +23034,7 @@ export function serializeSaveProposalInfo(obj: T.SaveProposalInfo, elemName: str
   return xml;
 }
 
-export function serializeCreateOrderFromProposalInfo(obj: T.CreateOrderFromProposalInfo, elemName: string): string {
+export function serializeCreateOrderFromProposalInfo(obj: T.Input<T.CreateOrderFromProposalInfo>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.orderId !== undefined && obj.orderId !== null) {
     xml += serializeString('orderId', String(obj.orderId));
@@ -22427,7 +23052,7 @@ export function serializeCreateOrderFromProposalInfo(obj: T.CreateOrderFromPropo
   return xml;
 }
 
-export function serializeCreateInvoiceFromProposalInfo(obj: T.CreateInvoiceFromProposalInfo, elemName: string): string {
+export function serializeCreateInvoiceFromProposalInfo(obj: T.Input<T.CreateInvoiceFromProposalInfo>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.invoiceId !== undefined && obj.invoiceId !== null) {
     xml += serializeString('invoiceId', String(obj.invoiceId));
@@ -22445,7 +23070,7 @@ export function serializeCreateInvoiceFromProposalInfo(obj: T.CreateInvoiceFromP
   return xml;
 }
 
-export function serializeGetOrdersByReceiptsRequest(obj: T.GetOrdersByReceiptsRequest, elemName: string): string {
+export function serializeGetOrdersByReceiptsRequest(obj: T.Input<T.GetOrdersByReceiptsRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.syncMarker !== undefined && obj.syncMarker !== null) {
     xml += serializeNumber('syncMarker', obj.syncMarker);
@@ -22464,7 +23089,7 @@ export function serializeGetOrdersByReceiptsRequest(obj: T.GetOrdersByReceiptsRe
   return xml;
 }
 
-export function serializeGetCurrentTableOrdersRequest(obj: T.GetCurrentTableOrdersRequest, elemName: string): string {
+export function serializeGetCurrentTableOrdersRequest(obj: T.Input<T.GetCurrentTableOrdersRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.branchNumber !== undefined && obj.branchNumber !== null) {
     xml += serializeNumber('branchNumber', obj.branchNumber);
@@ -22473,7 +23098,7 @@ export function serializeGetCurrentTableOrdersRequest(obj: T.GetCurrentTableOrde
   return xml;
 }
 
-export function serializeGetOrdersRequest(obj: T.GetOrdersRequest, elemName: string): string {
+export function serializeGetOrdersRequest(obj: T.Input<T.GetOrdersRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.syncMarker !== undefined && obj.syncMarker !== null) {
     xml += serializeNumber('syncMarker', obj.syncMarker);
@@ -22572,7 +23197,7 @@ export function serializeGetOrdersRequest(obj: T.GetOrdersRequest, elemName: str
   return xml;
 }
 
-export function serializeDetermineContractLinesRequest(obj: T.DetermineContractLinesRequest, elemName: string): string {
+export function serializeDetermineContractLinesRequest(obj: T.Input<T.DetermineContractLinesRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.lineList !== undefined && obj.lineList !== null) {
     xml += `<${NS_PREFIX}:lineList>`;
@@ -22603,13 +23228,30 @@ export function serializeDetermineContractLinesRequest(obj: T.DetermineContractL
   return xml;
 }
 
-export function serializeCreateInvoiceFromPackingSlipsRequest(obj: T.CreateInvoiceFromPackingSlipsRequest, elemName: string): string {
+export function serializeCreateInvoiceFromPackingSlipsRequest(obj: T.Input<T.CreateInvoiceFromPackingSlipsRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.idempotencyKey !== undefined && obj.idempotencyKey !== null) {
+    xml += serializeString('idempotencyKey', String(obj.idempotencyKey));
+  }
+  if (obj.packingSlipIds !== undefined && obj.packingSlipIds !== null) {
+    for (const item of obj.packingSlipIds) {
+      xml += serializeString('packingSlipIds', String(item));
+    }
+  }
+  if (obj.financialDate !== undefined && obj.financialDate !== null) {
+    xml += serializeString('financialDate', obj.financialDate.toISOString().substring(0, 10));
+  }
+  if (obj.branchNumber !== undefined && obj.branchNumber !== null) {
+    xml += serializeNumber('branchNumber', obj.branchNumber);
+  }
+  if (obj.forcedActivityId !== undefined && obj.forcedActivityId !== null) {
+    xml += serializeString('forcedActivityId', String(obj.forcedActivityId));
+  }
   xml += `</${NS_PREFIX}:${elemName}>`;
   return xml;
 }
 
-export function serializeCashCountInfoWorkplaceData(obj: T.CashCountInfoWorkplaceData, elemName: string): string {
+export function serializeCashCountInfoWorkplaceData(obj: T.Input<T.CashCountInfoWorkplaceData>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.workplaceNumber !== undefined && obj.workplaceNumber !== null) {
     xml += serializeNumber('workplaceNumber', obj.workplaceNumber);
@@ -22642,7 +23284,7 @@ export function serializeCashCountInfoWorkplaceData(obj: T.CashCountInfoWorkplac
   return xml;
 }
 
-export function serializeCashCountInfoWorkplaceDataList(obj: T.CashCountInfoWorkplaceDataList, elemName: string): string {
+export function serializeCashCountInfoWorkplaceDataList(obj: T.Input<T.CashCountInfoWorkplaceDataList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.workplaceData !== undefined && obj.workplaceData !== null) {
     for (const item of obj.workplaceData) {
@@ -22653,7 +23295,7 @@ export function serializeCashCountInfoWorkplaceDataList(obj: T.CashCountInfoWork
   return xml;
 }
 
-export function serializeCashCountInfoPaymentMethodAmount(obj: T.CashCountInfoPaymentMethodAmount, elemName: string): string {
+export function serializeCashCountInfoPaymentMethodAmount(obj: T.Input<T.CashCountInfoPaymentMethodAmount>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.id !== undefined && obj.id !== null) {
     xml += serializeString('id', String(obj.id));
@@ -22677,7 +23319,7 @@ export function serializeCashCountInfoPaymentMethodAmount(obj: T.CashCountInfoPa
   return xml;
 }
 
-export function serializeCashCountInfoPaymentMethodAmountList(obj: T.CashCountInfoPaymentMethodAmountList, elemName: string): string {
+export function serializeCashCountInfoPaymentMethodAmountList(obj: T.Input<T.CashCountInfoPaymentMethodAmountList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.paymentMethodAmount !== undefined && obj.paymentMethodAmount !== null) {
     for (const item of obj.paymentMethodAmount) {
@@ -22688,7 +23330,7 @@ export function serializeCashCountInfoPaymentMethodAmountList(obj: T.CashCountIn
   return xml;
 }
 
-export function serializeCashCountInfoWorkplace(obj: T.CashCountInfoWorkplace, elemName: string): string {
+export function serializeCashCountInfoWorkplace(obj: T.Input<T.CashCountInfoWorkplace>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.number !== undefined && obj.number !== null) {
     xml += serializeNumber('number', obj.number);
@@ -22720,7 +23362,7 @@ export function serializeCashCountInfoWorkplace(obj: T.CashCountInfoWorkplace, e
   return xml;
 }
 
-export function serializeCashCountInfoWorkplaceList(obj: T.CashCountInfoWorkplaceList, elemName: string): string {
+export function serializeCashCountInfoWorkplaceList(obj: T.Input<T.CashCountInfoWorkplaceList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.workplace !== undefined && obj.workplace !== null) {
     for (const item of obj.workplace) {
@@ -22731,7 +23373,7 @@ export function serializeCashCountInfoWorkplaceList(obj: T.CashCountInfoWorkplac
   return xml;
 }
 
-export function serializeCashCountInfo(obj: T.CashCountInfo, elemName: string): string {
+export function serializeCashCountInfo(obj: T.Input<T.CashCountInfo>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.state !== undefined && obj.state !== null) {
     xml += serializeString('state', String(obj.state));
@@ -22753,7 +23395,7 @@ export function serializeCashCountInfo(obj: T.CashCountInfo, elemName: string): 
   return xml;
 }
 
-export function serializeGetCashCountInfoRequest(obj: T.GetCashCountInfoRequest, elemName: string): string {
+export function serializeGetCashCountInfoRequest(obj: T.Input<T.GetCashCountInfoRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.fromWorkplace !== undefined && obj.fromWorkplace !== null) {
     xml += serializeWorkplaceIdentifier(obj.fromWorkplace, 'fromWorkplace');
@@ -22765,13 +23407,37 @@ export function serializeGetCashCountInfoRequest(obj: T.GetCashCountInfoRequest,
   return xml;
 }
 
-export function serializeCashCountInfoCountedPaymentMethodAmount(obj: T.CashCountInfoCountedPaymentMethodAmount, elemName: string): string {
+export function serializeCashCountInfoCountedPaymentMethodAmount(obj: T.Input<T.CashCountInfoCountedPaymentMethodAmount>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.id !== undefined && obj.id !== null) {
+    xml += serializeString('id', String(obj.id));
+  }
+  if (obj.description !== undefined && obj.description !== null) {
+    xml += serializeString('description', String(obj.description));
+  }
+  if (obj.isAutomaticDeposit !== undefined && obj.isAutomaticDeposit !== null) {
+    xml += serializeBoolean('isAutomaticDeposit', obj.isAutomaticDeposit);
+  }
+  if (obj.openingBalance !== undefined && obj.openingBalance !== null) {
+    xml += serializeString('openingBalance', String(obj.openingBalance));
+  }
+  if (obj.booked !== undefined && obj.booked !== null) {
+    xml += serializeString('booked', String(obj.booked));
+  }
+  if (obj.counted !== undefined && obj.counted !== null) {
+    xml += serializeString('counted', String(obj.counted));
+  }
+  if (obj.deposited !== undefined && obj.deposited !== null) {
+    xml += serializeString('deposited', String(obj.deposited));
+  }
+  if (obj.depositPaymentMethodId !== undefined && obj.depositPaymentMethodId !== null) {
+    xml += serializeString('depositPaymentMethodId', String(obj.depositPaymentMethodId));
+  }
   xml += `</${NS_PREFIX}:${elemName}>`;
   return xml;
 }
 
-export function serializeCashCountInfoCountedPaymentMethodAmountList(obj: T.CashCountInfoCountedPaymentMethodAmountList, elemName: string): string {
+export function serializeCashCountInfoCountedPaymentMethodAmountList(obj: T.Input<T.CashCountInfoCountedPaymentMethodAmountList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.countedPaymentMethodAmount !== undefined && obj.countedPaymentMethodAmount !== null) {
     for (const item of obj.countedPaymentMethodAmount) {
@@ -22782,13 +23448,42 @@ export function serializeCashCountInfoCountedPaymentMethodAmountList(obj: T.Cash
   return xml;
 }
 
-export function serializeSaveCashCountRequest(obj: T.SaveCashCountRequest, elemName: string): string {
+export function serializeSaveCashCountRequest(obj: T.Input<T.SaveCashCountRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.idempotencyKey !== undefined && obj.idempotencyKey !== null) {
+    xml += serializeString('idempotencyKey', String(obj.idempotencyKey));
+  }
+  if (obj.employeeNumber !== undefined && obj.employeeNumber !== null) {
+    xml += serializeNumber('employeeNumber', obj.employeeNumber);
+  }
+  if (obj.fromWorkplace !== undefined && obj.fromWorkplace !== null) {
+    xml += serializeWorkplaceIdentifier(obj.fromWorkplace, 'fromWorkplace');
+  }
+  if (obj.countEmployeeNumber !== undefined && obj.countEmployeeNumber !== null) {
+    xml += serializeNumber('countEmployeeNumber', obj.countEmployeeNumber);
+  }
+  if (obj.workplaceData !== undefined && obj.workplaceData !== null) {
+    xml += serializeCashCountInfoWorkplaceData(obj.workplaceData, 'workplaceData');
+  }
+  if (obj.extraWorkplacesData !== undefined && obj.extraWorkplacesData !== null) {
+    xml += `<${NS_PREFIX}:extraWorkplacesData>`;
+    for (const item of obj.extraWorkplacesData) {
+      xml += serializeCashCountInfoWorkplaceData(item, 'workplaceData');
+    }
+    xml += `</${NS_PREFIX}:extraWorkplacesData>`;
+  }
+  if (obj.countedPaymentMethodAmounts !== undefined && obj.countedPaymentMethodAmounts !== null) {
+    xml += `<${NS_PREFIX}:countedPaymentMethodAmounts>`;
+    for (const item of obj.countedPaymentMethodAmounts) {
+      xml += serializeCashCountInfoCountedPaymentMethodAmount(item, 'countedPaymentMethodAmount');
+    }
+    xml += `</${NS_PREFIX}:countedPaymentMethodAmounts>`;
+  }
   xml += `</${NS_PREFIX}:${elemName}>`;
   return xml;
 }
 
-export function serializeSalesProcessorContext(obj: T.SalesProcessorContext, elemName: string): string {
+export function serializeSalesProcessorContext(obj: T.Input<T.SalesProcessorContext>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.scannedVoucherIssuanceCodes !== undefined && obj.scannedVoucherIssuanceCodes !== null) {
     for (const item of obj.scannedVoucherIssuanceCodes) {
@@ -22802,7 +23497,7 @@ export function serializeSalesProcessorContext(obj: T.SalesProcessorContext, ele
   return xml;
 }
 
-export function serializeSalesProcessorResult(obj: T.SalesProcessorResult, elemName: string): string {
+export function serializeSalesProcessorResult(obj: T.Input<T.SalesProcessorResult>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.voucherIssuances !== undefined && obj.voucherIssuances !== null) {
     xml += `<${NS_PREFIX}:voucherIssuances>`;
@@ -22848,13 +23543,22 @@ export function serializeSalesProcessorResult(obj: T.SalesProcessorResult, elemN
   return xml;
 }
 
-export function serializeProcessInvoiceRequest(obj: T.ProcessInvoiceRequest, elemName: string): string {
+export function serializeProcessInvoiceRequest(obj: T.Input<T.ProcessInvoiceRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.idempotencyKey !== undefined && obj.idempotencyKey !== null) {
+    xml += serializeString('idempotencyKey', String(obj.idempotencyKey));
+  }
+  if (obj.invoice !== undefined && obj.invoice !== null) {
+    xml += serializeInvoiceInput(obj.invoice, 'invoice');
+  }
+  if (obj.processorContext !== undefined && obj.processorContext !== null) {
+    xml += serializeSalesProcessorContext(obj.processorContext, 'processorContext');
+  }
   xml += `</${NS_PREFIX}:${elemName}>`;
   return xml;
 }
 
-export function serializeProposalInput(obj: T.ProposalInput, elemName: string): string {
+export function serializeProposalInput(obj: T.Input<T.ProposalInput>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.proposalId !== undefined && obj.proposalId !== null) {
     xml += serializeString('proposalId', String(obj.proposalId));
@@ -22903,19 +23607,37 @@ export function serializeProposalInput(obj: T.ProposalInput, elemName: string): 
   return xml;
 }
 
-export function serializeProcessProposalRequest(obj: T.ProcessProposalRequest, elemName: string): string {
+export function serializeProcessProposalRequest(obj: T.Input<T.ProcessProposalRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.idempotencyKey !== undefined && obj.idempotencyKey !== null) {
+    xml += serializeString('idempotencyKey', String(obj.idempotencyKey));
+  }
+  if (obj.proposal !== undefined && obj.proposal !== null) {
+    xml += serializeProposalInput(obj.proposal, 'proposal');
+  }
+  if (obj.processorContext !== undefined && obj.processorContext !== null) {
+    xml += serializeSalesProcessorContext(obj.processorContext, 'processorContext');
+  }
   xml += `</${NS_PREFIX}:${elemName}>`;
   return xml;
 }
 
-export function serializeProcessOrderRequest(obj: T.ProcessOrderRequest, elemName: string): string {
+export function serializeProcessOrderRequest(obj: T.Input<T.ProcessOrderRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.idempotencyKey !== undefined && obj.idempotencyKey !== null) {
+    xml += serializeString('idempotencyKey', String(obj.idempotencyKey));
+  }
+  if (obj.order !== undefined && obj.order !== null) {
+    xml += serializeOrderInput(obj.order, 'order');
+  }
+  if (obj.processorContext !== undefined && obj.processorContext !== null) {
+    xml += serializeSalesProcessorContext(obj.processorContext, 'processorContext');
+  }
   xml += `</${NS_PREFIX}:${elemName}>`;
   return xml;
 }
 
-export function serializeGetSalesRepeatTemplatesResponse(obj: T.GetSalesRepeatTemplatesResponse, elemName: string): string {
+export function serializeGetSalesRepeatTemplatesResponse(obj: T.Input<T.GetSalesRepeatTemplatesResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.salesRepeatTemplateList !== undefined && obj.salesRepeatTemplateList !== null) {
     xml += `<${NS_PREFIX}:salesRepeatTemplateList>`;
@@ -22928,13 +23650,25 @@ export function serializeGetSalesRepeatTemplatesResponse(obj: T.GetSalesRepeatTe
   return xml;
 }
 
-export function serializeSaveSalesRepeatTemplateResponse(obj: T.SaveSalesRepeatTemplateResponse, elemName: string): string {
+export function serializeSaveSalesRepeatTemplateResponse(obj: T.Input<T.SaveSalesRepeatTemplateResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.idempotencyResult !== undefined && obj.idempotencyResult !== null) {
+    xml += serializeString('idempotencyResult', String(obj.idempotencyResult));
+  }
+  if (obj.result !== undefined && obj.result !== null) {
+    xml += serializeString('result', String(obj.result));
+  }
+  if (obj.errorMessage !== undefined && obj.errorMessage !== null) {
+    xml += serializeString('errorMessage', String(obj.errorMessage));
+  }
+  if (obj.salesRepeatTemplateId !== undefined && obj.salesRepeatTemplateId !== null) {
+    xml += serializeString('salesRepeatTemplateId', String(obj.salesRepeatTemplateId));
+  }
   xml += `</${NS_PREFIX}:${elemName}>`;
   return xml;
 }
 
-export function serializePerformBpeBudgetChecksResponse(obj: T.PerformBpeBudgetChecksResponse, elemName: string): string {
+export function serializePerformBpeBudgetChecksResponse(obj: T.Input<T.PerformBpeBudgetChecksResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -22953,7 +23687,7 @@ export function serializePerformBpeBudgetChecksResponse(obj: T.PerformBpeBudgetC
   return xml;
 }
 
-export function serializeGetTicketCounterSalesResponse(obj: T.GetTicketCounterSalesResponse, elemName: string): string {
+export function serializeGetTicketCounterSalesResponse(obj: T.Input<T.GetTicketCounterSalesResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.ticketCounterSaleList !== undefined && obj.ticketCounterSaleList !== null) {
     xml += `<${NS_PREFIX}:ticketCounterSaleList>`;
@@ -22966,7 +23700,7 @@ export function serializeGetTicketCounterSalesResponse(obj: T.GetTicketCounterSa
   return xml;
 }
 
-export function serializeGetSalePromotionsResponse(obj: T.GetSalePromotionsResponse, elemName: string): string {
+export function serializeGetSalePromotionsResponse(obj: T.Input<T.GetSalePromotionsResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.salePromotionsList !== undefined && obj.salePromotionsList !== null) {
     xml += `<${NS_PREFIX}:salePromotionsList>`;
@@ -22979,7 +23713,7 @@ export function serializeGetSalePromotionsResponse(obj: T.GetSalePromotionsRespo
   return xml;
 }
 
-export function serializeGetPaymentMethodsResponse(obj: T.GetPaymentMethodsResponse, elemName: string): string {
+export function serializeGetPaymentMethodsResponse(obj: T.Input<T.GetPaymentMethodsResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.paymentMethodList !== undefined && obj.paymentMethodList !== null) {
     xml += `<${NS_PREFIX}:paymentMethodList>`;
@@ -22992,7 +23726,7 @@ export function serializeGetPaymentMethodsResponse(obj: T.GetPaymentMethodsRespo
   return xml;
 }
 
-export function serializeGetAvailablePaymentMethodsResponse(obj: T.GetAvailablePaymentMethodsResponse, elemName: string): string {
+export function serializeGetAvailablePaymentMethodsResponse(obj: T.Input<T.GetAvailablePaymentMethodsResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.paymentMethodList !== undefined && obj.paymentMethodList !== null) {
     xml += `<${NS_PREFIX}:paymentMethodList>`;
@@ -23005,7 +23739,7 @@ export function serializeGetAvailablePaymentMethodsResponse(obj: T.GetAvailableP
   return xml;
 }
 
-export function serializeCreateOrderResponse(obj: T.CreateOrderResponse, elemName: string): string {
+export function serializeCreateOrderResponse(obj: T.Input<T.CreateOrderResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -23020,7 +23754,7 @@ export function serializeCreateOrderResponse(obj: T.CreateOrderResponse, elemNam
   return xml;
 }
 
-export function serializeCreateOrderV2Response(obj: T.CreateOrderV2Response, elemName: string): string {
+export function serializeCreateOrderV2Response(obj: T.Input<T.CreateOrderV2Response>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -23038,13 +23772,48 @@ export function serializeCreateOrderV2Response(obj: T.CreateOrderV2Response, ele
   return xml;
 }
 
-export function serializeCreateOrderV3Response(obj: T.CreateOrderV3Response, elemName: string): string {
+export function serializeCreateOrderV3Response(obj: T.Input<T.CreateOrderV3Response>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.idempotencyResult !== undefined && obj.idempotencyResult !== null) {
+    xml += serializeString('idempotencyResult', String(obj.idempotencyResult));
+  }
+  if (obj.result !== undefined && obj.result !== null) {
+    xml += serializeString('result', String(obj.result));
+  }
+  if (obj.order !== undefined && obj.order !== null) {
+    xml += serializeOrder(obj.order, 'order');
+  }
+  if (obj.errorMessage !== undefined && obj.errorMessage !== null) {
+    xml += serializeString('errorMessage', String(obj.errorMessage));
+  }
+  if (obj.info !== undefined && obj.info !== null) {
+    xml += serializeCreateOrderInfo(obj.info, 'info');
+  }
+  if (obj.payResult !== undefined && obj.payResult !== null) {
+    xml += serializeString('payResult', String(obj.payResult));
+  }
+  if (obj.invoiceId !== undefined && obj.invoiceId !== null) {
+    xml += serializeString('invoiceId', String(obj.invoiceId));
+  }
+  if (obj.voucherIssuances !== undefined && obj.voucherIssuances !== null) {
+    xml += `<${NS_PREFIX}:voucherIssuances>`;
+    for (const item of obj.voucherIssuances) {
+      xml += serializeVoucherIssuance(item, 'voucherIssuance');
+    }
+    xml += `</${NS_PREFIX}:voucherIssuances>`;
+  }
+  if (obj.unappliedVoucherIssuances !== undefined && obj.unappliedVoucherIssuances !== null) {
+    xml += `<${NS_PREFIX}:unappliedVoucherIssuances>`;
+    for (const item of obj.unappliedVoucherIssuances) {
+      xml += serializeUnappliedVoucherIssuance(item, 'unappliedVoucherIssuance');
+    }
+    xml += `</${NS_PREFIX}:unappliedVoucherIssuances>`;
+  }
   xml += `</${NS_PREFIX}:${elemName}>`;
   return xml;
 }
 
-export function serializePayOrderResponse(obj: T.PayOrderResponse, elemName: string): string {
+export function serializePayOrderResponse(obj: T.Input<T.PayOrderResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -23073,13 +23842,39 @@ export function serializePayOrderResponse(obj: T.PayOrderResponse, elemName: str
   return xml;
 }
 
-export function serializePayOrderV2Response(obj: T.PayOrderV2Response, elemName: string): string {
+export function serializePayOrderV2Response(obj: T.Input<T.PayOrderV2Response>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.idempotencyResult !== undefined && obj.idempotencyResult !== null) {
+    xml += serializeString('idempotencyResult', String(obj.idempotencyResult));
+  }
+  if (obj.result !== undefined && obj.result !== null) {
+    xml += serializeString('result', String(obj.result));
+  }
+  if (obj.invoiceId !== undefined && obj.invoiceId !== null) {
+    xml += serializeString('invoiceId', String(obj.invoiceId));
+  }
+  if (obj.errorMessage !== undefined && obj.errorMessage !== null) {
+    xml += serializeString('errorMessage', String(obj.errorMessage));
+  }
+  if (obj.voucherIssuances !== undefined && obj.voucherIssuances !== null) {
+    xml += `<${NS_PREFIX}:voucherIssuances>`;
+    for (const item of obj.voucherIssuances) {
+      xml += serializeVoucherIssuance(item, 'voucherIssuance');
+    }
+    xml += `</${NS_PREFIX}:voucherIssuances>`;
+  }
+  if (obj.unappliedVoucherIssuances !== undefined && obj.unappliedVoucherIssuances !== null) {
+    xml += `<${NS_PREFIX}:unappliedVoucherIssuances>`;
+    for (const item of obj.unappliedVoucherIssuances) {
+      xml += serializeUnappliedVoucherIssuance(item, 'unappliedVoucherIssuance');
+    }
+    xml += `</${NS_PREFIX}:unappliedVoucherIssuances>`;
+  }
   xml += `</${NS_PREFIX}:${elemName}>`;
   return xml;
 }
 
-export function serializePayTableOrderResponse(obj: T.PayTableOrderResponse, elemName: string): string {
+export function serializePayTableOrderResponse(obj: T.Input<T.PayTableOrderResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -23108,7 +23903,7 @@ export function serializePayTableOrderResponse(obj: T.PayTableOrderResponse, ele
   return xml;
 }
 
-export function serializePrepayTableOrderResponse(obj: T.PrepayTableOrderResponse, elemName: string): string {
+export function serializePrepayTableOrderResponse(obj: T.Input<T.PrepayTableOrderResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -23134,7 +23929,7 @@ export function serializePrepayTableOrderResponse(obj: T.PrepayTableOrderRespons
   return xml;
 }
 
-export function serializeGetOrdersByExtOrderIdsResponse(obj: T.GetOrdersByExtOrderIdsResponse, elemName: string): string {
+export function serializeGetOrdersByExtOrderIdsResponse(obj: T.Input<T.GetOrdersByExtOrderIdsResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.orderList !== undefined && obj.orderList !== null) {
     xml += `<${NS_PREFIX}:orderList>`;
@@ -23147,7 +23942,7 @@ export function serializeGetOrdersByExtOrderIdsResponse(obj: T.GetOrdersByExtOrd
   return xml;
 }
 
-export function serializeGetProposalsResponse(obj: T.GetProposalsResponse, elemName: string): string {
+export function serializeGetProposalsResponse(obj: T.Input<T.GetProposalsResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.proposalList !== undefined && obj.proposalList !== null) {
     xml += `<${NS_PREFIX}:proposalList>`;
@@ -23160,7 +23955,7 @@ export function serializeGetProposalsResponse(obj: T.GetProposalsResponse, elemN
   return xml;
 }
 
-export function serializeGetProposalResponse(obj: T.GetProposalResponse, elemName: string): string {
+export function serializeGetProposalResponse(obj: T.Input<T.GetProposalResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -23172,7 +23967,7 @@ export function serializeGetProposalResponse(obj: T.GetProposalResponse, elemNam
   return xml;
 }
 
-export function serializeSaveProposalResponse(obj: T.SaveProposalResponse, elemName: string): string {
+export function serializeSaveProposalResponse(obj: T.Input<T.SaveProposalResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -23187,7 +23982,7 @@ export function serializeSaveProposalResponse(obj: T.SaveProposalResponse, elemN
   return xml;
 }
 
-export function serializeCancelProposalResponse(obj: T.CancelProposalResponse, elemName: string): string {
+export function serializeCancelProposalResponse(obj: T.Input<T.CancelProposalResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -23199,7 +23994,7 @@ export function serializeCancelProposalResponse(obj: T.CancelProposalResponse, e
   return xml;
 }
 
-export function serializeCreateOrderFromProposalResponse(obj: T.CreateOrderFromProposalResponse, elemName: string): string {
+export function serializeCreateOrderFromProposalResponse(obj: T.Input<T.CreateOrderFromProposalResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -23221,7 +24016,7 @@ export function serializeCreateOrderFromProposalResponse(obj: T.CreateOrderFromP
   return xml;
 }
 
-export function serializeCreateInvoiceFromProposalResponse(obj: T.CreateInvoiceFromProposalResponse, elemName: string): string {
+export function serializeCreateInvoiceFromProposalResponse(obj: T.Input<T.CreateInvoiceFromProposalResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -23250,7 +24045,7 @@ export function serializeCreateInvoiceFromProposalResponse(obj: T.CreateInvoiceF
   return xml;
 }
 
-export function serializeGetOrdersByReceiptsResponse(obj: T.GetOrdersByReceiptsResponse, elemName: string): string {
+export function serializeGetOrdersByReceiptsResponse(obj: T.Input<T.GetOrdersByReceiptsResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.orderList !== undefined && obj.orderList !== null) {
     xml += `<${NS_PREFIX}:orderList>`;
@@ -23263,7 +24058,7 @@ export function serializeGetOrdersByReceiptsResponse(obj: T.GetOrdersByReceiptsR
   return xml;
 }
 
-export function serializeGetCurrentTableOrdersResponse(obj: T.GetCurrentTableOrdersResponse, elemName: string): string {
+export function serializeGetCurrentTableOrdersResponse(obj: T.Input<T.GetCurrentTableOrdersResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.orderList !== undefined && obj.orderList !== null) {
     xml += `<${NS_PREFIX}:orderList>`;
@@ -23276,7 +24071,7 @@ export function serializeGetCurrentTableOrdersResponse(obj: T.GetCurrentTableOrd
   return xml;
 }
 
-export function serializeGetOrdersResponse(obj: T.GetOrdersResponse, elemName: string): string {
+export function serializeGetOrdersResponse(obj: T.Input<T.GetOrdersResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.orderList !== undefined && obj.orderList !== null) {
     xml += `<${NS_PREFIX}:orderList>`;
@@ -23289,7 +24084,7 @@ export function serializeGetOrdersResponse(obj: T.GetOrdersResponse, elemName: s
   return xml;
 }
 
-export function serializeDetermineContractLinesResponse(obj: T.DetermineContractLinesResponse, elemName: string): string {
+export function serializeDetermineContractLinesResponse(obj: T.Input<T.DetermineContractLinesResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.lineList !== undefined && obj.lineList !== null) {
     xml += `<${NS_PREFIX}:lineList>`;
@@ -23302,13 +24097,36 @@ export function serializeDetermineContractLinesResponse(obj: T.DetermineContract
   return xml;
 }
 
-export function serializeCreateInvoiceFromPackingSlipsResponse(obj: T.CreateInvoiceFromPackingSlipsResponse, elemName: string): string {
+export function serializeCreateInvoiceFromPackingSlipsResponse(obj: T.Input<T.CreateInvoiceFromPackingSlipsResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.idempotencyResult !== undefined && obj.idempotencyResult !== null) {
+    xml += serializeString('idempotencyResult', String(obj.idempotencyResult));
+  }
+  if (obj.result !== undefined && obj.result !== null) {
+    xml += serializeString('result', String(obj.result));
+  }
+  if (obj.invoiceId !== undefined && obj.invoiceId !== null) {
+    xml += serializeString('invoiceId', String(obj.invoiceId));
+  }
+  if (obj.voucherIssuances !== undefined && obj.voucherIssuances !== null) {
+    xml += `<${NS_PREFIX}:voucherIssuances>`;
+    for (const item of obj.voucherIssuances) {
+      xml += serializeVoucherIssuance(item, 'voucherIssuance');
+    }
+    xml += `</${NS_PREFIX}:voucherIssuances>`;
+  }
+  if (obj.unappliedVoucherIssuances !== undefined && obj.unappliedVoucherIssuances !== null) {
+    xml += `<${NS_PREFIX}:unappliedVoucherIssuances>`;
+    for (const item of obj.unappliedVoucherIssuances) {
+      xml += serializeUnappliedVoucherIssuance(item, 'unappliedVoucherIssuance');
+    }
+    xml += `</${NS_PREFIX}:unappliedVoucherIssuances>`;
+  }
   xml += `</${NS_PREFIX}:${elemName}>`;
   return xml;
 }
 
-export function serializeGetCashCountInfoResponse(obj: T.GetCashCountInfoResponse, elemName: string): string {
+export function serializeGetCashCountInfoResponse(obj: T.Input<T.GetCashCountInfoResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.cashCountInfo !== undefined && obj.cashCountInfo !== null) {
     xml += serializeCashCountInfo(obj.cashCountInfo, 'cashCountInfo');
@@ -23317,31 +24135,82 @@ export function serializeGetCashCountInfoResponse(obj: T.GetCashCountInfoRespons
   return xml;
 }
 
-export function serializeSaveCashCountResponse(obj: T.SaveCashCountResponse, elemName: string): string {
+export function serializeSaveCashCountResponse(obj: T.Input<T.SaveCashCountResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.idempotencyResult !== undefined && obj.idempotencyResult !== null) {
+    xml += serializeString('idempotencyResult', String(obj.idempotencyResult));
+  }
+  if (obj.result !== undefined && obj.result !== null) {
+    xml += serializeString('result', String(obj.result));
+  }
+  if (obj.errorMessage !== undefined && obj.errorMessage !== null) {
+    xml += serializeString('errorMessage', String(obj.errorMessage));
+  }
+  if (obj.cashCountInfoState !== undefined && obj.cashCountInfoState !== null) {
+    xml += serializeString('cashCountInfoState', String(obj.cashCountInfoState));
+  }
   xml += `</${NS_PREFIX}:${elemName}>`;
   return xml;
 }
 
-export function serializeProcessInvoiceResponse(obj: T.ProcessInvoiceResponse, elemName: string): string {
+export function serializeProcessInvoiceResponse(obj: T.Input<T.ProcessInvoiceResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.idempotencyResult !== undefined && obj.idempotencyResult !== null) {
+    xml += serializeString('idempotencyResult', String(obj.idempotencyResult));
+  }
+  if (obj.invoice !== undefined && obj.invoice !== null) {
+    xml += serializeInvoice(obj.invoice, 'invoice');
+  }
+  if (obj.processorResult !== undefined && obj.processorResult !== null) {
+    xml += serializeSalesProcessorResult(obj.processorResult, 'processorResult');
+  }
+  if (obj.resultCode !== undefined && obj.resultCode !== null) {
+    xml += serializeString('resultCode', String(obj.resultCode));
+  }
   xml += `</${NS_PREFIX}:${elemName}>`;
   return xml;
 }
 
-export function serializeProcessProposalResponse(obj: T.ProcessProposalResponse, elemName: string): string {
+export function serializeProcessProposalResponse(obj: T.Input<T.ProcessProposalResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.idempotencyResult !== undefined && obj.idempotencyResult !== null) {
+    xml += serializeString('idempotencyResult', String(obj.idempotencyResult));
+  }
+  if (obj.proposal !== undefined && obj.proposal !== null) {
+    xml += serializeProposal(obj.proposal, 'proposal');
+  }
+  if (obj.processorResult !== undefined && obj.processorResult !== null) {
+    xml += serializeSalesProcessorResult(obj.processorResult, 'processorResult');
+  }
+  if (obj.resultCode !== undefined && obj.resultCode !== null) {
+    xml += serializeString('resultCode', String(obj.resultCode));
+  }
   xml += `</${NS_PREFIX}:${elemName}>`;
   return xml;
 }
 
-export function serializeProcessOrderResponse(obj: T.ProcessOrderResponse, elemName: string): string {
+export function serializeProcessOrderResponse(obj: T.Input<T.ProcessOrderResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.idempotencyResult !== undefined && obj.idempotencyResult !== null) {
+    xml += serializeString('idempotencyResult', String(obj.idempotencyResult));
+  }
+  if (obj.order !== undefined && obj.order !== null) {
+    xml += serializeOrder(obj.order, 'order');
+  }
+  if (obj.queuedOrderId !== undefined && obj.queuedOrderId !== null) {
+    xml += serializeString('queuedOrderId', String(obj.queuedOrderId));
+  }
+  if (obj.processorResult !== undefined && obj.processorResult !== null) {
+    xml += serializeSalesProcessorResult(obj.processorResult, 'processorResult');
+  }
+  if (obj.resultCode !== undefined && obj.resultCode !== null) {
+    xml += serializeString('resultCode', String(obj.resultCode));
+  }
   xml += `</${NS_PREFIX}:${elemName}>`;
   return xml;
 }
 
-export function serializeWebhookConsumerEvent(obj: T.WebhookConsumerEvent, elemName: string): string {
+export function serializeWebhookConsumerEvent(obj: T.Input<T.WebhookConsumerEvent>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.eventName !== undefined && obj.eventName !== null) {
     xml += serializeString('eventName', String(obj.eventName));
@@ -23362,7 +24231,7 @@ export function serializeWebhookConsumerEvent(obj: T.WebhookConsumerEvent, elemN
   return xml;
 }
 
-export function serializeWebhookConsumerEventList(obj: T.WebhookConsumerEventList, elemName: string): string {
+export function serializeWebhookConsumerEventList(obj: T.Input<T.WebhookConsumerEventList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.webhookConsumerEvent !== undefined && obj.webhookConsumerEvent !== null) {
     for (const item of obj.webhookConsumerEvent) {
@@ -23373,7 +24242,7 @@ export function serializeWebhookConsumerEventList(obj: T.WebhookConsumerEventLis
   return xml;
 }
 
-export function serializeWebhookConsumerTriggerPattern(obj: T.WebhookConsumerTriggerPattern, elemName: string): string {
+export function serializeWebhookConsumerTriggerPattern(obj: T.Input<T.WebhookConsumerTriggerPattern>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.codeType !== undefined && obj.codeType !== null) {
     xml += serializeString('codeType', String(obj.codeType));
@@ -23388,7 +24257,7 @@ export function serializeWebhookConsumerTriggerPattern(obj: T.WebhookConsumerTri
   return xml;
 }
 
-export function serializeWebhookConsumerTriggerPatternList(obj: T.WebhookConsumerTriggerPatternList, elemName: string): string {
+export function serializeWebhookConsumerTriggerPatternList(obj: T.Input<T.WebhookConsumerTriggerPatternList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.webhookConsumerTriggerPattern !== undefined && obj.webhookConsumerTriggerPattern !== null) {
     for (const item of obj.webhookConsumerTriggerPattern) {
@@ -23399,7 +24268,7 @@ export function serializeWebhookConsumerTriggerPatternList(obj: T.WebhookConsume
   return xml;
 }
 
-export function serializeWebhookConsumerWorkplace(obj: T.WebhookConsumerWorkplace, elemName: string): string {
+export function serializeWebhookConsumerWorkplace(obj: T.Input<T.WebhookConsumerWorkplace>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.branchNumber !== undefined && obj.branchNumber !== null) {
     xml += serializeNumber('branchNumber', obj.branchNumber);
@@ -23413,7 +24282,7 @@ export function serializeWebhookConsumerWorkplace(obj: T.WebhookConsumerWorkplac
   return xml;
 }
 
-export function serializeWebhookConsumerWorkplaceList(obj: T.WebhookConsumerWorkplaceList, elemName: string): string {
+export function serializeWebhookConsumerWorkplaceList(obj: T.Input<T.WebhookConsumerWorkplaceList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.webhookConsumerWorkplace !== undefined && obj.webhookConsumerWorkplace !== null) {
     for (const item of obj.webhookConsumerWorkplace) {
@@ -23424,7 +24293,7 @@ export function serializeWebhookConsumerWorkplaceList(obj: T.WebhookConsumerWork
   return xml;
 }
 
-export function serializeWebhookConsumer(obj: T.WebhookConsumer, elemName: string): string {
+export function serializeWebhookConsumer(obj: T.Input<T.WebhookConsumer>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.webhookConsumerId !== undefined && obj.webhookConsumerId !== null) {
     xml += serializeString('webhookConsumerId', String(obj.webhookConsumerId));
@@ -23496,7 +24365,7 @@ export function serializeWebhookConsumer(obj: T.WebhookConsumer, elemName: strin
   return xml;
 }
 
-export function serializeWebhookConsumerList(obj: T.WebhookConsumerList, elemName: string): string {
+export function serializeWebhookConsumerList(obj: T.Input<T.WebhookConsumerList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.webhookConsumer !== undefined && obj.webhookConsumer !== null) {
     for (const item of obj.webhookConsumer) {
@@ -23507,7 +24376,7 @@ export function serializeWebhookConsumerList(obj: T.WebhookConsumerList, elemNam
   return xml;
 }
 
-export function serializeGetWebhookConsumersRequest(obj: T.GetWebhookConsumersRequest, elemName: string): string {
+export function serializeGetWebhookConsumersRequest(obj: T.Input<T.GetWebhookConsumersRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.syncMarker !== undefined && obj.syncMarker !== null) {
     xml += serializeNumber('syncMarker', obj.syncMarker);
@@ -23519,7 +24388,7 @@ export function serializeGetWebhookConsumersRequest(obj: T.GetWebhookConsumersRe
   return xml;
 }
 
-export function serializeExternalPaymentMessage(obj: T.ExternalPaymentMessage, elemName: string): string {
+export function serializeExternalPaymentMessage(obj: T.Input<T.ExternalPaymentMessage>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.message !== undefined && obj.message !== null) {
     xml += serializeString('message', String(obj.message));
@@ -23540,7 +24409,7 @@ export function serializeExternalPaymentMessage(obj: T.ExternalPaymentMessage, e
   return xml;
 }
 
-export function serializeExternalPaymentMessageList(obj: T.ExternalPaymentMessageList, elemName: string): string {
+export function serializeExternalPaymentMessageList(obj: T.Input<T.ExternalPaymentMessageList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.message !== undefined && obj.message !== null) {
     for (const item of obj.message) {
@@ -23551,7 +24420,7 @@ export function serializeExternalPaymentMessageList(obj: T.ExternalPaymentMessag
   return xml;
 }
 
-export function serializeExternalPaymentCode(obj: T.ExternalPaymentCode, elemName: string): string {
+export function serializeExternalPaymentCode(obj: T.Input<T.ExternalPaymentCode>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.codeType !== undefined && obj.codeType !== null) {
     xml += serializeString('codeType', String(obj.codeType));
@@ -23566,7 +24435,7 @@ export function serializeExternalPaymentCode(obj: T.ExternalPaymentCode, elemNam
   return xml;
 }
 
-export function serializeStartExternalPaymentRequest(obj: T.StartExternalPaymentRequest, elemName: string): string {
+export function serializeStartExternalPaymentRequest(obj: T.Input<T.StartExternalPaymentRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.externalPaymentId !== undefined && obj.externalPaymentId !== null) {
     xml += serializeString('externalPaymentId', String(obj.externalPaymentId));
@@ -23584,7 +24453,7 @@ export function serializeStartExternalPaymentRequest(obj: T.StartExternalPayment
   return xml;
 }
 
-export function serializePollExternalPaymentRequest(obj: T.PollExternalPaymentRequest, elemName: string): string {
+export function serializePollExternalPaymentRequest(obj: T.Input<T.PollExternalPaymentRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.externalPaymentId !== undefined && obj.externalPaymentId !== null) {
     xml += serializeString('externalPaymentId', String(obj.externalPaymentId));
@@ -23593,7 +24462,7 @@ export function serializePollExternalPaymentRequest(obj: T.PollExternalPaymentRe
   return xml;
 }
 
-export function serializeRequestCancelExternalPaymentRequest(obj: T.RequestCancelExternalPaymentRequest, elemName: string): string {
+export function serializeRequestCancelExternalPaymentRequest(obj: T.Input<T.RequestCancelExternalPaymentRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.externalPaymentId !== undefined && obj.externalPaymentId !== null) {
     xml += serializeString('externalPaymentId', String(obj.externalPaymentId));
@@ -23602,7 +24471,7 @@ export function serializeRequestCancelExternalPaymentRequest(obj: T.RequestCance
   return xml;
 }
 
-export function serializeCancelExternalPaymentRequest(obj: T.CancelExternalPaymentRequest, elemName: string): string {
+export function serializeCancelExternalPaymentRequest(obj: T.Input<T.CancelExternalPaymentRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.externalPaymentId !== undefined && obj.externalPaymentId !== null) {
     xml += serializeString('externalPaymentId', String(obj.externalPaymentId));
@@ -23611,7 +24480,7 @@ export function serializeCancelExternalPaymentRequest(obj: T.CancelExternalPayme
   return xml;
 }
 
-export function serializeWebhookBrowserInput(obj: T.WebhookBrowserInput, elemName: string): string {
+export function serializeWebhookBrowserInput(obj: T.Input<T.WebhookBrowserInput>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.deviceType !== undefined && obj.deviceType !== null) {
     xml += serializeString('deviceType', String(obj.deviceType));
@@ -23632,7 +24501,7 @@ export function serializeWebhookBrowserInput(obj: T.WebhookBrowserInput, elemNam
   return xml;
 }
 
-export function serializeWebhookDialogInput(obj: T.WebhookDialogInput, elemName: string): string {
+export function serializeWebhookDialogInput(obj: T.Input<T.WebhookDialogInput>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.dialogId !== undefined && obj.dialogId !== null) {
     xml += serializeNumber('dialogId', obj.dialogId);
@@ -23654,7 +24523,7 @@ export function serializeWebhookDialogInput(obj: T.WebhookDialogInput, elemName:
   return xml;
 }
 
-export function serializeWebhookFormFieldInput(obj: T.WebhookFormFieldInput, elemName: string): string {
+export function serializeWebhookFormFieldInput(obj: T.Input<T.WebhookFormFieldInput>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.id !== undefined && obj.id !== null) {
     xml += serializeString('id', String(obj.id));
@@ -23674,7 +24543,7 @@ export function serializeWebhookFormFieldInput(obj: T.WebhookFormFieldInput, ele
   return xml;
 }
 
-export function serializeWebhookFormInput(obj: T.WebhookFormInput, elemName: string): string {
+export function serializeWebhookFormInput(obj: T.Input<T.WebhookFormInput>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.id !== undefined && obj.id !== null) {
     xml += serializeString('id', String(obj.id));
@@ -23688,7 +24557,7 @@ export function serializeWebhookFormInput(obj: T.WebhookFormInput, elemName: str
   return xml;
 }
 
-export function serializeWebhookScanCodeInput(obj: T.WebhookScanCodeInput, elemName: string): string {
+export function serializeWebhookScanCodeInput(obj: T.Input<T.WebhookScanCodeInput>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.scannedCode !== undefined && obj.scannedCode !== null) {
     xml += serializeString('scannedCode', String(obj.scannedCode));
@@ -23700,7 +24569,7 @@ export function serializeWebhookScanCodeInput(obj: T.WebhookScanCodeInput, elemN
   return xml;
 }
 
-export function serializeWebhookOpenUrlInput(obj: T.WebhookOpenUrlInput, elemName: string): string {
+export function serializeWebhookOpenUrlInput(obj: T.Input<T.WebhookOpenUrlInput>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.redirectUrl !== undefined && obj.redirectUrl !== null) {
     xml += serializeString('redirectUrl', String(obj.redirectUrl));
@@ -23709,7 +24578,7 @@ export function serializeWebhookOpenUrlInput(obj: T.WebhookOpenUrlInput, elemNam
   return xml;
 }
 
-export function serializeApplyWebhookExternalDiscount(obj: T.ApplyWebhookExternalDiscount, elemName: string): string {
+export function serializeApplyWebhookExternalDiscount(obj: T.Input<T.ApplyWebhookExternalDiscount>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.discountId !== undefined && obj.discountId !== null) {
     xml += serializeString('discountId', String(obj.discountId));
@@ -23736,7 +24605,7 @@ export function serializeApplyWebhookExternalDiscount(obj: T.ApplyWebhookExterna
   return xml;
 }
 
-export function serializeWebhookTableInput(obj: T.WebhookTableInput, elemName: string): string {
+export function serializeWebhookTableInput(obj: T.Input<T.WebhookTableInput>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.number !== undefined && obj.number !== null) {
     xml += serializeNumber('number', obj.number);
@@ -23748,7 +24617,7 @@ export function serializeWebhookTableInput(obj: T.WebhookTableInput, elemName: s
   return xml;
 }
 
-export function serializeWebhookRelationInput(obj: T.WebhookRelationInput, elemName: string): string {
+export function serializeWebhookRelationInput(obj: T.Input<T.WebhookRelationInput>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.relationNumber !== undefined && obj.relationNumber !== null) {
     xml += serializeNumber('relationNumber', obj.relationNumber);
@@ -23757,7 +24626,7 @@ export function serializeWebhookRelationInput(obj: T.WebhookRelationInput, elemN
   return xml;
 }
 
-export function serializeWebhookExternalDiscountInput(obj: T.WebhookExternalDiscountInput, elemName: string): string {
+export function serializeWebhookExternalDiscountInput(obj: T.Input<T.WebhookExternalDiscountInput>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.discountId !== undefined && obj.discountId !== null) {
     xml += serializeString('discountId', String(obj.discountId));
@@ -23781,7 +24650,7 @@ export function serializeWebhookExternalDiscountInput(obj: T.WebhookExternalDisc
   return xml;
 }
 
-export function serializeWebhookSessionBaseLineInput(obj: T.WebhookSessionBaseLineInput, elemName: string): string {
+export function serializeWebhookSessionBaseLineInput(obj: T.Input<T.WebhookSessionBaseLineInput>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.lineId !== undefined && obj.lineId !== null) {
     xml += serializeString('lineId', String(obj.lineId));
@@ -23808,13 +24677,47 @@ export function serializeWebhookSessionBaseLineInput(obj: T.WebhookSessionBaseLi
   return xml;
 }
 
-export function serializeWebhookSessionLineInput(obj: T.WebhookSessionLineInput, elemName: string): string {
+export function serializeWebhookSessionLineInput(obj: T.Input<T.WebhookSessionLineInput>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.lineId !== undefined && obj.lineId !== null) {
+    xml += serializeString('lineId', String(obj.lineId));
+  }
+  if (obj.articleNumber !== undefined && obj.articleNumber !== null) {
+    xml += serializeNumber('articleNumber', obj.articleNumber);
+  }
+  if (obj.priceIncl !== undefined && obj.priceIncl !== null) {
+    xml += serializeString('priceIncl', String(obj.priceIncl));
+  }
+  if (obj.quantity !== undefined && obj.quantity !== null) {
+    xml += serializeString('quantity', String(obj.quantity));
+  }
+  if (obj.text !== undefined && obj.text !== null) {
+    xml += serializeString('text', String(obj.text));
+  }
+  if (obj.discountPercentage !== undefined && obj.discountPercentage !== null) {
+    xml += serializeString('discountPercentage', String(obj.discountPercentage));
+  }
+  if (obj.discountAmount !== undefined && obj.discountAmount !== null) {
+    xml += serializeString('discountAmount', String(obj.discountAmount));
+  }
+  if (obj.externalDiscount !== undefined && obj.externalDiscount !== null) {
+    xml += serializeWebhookExternalDiscountInput(obj.externalDiscount, 'externalDiscount');
+  }
+  if (obj.preparationMethods !== undefined && obj.preparationMethods !== null) {
+    for (const item of obj.preparationMethods) {
+      xml += serializeWebhookSessionBaseLineInput(item, 'preparationMethods');
+    }
+  }
+  if (obj.componentArticles !== undefined && obj.componentArticles !== null) {
+    for (const item of obj.componentArticles) {
+      xml += serializeWebhookSessionBaseLineInput(item, 'componentArticles');
+    }
+  }
   xml += `</${NS_PREFIX}:${elemName}>`;
   return xml;
 }
 
-export function serializeWebhookSessionInput(obj: T.WebhookSessionInput, elemName: string): string {
+export function serializeWebhookSessionInput(obj: T.Input<T.WebhookSessionInput>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.sessionId !== undefined && obj.sessionId !== null) {
     xml += serializeString('sessionId', String(obj.sessionId));
@@ -23843,7 +24746,7 @@ export function serializeWebhookSessionInput(obj: T.WebhookSessionInput, elemNam
   return xml;
 }
 
-export function serializeWebhookSelectRelationInput(obj: T.WebhookSelectRelationInput, elemName: string): string {
+export function serializeWebhookSelectRelationInput(obj: T.Input<T.WebhookSelectRelationInput>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.relationNumber !== undefined && obj.relationNumber !== null) {
     xml += serializeNumber('relationNumber', obj.relationNumber);
@@ -23852,7 +24755,7 @@ export function serializeWebhookSelectRelationInput(obj: T.WebhookSelectRelation
   return xml;
 }
 
-export function serializeWebhookCustomActionInput(obj: T.WebhookCustomActionInput, elemName: string): string {
+export function serializeWebhookCustomActionInput(obj: T.Input<T.WebhookCustomActionInput>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.customActionId !== undefined && obj.customActionId !== null) {
     xml += serializeString('customActionId', String(obj.customActionId));
@@ -23873,7 +24776,7 @@ export function serializeWebhookCustomActionInput(obj: T.WebhookCustomActionInpu
   return xml;
 }
 
-export function serializeWebhookMessage(obj: T.WebhookMessage, elemName: string): string {
+export function serializeWebhookMessage(obj: T.Input<T.WebhookMessage>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.message !== undefined && obj.message !== null) {
     xml += serializeString('message', String(obj.message));
@@ -23906,7 +24809,7 @@ export function serializeWebhookMessage(obj: T.WebhookMessage, elemName: string)
   return xml;
 }
 
-export function serializeWebhookDialogOption(obj: T.WebhookDialogOption, elemName: string): string {
+export function serializeWebhookDialogOption(obj: T.Input<T.WebhookDialogOption>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.optionId !== undefined && obj.optionId !== null) {
     xml += serializeNumber('optionId', obj.optionId);
@@ -23927,7 +24830,7 @@ export function serializeWebhookDialogOption(obj: T.WebhookDialogOption, elemNam
   return xml;
 }
 
-export function serializeWebhookDialog(obj: T.WebhookDialog, elemName: string): string {
+export function serializeWebhookDialog(obj: T.Input<T.WebhookDialog>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.required !== undefined && obj.required !== null) {
     xml += serializeBoolean('required', obj.required);
@@ -23959,7 +24862,7 @@ export function serializeWebhookDialog(obj: T.WebhookDialog, elemName: string): 
   return xml;
 }
 
-export function serializeWebhookFormNumber(obj: T.WebhookFormNumber, elemName: string): string {
+export function serializeWebhookFormNumber(obj: T.Input<T.WebhookFormNumber>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.decimals !== undefined && obj.decimals !== null) {
     xml += serializeNumber('decimals', obj.decimals);
@@ -23977,7 +24880,7 @@ export function serializeWebhookFormNumber(obj: T.WebhookFormNumber, elemName: s
   return xml;
 }
 
-export function serializeWebhookFormDaySchedule(obj: T.WebhookFormDaySchedule, elemName: string): string {
+export function serializeWebhookFormDaySchedule(obj: T.Input<T.WebhookFormDaySchedule>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.available !== undefined && obj.available !== null) {
     xml += serializeBoolean('available', obj.available);
@@ -23998,7 +24901,7 @@ export function serializeWebhookFormDaySchedule(obj: T.WebhookFormDaySchedule, e
   return xml;
 }
 
-export function serializeWebhookFormCalendar(obj: T.WebhookFormCalendar, elemName: string): string {
+export function serializeWebhookFormCalendar(obj: T.Input<T.WebhookFormCalendar>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.futureOnly !== undefined && obj.futureOnly !== null) {
     xml += serializeBoolean('futureOnly', obj.futureOnly);
@@ -24037,7 +24940,7 @@ export function serializeWebhookFormCalendar(obj: T.WebhookFormCalendar, elemNam
   return xml;
 }
 
-export function serializeWebhookFormOption(obj: T.WebhookFormOption, elemName: string): string {
+export function serializeWebhookFormOption(obj: T.Input<T.WebhookFormOption>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.id !== undefined && obj.id !== null) {
     xml += serializeString('id', String(obj.id));
@@ -24073,7 +24976,7 @@ export function serializeWebhookFormOption(obj: T.WebhookFormOption, elemName: s
   return xml;
 }
 
-export function serializeWebhookFormSelect(obj: T.WebhookFormSelect, elemName: string): string {
+export function serializeWebhookFormSelect(obj: T.Input<T.WebhookFormSelect>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.multiple !== undefined && obj.multiple !== null) {
     xml += serializeBoolean('multiple', obj.multiple);
@@ -24090,7 +24993,7 @@ export function serializeWebhookFormSelect(obj: T.WebhookFormSelect, elemName: s
   return xml;
 }
 
-export function serializeWebhookFormField(obj: T.WebhookFormField, elemName: string): string {
+export function serializeWebhookFormField(obj: T.Input<T.WebhookFormField>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.id !== undefined && obj.id !== null) {
     xml += serializeString('id', String(obj.id));
@@ -24138,7 +25041,7 @@ export function serializeWebhookFormField(obj: T.WebhookFormField, elemName: str
   return xml;
 }
 
-export function serializeWebhookForm(obj: T.WebhookForm, elemName: string): string {
+export function serializeWebhookForm(obj: T.Input<T.WebhookForm>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.id !== undefined && obj.id !== null) {
     xml += serializeString('id', String(obj.id));
@@ -24164,7 +25067,7 @@ export function serializeWebhookForm(obj: T.WebhookForm, elemName: string): stri
   return xml;
 }
 
-export function serializeWebhookDisplayBarcode(obj: T.WebhookDisplayBarcode, elemName: string): string {
+export function serializeWebhookDisplayBarcode(obj: T.Input<T.WebhookDisplayBarcode>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.codeType !== undefined && obj.codeType !== null) {
     xml += serializeString('codeType', String(obj.codeType));
@@ -24176,7 +25079,7 @@ export function serializeWebhookDisplayBarcode(obj: T.WebhookDisplayBarcode, ele
   return xml;
 }
 
-export function serializeWebhookOpenUrl(obj: T.WebhookOpenUrl, elemName: string): string {
+export function serializeWebhookOpenUrl(obj: T.Input<T.WebhookOpenUrl>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.url !== undefined && obj.url !== null) {
     xml += serializeString('url', String(obj.url));
@@ -24191,7 +25094,7 @@ export function serializeWebhookOpenUrl(obj: T.WebhookOpenUrl, elemName: string)
   return xml;
 }
 
-export function serializeWebhookError(obj: T.WebhookError, elemName: string): string {
+export function serializeWebhookError(obj: T.Input<T.WebhookError>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.type !== undefined && obj.type !== null) {
     xml += serializeString('type', String(obj.type));
@@ -24206,7 +25109,7 @@ export function serializeWebhookError(obj: T.WebhookError, elemName: string): st
   return xml;
 }
 
-export function serializeWebhookRequestScanCode(obj: T.WebhookRequestScanCode, elemName: string): string {
+export function serializeWebhookRequestScanCode(obj: T.Input<T.WebhookRequestScanCode>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.required !== undefined && obj.required !== null) {
     xml += serializeBoolean('required', obj.required);
@@ -24218,7 +25121,7 @@ export function serializeWebhookRequestScanCode(obj: T.WebhookRequestScanCode, e
   return xml;
 }
 
-export function serializeWebhookScanCode(obj: T.WebhookScanCode, elemName: string): string {
+export function serializeWebhookScanCode(obj: T.Input<T.WebhookScanCode>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.recognized !== undefined && obj.recognized !== null) {
     xml += serializeBoolean('recognized', obj.recognized);
@@ -24230,7 +25133,7 @@ export function serializeWebhookScanCode(obj: T.WebhookScanCode, elemName: strin
   return xml;
 }
 
-export function serializeWebhookLineChange(obj: T.WebhookLineChange, elemName: string): string {
+export function serializeWebhookLineChange(obj: T.Input<T.WebhookLineChange>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.lineId !== undefined && obj.lineId !== null) {
     xml += serializeString('lineId', String(obj.lineId));
@@ -24245,7 +25148,7 @@ export function serializeWebhookLineChange(obj: T.WebhookLineChange, elemName: s
   return xml;
 }
 
-export function serializeWebhookLineAddition(obj: T.WebhookLineAddition, elemName: string): string {
+export function serializeWebhookLineAddition(obj: T.Input<T.WebhookLineAddition>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.lineId !== undefined && obj.lineId !== null) {
     xml += serializeString('lineId', String(obj.lineId));
@@ -24284,7 +25187,7 @@ export function serializeWebhookLineAddition(obj: T.WebhookLineAddition, elemNam
   return xml;
 }
 
-export function serializeWebhookLineDeletion(obj: T.WebhookLineDeletion, elemName: string): string {
+export function serializeWebhookLineDeletion(obj: T.Input<T.WebhookLineDeletion>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.lineId !== undefined && obj.lineId !== null) {
     xml += serializeString('lineId', String(obj.lineId));
@@ -24296,13 +25199,49 @@ export function serializeWebhookLineDeletion(obj: T.WebhookLineDeletion, elemNam
   return xml;
 }
 
-export function serializeWebhookReq(obj: T.WebhookReq, elemName: string): string {
+export function serializeWebhookReq(obj: T.Input<T.WebhookReq>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.idempotencyKey !== undefined && obj.idempotencyKey !== null) {
+    xml += serializeString('idempotencyKey', String(obj.idempotencyKey));
+  }
+  if (obj.browser !== undefined && obj.browser !== null) {
+    xml += serializeWebhookBrowserInput(obj.browser, 'browser');
+  }
+  if (obj.dialog !== undefined && obj.dialog !== null) {
+    xml += serializeWebhookDialogInput(obj.dialog, 'dialog');
+  }
+  if (obj.scanCode !== undefined && obj.scanCode !== null) {
+    xml += serializeWebhookScanCodeInput(obj.scanCode, 'scanCode');
+  }
+  if (obj.openUrl !== undefined && obj.openUrl !== null) {
+    xml += serializeWebhookOpenUrlInput(obj.openUrl, 'openUrl');
+  }
+  if (obj.session !== undefined && obj.session !== null) {
+    xml += serializeWebhookSessionInput(obj.session, 'session');
+  }
+  if (obj.addSessionLine !== undefined && obj.addSessionLine !== null) {
+    xml += serializeWebhookSessionLineInput(obj.addSessionLine, 'addSessionLine');
+  }
+  if (obj.updateSessionLine !== undefined && obj.updateSessionLine !== null) {
+    xml += serializeWebhookSessionLineInput(obj.updateSessionLine, 'updateSessionLine');
+  }
+  if (obj.removeSessionLine !== undefined && obj.removeSessionLine !== null) {
+    xml += serializeWebhookSessionLineInput(obj.removeSessionLine, 'removeSessionLine');
+  }
+  if (obj.selectRelation !== undefined && obj.selectRelation !== null) {
+    xml += serializeWebhookSelectRelationInput(obj.selectRelation, 'selectRelation');
+  }
+  if (obj.customAction !== undefined && obj.customAction !== null) {
+    xml += serializeWebhookCustomActionInput(obj.customAction, 'customAction');
+  }
+  if (obj.form !== undefined && obj.form !== null) {
+    xml += serializeWebhookFormInput(obj.form, 'form');
+  }
   xml += `</${NS_PREFIX}:${elemName}>`;
   return xml;
 }
 
-export function serializeExternalPaymentReq(obj: T.ExternalPaymentReq, elemName: string): string {
+export function serializeExternalPaymentReq(obj: T.Input<T.ExternalPaymentReq>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.externalPaymentId !== undefined && obj.externalPaymentId !== null) {
     xml += serializeString('externalPaymentId', String(obj.externalPaymentId));
@@ -24320,7 +25259,7 @@ export function serializeExternalPaymentReq(obj: T.ExternalPaymentReq, elemName:
   return xml;
 }
 
-export function serializeExternalPaymentResp(obj: T.ExternalPaymentResp, elemName: string): string {
+export function serializeExternalPaymentResp(obj: T.Input<T.ExternalPaymentResp>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.externalPaymentId !== undefined && obj.externalPaymentId !== null) {
     xml += serializeString('externalPaymentId', String(obj.externalPaymentId));
@@ -24358,19 +25297,97 @@ export function serializeExternalPaymentResp(obj: T.ExternalPaymentResp, elemNam
   return xml;
 }
 
-export function serializeExternalPaymentWebhookRequest(obj: T.ExternalPaymentWebhookRequest, elemName: string): string {
+export function serializeExternalPaymentWebhookRequest(obj: T.Input<T.ExternalPaymentWebhookRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.idempotencyKey !== undefined && obj.idempotencyKey !== null) {
+    xml += serializeString('idempotencyKey', String(obj.idempotencyKey));
+  }
+  if (obj.browser !== undefined && obj.browser !== null) {
+    xml += serializeWebhookBrowserInput(obj.browser, 'browser');
+  }
+  if (obj.dialog !== undefined && obj.dialog !== null) {
+    xml += serializeWebhookDialogInput(obj.dialog, 'dialog');
+  }
+  if (obj.scanCode !== undefined && obj.scanCode !== null) {
+    xml += serializeWebhookScanCodeInput(obj.scanCode, 'scanCode');
+  }
+  if (obj.openUrl !== undefined && obj.openUrl !== null) {
+    xml += serializeWebhookOpenUrlInput(obj.openUrl, 'openUrl');
+  }
+  if (obj.session !== undefined && obj.session !== null) {
+    xml += serializeWebhookSessionInput(obj.session, 'session');
+  }
+  if (obj.addSessionLine !== undefined && obj.addSessionLine !== null) {
+    xml += serializeWebhookSessionLineInput(obj.addSessionLine, 'addSessionLine');
+  }
+  if (obj.updateSessionLine !== undefined && obj.updateSessionLine !== null) {
+    xml += serializeWebhookSessionLineInput(obj.updateSessionLine, 'updateSessionLine');
+  }
+  if (obj.removeSessionLine !== undefined && obj.removeSessionLine !== null) {
+    xml += serializeWebhookSessionLineInput(obj.removeSessionLine, 'removeSessionLine');
+  }
+  if (obj.selectRelation !== undefined && obj.selectRelation !== null) {
+    xml += serializeWebhookSelectRelationInput(obj.selectRelation, 'selectRelation');
+  }
+  if (obj.customAction !== undefined && obj.customAction !== null) {
+    xml += serializeWebhookCustomActionInput(obj.customAction, 'customAction');
+  }
+  if (obj.form !== undefined && obj.form !== null) {
+    xml += serializeWebhookFormInput(obj.form, 'form');
+  }
+  if (obj.externalPayment !== undefined && obj.externalPayment !== null) {
+    xml += serializeExternalPaymentReq(obj.externalPayment, 'externalPayment');
+  }
   xml += `</${NS_PREFIX}:${elemName}>`;
   return xml;
 }
 
-export function serializeSendWebhookRequest(obj: T.SendWebhookRequest, elemName: string): string {
+export function serializeSendWebhookRequest(obj: T.Input<T.SendWebhookRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.idempotencyKey !== undefined && obj.idempotencyKey !== null) {
+    xml += serializeString('idempotencyKey', String(obj.idempotencyKey));
+  }
+  if (obj.browser !== undefined && obj.browser !== null) {
+    xml += serializeWebhookBrowserInput(obj.browser, 'browser');
+  }
+  if (obj.dialog !== undefined && obj.dialog !== null) {
+    xml += serializeWebhookDialogInput(obj.dialog, 'dialog');
+  }
+  if (obj.scanCode !== undefined && obj.scanCode !== null) {
+    xml += serializeWebhookScanCodeInput(obj.scanCode, 'scanCode');
+  }
+  if (obj.openUrl !== undefined && obj.openUrl !== null) {
+    xml += serializeWebhookOpenUrlInput(obj.openUrl, 'openUrl');
+  }
+  if (obj.session !== undefined && obj.session !== null) {
+    xml += serializeWebhookSessionInput(obj.session, 'session');
+  }
+  if (obj.addSessionLine !== undefined && obj.addSessionLine !== null) {
+    xml += serializeWebhookSessionLineInput(obj.addSessionLine, 'addSessionLine');
+  }
+  if (obj.updateSessionLine !== undefined && obj.updateSessionLine !== null) {
+    xml += serializeWebhookSessionLineInput(obj.updateSessionLine, 'updateSessionLine');
+  }
+  if (obj.removeSessionLine !== undefined && obj.removeSessionLine !== null) {
+    xml += serializeWebhookSessionLineInput(obj.removeSessionLine, 'removeSessionLine');
+  }
+  if (obj.selectRelation !== undefined && obj.selectRelation !== null) {
+    xml += serializeWebhookSelectRelationInput(obj.selectRelation, 'selectRelation');
+  }
+  if (obj.customAction !== undefined && obj.customAction !== null) {
+    xml += serializeWebhookCustomActionInput(obj.customAction, 'customAction');
+  }
+  if (obj.form !== undefined && obj.form !== null) {
+    xml += serializeWebhookFormInput(obj.form, 'form');
+  }
+  if (obj.webhookEvent !== undefined && obj.webhookEvent !== null) {
+    xml += serializeString('webhookEvent', String(obj.webhookEvent));
+  }
   xml += `</${NS_PREFIX}:${elemName}>`;
   return xml;
 }
 
-export function serializeGetWebhookConsumersResponse(obj: T.GetWebhookConsumersResponse, elemName: string): string {
+export function serializeGetWebhookConsumersResponse(obj: T.Input<T.GetWebhookConsumersResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.webhookConsumerList !== undefined && obj.webhookConsumerList !== null) {
     xml += `<${NS_PREFIX}:webhookConsumerList>`;
@@ -24383,7 +25400,7 @@ export function serializeGetWebhookConsumersResponse(obj: T.GetWebhookConsumersR
   return xml;
 }
 
-export function serializeStartExternalPaymentResponse(obj: T.StartExternalPaymentResponse, elemName: string): string {
+export function serializeStartExternalPaymentResponse(obj: T.Input<T.StartExternalPaymentResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.isStarted !== undefined && obj.isStarted !== null) {
     xml += serializeBoolean('isStarted', obj.isStarted);
@@ -24414,7 +25431,7 @@ export function serializeStartExternalPaymentResponse(obj: T.StartExternalPaymen
   return xml;
 }
 
-export function serializePollExternalPaymentResponse(obj: T.PollExternalPaymentResponse, elemName: string): string {
+export function serializePollExternalPaymentResponse(obj: T.Input<T.PollExternalPaymentResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.isConfirmed !== undefined && obj.isConfirmed !== null) {
     xml += serializeBoolean('isConfirmed', obj.isConfirmed);
@@ -24442,7 +25459,7 @@ export function serializePollExternalPaymentResponse(obj: T.PollExternalPaymentR
   return xml;
 }
 
-export function serializeRequestCancelExternalPaymentResponse(obj: T.RequestCancelExternalPaymentResponse, elemName: string): string {
+export function serializeRequestCancelExternalPaymentResponse(obj: T.Input<T.RequestCancelExternalPaymentResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.isConfirmed !== undefined && obj.isConfirmed !== null) {
     xml += serializeBoolean('isConfirmed', obj.isConfirmed);
@@ -24470,25 +25487,122 @@ export function serializeRequestCancelExternalPaymentResponse(obj: T.RequestCanc
   return xml;
 }
 
-export function serializeCancelExternalPaymentResponse(obj: T.CancelExternalPaymentResponse, elemName: string): string {
+export function serializeCancelExternalPaymentResponse(obj: T.Input<T.CancelExternalPaymentResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   xml += `</${NS_PREFIX}:${elemName}>`;
   return xml;
 }
 
-export function serializeExternalPaymentWebhookResponse(obj: T.ExternalPaymentWebhookResponse, elemName: string): string {
+export function serializeExternalPaymentWebhookResponse(obj: T.Input<T.ExternalPaymentWebhookResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.idempotencyResult !== undefined && obj.idempotencyResult !== null) {
+    xml += serializeString('idempotencyResult', String(obj.idempotencyResult));
+  }
+  if (obj.messages !== undefined && obj.messages !== null) {
+    for (const item of obj.messages) {
+      xml += serializeWebhookMessage(item, 'messages');
+    }
+  }
+  if (obj.dialog !== undefined && obj.dialog !== null) {
+    xml += serializeWebhookDialog(obj.dialog, 'dialog');
+  }
+  if (obj.displayBarcode !== undefined && obj.displayBarcode !== null) {
+    xml += serializeWebhookDisplayBarcode(obj.displayBarcode, 'displayBarcode');
+  }
+  if (obj.openUrl !== undefined && obj.openUrl !== null) {
+    xml += serializeWebhookOpenUrl(obj.openUrl, 'openUrl');
+  }
+  if (obj.error !== undefined && obj.error !== null) {
+    xml += serializeWebhookError(obj.error, 'error');
+  }
+  if (obj.requestScanCode !== undefined && obj.requestScanCode !== null) {
+    xml += serializeWebhookRequestScanCode(obj.requestScanCode, 'requestScanCode');
+  }
+  if (obj.scanCode !== undefined && obj.scanCode !== null) {
+    xml += serializeWebhookScanCode(obj.scanCode, 'scanCode');
+  }
+  if (obj.lineChanges !== undefined && obj.lineChanges !== null) {
+    for (const item of obj.lineChanges) {
+      xml += serializeWebhookLineChange(item, 'lineChanges');
+    }
+  }
+  if (obj.lineAdditions !== undefined && obj.lineAdditions !== null) {
+    for (const item of obj.lineAdditions) {
+      xml += serializeWebhookLineAddition(item, 'lineAdditions');
+    }
+  }
+  if (obj.lineDeletions !== undefined && obj.lineDeletions !== null) {
+    for (const item of obj.lineDeletions) {
+      xml += serializeWebhookLineDeletion(item, 'lineDeletions');
+    }
+  }
+  if (obj.keepPolling !== undefined && obj.keepPolling !== null) {
+    xml += serializeBoolean('keepPolling', obj.keepPolling);
+  }
+  if (obj.form !== undefined && obj.form !== null) {
+    xml += serializeWebhookForm(obj.form, 'form');
+  }
+  if (obj.externalPayment !== undefined && obj.externalPayment !== null) {
+    xml += serializeExternalPaymentResp(obj.externalPayment, 'externalPayment');
+  }
   xml += `</${NS_PREFIX}:${elemName}>`;
   return xml;
 }
 
-export function serializeWebhookResp(obj: T.WebhookResp, elemName: string): string {
+export function serializeWebhookResp(obj: T.Input<T.WebhookResp>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.idempotencyResult !== undefined && obj.idempotencyResult !== null) {
+    xml += serializeString('idempotencyResult', String(obj.idempotencyResult));
+  }
+  if (obj.messages !== undefined && obj.messages !== null) {
+    for (const item of obj.messages) {
+      xml += serializeWebhookMessage(item, 'messages');
+    }
+  }
+  if (obj.dialog !== undefined && obj.dialog !== null) {
+    xml += serializeWebhookDialog(obj.dialog, 'dialog');
+  }
+  if (obj.displayBarcode !== undefined && obj.displayBarcode !== null) {
+    xml += serializeWebhookDisplayBarcode(obj.displayBarcode, 'displayBarcode');
+  }
+  if (obj.openUrl !== undefined && obj.openUrl !== null) {
+    xml += serializeWebhookOpenUrl(obj.openUrl, 'openUrl');
+  }
+  if (obj.error !== undefined && obj.error !== null) {
+    xml += serializeWebhookError(obj.error, 'error');
+  }
+  if (obj.requestScanCode !== undefined && obj.requestScanCode !== null) {
+    xml += serializeWebhookRequestScanCode(obj.requestScanCode, 'requestScanCode');
+  }
+  if (obj.scanCode !== undefined && obj.scanCode !== null) {
+    xml += serializeWebhookScanCode(obj.scanCode, 'scanCode');
+  }
+  if (obj.lineChanges !== undefined && obj.lineChanges !== null) {
+    for (const item of obj.lineChanges) {
+      xml += serializeWebhookLineChange(item, 'lineChanges');
+    }
+  }
+  if (obj.lineAdditions !== undefined && obj.lineAdditions !== null) {
+    for (const item of obj.lineAdditions) {
+      xml += serializeWebhookLineAddition(item, 'lineAdditions');
+    }
+  }
+  if (obj.lineDeletions !== undefined && obj.lineDeletions !== null) {
+    for (const item of obj.lineDeletions) {
+      xml += serializeWebhookLineDeletion(item, 'lineDeletions');
+    }
+  }
+  if (obj.keepPolling !== undefined && obj.keepPolling !== null) {
+    xml += serializeBoolean('keepPolling', obj.keepPolling);
+  }
+  if (obj.form !== undefined && obj.form !== null) {
+    xml += serializeWebhookForm(obj.form, 'form');
+  }
   xml += `</${NS_PREFIX}:${elemName}>`;
   return xml;
 }
 
-export function serializeGetPrintLayoutsRequest(obj: T.GetPrintLayoutsRequest, elemName: string): string {
+export function serializeGetPrintLayoutsRequest(obj: T.Input<T.GetPrintLayoutsRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.type !== undefined && obj.type !== null) {
     xml += serializeString('type', String(obj.type));
@@ -24503,7 +25617,7 @@ export function serializeGetPrintLayoutsRequest(obj: T.GetPrintLayoutsRequest, e
   return xml;
 }
 
-export function serializePrintLayoutView(obj: T.PrintLayoutView, elemName: string): string {
+export function serializePrintLayoutView(obj: T.Input<T.PrintLayoutView>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.id !== undefined && obj.id !== null) {
     xml += serializeString('id', String(obj.id));
@@ -24530,7 +25644,7 @@ export function serializePrintLayoutView(obj: T.PrintLayoutView, elemName: strin
   return xml;
 }
 
-export function serializeGetPrintLayoutAssignmentsRequest(obj: T.GetPrintLayoutAssignmentsRequest, elemName: string): string {
+export function serializeGetPrintLayoutAssignmentsRequest(obj: T.Input<T.GetPrintLayoutAssignmentsRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.type !== undefined && obj.type !== null) {
     xml += serializeString('type', String(obj.type));
@@ -24551,7 +25665,7 @@ export function serializeGetPrintLayoutAssignmentsRequest(obj: T.GetPrintLayoutA
   return xml;
 }
 
-export function serializePrintLayoutAssignmentPrintLayoutView(obj: T.PrintLayoutAssignmentPrintLayoutView, elemName: string): string {
+export function serializePrintLayoutAssignmentPrintLayoutView(obj: T.Input<T.PrintLayoutAssignmentPrintLayoutView>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.id !== undefined && obj.id !== null) {
     xml += serializeString('id', String(obj.id));
@@ -24569,7 +25683,7 @@ export function serializePrintLayoutAssignmentPrintLayoutView(obj: T.PrintLayout
   return xml;
 }
 
-export function serializePrintLayoutAssignment(obj: T.PrintLayoutAssignment, elemName: string): string {
+export function serializePrintLayoutAssignment(obj: T.Input<T.PrintLayoutAssignment>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.workplace !== undefined && obj.workplace !== null) {
     xml += serializeWorkplaceIdentifier(obj.workplace, 'workplace');
@@ -24584,7 +25698,7 @@ export function serializePrintLayoutAssignment(obj: T.PrintLayoutAssignment, ele
   return xml;
 }
 
-export function serializePrintParam(obj: T.PrintParam, elemName: string): string {
+export function serializePrintParam(obj: T.Input<T.PrintParam>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.key !== undefined && obj.key !== null) {
     xml += serializeString('key', String(obj.key));
@@ -24596,7 +25710,7 @@ export function serializePrintParam(obj: T.PrintParam, elemName: string): string
   return xml;
 }
 
-export function serializePrintParams(obj: T.PrintParams, elemName: string): string {
+export function serializePrintParams(obj: T.Input<T.PrintParams>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.uuid !== undefined && obj.uuid !== null) {
     xml += serializeString('uuid', String(obj.uuid));
@@ -24613,7 +25727,7 @@ export function serializePrintParams(obj: T.PrintParams, elemName: string): stri
   return xml;
 }
 
-export function serializePrintInfo(obj: T.PrintInfo, elemName: string): string {
+export function serializePrintInfo(obj: T.Input<T.PrintInfo>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.paramsList !== undefined && obj.paramsList !== null) {
     for (const item of obj.paramsList) {
@@ -24627,7 +25741,7 @@ export function serializePrintInfo(obj: T.PrintInfo, elemName: string): string {
   return xml;
 }
 
-export function serializeGetRenderedPrintLayoutRequest(obj: T.GetRenderedPrintLayoutRequest, elemName: string): string {
+export function serializeGetRenderedPrintLayoutRequest(obj: T.Input<T.GetRenderedPrintLayoutRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.printLayoutUuid !== undefined && obj.printLayoutUuid !== null) {
     xml += serializeString('printLayoutUuid', String(obj.printLayoutUuid));
@@ -24645,7 +25759,7 @@ export function serializeGetRenderedPrintLayoutRequest(obj: T.GetRenderedPrintLa
   return xml;
 }
 
-export function serializeGetPrintLayoutMarkupRequest(obj: T.GetPrintLayoutMarkupRequest, elemName: string): string {
+export function serializeGetPrintLayoutMarkupRequest(obj: T.Input<T.GetPrintLayoutMarkupRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.printLayoutUuid !== undefined && obj.printLayoutUuid !== null) {
     xml += serializeString('printLayoutUuid', String(obj.printLayoutUuid));
@@ -24669,7 +25783,7 @@ export function serializeGetPrintLayoutMarkupRequest(obj: T.GetPrintLayoutMarkup
   return xml;
 }
 
-export function serializePrintPrintLayoutRequest(obj: T.PrintPrintLayoutRequest, elemName: string): string {
+export function serializePrintPrintLayoutRequest(obj: T.Input<T.PrintPrintLayoutRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.type !== undefined && obj.type !== null) {
     xml += serializeString('type', String(obj.type));
@@ -24687,7 +25801,7 @@ export function serializePrintPrintLayoutRequest(obj: T.PrintPrintLayoutRequest,
   return xml;
 }
 
-export function serializeGetPrintLayoutsResponse(obj: T.GetPrintLayoutsResponse, elemName: string): string {
+export function serializeGetPrintLayoutsResponse(obj: T.Input<T.GetPrintLayoutsResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -24701,7 +25815,7 @@ export function serializeGetPrintLayoutsResponse(obj: T.GetPrintLayoutsResponse,
   return xml;
 }
 
-export function serializeGetPrintLayoutAssignmentsResponse(obj: T.GetPrintLayoutAssignmentsResponse, elemName: string): string {
+export function serializeGetPrintLayoutAssignmentsResponse(obj: T.Input<T.GetPrintLayoutAssignmentsResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.printLayoutAssignments !== undefined && obj.printLayoutAssignments !== null) {
     for (const item of obj.printLayoutAssignments) {
@@ -24712,7 +25826,7 @@ export function serializeGetPrintLayoutAssignmentsResponse(obj: T.GetPrintLayout
   return xml;
 }
 
-export function serializeGetRenderedPrintLayoutResponse(obj: T.GetRenderedPrintLayoutResponse, elemName: string): string {
+export function serializeGetRenderedPrintLayoutResponse(obj: T.Input<T.GetRenderedPrintLayoutResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -24732,7 +25846,7 @@ export function serializeGetRenderedPrintLayoutResponse(obj: T.GetRenderedPrintL
   return xml;
 }
 
-export function serializeGetPrintLayoutMarkupResponse(obj: T.GetPrintLayoutMarkupResponse, elemName: string): string {
+export function serializeGetPrintLayoutMarkupResponse(obj: T.Input<T.GetPrintLayoutMarkupResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -24747,7 +25861,7 @@ export function serializeGetPrintLayoutMarkupResponse(obj: T.GetPrintLayoutMarku
   return xml;
 }
 
-export function serializePrintPrintLayoutResponse(obj: T.PrintPrintLayoutResponse, elemName: string): string {
+export function serializePrintPrintLayoutResponse(obj: T.Input<T.PrintPrintLayoutResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -24759,7 +25873,7 @@ export function serializePrintPrintLayoutResponse(obj: T.PrintPrintLayoutRespons
   return xml;
 }
 
-export function serializeInterbranchOrderLine(obj: T.InterbranchOrderLine, elemName: string): string {
+export function serializeInterbranchOrderLine(obj: T.Input<T.InterbranchOrderLine>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.articleNumber !== undefined && obj.articleNumber !== null) {
     xml += serializeNumber('articleNumber', obj.articleNumber);
@@ -24774,7 +25888,7 @@ export function serializeInterbranchOrderLine(obj: T.InterbranchOrderLine, elemN
   return xml;
 }
 
-export function serializeInterbranchOrderLineList(obj: T.InterbranchOrderLineList, elemName: string): string {
+export function serializeInterbranchOrderLineList(obj: T.Input<T.InterbranchOrderLineList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.interbranchOrderLine !== undefined && obj.interbranchOrderLine !== null) {
     for (const item of obj.interbranchOrderLine) {
@@ -24785,7 +25899,7 @@ export function serializeInterbranchOrderLineList(obj: T.InterbranchOrderLineLis
   return xml;
 }
 
-export function serializeInterbranchOrder(obj: T.InterbranchOrder, elemName: string): string {
+export function serializeInterbranchOrder(obj: T.Input<T.InterbranchOrder>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.interbranchOrderNumber !== undefined && obj.interbranchOrderNumber !== null) {
     xml += serializeYearNumber(obj.interbranchOrderNumber, 'interbranchOrderNumber');
@@ -24825,7 +25939,7 @@ export function serializeInterbranchOrder(obj: T.InterbranchOrder, elemName: str
   return xml;
 }
 
-export function serializeInterbranchOrderList(obj: T.InterbranchOrderList, elemName: string): string {
+export function serializeInterbranchOrderList(obj: T.Input<T.InterbranchOrderList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.interbranchOrder !== undefined && obj.interbranchOrder !== null) {
     for (const item of obj.interbranchOrder) {
@@ -24836,7 +25950,7 @@ export function serializeInterbranchOrderList(obj: T.InterbranchOrderList, elemN
   return xml;
 }
 
-export function serializeGetInterbranchOrdersRequest(obj: T.GetInterbranchOrdersRequest, elemName: string): string {
+export function serializeGetInterbranchOrdersRequest(obj: T.Input<T.GetInterbranchOrdersRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.syncMarker !== undefined && obj.syncMarker !== null) {
     xml += serializeNumber('syncMarker', obj.syncMarker);
@@ -24859,7 +25973,7 @@ export function serializeGetInterbranchOrdersRequest(obj: T.GetInterbranchOrders
   return xml;
 }
 
-export function serializeInterbranchOrderRequest(obj: T.InterbranchOrderRequest, elemName: string): string {
+export function serializeInterbranchOrderRequest(obj: T.Input<T.InterbranchOrderRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.fromBranchNumber !== undefined && obj.fromBranchNumber !== null) {
     xml += serializeNumber('fromBranchNumber', obj.fromBranchNumber);
@@ -24887,7 +26001,7 @@ export function serializeInterbranchOrderRequest(obj: T.InterbranchOrderRequest,
   return xml;
 }
 
-export function serializeCreateInterbranchOrderRequest(obj: T.CreateInterbranchOrderRequest, elemName: string): string {
+export function serializeCreateInterbranchOrderRequest(obj: T.Input<T.CreateInterbranchOrderRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.interbranchOrderRequest !== undefined && obj.interbranchOrderRequest !== null) {
     xml += serializeInterbranchOrderRequest(obj.interbranchOrderRequest, 'interbranchOrderRequest');
@@ -24902,7 +26016,7 @@ export function serializeCreateInterbranchOrderRequest(obj: T.CreateInterbranchO
   return xml;
 }
 
-export function serializeUpdateInterbranchOrderRequest(obj: T.UpdateInterbranchOrderRequest, elemName: string): string {
+export function serializeUpdateInterbranchOrderRequest(obj: T.Input<T.UpdateInterbranchOrderRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.interbranchOrderNumber !== undefined && obj.interbranchOrderNumber !== null) {
     xml += serializeYearNumber(obj.interbranchOrderNumber, 'interbranchOrderNumber');
@@ -24933,7 +26047,7 @@ export function serializeUpdateInterbranchOrderRequest(obj: T.UpdateInterbranchO
   return xml;
 }
 
-export function serializeClaimInterbranchOrderRequest(obj: T.ClaimInterbranchOrderRequest, elemName: string): string {
+export function serializeClaimInterbranchOrderRequest(obj: T.Input<T.ClaimInterbranchOrderRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.interbranchOrderNumber !== undefined && obj.interbranchOrderNumber !== null) {
     xml += serializeYearNumber(obj.interbranchOrderNumber, 'interbranchOrderNumber');
@@ -24951,7 +26065,7 @@ export function serializeClaimInterbranchOrderRequest(obj: T.ClaimInterbranchOrd
   return xml;
 }
 
-export function serializeReleaseInterbranchOrderRequest(obj: T.ReleaseInterbranchOrderRequest, elemName: string): string {
+export function serializeReleaseInterbranchOrderRequest(obj: T.Input<T.ReleaseInterbranchOrderRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.interbranchOrderNumber !== undefined && obj.interbranchOrderNumber !== null) {
     xml += serializeYearNumber(obj.interbranchOrderNumber, 'interbranchOrderNumber');
@@ -24960,7 +26074,7 @@ export function serializeReleaseInterbranchOrderRequest(obj: T.ReleaseInterbranc
   return xml;
 }
 
-export function serializeCancelInterbranchOrderRequest(obj: T.CancelInterbranchOrderRequest, elemName: string): string {
+export function serializeCancelInterbranchOrderRequest(obj: T.Input<T.CancelInterbranchOrderRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.interbranchOrderNumber !== undefined && obj.interbranchOrderNumber !== null) {
     xml += serializeYearNumber(obj.interbranchOrderNumber, 'interbranchOrderNumber');
@@ -24972,7 +26086,7 @@ export function serializeCancelInterbranchOrderRequest(obj: T.CancelInterbranchO
   return xml;
 }
 
-export function serializeInterbranchShipmentLine(obj: T.InterbranchShipmentLine, elemName: string): string {
+export function serializeInterbranchShipmentLine(obj: T.Input<T.InterbranchShipmentLine>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.articleNumber !== undefined && obj.articleNumber !== null) {
     xml += serializeNumber('articleNumber', obj.articleNumber);
@@ -24993,7 +26107,7 @@ export function serializeInterbranchShipmentLine(obj: T.InterbranchShipmentLine,
   return xml;
 }
 
-export function serializeInterbranchShipmentLineList(obj: T.InterbranchShipmentLineList, elemName: string): string {
+export function serializeInterbranchShipmentLineList(obj: T.Input<T.InterbranchShipmentLineList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.interbranchShipmentLine !== undefined && obj.interbranchShipmentLine !== null) {
     for (const item of obj.interbranchShipmentLine) {
@@ -25004,7 +26118,7 @@ export function serializeInterbranchShipmentLineList(obj: T.InterbranchShipmentL
   return xml;
 }
 
-export function serializeInterbranchShipment(obj: T.InterbranchShipment, elemName: string): string {
+export function serializeInterbranchShipment(obj: T.Input<T.InterbranchShipment>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.interbranchShipmentNumber !== undefined && obj.interbranchShipmentNumber !== null) {
     xml += serializeYearNumber(obj.interbranchShipmentNumber, 'interbranchShipmentNumber');
@@ -25047,7 +26161,7 @@ export function serializeInterbranchShipment(obj: T.InterbranchShipment, elemNam
   return xml;
 }
 
-export function serializeInterbranchShipmentList(obj: T.InterbranchShipmentList, elemName: string): string {
+export function serializeInterbranchShipmentList(obj: T.Input<T.InterbranchShipmentList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.interbranchShipment !== undefined && obj.interbranchShipment !== null) {
     for (const item of obj.interbranchShipment) {
@@ -25058,7 +26172,7 @@ export function serializeInterbranchShipmentList(obj: T.InterbranchShipmentList,
   return xml;
 }
 
-export function serializeGetInterbranchShipmentsRequest(obj: T.GetInterbranchShipmentsRequest, elemName: string): string {
+export function serializeGetInterbranchShipmentsRequest(obj: T.Input<T.GetInterbranchShipmentsRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.syncMarker !== undefined && obj.syncMarker !== null) {
     xml += serializeNumber('syncMarker', obj.syncMarker);
@@ -25070,7 +26184,7 @@ export function serializeGetInterbranchShipmentsRequest(obj: T.GetInterbranchShi
   return xml;
 }
 
-export function serializeShipInterbranchOrderRequest(obj: T.ShipInterbranchOrderRequest, elemName: string): string {
+export function serializeShipInterbranchOrderRequest(obj: T.Input<T.ShipInterbranchOrderRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.interbranchOrderNumber !== undefined && obj.interbranchOrderNumber !== null) {
     xml += serializeYearNumber(obj.interbranchOrderNumber, 'interbranchOrderNumber');
@@ -25101,7 +26215,7 @@ export function serializeShipInterbranchOrderRequest(obj: T.ShipInterbranchOrder
   return xml;
 }
 
-export function serializeInterbranchDeliveryLine(obj: T.InterbranchDeliveryLine, elemName: string): string {
+export function serializeInterbranchDeliveryLine(obj: T.Input<T.InterbranchDeliveryLine>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.articleNumber !== undefined && obj.articleNumber !== null) {
     xml += serializeNumber('articleNumber', obj.articleNumber);
@@ -25116,7 +26230,7 @@ export function serializeInterbranchDeliveryLine(obj: T.InterbranchDeliveryLine,
   return xml;
 }
 
-export function serializeInterbranchDeliveryLineList(obj: T.InterbranchDeliveryLineList, elemName: string): string {
+export function serializeInterbranchDeliveryLineList(obj: T.Input<T.InterbranchDeliveryLineList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.interbranchDeliveryLine !== undefined && obj.interbranchDeliveryLine !== null) {
     for (const item of obj.interbranchDeliveryLine) {
@@ -25127,7 +26241,7 @@ export function serializeInterbranchDeliveryLineList(obj: T.InterbranchDeliveryL
   return xml;
 }
 
-export function serializeInterbranchDelivery(obj: T.InterbranchDelivery, elemName: string): string {
+export function serializeInterbranchDelivery(obj: T.Input<T.InterbranchDelivery>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.interbranchDeliveryNumber !== undefined && obj.interbranchDeliveryNumber !== null) {
     xml += serializeYearNumberPart(obj.interbranchDeliveryNumber, 'interbranchDeliveryNumber');
@@ -25170,7 +26284,7 @@ export function serializeInterbranchDelivery(obj: T.InterbranchDelivery, elemNam
   return xml;
 }
 
-export function serializeInterbranchDeliveryList(obj: T.InterbranchDeliveryList, elemName: string): string {
+export function serializeInterbranchDeliveryList(obj: T.Input<T.InterbranchDeliveryList>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.interbranchDelivery !== undefined && obj.interbranchDelivery !== null) {
     for (const item of obj.interbranchDelivery) {
@@ -25181,7 +26295,7 @@ export function serializeInterbranchDeliveryList(obj: T.InterbranchDeliveryList,
   return xml;
 }
 
-export function serializeGetInterbranchDeliveriesRequest(obj: T.GetInterbranchDeliveriesRequest, elemName: string): string {
+export function serializeGetInterbranchDeliveriesRequest(obj: T.Input<T.GetInterbranchDeliveriesRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.syncMarker !== undefined && obj.syncMarker !== null) {
     xml += serializeNumber('syncMarker', obj.syncMarker);
@@ -25193,7 +26307,7 @@ export function serializeGetInterbranchDeliveriesRequest(obj: T.GetInterbranchDe
   return xml;
 }
 
-export function serializeDeliverInterbranchShipmentRequest(obj: T.DeliverInterbranchShipmentRequest, elemName: string): string {
+export function serializeDeliverInterbranchShipmentRequest(obj: T.Input<T.DeliverInterbranchShipmentRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.interbranchShipmentNumber !== undefined && obj.interbranchShipmentNumber !== null) {
     xml += serializeYearNumber(obj.interbranchShipmentNumber, 'interbranchShipmentNumber');
@@ -25208,7 +26322,7 @@ export function serializeDeliverInterbranchShipmentRequest(obj: T.DeliverInterbr
   return xml;
 }
 
-export function serializeInterbranchShipmentRequest(obj: T.InterbranchShipmentRequest, elemName: string): string {
+export function serializeInterbranchShipmentRequest(obj: T.Input<T.InterbranchShipmentRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.fromBranchNumber !== undefined && obj.fromBranchNumber !== null) {
     xml += serializeNumber('fromBranchNumber', obj.fromBranchNumber);
@@ -25236,7 +26350,7 @@ export function serializeInterbranchShipmentRequest(obj: T.InterbranchShipmentRe
   return xml;
 }
 
-export function serializeCreateInterbranchShipmentRequest(obj: T.CreateInterbranchShipmentRequest, elemName: string): string {
+export function serializeCreateInterbranchShipmentRequest(obj: T.Input<T.CreateInterbranchShipmentRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.interbranchShipmentRequest !== undefined && obj.interbranchShipmentRequest !== null) {
     xml += serializeInterbranchShipmentRequest(obj.interbranchShipmentRequest, 'interbranchShipmentRequest');
@@ -25251,7 +26365,7 @@ export function serializeCreateInterbranchShipmentRequest(obj: T.CreateInterbran
   return xml;
 }
 
-export function serializeInterbranchDeliveryRequest(obj: T.InterbranchDeliveryRequest, elemName: string): string {
+export function serializeInterbranchDeliveryRequest(obj: T.Input<T.InterbranchDeliveryRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.fromBranchNumber !== undefined && obj.fromBranchNumber !== null) {
     xml += serializeNumber('fromBranchNumber', obj.fromBranchNumber);
@@ -25279,7 +26393,7 @@ export function serializeInterbranchDeliveryRequest(obj: T.InterbranchDeliveryRe
   return xml;
 }
 
-export function serializeCreateInterbranchDeliveryRequest(obj: T.CreateInterbranchDeliveryRequest, elemName: string): string {
+export function serializeCreateInterbranchDeliveryRequest(obj: T.Input<T.CreateInterbranchDeliveryRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.interbranchDeliveryRequest !== undefined && obj.interbranchDeliveryRequest !== null) {
     xml += serializeInterbranchDeliveryRequest(obj.interbranchDeliveryRequest, 'interbranchDeliveryRequest');
@@ -25294,7 +26408,7 @@ export function serializeCreateInterbranchDeliveryRequest(obj: T.CreateInterbran
   return xml;
 }
 
-export function serializeArticleFilter(obj: T.ArticleFilter, elemName: string): string {
+export function serializeArticleFilter(obj: T.Input<T.ArticleFilter>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.articleNumbers !== undefined && obj.articleNumbers !== null) {
     for (const item of obj.articleNumbers) {
@@ -25315,13 +26429,41 @@ export function serializeArticleFilter(obj: T.ArticleFilter, elemName: string): 
   return xml;
 }
 
-export function serializeRunInterbranchPlannerRequest(obj: T.RunInterbranchPlannerRequest, elemName: string): string {
+export function serializeRunInterbranchPlannerRequest(obj: T.Input<T.RunInterbranchPlannerRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.idempotencyKey !== undefined && obj.idempotencyKey !== null) {
+    xml += serializeString('idempotencyKey', String(obj.idempotencyKey));
+  }
+  if (obj.mode !== undefined && obj.mode !== null) {
+    xml += serializeString('mode', String(obj.mode));
+  }
+  if (obj.fromBranchNumbers !== undefined && obj.fromBranchNumbers !== null) {
+    for (const item of obj.fromBranchNumbers) {
+      xml += serializeNumber('fromBranchNumbers', item);
+    }
+  }
+  if (obj.toBranchNumbers !== undefined && obj.toBranchNumbers !== null) {
+    for (const item of obj.toBranchNumbers) {
+      xml += serializeNumber('toBranchNumbers', item);
+    }
+  }
+  if (obj.articleFilter !== undefined && obj.articleFilter !== null) {
+    xml += serializeArticleFilter(obj.articleFilter, 'articleFilter');
+  }
+  if (obj.roundByPrimaryPackaging !== undefined && obj.roundByPrimaryPackaging !== null) {
+    xml += serializeBoolean('roundByPrimaryPackaging', obj.roundByPrimaryPackaging);
+  }
+  if (obj.defaultPrimaryPackaging !== undefined && obj.defaultPrimaryPackaging !== null) {
+    xml += serializeString('defaultPrimaryPackaging', String(obj.defaultPrimaryPackaging));
+  }
+  if (obj.roundBySpecificPackaging !== undefined && obj.roundBySpecificPackaging !== null) {
+    xml += serializeString('roundBySpecificPackaging', String(obj.roundBySpecificPackaging));
+  }
   xml += `</${NS_PREFIX}:${elemName}>`;
   return xml;
 }
 
-export function serializeInterbranchPlannerMessage(obj: T.InterbranchPlannerMessage, elemName: string): string {
+export function serializeInterbranchPlannerMessage(obj: T.Input<T.InterbranchPlannerMessage>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.fromBranchNumber !== undefined && obj.fromBranchNumber !== null) {
     xml += serializeNumber('fromBranchNumber', obj.fromBranchNumber);
@@ -25342,7 +26484,7 @@ export function serializeInterbranchPlannerMessage(obj: T.InterbranchPlannerMess
   return xml;
 }
 
-export function serializeGetInterbranchOrdersResponse(obj: T.GetInterbranchOrdersResponse, elemName: string): string {
+export function serializeGetInterbranchOrdersResponse(obj: T.Input<T.GetInterbranchOrdersResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.interbranchOrderList !== undefined && obj.interbranchOrderList !== null) {
     xml += `<${NS_PREFIX}:interbranchOrderList>`;
@@ -25355,7 +26497,7 @@ export function serializeGetInterbranchOrdersResponse(obj: T.GetInterbranchOrder
   return xml;
 }
 
-export function serializeCreateInterbranchOrderResponse(obj: T.CreateInterbranchOrderResponse, elemName: string): string {
+export function serializeCreateInterbranchOrderResponse(obj: T.Input<T.CreateInterbranchOrderResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -25367,7 +26509,7 @@ export function serializeCreateInterbranchOrderResponse(obj: T.CreateInterbranch
   return xml;
 }
 
-export function serializeUpdateInterbranchOrderResponse(obj: T.UpdateInterbranchOrderResponse, elemName: string): string {
+export function serializeUpdateInterbranchOrderResponse(obj: T.Input<T.UpdateInterbranchOrderResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -25379,7 +26521,7 @@ export function serializeUpdateInterbranchOrderResponse(obj: T.UpdateInterbranch
   return xml;
 }
 
-export function serializeClaimInterbranchOrderResponse(obj: T.ClaimInterbranchOrderResponse, elemName: string): string {
+export function serializeClaimInterbranchOrderResponse(obj: T.Input<T.ClaimInterbranchOrderResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -25391,7 +26533,7 @@ export function serializeClaimInterbranchOrderResponse(obj: T.ClaimInterbranchOr
   return xml;
 }
 
-export function serializeReleaseInterbranchOrderResponse(obj: T.ReleaseInterbranchOrderResponse, elemName: string): string {
+export function serializeReleaseInterbranchOrderResponse(obj: T.Input<T.ReleaseInterbranchOrderResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -25403,7 +26545,7 @@ export function serializeReleaseInterbranchOrderResponse(obj: T.ReleaseInterbran
   return xml;
 }
 
-export function serializeCancelInterbranchOrderResponse(obj: T.CancelInterbranchOrderResponse, elemName: string): string {
+export function serializeCancelInterbranchOrderResponse(obj: T.Input<T.CancelInterbranchOrderResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -25418,7 +26560,7 @@ export function serializeCancelInterbranchOrderResponse(obj: T.CancelInterbranch
   return xml;
 }
 
-export function serializeGetInterbranchShipmentsResponse(obj: T.GetInterbranchShipmentsResponse, elemName: string): string {
+export function serializeGetInterbranchShipmentsResponse(obj: T.Input<T.GetInterbranchShipmentsResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.interbranchShipmentList !== undefined && obj.interbranchShipmentList !== null) {
     xml += `<${NS_PREFIX}:interbranchShipmentList>`;
@@ -25431,7 +26573,7 @@ export function serializeGetInterbranchShipmentsResponse(obj: T.GetInterbranchSh
   return xml;
 }
 
-export function serializeShipInterbranchOrderResponse(obj: T.ShipInterbranchOrderResponse, elemName: string): string {
+export function serializeShipInterbranchOrderResponse(obj: T.Input<T.ShipInterbranchOrderResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -25443,7 +26585,7 @@ export function serializeShipInterbranchOrderResponse(obj: T.ShipInterbranchOrde
   return xml;
 }
 
-export function serializeGetInterbranchDeliveriesResponse(obj: T.GetInterbranchDeliveriesResponse, elemName: string): string {
+export function serializeGetInterbranchDeliveriesResponse(obj: T.Input<T.GetInterbranchDeliveriesResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.interbranchDeliveryList !== undefined && obj.interbranchDeliveryList !== null) {
     xml += `<${NS_PREFIX}:interbranchDeliveryList>`;
@@ -25456,7 +26598,7 @@ export function serializeGetInterbranchDeliveriesResponse(obj: T.GetInterbranchD
   return xml;
 }
 
-export function serializeDeliverInterbranchShipmentResponse(obj: T.DeliverInterbranchShipmentResponse, elemName: string): string {
+export function serializeDeliverInterbranchShipmentResponse(obj: T.Input<T.DeliverInterbranchShipmentResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -25468,7 +26610,7 @@ export function serializeDeliverInterbranchShipmentResponse(obj: T.DeliverInterb
   return xml;
 }
 
-export function serializeCreateInterbranchShipmentResponse(obj: T.CreateInterbranchShipmentResponse, elemName: string): string {
+export function serializeCreateInterbranchShipmentResponse(obj: T.Input<T.CreateInterbranchShipmentResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -25480,7 +26622,7 @@ export function serializeCreateInterbranchShipmentResponse(obj: T.CreateInterbra
   return xml;
 }
 
-export function serializeCreateInterbranchDeliveryResponse(obj: T.CreateInterbranchDeliveryResponse, elemName: string): string {
+export function serializeCreateInterbranchDeliveryResponse(obj: T.Input<T.CreateInterbranchDeliveryResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -25492,8 +26634,32 @@ export function serializeCreateInterbranchDeliveryResponse(obj: T.CreateInterbra
   return xml;
 }
 
-export function serializeRunInterbranchPlannerResponse(obj: T.RunInterbranchPlannerResponse, elemName: string): string {
+export function serializeRunInterbranchPlannerResponse(obj: T.Input<T.RunInterbranchPlannerResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.idempotencyResult !== undefined && obj.idempotencyResult !== null) {
+    xml += serializeString('idempotencyResult', String(obj.idempotencyResult));
+  }
+  if (obj.result !== undefined && obj.result !== null) {
+    xml += serializeString('result', String(obj.result));
+  }
+  if (obj.errorMessage !== undefined && obj.errorMessage !== null) {
+    xml += serializeString('errorMessage', String(obj.errorMessage));
+  }
+  if (obj.createdInterbranchOrders !== undefined && obj.createdInterbranchOrders !== null) {
+    for (const item of obj.createdInterbranchOrders) {
+      xml += serializeYearNumber(item, 'createdInterbranchOrders');
+    }
+  }
+  if (obj.updatedInterbranchOrders !== undefined && obj.updatedInterbranchOrders !== null) {
+    for (const item of obj.updatedInterbranchOrders) {
+      xml += serializeYearNumber(item, 'updatedInterbranchOrders');
+    }
+  }
+  if (obj.messages !== undefined && obj.messages !== null) {
+    for (const item of obj.messages) {
+      xml += serializeInterbranchPlannerMessage(item, 'messages');
+    }
+  }
   xml += `</${NS_PREFIX}:${elemName}>`;
   return xml;
 }
@@ -25506,7 +26672,7 @@ export function serializeGetPriceGroupListBody(): string {
   return '';
 }
 
-export function serializeLogMistakeBody(params: { terminal?: T.Terminal; request?: T.LogMistakeRequest }): string {
+export function serializeLogMistakeBody(params: { terminal?: T.Input<T.Terminal>; request?: T.Input<T.LogMistakeRequest> }): string {
   let xml = '';
   if (params.terminal !== undefined && params.terminal !== null) {
     xml += serializeTerminal(params.terminal, 'terminal');
@@ -25517,7 +26683,7 @@ export function serializeLogMistakeBody(params: { terminal?: T.Terminal; request
   return xml;
 }
 
-export function serializeCreateRelationBody(relation: T.Relation | undefined): string {
+export function serializeCreateRelationBody(relation: T.Input<T.Relation> | undefined): string {
   let xml = '';
   if (relation !== undefined && relation !== null) {
     xml += serializeRelation(relation, 'relation');
@@ -25525,7 +26691,7 @@ export function serializeCreateRelationBody(relation: T.Relation | undefined): s
   return xml;
 }
 
-export function serializeUpdateRelationBody(relation: T.Relation | undefined): string {
+export function serializeUpdateRelationBody(relation: T.Input<T.Relation> | undefined): string {
   let xml = '';
   if (relation !== undefined && relation !== null) {
     xml += serializeRelation(relation, 'relation');
@@ -25541,7 +26707,7 @@ export function serializeGetRelationBody(relationNumber: number): string {
   return xml;
 }
 
-export function serializeFindRelationBody(relation: T.Relation | undefined): string {
+export function serializeFindRelationBody(relation: T.Input<T.Relation> | undefined): string {
   let xml = '';
   if (relation !== undefined && relation !== null) {
     xml += serializeRelation(relation, 'relation');
@@ -25549,7 +26715,7 @@ export function serializeFindRelationBody(relation: T.Relation | undefined): str
   return xml;
 }
 
-export function serializeGetRelationsBody(request: T.GetRelationsRequest | undefined): string {
+export function serializeGetRelationsBody(request: T.Input<T.GetRelationsRequest> | undefined): string {
   if (request === undefined) return '';
   let xml = '';
   xml += serializeGetRelationsRequest(request!, 'request');
@@ -25564,19 +26730,19 @@ export function serializeGetCardCategoriesBody(): string {
   return '';
 }
 
-export function serializeAdjustPointsBody(request: T.AdjustPointsRequest): string {
+export function serializeAdjustPointsBody(request: T.Input<T.AdjustPointsRequest>): string {
   let xml = '';
   xml += serializeAdjustPointsRequest(request!, 'request');
   return xml;
 }
 
-export function serializeGetRelationPointsBody(request: T.GetRelationPointsRequest): string {
+export function serializeGetRelationPointsBody(request: T.Input<T.GetRelationPointsRequest>): string {
   let xml = '';
   xml += serializeGetRelationPointsRequest(request!, 'request');
   return xml;
 }
 
-export function serializeGetEmployeesBody(request: T.getEmployeesRequest | undefined): string {
+export function serializeGetEmployeesBody(request: T.Input<T.getEmployeesRequest> | undefined): string {
   if (request === undefined) return '';
   let xml = '';
   xml += serializegetEmployeesRequest(request!, 'request');
@@ -25591,7 +26757,7 @@ export function serializeGetEmployeeBody(employeeNumber: number): string {
   return xml;
 }
 
-export function serializeFindEmployeeBody(employee: T.Employee | undefined): string {
+export function serializeFindEmployeeBody(employee: T.Input<T.Employee> | undefined): string {
   let xml = '';
   if (employee !== undefined && employee !== null) {
     xml += serializeEmployee(employee, 'employee');
@@ -25599,7 +26765,7 @@ export function serializeFindEmployeeBody(employee: T.Employee | undefined): str
   return xml;
 }
 
-export function serializeCreateEmployeeBody(employee: T.Employee | undefined): string {
+export function serializeCreateEmployeeBody(employee: T.Input<T.Employee> | undefined): string {
   let xml = '';
   if (employee !== undefined && employee !== null) {
     xml += serializeEmployee(employee, 'employee');
@@ -25607,7 +26773,7 @@ export function serializeCreateEmployeeBody(employee: T.Employee | undefined): s
   return xml;
 }
 
-export function serializeUpdateEmployeeBody(employee: T.Employee | undefined): string {
+export function serializeUpdateEmployeeBody(employee: T.Input<T.Employee> | undefined): string {
   let xml = '';
   if (employee !== undefined && employee !== null) {
     xml += serializeEmployee(employee, 'employee');
@@ -25615,7 +26781,7 @@ export function serializeUpdateEmployeeBody(employee: T.Employee | undefined): s
   return xml;
 }
 
-export function serializeGetActiveEmployeeListBody(terminal: T.Terminal): string {
+export function serializeGetActiveEmployeeListBody(terminal: T.Input<T.Terminal>): string {
   let xml = '';
   if (terminal !== undefined && terminal !== null) {
     xml += serializeTerminal(terminal, 'terminal');
@@ -25623,7 +26789,7 @@ export function serializeGetActiveEmployeeListBody(terminal: T.Terminal): string
   return xml;
 }
 
-export function serializeGetTableListBody(terminal: T.Terminal): string {
+export function serializeGetTableListBody(terminal: T.Input<T.Terminal>): string {
   let xml = '';
   if (terminal !== undefined && terminal !== null) {
     xml += serializeTerminal(terminal, 'terminal');
@@ -25631,7 +26797,7 @@ export function serializeGetTableListBody(terminal: T.Terminal): string {
   return xml;
 }
 
-export function serializeGetTableListV2Body(terminal: T.Terminal): string {
+export function serializeGetTableListV2Body(terminal: T.Input<T.Terminal>): string {
   let xml = '';
   if (terminal !== undefined && terminal !== null) {
     xml += serializeTerminal(terminal, 'terminal');
@@ -25639,25 +26805,25 @@ export function serializeGetTableListV2Body(terminal: T.Terminal): string {
   return xml;
 }
 
-export function serializeGetTableListV3Body(request: T.getTableListV3Request): string {
+export function serializeGetTableListV3Body(request: T.Input<T.getTableListV3Request>): string {
   let xml = '';
   xml += serializegetTableListV3Request(request!, 'request');
   return xml;
 }
 
-export function serializeGetMainTableListBody(request: T.getMainTableListRequest): string {
+export function serializeGetMainTableListBody(request: T.Input<T.getMainTableListRequest>): string {
   let xml = '';
   xml += serializegetMainTableListRequest(request!, 'request');
   return xml;
 }
 
-export function serializeGetSubTableListBody(request: T.getSubTableListRequest): string {
+export function serializeGetSubTableListBody(request: T.Input<T.getSubTableListRequest>): string {
   let xml = '';
   xml += serializegetSubTableListRequest(request!, 'request');
   return xml;
 }
 
-export function serializeGetCourseListBody(terminal: T.Terminal): string {
+export function serializeGetCourseListBody(terminal: T.Input<T.Terminal>): string {
   let xml = '';
   if (terminal !== undefined && terminal !== null) {
     xml += serializeTerminal(terminal, 'terminal');
@@ -25665,7 +26831,7 @@ export function serializeGetCourseListBody(terminal: T.Terminal): string {
   return xml;
 }
 
-export function serializeGetCourseListV2Body(request: T.GetCourseListV2Request): string {
+export function serializeGetCourseListV2Body(request: T.Input<T.GetCourseListV2Request>): string {
   let xml = '';
   xml += serializeGetCourseListV2Request(request!, 'request');
   return xml;
@@ -25675,7 +26841,7 @@ export function serializeGetVatGroupListBody(): string {
   return '';
 }
 
-export function serializeSaveTableOrderBody(params: { terminal?: T.Terminal; order?: T.Order }): string {
+export function serializeSaveTableOrderBody(params: { terminal?: T.Input<T.Terminal>; order?: T.Input<T.Order> }): string {
   let xml = '';
   if (params.terminal !== undefined && params.terminal !== null) {
     xml += serializeTerminal(params.terminal, 'terminal');
@@ -25686,7 +26852,7 @@ export function serializeSaveTableOrderBody(params: { terminal?: T.Terminal; ord
   return xml;
 }
 
-export function serializeSaveTableOrderV2Body(params: { terminal?: T.Terminal; request?: T.SaveTableOrderRequest }): string {
+export function serializeSaveTableOrderV2Body(params: { terminal?: T.Input<T.Terminal>; request?: T.Input<T.SaveTableOrderRequest> }): string {
   let xml = '';
   if (params.terminal !== undefined && params.terminal !== null) {
     xml += serializeTerminal(params.terminal, 'terminal');
@@ -25697,14 +26863,14 @@ export function serializeSaveTableOrderV2Body(params: { terminal?: T.Terminal; r
   return xml;
 }
 
-export function serializeCreateAndPayTableOrderBody(request: T.CreateAndPayTableOrderRequest | undefined): string {
+export function serializeCreateAndPayTableOrderBody(request: T.Input<T.CreateAndPayTableOrderRequest> | undefined): string {
   if (request === undefined) return '';
   let xml = '';
   xml += serializeCreateAndPayTableOrderRequest(request!, 'request');
   return xml;
 }
 
-export function serializeMoveTableOrderBody(params: { terminal?: T.Terminal; order?: T.Order; tableNumber?: number }): string {
+export function serializeMoveTableOrderBody(params: { terminal?: T.Input<T.Terminal>; order?: T.Input<T.Order>; tableNumber?: number }): string {
   let xml = '';
   if (params.terminal !== undefined && params.terminal !== null) {
     xml += serializeTerminal(params.terminal, 'terminal');
@@ -25718,7 +26884,7 @@ export function serializeMoveTableOrderBody(params: { terminal?: T.Terminal; ord
   return xml;
 }
 
-export function serializeMoveTableOrderV2Body(params: { terminal?: T.Terminal; request?: T.MoveTableOrderRequest }): string {
+export function serializeMoveTableOrderV2Body(params: { terminal?: T.Input<T.Terminal>; request?: T.Input<T.MoveTableOrderRequest> }): string {
   let xml = '';
   if (params.terminal !== undefined && params.terminal !== null) {
     xml += serializeTerminal(params.terminal, 'terminal');
@@ -25729,13 +26895,13 @@ export function serializeMoveTableOrderV2Body(params: { terminal?: T.Terminal; r
   return xml;
 }
 
-export function serializeMoveTableOrderV3Body(request: T.MoveTableOrderV3Request): string {
+export function serializeMoveTableOrderV3Body(request: T.Input<T.MoveTableOrderV3Request>): string {
   let xml = '';
   xml += serializeMoveTableOrderV3Request(request!, 'request');
   return xml;
 }
 
-export function serializeGetTableOrderBody(params: { terminal?: T.Terminal; branchNumber?: number; tableNumber?: number }): string {
+export function serializeGetTableOrderBody(params: { terminal?: T.Input<T.Terminal>; branchNumber?: number; tableNumber?: number }): string {
   let xml = '';
   if (params.terminal !== undefined && params.terminal !== null) {
     xml += serializeTerminal(params.terminal, 'terminal');
@@ -25749,7 +26915,7 @@ export function serializeGetTableOrderBody(params: { terminal?: T.Terminal; bran
   return xml;
 }
 
-export function serializeGetTableOrderV2Body(params: { terminal?: T.Terminal; request?: T.GetTableOrderRequest }): string {
+export function serializeGetTableOrderV2Body(params: { terminal?: T.Input<T.Terminal>; request?: T.Input<T.GetTableOrderRequest> }): string {
   let xml = '';
   if (params.terminal !== undefined && params.terminal !== null) {
     xml += serializeTerminal(params.terminal, 'terminal');
@@ -25760,13 +26926,13 @@ export function serializeGetTableOrderV2Body(params: { terminal?: T.Terminal; re
   return xml;
 }
 
-export function serializeGetTableOrderV3Body(request: T.GetTableOrderV3Request): string {
+export function serializeGetTableOrderV3Body(request: T.Input<T.GetTableOrderV3Request>): string {
   let xml = '';
   xml += serializeGetTableOrderV3Request(request!, 'request');
   return xml;
 }
 
-export function serializeFindTableOrderBody(params: { terminal?: T.Terminal; extOrderId?: string }): string {
+export function serializeFindTableOrderBody(params: { terminal?: T.Input<T.Terminal>; extOrderId?: string }): string {
   let xml = '';
   if (params.terminal !== undefined && params.terminal !== null) {
     xml += serializeTerminal(params.terminal, 'terminal');
@@ -25777,7 +26943,7 @@ export function serializeFindTableOrderBody(params: { terminal?: T.Terminal; ext
   return xml;
 }
 
-export function serializeReleaseTableBody(params: { terminal?: T.Terminal; request?: T.ReleaseTableRequest }): string {
+export function serializeReleaseTableBody(params: { terminal?: T.Input<T.Terminal>; request?: T.Input<T.ReleaseTableRequest> }): string {
   let xml = '';
   if (params.terminal !== undefined && params.terminal !== null) {
     xml += serializeTerminal(params.terminal, 'terminal');
@@ -25788,13 +26954,13 @@ export function serializeReleaseTableBody(params: { terminal?: T.Terminal; reque
   return xml;
 }
 
-export function serializeReleaseTableV2Body(request: T.ReleaseTableV2Request): string {
+export function serializeReleaseTableV2Body(request: T.Input<T.ReleaseTableV2Request>): string {
   let xml = '';
   xml += serializeReleaseTableV2Request(request!, 'request');
   return xml;
 }
 
-export function serializeSetSubTableCountBody(params: { terminal?: T.Terminal; request?: T.SetSubtableCountRequest }): string {
+export function serializeSetSubTableCountBody(params: { terminal?: T.Input<T.Terminal>; request?: T.Input<T.SetSubtableCountRequest> }): string {
   let xml = '';
   if (params.terminal !== undefined && params.terminal !== null) {
     xml += serializeTerminal(params.terminal, 'terminal');
@@ -25805,7 +26971,7 @@ export function serializeSetSubTableCountBody(params: { terminal?: T.Terminal; r
   return xml;
 }
 
-export function serializeGetTableOrderCourseListBody(params: { terminal?: T.Terminal; branchNumber?: number; tableNumber?: number }): string {
+export function serializeGetTableOrderCourseListBody(params: { terminal?: T.Input<T.Terminal>; branchNumber?: number; tableNumber?: number }): string {
   let xml = '';
   if (params.terminal !== undefined && params.terminal !== null) {
     xml += serializeTerminal(params.terminal, 'terminal');
@@ -25819,7 +26985,7 @@ export function serializeGetTableOrderCourseListBody(params: { terminal?: T.Term
   return xml;
 }
 
-export function serializeGetTableOrderCourseListV2Body(params: { terminal?: T.Terminal; request?: T.GetTableOrderCourseListRequest }): string {
+export function serializeGetTableOrderCourseListV2Body(params: { terminal?: T.Input<T.Terminal>; request?: T.Input<T.GetTableOrderCourseListRequest> }): string {
   let xml = '';
   if (params.terminal !== undefined && params.terminal !== null) {
     xml += serializeTerminal(params.terminal, 'terminal');
@@ -25830,13 +26996,13 @@ export function serializeGetTableOrderCourseListV2Body(params: { terminal?: T.Te
   return xml;
 }
 
-export function serializeGetTableOrderCourseListV3Body(request: T.GetTableOrderCourseListRequest): string {
+export function serializeGetTableOrderCourseListV3Body(request: T.Input<T.GetTableOrderCourseListRequest>): string {
   let xml = '';
   xml += serializeGetTableOrderCourseListRequest(request!, 'request');
   return xml;
 }
 
-export function serializeRequestTableOrderCourseBody(params: { terminal?: T.Terminal; branchNumber?: number; tableNumber?: number; employeeNumber?: number; courseNumber?: number }): string {
+export function serializeRequestTableOrderCourseBody(params: { terminal?: T.Input<T.Terminal>; branchNumber?: number; tableNumber?: number; employeeNumber?: number; courseNumber?: number }): string {
   let xml = '';
   if (params.terminal !== undefined && params.terminal !== null) {
     xml += serializeTerminal(params.terminal, 'terminal');
@@ -25856,7 +27022,7 @@ export function serializeRequestTableOrderCourseBody(params: { terminal?: T.Term
   return xml;
 }
 
-export function serializeRequestNextTableOrderCourseV2Body(params: { terminal?: T.Terminal; request?: T.RequestNextTableOrderCourseRequest }): string {
+export function serializeRequestNextTableOrderCourseV2Body(params: { terminal?: T.Input<T.Terminal>; request?: T.Input<T.RequestNextTableOrderCourseRequest> }): string {
   let xml = '';
   if (params.terminal !== undefined && params.terminal !== null) {
     xml += serializeTerminal(params.terminal, 'terminal');
@@ -25867,13 +27033,13 @@ export function serializeRequestNextTableOrderCourseV2Body(params: { terminal?: 
   return xml;
 }
 
-export function serializeRequestNextTableOrderCourseV3Body(request: T.RequestNextTableOrderCourseV3Request): string {
+export function serializeRequestNextTableOrderCourseV3Body(request: T.Input<T.RequestNextTableOrderCourseV3Request>): string {
   let xml = '';
   xml += serializeRequestNextTableOrderCourseV3Request(request!, 'request');
   return xml;
 }
 
-export function serializeStoreSinglyEftTransactionBody(params: { terminal?: T.TerminalId; eftTransaction?: T.EftTransactionDetails }): string {
+export function serializeStoreSinglyEftTransactionBody(params: { terminal?: T.Input<T.TerminalId>; eftTransaction?: T.Input<T.EftTransactionDetails> }): string {
   let xml = '';
   if (params.terminal !== undefined && params.terminal !== null) {
     xml += serializeTerminalId(params.terminal, 'terminal');
@@ -25884,7 +27050,7 @@ export function serializeStoreSinglyEftTransactionBody(params: { terminal?: T.Te
   return xml;
 }
 
-export function serializeQueueBranchOrderBody(order: T.Order | undefined): string {
+export function serializeQueueBranchOrderBody(order: T.Input<T.Order> | undefined): string {
   let xml = '';
   if (order !== undefined && order !== null) {
     xml += serializeOrder(order, 'order');
@@ -25892,7 +27058,7 @@ export function serializeQueueBranchOrderBody(order: T.Order | undefined): strin
   return xml;
 }
 
-export function serializeQueueBranchOrderPaymentBody(paymentRequest: T.QueueBranchOrderPaymentRequest | undefined): string {
+export function serializeQueueBranchOrderPaymentBody(paymentRequest: T.Input<T.QueueBranchOrderPaymentRequest> | undefined): string {
   let xml = '';
   if (paymentRequest !== undefined && paymentRequest !== null) {
     xml += serializeQueueBranchOrderPaymentRequest(paymentRequest, 'paymentRequest');
@@ -25908,7 +27074,7 @@ export function serializeGetQueueBranchOrderPaymentStatusBody(queuedPaymentId: s
   return xml;
 }
 
-export function serializeUpdateOrderBody(order: T.Order | undefined): string {
+export function serializeUpdateOrderBody(order: T.Input<T.Order> | undefined): string {
   let xml = '';
   if (order !== undefined && order !== null) {
     xml += serializeOrder(order, 'order');
@@ -25916,13 +27082,13 @@ export function serializeUpdateOrderBody(order: T.Order | undefined): string {
   return xml;
 }
 
-export function serializeUpdateOrderV2Body(request: T.UpdateOrderV2Request): string {
+export function serializeUpdateOrderV2Body(request: T.Input<T.UpdateOrderV2Request>): string {
   let xml = '';
   xml += serializeUpdateOrderV2Request(request!, 'request');
   return xml;
 }
 
-export function serializeSaveOrderBody(order: T.Order | undefined): string {
+export function serializeSaveOrderBody(order: T.Input<T.Order> | undefined): string {
   let xml = '';
   if (order !== undefined && order !== null) {
     xml += serializeOrder(order, 'order');
@@ -25938,25 +27104,25 @@ export function serializeGetOrderBody(orderId: string): string {
   return xml;
 }
 
-export function serializeGetPackingSlipsBody(request: T.GetPackingSlipsRequest): string {
+export function serializeGetPackingSlipsBody(request: T.Input<T.GetPackingSlipsRequest>): string {
   let xml = '';
   xml += serializeGetPackingSlipsRequest(request!, 'request');
   return xml;
 }
 
-export function serializeGetPackingSlipsByOrderBody(request: T.GetPackingSlipsByOrderRequest): string {
+export function serializeGetPackingSlipsByOrderBody(request: T.Input<T.GetPackingSlipsByOrderRequest>): string {
   let xml = '';
   xml += serializeGetPackingSlipsByOrderRequest(request!, 'request');
   return xml;
 }
 
-export function serializeGetOrderChangesBody(request: T.GetOrderChangesRequest): string {
+export function serializeGetOrderChangesBody(request: T.Input<T.GetOrderChangesRequest>): string {
   let xml = '';
   xml += serializeGetOrderChangesRequest(request!, 'request');
   return xml;
 }
 
-export function serializeGetOrderHistoryBody(request: T.GetOrderHistoryRequest): string {
+export function serializeGetOrderHistoryBody(request: T.Input<T.GetOrderHistoryRequest>): string {
   let xml = '';
   xml += serializeGetOrderHistoryRequest(request!, 'request');
   return xml;
@@ -25970,7 +27136,7 @@ export function serializeFindOrderBody(extOrderId: string): string {
   return xml;
 }
 
-export function serializeCancelOrderBody(params: { orderId?: string; request?: T.CancelOrderRequest }): string {
+export function serializeCancelOrderBody(params: { orderId?: string; request?: T.Input<T.CancelOrderRequest> }): string {
   let xml = '';
   if (params.orderId !== undefined && params.orderId !== null) {
     xml += serializeString('orderId', String(params.orderId));
@@ -25981,13 +27147,13 @@ export function serializeCancelOrderBody(params: { orderId?: string; request?: T
   return xml;
 }
 
-export function serializeCancelOrderV2Body(request: T.CancelOrderV2Request): string {
+export function serializeCancelOrderV2Body(request: T.Input<T.CancelOrderV2Request>): string {
   let xml = '';
   xml += serializeCancelOrderV2Request(request!, 'request');
   return xml;
 }
 
-export function serializeCancelTableOrderBody(params: { terminal?: T.Terminal; branchNumber?: number; tableNumber?: number }): string {
+export function serializeCancelTableOrderBody(params: { terminal?: T.Input<T.Terminal>; branchNumber?: number; tableNumber?: number }): string {
   let xml = '';
   if (params.terminal !== undefined && params.terminal !== null) {
     xml += serializeTerminal(params.terminal, 'terminal');
@@ -26001,7 +27167,7 @@ export function serializeCancelTableOrderBody(params: { terminal?: T.Terminal; b
   return xml;
 }
 
-export function serializeCancelTableOrderV2Body(params: { terminal?: T.Terminal; request?: T.CancelTableOrderRequest }): string {
+export function serializeCancelTableOrderV2Body(params: { terminal?: T.Input<T.Terminal>; request?: T.Input<T.CancelTableOrderRequest> }): string {
   let xml = '';
   if (params.terminal !== undefined && params.terminal !== null) {
     xml += serializeTerminal(params.terminal, 'terminal');
@@ -26012,19 +27178,19 @@ export function serializeCancelTableOrderV2Body(params: { terminal?: T.Terminal;
   return xml;
 }
 
-export function serializePayInvoiceBody(request: T.PayInvoiceRequest): string {
+export function serializePayInvoiceBody(request: T.Input<T.PayInvoiceRequest>): string {
   let xml = '';
   xml += serializePayInvoiceRequest(request!, 'request');
   return xml;
 }
 
-export function serializeDeliverOrderBody(request: T.DeliverOrderRequest): string {
+export function serializeDeliverOrderBody(request: T.Input<T.DeliverOrderRequest>): string {
   let xml = '';
   xml += serializeDeliverOrderRequest(request!, 'request');
   return xml;
 }
 
-export function serializeDeliverOrderV2Body(request: T.DeliverOrderV2Request): string {
+export function serializeDeliverOrderV2Body(request: T.Input<T.DeliverOrderV2Request>): string {
   let xml = '';
   xml += serializeDeliverOrderV2Request(request!, 'request');
   return xml;
@@ -26034,7 +27200,7 @@ export function serializeGetOrderCategoriesBody(): string {
   return '';
 }
 
-export function serializeGetReceiptsBody(request: T.GetReceiptsRequest): string {
+export function serializeGetReceiptsBody(request: T.Input<T.GetReceiptsRequest>): string {
   let xml = '';
   xml += serializeGetReceiptsRequest(request!, 'request');
   return xml;
@@ -26056,13 +27222,13 @@ export function serializeGetReceiptsByOrderBody(orderId: string): string {
   return xml;
 }
 
-export function serializeGetReceiptsByCashCountBody(request: T.GetReceiptsByCashCountRequest): string {
+export function serializeGetReceiptsByCashCountBody(request: T.Input<T.GetReceiptsByCashCountRequest>): string {
   let xml = '';
   xml += serializeGetReceiptsByCashCountRequest(request!, 'request');
   return xml;
 }
 
-export function serializePrintReceiptBody(terminal: T.Terminal): string {
+export function serializePrintReceiptBody(terminal: T.Input<T.Terminal>): string {
   let xml = '';
   if (terminal !== undefined && terminal !== null) {
     xml += serializeTerminal(terminal, 'terminal');
@@ -26070,13 +27236,13 @@ export function serializePrintReceiptBody(terminal: T.Terminal): string {
   return xml;
 }
 
-export function serializePrintReceiptV2Body(request: T.PrintReceiptV2Request): string {
+export function serializePrintReceiptV2Body(request: T.Input<T.PrintReceiptV2Request>): string {
   let xml = '';
   xml += serializePrintReceiptV2Request(request!, 'request');
   return xml;
 }
 
-export function serializePrintTableReceiptBody(params: { terminal?: T.Terminal; tableNumber?: number }): string {
+export function serializePrintTableReceiptBody(params: { terminal?: T.Input<T.Terminal>; tableNumber?: number }): string {
   let xml = '';
   if (params.terminal !== undefined && params.terminal !== null) {
     xml += serializeTerminal(params.terminal, 'terminal');
@@ -26087,7 +27253,7 @@ export function serializePrintTableReceiptBody(params: { terminal?: T.Terminal; 
   return xml;
 }
 
-export function serializePrintTableReceiptV2Body(params: { terminal?: T.Terminal; request?: T.PrintTableReceiptRequest }): string {
+export function serializePrintTableReceiptV2Body(params: { terminal?: T.Input<T.Terminal>; request?: T.Input<T.PrintTableReceiptRequest> }): string {
   let xml = '';
   if (params.terminal !== undefined && params.terminal !== null) {
     xml += serializeTerminal(params.terminal, 'terminal');
@@ -26098,19 +27264,19 @@ export function serializePrintTableReceiptV2Body(params: { terminal?: T.Terminal
   return xml;
 }
 
-export function serializePrintTableReceiptV3Body(request: T.PrintTableReceiptV3Request): string {
+export function serializePrintTableReceiptV3Body(request: T.Input<T.PrintTableReceiptV3Request>): string {
   let xml = '';
   xml += serializePrintTableReceiptV3Request(request!, 'request');
   return xml;
 }
 
-export function serializeGetInvoicesBody(request: T.GetInvoicesRequest): string {
+export function serializeGetInvoicesBody(request: T.Input<T.GetInvoicesRequest>): string {
   let xml = '';
   xml += serializeGetInvoicesRequest(request!, 'request');
   return xml;
 }
 
-export function serializeSaveInvoiceBody(invoice: T.Invoice): string {
+export function serializeSaveInvoiceBody(invoice: T.Input<T.Invoice>): string {
   let xml = '';
   if (invoice !== undefined && invoice !== null) {
     xml += serializeInvoice(invoice, 'invoice');
@@ -26142,55 +27308,55 @@ export function serializeCreditInvoiceBody(invoiceId: string): string {
   return xml;
 }
 
-export function serializeGetJournalsBody(request: T.GetJournalsRequest): string {
+export function serializeGetJournalsBody(request: T.Input<T.GetJournalsRequest>): string {
   let xml = '';
   xml += serializeGetJournalsRequest(request!, 'request');
   return xml;
 }
 
-export function serializeGetFinancialJournalBody(request: T.GetFinancialJournalRequest): string {
+export function serializeGetFinancialJournalBody(request: T.Input<T.GetFinancialJournalRequest>): string {
   let xml = '';
   xml += serializeGetFinancialJournalRequest(request!, 'request');
   return xml;
 }
 
-export function serializeGetFinancialJournalByCashCountBody(request: T.GetFinancialJournalByCashCountRequest): string {
+export function serializeGetFinancialJournalByCashCountBody(request: T.Input<T.GetFinancialJournalByCashCountRequest>): string {
   let xml = '';
   xml += serializeGetFinancialJournalByCashCountRequest(request!, 'request');
   return xml;
 }
 
-export function serializeGetCashCountListBody(request: T.GetCashCountListRequest): string {
+export function serializeGetCashCountListBody(request: T.Input<T.GetCashCountListRequest>): string {
   let xml = '';
   xml += serializeGetCashCountListRequest(request!, 'request');
   return xml;
 }
 
-export function serializeGetCashDrawerBalancingListBody(request: T.GetCashDrawerBalancingListRequest): string {
+export function serializeGetCashDrawerBalancingListBody(request: T.Input<T.GetCashDrawerBalancingListRequest>): string {
   let xml = '';
   xml += serializeGetCashDrawerBalancingListRequest(request!, 'request');
   return xml;
 }
 
-export function serializeGetTurnoverGroupsBody(request: T.GetTurnoverGroupsRequest): string {
+export function serializeGetTurnoverGroupsBody(request: T.Input<T.GetTurnoverGroupsRequest>): string {
   let xml = '';
   xml += serializeGetTurnoverGroupsRequest(request!, 'request');
   return xml;
 }
 
-export function serializeUpdateTurnoverGroupsBody(request: T.UpdateTurnoverGroupsRequest): string {
+export function serializeUpdateTurnoverGroupsBody(request: T.Input<T.UpdateTurnoverGroupsRequest>): string {
   let xml = '';
   xml += serializeUpdateTurnoverGroupsRequest(request!, 'request');
   return xml;
 }
 
-export function serializeGetProductsBody(request: T.GetProductsRequest): string {
+export function serializeGetProductsBody(request: T.Input<T.GetProductsRequest>): string {
   let xml = '';
   xml += serializeGetProductsRequest(request!, 'request');
   return xml;
 }
 
-export function serializeCreateProductBody(product: T.Product): string {
+export function serializeCreateProductBody(product: T.Input<T.Product>): string {
   let xml = '';
   if (product !== undefined && product !== null) {
     xml += serializeProduct(product, 'product');
@@ -26198,7 +27364,7 @@ export function serializeCreateProductBody(product: T.Product): string {
   return xml;
 }
 
-export function serializeUpdateProductBody(product: T.Product): string {
+export function serializeUpdateProductBody(product: T.Input<T.Product>): string {
   let xml = '';
   if (product !== undefined && product !== null) {
     xml += serializeProduct(product, 'product');
@@ -26206,133 +27372,133 @@ export function serializeUpdateProductBody(product: T.Product): string {
   return xml;
 }
 
-export function serializeGetArticleVariantsBody(request: T.GetArticleVariantsRequest): string {
+export function serializeGetArticleVariantsBody(request: T.Input<T.GetArticleVariantsRequest>): string {
   let xml = '';
   xml += serializeGetArticleVariantsRequest(request!, 'request');
   return xml;
 }
 
-export function serializeGetArticlesVariantsBody(request: T.GetArticlesVariantsRequest): string {
+export function serializeGetArticlesVariantsBody(request: T.Input<T.GetArticlesVariantsRequest>): string {
   let xml = '';
   xml += serializeGetArticlesVariantsRequest(request!, 'request');
   return xml;
 }
 
-export function serializeNewArticleVariantBody(request: T.NewArticleVariantRequest): string {
+export function serializeNewArticleVariantBody(request: T.Input<T.NewArticleVariantRequest>): string {
   let xml = '';
   xml += serializeNewArticleVariantRequest(request!, 'request');
   return xml;
 }
 
-export function serializeUpdateArticleVariantBody(request: T.UpdateArticleVariantRequest): string {
+export function serializeUpdateArticleVariantBody(request: T.Input<T.UpdateArticleVariantRequest>): string {
   let xml = '';
   xml += serializeUpdateArticleVariantRequest(request!, 'request');
   return xml;
 }
 
-export function serializeDeleteArticleVariantsBody(request: T.DeleteArticleVariantsRequest): string {
+export function serializeDeleteArticleVariantsBody(request: T.Input<T.DeleteArticleVariantsRequest>): string {
   let xml = '';
   xml += serializeDeleteArticleVariantsRequest(request!, 'request');
   return xml;
 }
 
-export function serializeGetStockBody(request: T.GetStockRequest): string {
+export function serializeGetStockBody(request: T.Input<T.GetStockRequest>): string {
   let xml = '';
   xml += serializeGetStockRequest(request!, 'request');
   return xml;
 }
 
-export function serializeGetStockHistoryBody(request: T.GetStockHistoryRequest): string {
+export function serializeGetStockHistoryBody(request: T.Input<T.GetStockHistoryRequest>): string {
   let xml = '';
   xml += serializeGetStockHistoryRequest(request!, 'request');
   return xml;
 }
 
-export function serializeGetStockHistoryV2Body(request: T.GetStockHistoryV2Request): string {
+export function serializeGetStockHistoryV2Body(request: T.Input<T.GetStockHistoryV2Request>): string {
   let xml = '';
   xml += serializeGetStockHistoryV2Request(request!, 'request');
   return xml;
 }
 
-export function serializeUpdateStockBody(request: T.UpdateStockRequest): string {
+export function serializeUpdateStockBody(request: T.Input<T.UpdateStockRequest>): string {
   let xml = '';
   xml += serializeUpdateStockRequest(request!, 'request');
   return xml;
 }
 
-export function serializeSetStockBody(request: T.SetStockRequest): string {
+export function serializeSetStockBody(request: T.Input<T.SetStockRequest>): string {
   let xml = '';
   xml += serializeSetStockRequest(request!, 'request');
   return xml;
 }
 
-export function serializeGetArticleGroupsBody(request: T.GetArticleGroupsRequest): string {
+export function serializeGetArticleGroupsBody(request: T.Input<T.GetArticleGroupsRequest>): string {
   let xml = '';
   xml += serializeGetArticleGroupsRequest(request!, 'request');
   return xml;
 }
 
-export function serializeGetArticleGroupChangesBody(request: T.GetArticleGroupChangesRequest): string {
+export function serializeGetArticleGroupChangesBody(request: T.Input<T.GetArticleGroupChangesRequest>): string {
   let xml = '';
   xml += serializeGetArticleGroupChangesRequest(request!, 'request');
   return xml;
 }
 
-export function serializeUpdateArticleGroupBody(request: T.UpdateArticleGroupRequest): string {
+export function serializeUpdateArticleGroupBody(request: T.Input<T.UpdateArticleGroupRequest>): string {
   let xml = '';
   xml += serializeUpdateArticleGroupRequest(request!, 'request');
   return xml;
 }
 
-export function serializeNewArticleGroupBody(request: T.NewArticleGroupRequest): string {
+export function serializeNewArticleGroupBody(request: T.Input<T.NewArticleGroupRequest>): string {
   let xml = '';
   xml += serializeNewArticleGroupRequest(request!, 'request');
   return xml;
 }
 
-export function serializeDeleteArticleGroupBody(request: T.DeleteArticleGroupRequest): string {
+export function serializeDeleteArticleGroupBody(request: T.Input<T.DeleteArticleGroupRequest>): string {
   let xml = '';
   xml += serializeDeleteArticleGroupRequest(request!, 'request');
   return xml;
 }
 
-export function serializeAddProductsToArticleGroupBody(request: T.AddProductsToArticleGroupRequest): string {
+export function serializeAddProductsToArticleGroupBody(request: T.Input<T.AddProductsToArticleGroupRequest>): string {
   let xml = '';
   xml += serializeAddProductsToArticleGroupRequest(request!, 'request');
   return xml;
 }
 
-export function serializeReplaceProductsOfArticleGroupBody(request: T.ReplaceProductsOfArticleGroupRequest): string {
+export function serializeReplaceProductsOfArticleGroupBody(request: T.Input<T.ReplaceProductsOfArticleGroupRequest>): string {
   let xml = '';
   xml += serializeReplaceProductsOfArticleGroupRequest(request!, 'request');
   return xml;
 }
 
-export function serializeDeleteProductsFromArticleGroupBody(request: T.DeleteProductsFromArticleGroupRequest): string {
+export function serializeDeleteProductsFromArticleGroupBody(request: T.Input<T.DeleteProductsFromArticleGroupRequest>): string {
   let xml = '';
   xml += serializeDeleteProductsFromArticleGroupRequest(request!, 'request');
   return xml;
 }
 
-export function serializeGetMessagesBody(request: T.GetMessagesRequest): string {
+export function serializeGetMessagesBody(request: T.Input<T.GetMessagesRequest>): string {
   let xml = '';
   xml += serializeGetMessagesRequest(request!, 'request');
   return xml;
 }
 
-export function serializeGetShiftsBody(request: T.GetShiftsRequest): string {
+export function serializeGetShiftsBody(request: T.Input<T.GetShiftsRequest>): string {
   let xml = '';
   xml += serializeGetShiftsRequest(request!, 'request');
   return xml;
 }
 
-export function serializeGetPurchaseOrdersBody(request: T.GetPurchaseOrdersRequest): string {
+export function serializeGetPurchaseOrdersBody(request: T.Input<T.GetPurchaseOrdersRequest>): string {
   let xml = '';
   xml += serializeGetPurchaseOrdersRequest(request!, 'request');
   return xml;
 }
 
-export function serializeSavePurchaseOrderBody(purchaseOrder: T.PurchaseOrder | undefined): string {
+export function serializeSavePurchaseOrderBody(purchaseOrder: T.Input<T.PurchaseOrder> | undefined): string {
   let xml = '';
   if (purchaseOrder !== undefined && purchaseOrder !== null) {
     xml += serializePurchaseOrder(purchaseOrder, 'purchaseOrder');
@@ -26340,25 +27506,25 @@ export function serializeSavePurchaseOrderBody(purchaseOrder: T.PurchaseOrder | 
   return xml;
 }
 
-export function serializeGetPurchaseOrdersV2Body(request: T.GetPurchaseOrdersV2Request): string {
+export function serializeGetPurchaseOrdersV2Body(request: T.Input<T.GetPurchaseOrdersV2Request>): string {
   let xml = '';
   xml += serializeGetPurchaseOrdersV2Request(request!, 'request');
   return xml;
 }
 
-export function serializeSavePurchaseOrderV2Body(request: T.SavePurchaseOrderV2Request): string {
+export function serializeSavePurchaseOrderV2Body(request: T.Input<T.SavePurchaseOrderV2Request>): string {
   let xml = '';
   xml += serializeSavePurchaseOrderV2Request(request!, 'request');
   return xml;
 }
 
-export function serializeGetPurchaseDeliveriesBody(request: T.GetPurchaseDeliveriesRequest): string {
+export function serializeGetPurchaseDeliveriesBody(request: T.Input<T.GetPurchaseDeliveriesRequest>): string {
   let xml = '';
   xml += serializeGetPurchaseDeliveriesRequest(request!, 'request');
   return xml;
 }
 
-export function serializeSavePurchaseDeliveryBody(purchaseDelivery: T.PurchaseDelivery | undefined): string {
+export function serializeSavePurchaseDeliveryBody(purchaseDelivery: T.Input<T.PurchaseDelivery> | undefined): string {
   let xml = '';
   if (purchaseDelivery !== undefined && purchaseDelivery !== null) {
     xml += serializePurchaseDelivery(purchaseDelivery, 'purchaseDelivery');
@@ -26366,175 +27532,175 @@ export function serializeSavePurchaseDeliveryBody(purchaseDelivery: T.PurchaseDe
   return xml;
 }
 
-export function serializeGetPurchaseDeliveriesV2Body(request: T.GetPurchaseDeliveriesV2Request): string {
+export function serializeGetPurchaseDeliveriesV2Body(request: T.Input<T.GetPurchaseDeliveriesV2Request>): string {
   let xml = '';
   xml += serializeGetPurchaseDeliveriesV2Request(request!, 'request');
   return xml;
 }
 
-export function serializeSavePurchaseDeliveryV2Body(request: T.SavePurchaseDeliveryV2Request): string {
+export function serializeSavePurchaseDeliveryV2Body(request: T.Input<T.SavePurchaseDeliveryV2Request>): string {
   let xml = '';
   xml += serializeSavePurchaseDeliveryV2Request(request!, 'request');
   return xml;
 }
 
-export function serializeEncryptStringBody(request: T.EncryptStringRequest): string {
+export function serializeEncryptStringBody(request: T.Input<T.EncryptStringRequest>): string {
   let xml = '';
   xml += serializeEncryptStringRequest(request!, 'request');
   return xml;
 }
 
-export function serializeGetArticleCardLayoutBody(request: T.GetArticleCardLayoutRequest): string {
+export function serializeGetArticleCardLayoutBody(request: T.Input<T.GetArticleCardLayoutRequest>): string {
   let xml = '';
   xml += serializeGetArticleCardLayoutRequest(request!, 'request');
   return xml;
 }
 
-export function serializeUpdateArticleCardLayoutBody(request: T.UpdateArticleCardLayoutRequest): string {
+export function serializeUpdateArticleCardLayoutBody(request: T.Input<T.UpdateArticleCardLayoutRequest>): string {
   let xml = '';
   xml += serializeUpdateArticleCardLayoutRequest(request!, 'request');
   return xml;
 }
 
-export function serializeGetRetailSpaceRentalBody(request: T.GetRetailSpaceRentalRequest): string {
+export function serializeGetRetailSpaceRentalBody(request: T.Input<T.GetRetailSpaceRentalRequest>): string {
   let xml = '';
   xml += serializeGetRetailSpaceRentalRequest(request!, 'request');
   return xml;
 }
 
-export function serializeGetRetailSpaceRentalsBody(request: T.GetRetailSpaceRentalsRequest): string {
+export function serializeGetRetailSpaceRentalsBody(request: T.Input<T.GetRetailSpaceRentalsRequest>): string {
   let xml = '';
   xml += serializeGetRetailSpaceRentalsRequest(request!, 'request');
   return xml;
 }
 
-export function serializeEidSearchBody(request: T.EidSearchRequest): string {
+export function serializeEidSearchBody(request: T.Input<T.EidSearchRequest>): string {
   let xml = '';
   xml += serializeEidSearchRequest(request!, 'request');
   return xml;
 }
 
-export function serializeGetOverviewBody(request: T.OverviewRequest): string {
+export function serializeGetOverviewBody(request: T.Input<T.OverviewRequest>): string {
   let xml = '';
   xml += serializeOverviewRequest(request!, 'request');
   return xml;
 }
 
-export function serializeGetOverviewFieldsBody(request: T.GetOverviewFieldsRequest): string {
+export function serializeGetOverviewFieldsBody(request: T.Input<T.GetOverviewFieldsRequest>): string {
   let xml = '';
   xml += serializeGetOverviewFieldsRequest(request!, 'request');
   return xml;
 }
 
-export function serializeUpdateBatchBody(request: T.UpdateBatchRequest): string {
+export function serializeUpdateBatchBody(request: T.Input<T.UpdateBatchRequest>): string {
   let xml = '';
   xml += serializeUpdateBatchRequest(request!, 'request');
   return xml;
 }
 
-export function serializePrintBody(request: T.PrintRequest): string {
+export function serializePrintBody(request: T.Input<T.PrintRequest>): string {
   let xml = '';
   xml += serializePrintRequest(request!, 'request');
   return xml;
 }
 
-export function serializeGetKitchenTicketsBody(request: T.GetKitchenTicketsRequest): string {
+export function serializeGetKitchenTicketsBody(request: T.Input<T.GetKitchenTicketsRequest>): string {
   let xml = '';
   xml += serializeGetKitchenTicketsRequest(request!, 'request');
   return xml;
 }
 
-export function serializeSaveStockCorrectionsBody(request: T.SaveStockCorrectionsRequest): string {
+export function serializeSaveStockCorrectionsBody(request: T.Input<T.SaveStockCorrectionsRequest>): string {
   let xml = '';
   xml += serializeSaveStockCorrectionsRequest(request!, 'request');
   return xml;
 }
 
-export function serializeGetPurchaseBookBody(request: T.GetPurchaseBookRequest): string {
+export function serializeGetPurchaseBookBody(request: T.Input<T.GetPurchaseBookRequest>): string {
   let xml = '';
   xml += serializeGetPurchaseBookRequest(request!, 'request');
   return xml;
 }
 
-export function serializeSavePurchaseBookBody(request: T.PurchaseBook): string {
+export function serializeSavePurchaseBookBody(request: T.Input<T.PurchaseBook>): string {
   let xml = '';
   xml += serializePurchaseBook(request!, 'request');
   return xml;
 }
 
-export function serializeAddToPurchaseBookBody(request: T.AddToPurchaseBookRequest): string {
+export function serializeAddToPurchaseBookBody(request: T.Input<T.AddToPurchaseBookRequest>): string {
   let xml = '';
   xml += serializeAddToPurchaseBookRequest(request!, 'request');
   return xml;
 }
 
-export function serializeGetStockCorrectionsBody(request: T.GetStockCorrectionsRequest): string {
+export function serializeGetStockCorrectionsBody(request: T.Input<T.GetStockCorrectionsRequest>): string {
   let xml = '';
   xml += serializeGetStockCorrectionsRequest(request!, 'request');
   return xml;
 }
 
-export function serializeGetArticlesNutritionalCharacteristicsBody(request: T.GetArticlesNutritionalCharacteristicsRequest): string {
+export function serializeGetArticlesNutritionalCharacteristicsBody(request: T.Input<T.GetArticlesNutritionalCharacteristicsRequest>): string {
   let xml = '';
   xml += serializeGetArticlesNutritionalCharacteristicsRequest(request!, 'request');
   return xml;
 }
 
-export function serializeUpdateArticleNutritionalCharacteristicsBody(request: T.UpdateArticleNutritionalCharacteristicsRequest): string {
+export function serializeUpdateArticleNutritionalCharacteristicsBody(request: T.Input<T.UpdateArticleNutritionalCharacteristicsRequest>): string {
   let xml = '';
   xml += serializeUpdateArticleNutritionalCharacteristicsRequest(request!, 'request');
   return xml;
 }
 
-export function serializeGetPreparationMethodGroupsBody(request: T.GetPreparationMethodGroupsRequest): string {
+export function serializeGetPreparationMethodGroupsBody(request: T.Input<T.GetPreparationMethodGroupsRequest>): string {
   let xml = '';
   xml += serializeGetPreparationMethodGroupsRequest(request!, 'request');
   return xml;
 }
 
-export function serializeDeletePreparationMethodGroupBody(request: T.DeletePreparationMethodGroupRequest): string {
+export function serializeDeletePreparationMethodGroupBody(request: T.Input<T.DeletePreparationMethodGroupRequest>): string {
   let xml = '';
   xml += serializeDeletePreparationMethodGroupRequest(request!, 'request');
   return xml;
 }
 
-export function serializeGetArticlesPreparationMethodGroupsBody(request: T.GetArticlesPreparationMethodGroupsRequest): string {
+export function serializeGetArticlesPreparationMethodGroupsBody(request: T.Input<T.GetArticlesPreparationMethodGroupsRequest>): string {
   let xml = '';
   xml += serializeGetArticlesPreparationMethodGroupsRequest(request!, 'request');
   return xml;
 }
 
-export function serializeUpdateArticlePreparationMethodGroupsBody(request: T.UpdateArticlePreparationMethodGroupsRequest): string {
+export function serializeUpdateArticlePreparationMethodGroupsBody(request: T.Input<T.UpdateArticlePreparationMethodGroupsRequest>): string {
   let xml = '';
   xml += serializeUpdateArticlePreparationMethodGroupsRequest(request!, 'request');
   return xml;
 }
 
-export function serializePlaceTableOrderBody(request: T.PlaceTableOrderReq): string {
+export function serializePlaceTableOrderBody(request: T.Input<T.PlaceTableOrderReq>): string {
   let xml = '';
   xml += serializePlaceTableOrderReq(request!, 'request');
   return xml;
 }
 
-export function serializeGetTapTickTotalsBody(request: T.TapTickTotalsRequest): string {
+export function serializeGetTapTickTotalsBody(request: T.Input<T.TapTickTotalsRequest>): string {
   let xml = '';
   xml += serializeTapTickTotalsRequest(request!, 'request');
   return xml;
 }
 
-export function serializeGetTapTickHistoryBody(request: T.TapTickHistoryRequest): string {
+export function serializeGetTapTickHistoryBody(request: T.Input<T.TapTickHistoryRequest>): string {
   let xml = '';
   xml += serializeTapTickHistoryRequest(request!, 'request');
   return xml;
 }
 
-export function serializeFindRelationV2Body(request: T.FindRelationV2Request): string {
+export function serializeFindRelationV2Body(request: T.Input<T.FindRelationV2Request>): string {
   let xml = '';
   xml += serializeFindRelationV2Request(request!, 'request');
   return xml;
 }
 
-export function serializeGetTodoListsBody(request: T.GetTodoListsRequest): string {
+export function serializeGetTodoListsBody(request: T.Input<T.GetTodoListsRequest>): string {
   let xml = '';
   xml += serializeGetTodoListsRequest(request!, 'request');
   return xml;
@@ -26548,157 +27714,157 @@ export function serializeGetTodoListBody(id: number): string {
   return xml;
 }
 
-export function serializeCreateTodoListBody(request: T.CreateTodoListRequest): string {
+export function serializeCreateTodoListBody(request: T.Input<T.CreateTodoListRequest>): string {
   let xml = '';
   xml += serializeCreateTodoListRequest(request!, 'request');
   return xml;
 }
 
-export function serializeSaveTodoListV2Body(request: T.SaveTodoListV2Request): string {
+export function serializeSaveTodoListV2Body(request: T.Input<T.SaveTodoListV2Request>): string {
   let xml = '';
   xml += serializeSaveTodoListV2Request(request!, 'request');
   return xml;
 }
 
-export function serializeGetFilterProfilesBody(request: T.GetFilterProfilesRequest): string {
+export function serializeGetFilterProfilesBody(request: T.Input<T.GetFilterProfilesRequest>): string {
   let xml = '';
   xml += serializeGetFilterProfilesRequest(request!, 'request');
   return xml;
 }
 
-export function serializeSavePreparationMethodGroupBody(request: T.SavePreparationMethodGroupRequest): string {
+export function serializeSavePreparationMethodGroupBody(request: T.Input<T.SavePreparationMethodGroupRequest>): string {
   let xml = '';
   xml += serializeSavePreparationMethodGroupRequest(request!, 'request');
   return xml;
 }
 
-export function serializeGetNutritionalCharacteristicsBody(request: T.GetNutritionalCharacteristicsRequest): string {
+export function serializeGetNutritionalCharacteristicsBody(request: T.Input<T.GetNutritionalCharacteristicsRequest>): string {
   let xml = '';
   xml += serializeGetNutritionalCharacteristicsRequest(request!, 'request');
   return xml;
 }
 
-export function serializeUpdateNutritionalCharacteristicsBody(request: T.UpdateNutritionalCharacteristicsRequest): string {
+export function serializeUpdateNutritionalCharacteristicsBody(request: T.Input<T.UpdateNutritionalCharacteristicsRequest>): string {
   let xml = '';
   xml += serializeUpdateNutritionalCharacteristicsRequest(request!, 'request');
   return xml;
 }
 
-export function serializeDeterminePricingBody(request: T.DeterminePricingRequest): string {
+export function serializeDeterminePricingBody(request: T.Input<T.DeterminePricingRequest>): string {
   let xml = '';
   xml += serializeDeterminePricingRequest(request!, 'request');
   return xml;
 }
 
-export function serializeSetRelationPresenceBody(request: T.SetRelationPresenceRequest): string {
+export function serializeSetRelationPresenceBody(request: T.Input<T.SetRelationPresenceRequest>): string {
   let xml = '';
   xml += serializeSetRelationPresenceRequest(request!, 'request');
   return xml;
 }
 
-export function serializeGetRelationPresenceBody(request: T.GetRelationPresenceRequest): string {
+export function serializeGetRelationPresenceBody(request: T.Input<T.GetRelationPresenceRequest>): string {
   let xml = '';
   xml += serializeGetRelationPresenceRequest(request!, 'request');
   return xml;
 }
 
-export function serializeGetArticleBranchDeviationsBody(request: T.GetArticleBranchDeviationsRequest): string {
+export function serializeGetArticleBranchDeviationsBody(request: T.Input<T.GetArticleBranchDeviationsRequest>): string {
   let xml = '';
   xml += serializeGetArticleBranchDeviationsRequest(request!, 'request');
   return xml;
 }
 
-export function serializeSaveArticleBranchDeviationsBody(request: T.SaveArticleBranchDeviationsRequest): string {
+export function serializeSaveArticleBranchDeviationsBody(request: T.Input<T.SaveArticleBranchDeviationsRequest>): string {
   let xml = '';
   xml += serializeSaveArticleBranchDeviationsRequest(request!, 'request');
   return xml;
 }
 
-export function serializeUpdateArticleNutrientsBody(request: T.UpdateArticleNutrientsRequest): string {
+export function serializeUpdateArticleNutrientsBody(request: T.Input<T.UpdateArticleNutrientsRequest>): string {
   let xml = '';
   xml += serializeUpdateArticleNutrientsRequest(request!, 'request');
   return xml;
 }
 
-export function serializeUpdateArticleDynamicMinMaxStockBody(request: T.UpdateArticleDynamicMinMaxStockRequest): string {
+export function serializeUpdateArticleDynamicMinMaxStockBody(request: T.Input<T.UpdateArticleDynamicMinMaxStockRequest>): string {
   let xml = '';
   xml += serializeUpdateArticleDynamicMinMaxStockRequest(request!, 'request');
   return xml;
 }
 
-export function serializeGetArticleDynamicMinMaxStockBody(request: T.GetArticleDynamicMinMaxStockRequest): string {
+export function serializeGetArticleDynamicMinMaxStockBody(request: T.Input<T.GetArticleDynamicMinMaxStockRequest>): string {
   let xml = '';
   xml += serializeGetArticleDynamicMinMaxStockRequest(request!, 'request');
   return xml;
 }
 
-export function serializeGetCardFilterOptionsBody(request: T.GetCardFilterOptionsRequest): string {
+export function serializeGetCardFilterOptionsBody(request: T.Input<T.GetCardFilterOptionsRequest>): string {
   let xml = '';
   xml += serializeGetCardFilterOptionsRequest(request!, 'request');
   return xml;
 }
 
-export function serializeGetPlannedCycleCountsBody(request: T.GetPlannedCycleCountsRequest): string {
+export function serializeGetPlannedCycleCountsBody(request: T.Input<T.GetPlannedCycleCountsRequest>): string {
   let xml = '';
   xml += serializeGetPlannedCycleCountsRequest(request!, 'request');
   return xml;
 }
 
-export function serializeGetActiveCycleCountBody(request: T.GetActiveCycleCountRequest): string {
+export function serializeGetActiveCycleCountBody(request: T.Input<T.GetActiveCycleCountRequest>): string {
   let xml = '';
   xml += serializeGetActiveCycleCountRequest(request!, 'request');
   return xml;
 }
 
-export function serializeSetArticleRecalledBody(request: T.SetArticleRecalledRequest): string {
+export function serializeSetArticleRecalledBody(request: T.Input<T.SetArticleRecalledRequest>): string {
   let xml = '';
   xml += serializeSetArticleRecalledRequest(request!, 'request');
   return xml;
 }
 
-export function serializeGetArticleComponentsBody(request: T.GetArticleComponentsRequest): string {
+export function serializeGetArticleComponentsBody(request: T.Input<T.GetArticleComponentsRequest>): string {
   let xml = '';
   xml += serializeGetArticleComponentsRequest(request!, 'request');
   return xml;
 }
 
-export function serializeSaveArticleComponentsBody(request: T.SaveArticleComponentsRequest): string {
+export function serializeSaveArticleComponentsBody(request: T.Input<T.SaveArticleComponentsRequest>): string {
   let xml = '';
   xml += serializeSaveArticleComponentsRequest(request!, 'request');
   return xml;
 }
 
-export function serializeGetConfigurationBody(request: T.GetConfigurationRequest): string {
+export function serializeGetConfigurationBody(request: T.Input<T.GetConfigurationRequest>): string {
   let xml = '';
   xml += serializeGetConfigurationRequest(request!, 'request');
   return xml;
 }
 
-export function serializeUpdateConfigurationBody(request: T.UpdateConfigurationRequest): string {
+export function serializeUpdateConfigurationBody(request: T.Input<T.UpdateConfigurationRequest>): string {
   let xml = '';
   xml += serializeUpdateConfigurationRequest(request!, 'request');
   return xml;
 }
 
-export function serializeGetConfigurationTreeBody(request: T.GetConfigurationTreeRequest): string {
+export function serializeGetConfigurationTreeBody(request: T.Input<T.GetConfigurationTreeRequest>): string {
   let xml = '';
   xml += serializeGetConfigurationTreeRequest(request!, 'request');
   return xml;
 }
 
-export function serializeGetConfigurationValuesBody(request: T.GetConfigurationValuesRequest): string {
+export function serializeGetConfigurationValuesBody(request: T.Input<T.GetConfigurationValuesRequest>): string {
   let xml = '';
   xml += serializeGetConfigurationValuesRequest(request!, 'request');
   return xml;
 }
 
-export function serializeUpdateConfigurationValuesBody(request: T.UpdateConfigurationValuesRequest): string {
+export function serializeUpdateConfigurationValuesBody(request: T.Input<T.UpdateConfigurationValuesRequest>): string {
   let xml = '';
   xml += serializeUpdateConfigurationValuesRequest(request!, 'request');
   return xml;
 }
 
-export function serializeGetButtonLayoutBody(terminal: T.Terminal): string {
+export function serializeGetButtonLayoutBody(terminal: T.Input<T.Terminal>): string {
   let xml = '';
   if (terminal !== undefined && terminal !== null) {
     xml += serializeTerminal(terminal, 'terminal');
@@ -26706,43 +27872,43 @@ export function serializeGetButtonLayoutBody(terminal: T.Terminal): string {
   return xml;
 }
 
-export function serializeGetButtonLayoutGroupForBranchBody(request: T.ButtonLayoutGroupForBranchRequest): string {
+export function serializeGetButtonLayoutGroupForBranchBody(request: T.Input<T.ButtonLayoutGroupForBranchRequest>): string {
   let xml = '';
   xml += serializeButtonLayoutGroupForBranchRequest(request!, 'request');
   return xml;
 }
 
-export function serializeGetButtonLayoutGroupsWithAssignedWorkplacesBody(request: T.GetButtonLayoutGroupsWithAssignedWorkplacesRequest): string {
+export function serializeGetButtonLayoutGroupsWithAssignedWorkplacesBody(request: T.Input<T.GetButtonLayoutGroupsWithAssignedWorkplacesRequest>): string {
   let xml = '';
   xml += serializeGetButtonLayoutGroupsWithAssignedWorkplacesRequest(request!, 'request');
   return xml;
 }
 
-export function serializeGetButtonLayoutGroupDetailsBody(request: T.GetButtonLayoutGroupDetailsRequest): string {
+export function serializeGetButtonLayoutGroupDetailsBody(request: T.Input<T.GetButtonLayoutGroupDetailsRequest>): string {
   let xml = '';
   xml += serializeGetButtonLayoutGroupDetailsRequest(request!, 'request');
   return xml;
 }
 
-export function serializeSaveButtonLayoutGroupDetailsBody(request: T.SaveButtonLayoutGroupDetailsRequest): string {
+export function serializeSaveButtonLayoutGroupDetailsBody(request: T.Input<T.SaveButtonLayoutGroupDetailsRequest>): string {
   let xml = '';
   xml += serializeSaveButtonLayoutGroupDetailsRequest(request!, 'request');
   return xml;
 }
 
-export function serializeDeleteButtonLayoutGroupBody(request: T.DeleteButtonLayoutGroupRequest): string {
+export function serializeDeleteButtonLayoutGroupBody(request: T.Input<T.DeleteButtonLayoutGroupRequest>): string {
   let xml = '';
   xml += serializeDeleteButtonLayoutGroupRequest(request!, 'request');
   return xml;
 }
 
-export function serializeAssignButtonLayoutGroupToWorkplacesBody(request: T.AssignButtonLayoutGroupToWorkplacesRequest): string {
+export function serializeAssignButtonLayoutGroupToWorkplacesBody(request: T.Input<T.AssignButtonLayoutGroupToWorkplacesRequest>): string {
   let xml = '';
   xml += serializeAssignButtonLayoutGroupToWorkplacesRequest(request!, 'request');
   return xml;
 }
 
-export function serializeGetArticlesInLayoutBody(terminal: T.Terminal): string {
+export function serializeGetArticlesInLayoutBody(terminal: T.Input<T.Terminal>): string {
   let xml = '';
   if (terminal !== undefined && terminal !== null) {
     xml += serializeTerminal(terminal, 'terminal');
@@ -26750,121 +27916,121 @@ export function serializeGetArticlesInLayoutBody(terminal: T.Terminal): string {
   return xml;
 }
 
-export function serializeGetDayStockConfigurationBody(request: T.GetDayStockConfigurationRequest): string {
+export function serializeGetDayStockConfigurationBody(request: T.Input<T.GetDayStockConfigurationRequest>): string {
   let xml = '';
   xml += serializeGetDayStockConfigurationRequest(request!, 'request');
   return xml;
 }
 
-export function serializeSaveDayStockConfigurationBody(request: T.SaveDayStockConfigurationRequest): string {
+export function serializeSaveDayStockConfigurationBody(request: T.Input<T.SaveDayStockConfigurationRequest>): string {
   let xml = '';
   xml += serializeSaveDayStockConfigurationRequest(request!, 'request');
   return xml;
 }
 
-export function serializeGetActivitiesBody(request: T.GetActivitiesRequest): string {
+export function serializeGetActivitiesBody(request: T.Input<T.GetActivitiesRequest>): string {
   let xml = '';
   xml += serializeGetActivitiesRequest(request!, 'request');
   return xml;
 }
 
-export function serializeGetActivityTypesBody(request: T.GetActivityTypesRequest): string {
+export function serializeGetActivityTypesBody(request: T.Input<T.GetActivityTypesRequest>): string {
   let xml = '';
   xml += serializeGetActivityTypesRequest(request!, 'request');
   return xml;
 }
 
-export function serializeSaveActivityTypesBody(request: T.SaveActivityTypesRequest): string {
+export function serializeSaveActivityTypesBody(request: T.Input<T.SaveActivityTypesRequest>): string {
   let xml = '';
   xml += serializeSaveActivityTypesRequest(request!, 'request');
   return xml;
 }
 
-export function serializeCreateActivityBody(request: T.CreateActivityRequest): string {
+export function serializeCreateActivityBody(request: T.Input<T.CreateActivityRequest>): string {
   let xml = '';
   xml += serializeCreateActivityRequest(request!, 'request');
   return xml;
 }
 
-export function serializeUpdateActivityBody(request: T.UpdateActivityRequest): string {
+export function serializeUpdateActivityBody(request: T.Input<T.UpdateActivityRequest>): string {
   let xml = '';
   xml += serializeUpdateActivityRequest(request!, 'request');
   return xml;
 }
 
-export function serializeSaveActivityBody(request: T.SaveActivityRequest): string {
+export function serializeSaveActivityBody(request: T.Input<T.SaveActivityRequest>): string {
   let xml = '';
   xml += serializeSaveActivityRequest(request!, 'request');
   return xml;
 }
 
-export function serializeDeleteActivityBody(request: T.DeleteActivityRequest): string {
+export function serializeDeleteActivityBody(request: T.Input<T.DeleteActivityRequest>): string {
   let xml = '';
   xml += serializeDeleteActivityRequest(request!, 'request');
   return xml;
 }
 
-export function serializeGetGksInformationBody(request: T.GetGksInformationRequest): string {
+export function serializeGetGksInformationBody(request: T.Input<T.GetGksInformationRequest>): string {
   let xml = '';
   xml += serializeGetGksInformationRequest(request!, 'request');
   return xml;
 }
 
-export function serializeGetMealplanMomentsConfigurationBody(request: T.GetMealplanMomentsConfigurationRequest): string {
+export function serializeGetMealplanMomentsConfigurationBody(request: T.Input<T.GetMealplanMomentsConfigurationRequest>): string {
   let xml = '';
   xml += serializeGetMealplanMomentsConfigurationRequest(request!, 'request');
   return xml;
 }
 
-export function serializeGetScheduledMealPlansBody(request: T.GetScheduledMealPlansRequest): string {
+export function serializeGetScheduledMealPlansBody(request: T.Input<T.GetScheduledMealPlansRequest>): string {
   let xml = '';
   xml += serializeGetScheduledMealPlansRequest(request!, 'request');
   return xml;
 }
 
-export function serializeGetArticleAlterationsGroupsBody(request: T.GetArticleAlterationsGroupsRequest): string {
+export function serializeGetArticleAlterationsGroupsBody(request: T.Input<T.GetArticleAlterationsGroupsRequest>): string {
   let xml = '';
   xml += serializeGetArticleAlterationsGroupsRequest(request!, 'request');
   return xml;
 }
 
-export function serializeSaveArticleAlterationsGroupBody(request: T.SaveArticleAlterationsGroupRequest): string {
+export function serializeSaveArticleAlterationsGroupBody(request: T.Input<T.SaveArticleAlterationsGroupRequest>): string {
   let xml = '';
   xml += serializeSaveArticleAlterationsGroupRequest(request!, 'request');
   return xml;
 }
 
-export function serializeDeleteArticleAlterationsGroupBody(request: T.DeleteArticleAlterationsGroupRequest): string {
+export function serializeDeleteArticleAlterationsGroupBody(request: T.Input<T.DeleteArticleAlterationsGroupRequest>): string {
   let xml = '';
   xml += serializeDeleteArticleAlterationsGroupRequest(request!, 'request');
   return xml;
 }
 
-export function serializeUpdateAttachedArticleAlterationsGroupsBody(request: T.UpdateAttachedArticleAlterationsGroupsRequest): string {
+export function serializeUpdateAttachedArticleAlterationsGroupsBody(request: T.Input<T.UpdateAttachedArticleAlterationsGroupsRequest>): string {
   let xml = '';
   xml += serializeUpdateAttachedArticleAlterationsGroupsRequest(request!, 'request');
   return xml;
 }
 
-export function serializeUpdateArticleMenuBody(request: T.UpdateArticleMenuRequest): string {
+export function serializeUpdateArticleMenuBody(request: T.Input<T.UpdateArticleMenuRequest>): string {
   let xml = '';
   xml += serializeUpdateArticleMenuRequest(request!, 'request');
   return xml;
 }
 
-export function serializeUpdateOnlineAuthorizationTreeBody(request: T.UpdateOnlineAuthorizationTreeRequest): string {
+export function serializeUpdateOnlineAuthorizationTreeBody(request: T.Input<T.UpdateOnlineAuthorizationTreeRequest>): string {
   let xml = '';
   xml += serializeUpdateOnlineAuthorizationTreeRequest(request!, 'request');
   return xml;
 }
 
-export function serializeGetOwnerLabelsBody(request: T.GetOwnerLabelsRequest): string {
+export function serializeGetOwnerLabelsBody(request: T.Input<T.GetOwnerLabelsRequest>): string {
   let xml = '';
   xml += serializeGetOwnerLabelsRequest(request!, 'request');
   return xml;
 }
 
-export function serializeGetWordAliasesBody(request: T.GetWordAliasesRequest): string {
+export function serializeGetWordAliasesBody(request: T.Input<T.GetWordAliasesRequest>): string {
   let xml = '';
   xml += serializeGetWordAliasesRequest(request!, 'request');
   return xml;
@@ -26886,7 +28052,7 @@ export function serializeGetAvailableTerminalListBody(): string {
   return '';
 }
 
-export function serializeRegisterTerminalBody(params: { terminal?: T.Terminal; forceRegistration?: boolean }): string {
+export function serializeRegisterTerminalBody(params: { terminal?: T.Input<T.Terminal>; forceRegistration?: boolean }): string {
   let xml = '';
   if (params.terminal !== undefined && params.terminal !== null) {
     xml += serializeTerminal(params.terminal, 'terminal');
@@ -26897,7 +28063,7 @@ export function serializeRegisterTerminalBody(params: { terminal?: T.Terminal; f
   return xml;
 }
 
-export function serializeGetTerminalSettingsBody(terminal: T.Terminal | undefined): string {
+export function serializeGetTerminalSettingsBody(terminal: T.Input<T.Terminal> | undefined): string {
   let xml = '';
   if (terminal !== undefined && terminal !== null) {
     xml += serializeTerminal(terminal, 'terminal');
@@ -26905,13 +28071,13 @@ export function serializeGetTerminalSettingsBody(terminal: T.Terminal | undefine
   return xml;
 }
 
-export function serializeGetBranchInformationBody(request: T.GetBranchInformationRequest): string {
+export function serializeGetBranchInformationBody(request: T.Input<T.GetBranchInformationRequest>): string {
   let xml = '';
   xml += serializeGetBranchInformationRequest(request!, 'request');
   return xml;
 }
 
-export function serializeGetBranchGroupsBody(request: T.GetBranchGroupsRequest): string {
+export function serializeGetBranchGroupsBody(request: T.Input<T.GetBranchGroupsRequest>): string {
   let xml = '';
   xml += serializeGetBranchGroupsRequest(request!, 'request');
   return xml;
@@ -26921,19 +28087,19 @@ export function serializeGetDeliveryMethodsBody(): string {
   return '';
 }
 
-export function serializeGetDeliveryMethodsV2Body(request: T.GetDeliveryMethodsV2Request): string {
+export function serializeGetDeliveryMethodsV2Body(request: T.Input<T.GetDeliveryMethodsV2Request>): string {
   let xml = '';
   xml += serializeGetDeliveryMethodsV2Request(request!, 'request');
   return xml;
 }
 
-export function serializeCreateDeliveryMethodBody(request: T.CreateDeliveryMethodRequest): string {
+export function serializeCreateDeliveryMethodBody(request: T.Input<T.CreateDeliveryMethodRequest>): string {
   let xml = '';
   xml += serializeCreateDeliveryMethodRequest(request!, 'request');
   return xml;
 }
 
-export function serializeUpdateDeliveryMethodBody(request: T.UpdateDeliveryMethodRequest): string {
+export function serializeUpdateDeliveryMethodBody(request: T.Input<T.UpdateDeliveryMethodRequest>): string {
   let xml = '';
   xml += serializeUpdateDeliveryMethodRequest(request!, 'request');
   return xml;
@@ -26947,428 +28113,428 @@ export function serializeGetCurrentSyncMarkersBody(): string {
   return '';
 }
 
-export function serializeGetCurrentSyncMarkersV2Body(request: T.GetCurrentSyncMarkersV2Request): string {
+export function serializeGetCurrentSyncMarkersV2Body(request: T.Input<T.GetCurrentSyncMarkersV2Request>): string {
   let xml = '';
   xml += serializeGetCurrentSyncMarkersV2Request(request!, 'request');
   return xml;
 }
 
-export function serializeGetNutrientTypesBody(request: T.GetNutrientTypesRequest): string {
+export function serializeGetNutrientTypesBody(request: T.Input<T.GetNutrientTypesRequest>): string {
   let xml = '';
   xml += serializeGetNutrientTypesRequest(request!, 'request');
   return xml;
 }
 
-export function serializeVerifyCredentialsBody(request: T.VerifyCredentialsRequest): string {
+export function serializeVerifyCredentialsBody(request: T.Input<T.VerifyCredentialsRequest>): string {
   let xml = '';
   xml += serializeVerifyCredentialsRequest(request!, 'request');
   return xml;
 }
 
-export function serializeSaveCredentialsBody(request: T.SaveCredentialsRequest): string {
+export function serializeSaveCredentialsBody(request: T.Input<T.SaveCredentialsRequest>): string {
   let xml = '';
   xml += serializeSaveCredentialsRequest(request!, 'request');
   return xml;
 }
 
-export function serializeGetPasswordRequirementsBody(request: T.PasswordRequirementsRequest): string {
+export function serializeGetPasswordRequirementsBody(request: T.Input<T.PasswordRequirementsRequest>): string {
   let xml = '';
   xml += serializePasswordRequirementsRequest(request!, 'request');
   return xml;
 }
 
-export function serializePasswordResetBody(request: T.PasswordResetRequest): string {
+export function serializePasswordResetBody(request: T.Input<T.PasswordResetRequest>): string {
   let xml = '';
   xml += serializePasswordResetRequest(request!, 'request');
   return xml;
 }
 
-export function serializeGetFloorplansBody(request: T.GetFloorplansRequest): string {
+export function serializeGetFloorplansBody(request: T.Input<T.GetFloorplansRequest>): string {
   let xml = '';
   xml += serializeGetFloorplansRequest(request!, 'request');
   return xml;
 }
 
-export function serializeChangeTablePropertyBody(request: T.ChangeTablePropertyReq): string {
+export function serializeChangeTablePropertyBody(request: T.Input<T.ChangeTablePropertyReq>): string {
   let xml = '';
   xml += serializeChangeTablePropertyReq(request!, 'request');
   return xml;
 }
 
-export function serializeGetEmployeeAuthorizationsBody(request: T.GetEmployeeAuthorizationsRequest): string {
+export function serializeGetEmployeeAuthorizationsBody(request: T.Input<T.GetEmployeeAuthorizationsRequest>): string {
   let xml = '';
   xml += serializeGetEmployeeAuthorizationsRequest(request!, 'request');
   return xml;
 }
 
-export function serializeGetGroupAuthorizationsBody(request: T.GetGroupAuthorizationsRequest): string {
+export function serializeGetGroupAuthorizationsBody(request: T.Input<T.GetGroupAuthorizationsRequest>): string {
   let xml = '';
   xml += serializeGetGroupAuthorizationsRequest(request!, 'request');
   return xml;
 }
 
-export function serializeUpdateGroupAuthorizationsBody(request: T.UpdateGroupAuthorizationsRequest): string {
+export function serializeUpdateGroupAuthorizationsBody(request: T.Input<T.UpdateGroupAuthorizationsRequest>): string {
   let xml = '';
   xml += serializeUpdateGroupAuthorizationsRequest(request!, 'request');
   return xml;
 }
 
-export function serializeGetAuthorizationGroupsBody(request: T.GetAuthorizationGroupsRequest): string {
+export function serializeGetAuthorizationGroupsBody(request: T.Input<T.GetAuthorizationGroupsRequest>): string {
   let xml = '';
   xml += serializeGetAuthorizationGroupsRequest(request!, 'request');
   return xml;
 }
 
-export function serializeGetAuthorizationTreeBody(request: T.GetAuthorizationTreeRequest): string {
+export function serializeGetAuthorizationTreeBody(request: T.Input<T.GetAuthorizationTreeRequest>): string {
   let xml = '';
   xml += serializeGetAuthorizationTreeRequest(request!, 'request');
   return xml;
 }
 
-export function serializeGetEmployeeBranchAuthorizationsBody(request: T.GetEmployeeBranchAuthorizationsRequest): string {
+export function serializeGetEmployeeBranchAuthorizationsBody(request: T.Input<T.GetEmployeeBranchAuthorizationsRequest>): string {
   let xml = '';
   xml += serializeGetEmployeeBranchAuthorizationsRequest(request!, 'request');
   return xml;
 }
 
-export function serializeSaveAuthorizationGroupBody(request: T.SaveAuthorizationGroupRequest): string {
+export function serializeSaveAuthorizationGroupBody(request: T.Input<T.SaveAuthorizationGroupRequest>): string {
   let xml = '';
   xml += serializeSaveAuthorizationGroupRequest(request!, 'request');
   return xml;
 }
 
-export function serializeDeleteAuthorizationGroupBody(request: T.DeleteAuthorizationGroupRequest): string {
+export function serializeDeleteAuthorizationGroupBody(request: T.Input<T.DeleteAuthorizationGroupRequest>): string {
   let xml = '';
   xml += serializeDeleteAuthorizationGroupRequest(request!, 'request');
   return xml;
 }
 
-export function serializeGetEmployeeAuthorizationGroupsBody(request: T.GetEmployeeAuthorizationGroupsRequest): string {
+export function serializeGetEmployeeAuthorizationGroupsBody(request: T.Input<T.GetEmployeeAuthorizationGroupsRequest>): string {
   let xml = '';
   xml += serializeGetEmployeeAuthorizationGroupsRequest(request!, 'request');
   return xml;
 }
 
-export function serializeUpdateEmployeeAuthorizationGroupsBody(request: T.UpdateEmployeeAuthorizationGroupsRequest): string {
+export function serializeUpdateEmployeeAuthorizationGroupsBody(request: T.Input<T.UpdateEmployeeAuthorizationGroupsRequest>): string {
   let xml = '';
   xml += serializeUpdateEmployeeAuthorizationGroupsRequest(request!, 'request');
   return xml;
 }
 
-export function serializeGetEmployeeAuthorizationSyncMarkersBody(request: T.GetEmployeeAuthorizationSyncMarkersRequest): string {
+export function serializeGetEmployeeAuthorizationSyncMarkersBody(request: T.Input<T.GetEmployeeAuthorizationSyncMarkersRequest>): string {
   let xml = '';
   xml += serializeGetEmployeeAuthorizationSyncMarkersRequest(request!, 'request');
   return xml;
 }
 
-export function serializeGetSpecialBarcodePatternsBody(request: T.GetSpecialBarcodePatternsRequest): string {
+export function serializeGetSpecialBarcodePatternsBody(request: T.Input<T.GetSpecialBarcodePatternsRequest>): string {
   let xml = '';
   xml += serializeGetSpecialBarcodePatternsRequest(request!, 'request');
   return xml;
 }
 
-export function serializeParseSpecialBarcodeBody(request: T.ParseSpecialBarcodeRequest): string {
+export function serializeParseSpecialBarcodeBody(request: T.Input<T.ParseSpecialBarcodeRequest>): string {
   let xml = '';
   xml += serializeParseSpecialBarcodeRequest(request!, 'request');
   return xml;
 }
 
-export function serializeCreateImageBody(request: T.CreateImageRequest): string {
+export function serializeCreateImageBody(request: T.Input<T.CreateImageRequest>): string {
   let xml = '';
   xml += serializeCreateImageRequest(request!, 'request');
   return xml;
 }
 
-export function serializeCreateImageFromUrlBody(request: T.CreateImageFromUrlRequest): string {
+export function serializeCreateImageFromUrlBody(request: T.Input<T.CreateImageFromUrlRequest>): string {
   let xml = '';
   xml += serializeCreateImageFromUrlRequest(request!, 'request');
   return xml;
 }
 
-export function serializeGetCardImageLabelsBody(request: T.GetCardImageLabelsRequest): string {
+export function serializeGetCardImageLabelsBody(request: T.Input<T.GetCardImageLabelsRequest>): string {
   let xml = '';
   xml += serializeGetCardImageLabelsRequest(request!, 'request');
   return xml;
 }
 
-export function serializeGetCardImagesBody(request: T.GetCardImagesRequest): string {
+export function serializeGetCardImagesBody(request: T.Input<T.GetCardImagesRequest>): string {
   let xml = '';
   xml += serializeGetCardImagesRequest(request!, 'request');
   return xml;
 }
 
-export function serializeSaveCardImagesBody(request: T.SaveCardImagesRequest): string {
+export function serializeSaveCardImagesBody(request: T.Input<T.SaveCardImagesRequest>): string {
   let xml = '';
   xml += serializeSaveCardImagesRequest(request!, 'request');
   return xml;
 }
 
-export function serializeGetImagesBody(request: T.GetImagesRequest | undefined): string {
+export function serializeGetImagesBody(request: T.Input<T.GetImagesRequest> | undefined): string {
   if (request === undefined) return '';
   let xml = '';
   xml += serializeGetImagesRequest(request!, 'request');
   return xml;
 }
 
-export function serializeCheckGiftcardPaymentBody(request: T.CheckGiftcardPaymentRequest): string {
+export function serializeCheckGiftcardPaymentBody(request: T.Input<T.CheckGiftcardPaymentRequest>): string {
   let xml = '';
   xml += serializeCheckGiftcardPaymentRequest(request!, 'request');
   return xml;
 }
 
-export function serializeRegisterGiftcardPaymentBody(request: T.RegisterGiftcardPaymentRequest): string {
+export function serializeRegisterGiftcardPaymentBody(request: T.Input<T.RegisterGiftcardPaymentRequest>): string {
   let xml = '';
   xml += serializeRegisterGiftcardPaymentRequest(request!, 'request');
   return xml;
 }
 
-export function serializeRegisterGiftcardPaymentV2Body(request: T.RegisterGiftcardPaymentV2Request): string {
+export function serializeRegisterGiftcardPaymentV2Body(request: T.Input<T.RegisterGiftcardPaymentV2Request>): string {
   let xml = '';
   xml += serializeRegisterGiftcardPaymentV2Request(request!, 'request');
   return xml;
 }
 
-export function serializeCreateGiftcardBody(request: T.CreateGiftcardRequest): string {
+export function serializeCreateGiftcardBody(request: T.Input<T.CreateGiftcardRequest>): string {
   let xml = '';
   xml += serializeCreateGiftcardRequest(request!, 'request');
   return xml;
 }
 
-export function serializeReloadGiftcardBody(request: T.ReloadGiftcardRequest): string {
+export function serializeReloadGiftcardBody(request: T.Input<T.ReloadGiftcardRequest>): string {
   let xml = '';
   xml += serializeReloadGiftcardRequest(request!, 'request');
   return xml;
 }
 
-export function serializeGetGiftcardTypesBody(request: T.GetGiftcardTypesRequest): string {
+export function serializeGetGiftcardTypesBody(request: T.Input<T.GetGiftcardTypesRequest>): string {
   let xml = '';
   xml += serializeGetGiftcardTypesRequest(request!, 'request');
   return xml;
 }
 
-export function serializeGetRelationGiftcardsBody(request: T.GetRelationGiftcardsRequest): string {
+export function serializeGetRelationGiftcardsBody(request: T.Input<T.GetRelationGiftcardsRequest>): string {
   let xml = '';
   xml += serializeGetRelationGiftcardsRequest(request!, 'request');
   return xml;
 }
 
-export function serializeGetGiftcardBody(request: T.GetGiftcardRequest): string {
+export function serializeGetGiftcardBody(request: T.Input<T.GetGiftcardRequest>): string {
   let xml = '';
   xml += serializeGetGiftcardRequest(request!, 'request');
   return xml;
 }
 
-export function serializeGetGiftcardHistoryBody(request: T.GetGiftcardHistoryRequest): string {
+export function serializeGetGiftcardHistoryBody(request: T.Input<T.GetGiftcardHistoryRequest>): string {
   let xml = '';
   xml += serializeGetGiftcardHistoryRequest(request!, 'request');
   return xml;
 }
 
-export function serializeGetGiftcardsBody(request: T.GetGiftcardsRequest): string {
+export function serializeGetGiftcardsBody(request: T.Input<T.GetGiftcardsRequest>): string {
   let xml = '';
   xml += serializeGetGiftcardsRequest(request!, 'request');
   return xml;
 }
 
-export function serializeSaveGiftcardsBody(request: T.SaveGiftcardsRequest): string {
+export function serializeSaveGiftcardsBody(request: T.Input<T.SaveGiftcardsRequest>): string {
   let xml = '';
   xml += serializeSaveGiftcardsRequest(request!, 'request');
   return xml;
 }
 
-export function serializeRestituteGiftcardsBody(request: T.RestituteGiftcardsRequest): string {
+export function serializeRestituteGiftcardsBody(request: T.Input<T.RestituteGiftcardsRequest>): string {
   let xml = '';
   xml += serializeRestituteGiftcardsRequest(request!, 'request');
   return xml;
 }
 
-export function serializeLinkGiftcardsToRelationBody(request: T.LinkGiftcardsToRelationRequest): string {
+export function serializeLinkGiftcardsToRelationBody(request: T.Input<T.LinkGiftcardsToRelationRequest>): string {
   let xml = '';
   xml += serializeLinkGiftcardsToRelationRequest(request!, 'request');
   return xml;
 }
 
-export function serializeGetVouchersBody(request: T.GetVouchersRequest): string {
+export function serializeGetVouchersBody(request: T.Input<T.GetVouchersRequest>): string {
   let xml = '';
   xml += serializeGetVouchersRequest(request!, 'request');
   return xml;
 }
 
-export function serializeGetVoucherBody(request: T.GetVoucherRequest): string {
+export function serializeGetVoucherBody(request: T.Input<T.GetVoucherRequest>): string {
   let xml = '';
   xml += serializeGetVoucherRequest(request!, 'request');
   return xml;
 }
 
-export function serializeGetVoucherCategoriesBody(request: T.GetVoucherCategoriesRequest): string {
+export function serializeGetVoucherCategoriesBody(request: T.Input<T.GetVoucherCategoriesRequest>): string {
   let xml = '';
   xml += serializeGetVoucherCategoriesRequest(request!, 'request');
   return xml;
 }
 
-export function serializeGetVoucherIssuancesBody(request: T.GetVoucherIssuancesRequest): string {
+export function serializeGetVoucherIssuancesBody(request: T.Input<T.GetVoucherIssuancesRequest>): string {
   let xml = '';
   xml += serializeGetVoucherIssuancesRequest(request!, 'request');
   return xml;
 }
 
-export function serializeGetVoucherSettingsBody(request: T.GetVoucherSettingsRequest): string {
+export function serializeGetVoucherSettingsBody(request: T.Input<T.GetVoucherSettingsRequest>): string {
   let xml = '';
   xml += serializeGetVoucherSettingsRequest(request!, 'request');
   return xml;
 }
 
-export function serializeIssueVouchersBody(request: T.IssueVouchersRequest): string {
+export function serializeIssueVouchersBody(request: T.Input<T.IssueVouchersRequest>): string {
   let xml = '';
   xml += serializeIssueVouchersRequest(request!, 'request');
   return xml;
 }
 
-export function serializeIssueVoucherExternalScanCodesBody(request: T.IssueVoucherExternalScanCodesRequest): string {
+export function serializeIssueVoucherExternalScanCodesBody(request: T.Input<T.IssueVoucherExternalScanCodesRequest>): string {
   let xml = '';
   xml += serializeIssueVoucherExternalScanCodesRequest(request!, 'request');
   return xml;
 }
 
-export function serializeGetVoucherExternalScanCodesBody(request: T.GetVoucherExternalScanCodesRequest): string {
+export function serializeGetVoucherExternalScanCodesBody(request: T.Input<T.GetVoucherExternalScanCodesRequest>): string {
   let xml = '';
   xml += serializeGetVoucherExternalScanCodesRequest(request!, 'request');
   return xml;
 }
 
-export function serializeGetRedeemableVoucherIssuancesBody(request: T.GetRedeemableVoucherIssuancesRequest): string {
+export function serializeGetRedeemableVoucherIssuancesBody(request: T.Input<T.GetRedeemableVoucherIssuancesRequest>): string {
   let xml = '';
   xml += serializeGetRedeemableVoucherIssuancesRequest(request!, 'request');
   return xml;
 }
 
-export function serializeRedeemVoucherIssuanceBody(request: T.RedeemVoucherIssuanceRequest): string {
+export function serializeRedeemVoucherIssuanceBody(request: T.Input<T.RedeemVoucherIssuanceRequest>): string {
   let xml = '';
   xml += serializeRedeemVoucherIssuanceRequest(request!, 'request');
   return xml;
 }
 
-export function serializeReportTurnoverByBranchBody(request: T.ReportTurnoverByBranchRequest): string {
+export function serializeReportTurnoverByBranchBody(request: T.Input<T.ReportTurnoverByBranchRequest>): string {
   let xml = '';
   xml += serializeReportTurnoverByBranchRequest(request!, 'request');
   return xml;
 }
 
-export function serializeReportTurnoverByEmployeeBody(request: T.ReportTurnoverByEmployeeRequest): string {
+export function serializeReportTurnoverByEmployeeBody(request: T.Input<T.ReportTurnoverByEmployeeRequest>): string {
   let xml = '';
   xml += serializeReportTurnoverByEmployeeRequest(request!, 'request');
   return xml;
 }
 
-export function serializeReportTurnoverByActivityBody(request: T.ReportTurnoverByActivityRequest): string {
+export function serializeReportTurnoverByActivityBody(request: T.Input<T.ReportTurnoverByActivityRequest>): string {
   let xml = '';
   xml += serializeReportTurnoverByActivityRequest(request!, 'request');
   return xml;
 }
 
-export function serializeReportTurnoverByTurnoverGroupBody(request: T.ReportTurnoverByTurnoverGroupRequest): string {
+export function serializeReportTurnoverByTurnoverGroupBody(request: T.Input<T.ReportTurnoverByTurnoverGroupRequest>): string {
   let xml = '';
   xml += serializeReportTurnoverByTurnoverGroupRequest(request!, 'request');
   return xml;
 }
 
-export function serializeReportTurnoverByArticleBody(request: T.ReportTurnoverByArticleRequest): string {
+export function serializeReportTurnoverByArticleBody(request: T.Input<T.ReportTurnoverByArticleRequest>): string {
   let xml = '';
   xml += serializeReportTurnoverByArticleRequest(request!, 'request');
   return xml;
 }
 
-export function serializeReportHoursByEmployeeBody(request: T.ReportHoursByEmployeeRequest): string {
+export function serializeReportHoursByEmployeeBody(request: T.Input<T.ReportHoursByEmployeeRequest>): string {
   let xml = '';
   xml += serializeReportHoursByEmployeeRequest(request!, 'request');
   return xml;
 }
 
-export function serializeReportPaymentMethodsBody(request: T.ReportPaymentMethodsRequest): string {
+export function serializeReportPaymentMethodsBody(request: T.Input<T.ReportPaymentMethodsRequest>): string {
   let xml = '';
   xml += serializeReportPaymentMethodsRequest(request!, 'request');
   return xml;
 }
 
-export function serializeReportTablesBody(request: T.ReportTablesRequest): string {
+export function serializeReportTablesBody(request: T.Input<T.ReportTablesRequest>): string {
   let xml = '';
   xml += serializeReportTablesRequest(request!, 'request');
   return xml;
 }
 
-export function serializeReportCancellationsBody(request: T.ReportCancellationsRequest): string {
+export function serializeReportCancellationsBody(request: T.Input<T.ReportCancellationsRequest>): string {
   let xml = '';
   xml += serializeReportCancellationsRequest(request!, 'request');
   return xml;
 }
 
-export function serializeReportBPEBody(request: T.ReportBPERequest): string {
+export function serializeReportBPEBody(request: T.Input<T.ReportBPERequest>): string {
   let xml = '';
   xml += serializeReportBPERequest(request!, 'request');
   return xml;
 }
 
-export function serializeReportBranchPerformanceBody(request: T.ReportBranchPerformanceRequest): string {
+export function serializeReportBranchPerformanceBody(request: T.Input<T.ReportBranchPerformanceRequest>): string {
   let xml = '';
   xml += serializeReportBranchPerformanceRequest(request!, 'request');
   return xml;
 }
 
-export function serializeReportAverageSpendingBody(request: T.ReportAverageSpendingRequest): string {
+export function serializeReportAverageSpendingBody(request: T.Input<T.ReportAverageSpendingRequest>): string {
   let xml = '';
   xml += serializeReportAverageSpendingRequest(request!, 'request');
   return xml;
 }
 
-export function serializeReportTurnoverBody(request: T.ReportTurnoverRequest): string {
+export function serializeReportTurnoverBody(request: T.Input<T.ReportTurnoverRequest>): string {
   let xml = '';
   xml += serializeReportTurnoverRequest(request!, 'request');
   return xml;
 }
 
-export function serializeReportPaymentMethodDetailsBody(request: T.ReportPaymentMethodDetailsRequest): string {
+export function serializeReportPaymentMethodDetailsBody(request: T.Input<T.ReportPaymentMethodDetailsRequest>): string {
   let xml = '';
   xml += serializeReportPaymentMethodDetailsRequest(request!, 'request');
   return xml;
 }
 
-export function serializeReportPrintableFinancialTotalsBody(request: T.ReportPrintableFinancialTotalsRequest): string {
+export function serializeReportPrintableFinancialTotalsBody(request: T.Input<T.ReportPrintableFinancialTotalsRequest>): string {
   let xml = '';
   xml += serializeReportPrintableFinancialTotalsRequest(request!, 'request');
   return xml;
 }
 
-export function serializeReportArticlePerformanceBody(request: T.ReportArticlePerformanceRequest): string {
+export function serializeReportArticlePerformanceBody(request: T.Input<T.ReportArticlePerformanceRequest>): string {
   let xml = '';
   xml += serializeReportArticlePerformanceRequest(request!, 'request');
   return xml;
 }
 
-export function serializeGetSalesRepeatTemplatesBody(request: T.GetSalesRepeatTemplatesRequest): string {
+export function serializeGetSalesRepeatTemplatesBody(request: T.Input<T.GetSalesRepeatTemplatesRequest>): string {
   let xml = '';
   xml += serializeGetSalesRepeatTemplatesRequest(request!, 'request');
   return xml;
 }
 
-export function serializeSaveSalesRepeatTemplateBody(request: T.SaveSalesRepeatTemplateRequest): string {
+export function serializeSaveSalesRepeatTemplateBody(request: T.Input<T.SaveSalesRepeatTemplateRequest>): string {
   let xml = '';
   xml += serializeSaveSalesRepeatTemplateRequest(request!, 'request');
   return xml;
 }
 
-export function serializePerformBpeBudgetChecksBody(request: T.PerformBpeBudgetChecksRequest): string {
+export function serializePerformBpeBudgetChecksBody(request: T.Input<T.PerformBpeBudgetChecksRequest>): string {
   let xml = '';
   xml += serializePerformBpeBudgetChecksRequest(request!, 'request');
   return xml;
 }
 
-export function serializeGetTicketCounterSalesBody(request: T.GetTicketCounterSalesRequest): string {
+export function serializeGetTicketCounterSalesBody(request: T.Input<T.GetTicketCounterSalesRequest>): string {
   let xml = '';
   xml += serializeGetTicketCounterSalesRequest(request!, 'request');
   return xml;
 }
 
-export function serializeGetSalePromotionsBody(request: T.GetSalePromotionsRequest): string {
+export function serializeGetSalePromotionsBody(request: T.Input<T.GetSalePromotionsRequest>): string {
   let xml = '';
   xml += serializeGetSalePromotionsRequest(request!, 'request');
   return xml;
@@ -27378,13 +28544,13 @@ export function serializeGetPaymentMethodsBody(): string {
   return '';
 }
 
-export function serializeGetPaymentMethodsV2Body(request: T.GetPaymentMethodsRequest): string {
+export function serializeGetPaymentMethodsV2Body(request: T.Input<T.GetPaymentMethodsRequest>): string {
   let xml = '';
   xml += serializeGetPaymentMethodsRequest(request!, 'request');
   return xml;
 }
 
-export function serializeGetAvailablePaymentMethodsBody(terminal: T.Terminal | undefined): string {
+export function serializeGetAvailablePaymentMethodsBody(terminal: T.Input<T.Terminal> | undefined): string {
   let xml = '';
   if (terminal !== undefined && terminal !== null) {
     xml += serializeTerminal(terminal, 'terminal');
@@ -27392,13 +28558,13 @@ export function serializeGetAvailablePaymentMethodsBody(terminal: T.Terminal | u
   return xml;
 }
 
-export function serializeGetAvailablePaymentMethodsV2Body(request: T.GetAvailablePaymentMethodsV2Request): string {
+export function serializeGetAvailablePaymentMethodsV2Body(request: T.Input<T.GetAvailablePaymentMethodsV2Request>): string {
   let xml = '';
   xml += serializeGetAvailablePaymentMethodsV2Request(request!, 'request');
   return xml;
 }
 
-export function serializeCreateOrderBody(order: T.Order | undefined): string {
+export function serializeCreateOrderBody(order: T.Input<T.Order> | undefined): string {
   let xml = '';
   if (order !== undefined && order !== null) {
     xml += serializeOrder(order, 'order');
@@ -27406,31 +28572,31 @@ export function serializeCreateOrderBody(order: T.Order | undefined): string {
   return xml;
 }
 
-export function serializeCreateOrderV2Body(request: T.CreateOrderV2Request): string {
+export function serializeCreateOrderV2Body(request: T.Input<T.CreateOrderV2Request>): string {
   let xml = '';
   xml += serializeCreateOrderV2Request(request!, 'request');
   return xml;
 }
 
-export function serializeCreateOrderV3Body(request: T.CreateOrderV3Request): string {
+export function serializeCreateOrderV3Body(request: T.Input<T.CreateOrderV3Request>): string {
   let xml = '';
   xml += serializeCreateOrderV3Request(request!, 'request');
   return xml;
 }
 
-export function serializePayOrderBody(request: T.PayOrderRequest): string {
+export function serializePayOrderBody(request: T.Input<T.PayOrderRequest>): string {
   let xml = '';
   xml += serializePayOrderRequest(request!, 'request');
   return xml;
 }
 
-export function serializePayOrderV2Body(request: T.PayOrderV2Request): string {
+export function serializePayOrderV2Body(request: T.Input<T.PayOrderV2Request>): string {
   let xml = '';
   xml += serializePayOrderV2Request(request!, 'request');
   return xml;
 }
 
-export function serializePayTableOrderBody(params: { terminal?: T.Terminal; order?: T.Order; paymentList?: T.Payment[] }): string {
+export function serializePayTableOrderBody(params: { terminal?: T.Input<T.Terminal>; order?: T.Input<T.Order>; paymentList?: T.Input<T.Payment>[] }): string {
   let xml = '';
   if (params.terminal !== undefined && params.terminal !== null) {
     xml += serializeTerminal(params.terminal, 'terminal');
@@ -27448,7 +28614,7 @@ export function serializePayTableOrderBody(params: { terminal?: T.Terminal; orde
   return xml;
 }
 
-export function serializePayTableOrderV2Body(params: { terminal?: T.Terminal; request?: T.PayTableOrderRequest }): string {
+export function serializePayTableOrderV2Body(params: { terminal?: T.Input<T.Terminal>; request?: T.Input<T.PayTableOrderRequest> }): string {
   let xml = '';
   if (params.terminal !== undefined && params.terminal !== null) {
     xml += serializeTerminal(params.terminal, 'terminal');
@@ -27459,7 +28625,7 @@ export function serializePayTableOrderV2Body(params: { terminal?: T.Terminal; re
   return xml;
 }
 
-export function serializePrepayTableOrderBody(params: { terminal?: T.Terminal; order?: T.Order; paymentList?: T.Payment[]; prepayAmount?: number }): string {
+export function serializePrepayTableOrderBody(params: { terminal?: T.Input<T.Terminal>; order?: T.Input<T.Order>; paymentList?: T.Input<T.Payment>[]; prepayAmount?: number }): string {
   let xml = '';
   if (params.terminal !== undefined && params.terminal !== null) {
     xml += serializeTerminal(params.terminal, 'terminal');
@@ -27480,7 +28646,7 @@ export function serializePrepayTableOrderBody(params: { terminal?: T.Terminal; o
   return xml;
 }
 
-export function serializePrepayTableOrderV2Body(params: { terminal?: T.Terminal; request?: T.PrepayTableOrderRequest }): string {
+export function serializePrepayTableOrderV2Body(params: { terminal?: T.Input<T.Terminal>; request?: T.Input<T.PrepayTableOrderRequest> }): string {
   let xml = '';
   if (params.terminal !== undefined && params.terminal !== null) {
     xml += serializeTerminal(params.terminal, 'terminal');
@@ -27491,13 +28657,13 @@ export function serializePrepayTableOrderV2Body(params: { terminal?: T.Terminal;
   return xml;
 }
 
-export function serializeGetOrdersByExtOrderIdsBody(request: T.GetOrdersByExtOrderIdsRequest): string {
+export function serializeGetOrdersByExtOrderIdsBody(request: T.Input<T.GetOrdersByExtOrderIdsRequest>): string {
   let xml = '';
   xml += serializeGetOrdersByExtOrderIdsRequest(request!, 'request');
   return xml;
 }
 
-export function serializeGetProposalsBody(request: T.GetProposalsRequest): string {
+export function serializeGetProposalsBody(request: T.Input<T.GetProposalsRequest>): string {
   let xml = '';
   xml += serializeGetProposalsRequest(request!, 'request');
   return xml;
@@ -27511,7 +28677,7 @@ export function serializeGetProposalBody(proposalId: string): string {
   return xml;
 }
 
-export function serializeSaveProposalBody(proposal: T.Proposal): string {
+export function serializeSaveProposalBody(proposal: T.Input<T.Proposal>): string {
   let xml = '';
   if (proposal !== undefined && proposal !== null) {
     xml += serializeProposal(proposal, 'proposal');
@@ -27543,73 +28709,73 @@ export function serializeCreateInvoiceFromProposalBody(proposalId: string): stri
   return xml;
 }
 
-export function serializeGetOrdersByReceiptsBody(request: T.GetOrdersByReceiptsRequest): string {
+export function serializeGetOrdersByReceiptsBody(request: T.Input<T.GetOrdersByReceiptsRequest>): string {
   let xml = '';
   xml += serializeGetOrdersByReceiptsRequest(request!, 'request');
   return xml;
 }
 
-export function serializeGetCurrentTableOrdersBody(request: T.GetCurrentTableOrdersRequest): string {
+export function serializeGetCurrentTableOrdersBody(request: T.Input<T.GetCurrentTableOrdersRequest>): string {
   let xml = '';
   xml += serializeGetCurrentTableOrdersRequest(request!, 'request');
   return xml;
 }
 
-export function serializeGetOrdersBody(request: T.GetOrdersRequest): string {
+export function serializeGetOrdersBody(request: T.Input<T.GetOrdersRequest>): string {
   let xml = '';
   xml += serializeGetOrdersRequest(request!, 'request');
   return xml;
 }
 
-export function serializeDetermineContractLinesBody(request: T.DetermineContractLinesRequest): string {
+export function serializeDetermineContractLinesBody(request: T.Input<T.DetermineContractLinesRequest>): string {
   let xml = '';
   xml += serializeDetermineContractLinesRequest(request!, 'request');
   return xml;
 }
 
-export function serializeCreateInvoiceFromPackingSlipsBody(request: T.CreateInvoiceFromPackingSlipsRequest): string {
+export function serializeCreateInvoiceFromPackingSlipsBody(request: T.Input<T.CreateInvoiceFromPackingSlipsRequest>): string {
   let xml = '';
   xml += serializeCreateInvoiceFromPackingSlipsRequest(request!, 'request');
   return xml;
 }
 
-export function serializeGetCashCountInfoBody(request: T.GetCashCountInfoRequest): string {
+export function serializeGetCashCountInfoBody(request: T.Input<T.GetCashCountInfoRequest>): string {
   let xml = '';
   xml += serializeGetCashCountInfoRequest(request!, 'request');
   return xml;
 }
 
-export function serializeSaveCashCountBody(request: T.SaveCashCountRequest): string {
+export function serializeSaveCashCountBody(request: T.Input<T.SaveCashCountRequest>): string {
   let xml = '';
   xml += serializeSaveCashCountRequest(request!, 'request');
   return xml;
 }
 
-export function serializeProcessInvoiceBody(request: T.ProcessInvoiceRequest): string {
+export function serializeProcessInvoiceBody(request: T.Input<T.ProcessInvoiceRequest>): string {
   let xml = '';
   xml += serializeProcessInvoiceRequest(request!, 'request');
   return xml;
 }
 
-export function serializeProcessProposalBody(request: T.ProcessProposalRequest): string {
+export function serializeProcessProposalBody(request: T.Input<T.ProcessProposalRequest>): string {
   let xml = '';
   xml += serializeProcessProposalRequest(request!, 'request');
   return xml;
 }
 
-export function serializeProcessOrderBody(request: T.ProcessOrderRequest): string {
+export function serializeProcessOrderBody(request: T.Input<T.ProcessOrderRequest>): string {
   let xml = '';
   xml += serializeProcessOrderRequest(request!, 'request');
   return xml;
 }
 
-export function serializeGetWebhookConsumersBody(request: T.GetWebhookConsumersRequest): string {
+export function serializeGetWebhookConsumersBody(request: T.Input<T.GetWebhookConsumersRequest>): string {
   let xml = '';
   xml += serializeGetWebhookConsumersRequest(request!, 'request');
   return xml;
 }
 
-export function serializeStartExternalPaymentBody(params: { terminal?: T.Terminal; request?: T.StartExternalPaymentRequest }): string {
+export function serializeStartExternalPaymentBody(params: { terminal?: T.Input<T.Terminal>; request?: T.Input<T.StartExternalPaymentRequest> }): string {
   let xml = '';
   if (params.terminal !== undefined && params.terminal !== null) {
     xml += serializeTerminal(params.terminal, 'terminal');
@@ -27620,7 +28786,7 @@ export function serializeStartExternalPaymentBody(params: { terminal?: T.Termina
   return xml;
 }
 
-export function serializePollExternalPaymentBody(params: { terminal?: T.Terminal; request?: T.PollExternalPaymentRequest }): string {
+export function serializePollExternalPaymentBody(params: { terminal?: T.Input<T.Terminal>; request?: T.Input<T.PollExternalPaymentRequest> }): string {
   let xml = '';
   if (params.terminal !== undefined && params.terminal !== null) {
     xml += serializeTerminal(params.terminal, 'terminal');
@@ -27631,7 +28797,7 @@ export function serializePollExternalPaymentBody(params: { terminal?: T.Terminal
   return xml;
 }
 
-export function serializeRequestCancelExternalPaymentBody(params: { terminal?: T.Terminal; request?: T.RequestCancelExternalPaymentRequest }): string {
+export function serializeRequestCancelExternalPaymentBody(params: { terminal?: T.Input<T.Terminal>; request?: T.Input<T.RequestCancelExternalPaymentRequest> }): string {
   let xml = '';
   if (params.terminal !== undefined && params.terminal !== null) {
     xml += serializeTerminal(params.terminal, 'terminal');
@@ -27642,7 +28808,7 @@ export function serializeRequestCancelExternalPaymentBody(params: { terminal?: T
   return xml;
 }
 
-export function serializeCancelExternalPaymentBody(params: { terminal?: T.Terminal; request?: T.CancelExternalPaymentRequest }): string {
+export function serializeCancelExternalPaymentBody(params: { terminal?: T.Input<T.Terminal>; request?: T.Input<T.CancelExternalPaymentRequest> }): string {
   let xml = '';
   if (params.terminal !== undefined && params.terminal !== null) {
     xml += serializeTerminal(params.terminal, 'terminal');
@@ -27653,139 +28819,139 @@ export function serializeCancelExternalPaymentBody(params: { terminal?: T.Termin
   return xml;
 }
 
-export function serializeStartExternalPaymentV2Body(request: T.ExternalPaymentWebhookRequest): string {
+export function serializeStartExternalPaymentV2Body(request: T.Input<T.ExternalPaymentWebhookRequest>): string {
   let xml = '';
   xml += serializeExternalPaymentWebhookRequest(request!, 'request');
   return xml;
 }
 
-export function serializePollExternalPaymentV2Body(request: T.ExternalPaymentWebhookRequest): string {
+export function serializePollExternalPaymentV2Body(request: T.Input<T.ExternalPaymentWebhookRequest>): string {
   let xml = '';
   xml += serializeExternalPaymentWebhookRequest(request!, 'request');
   return xml;
 }
 
-export function serializeRequestCancelExternalPaymentV2Body(request: T.ExternalPaymentWebhookRequest): string {
+export function serializeRequestCancelExternalPaymentV2Body(request: T.Input<T.ExternalPaymentWebhookRequest>): string {
   let xml = '';
   xml += serializeExternalPaymentWebhookRequest(request!, 'request');
   return xml;
 }
 
-export function serializeCancelExternalPaymentV2Body(request: T.ExternalPaymentWebhookRequest): string {
+export function serializeCancelExternalPaymentV2Body(request: T.Input<T.ExternalPaymentWebhookRequest>): string {
   let xml = '';
   xml += serializeExternalPaymentWebhookRequest(request!, 'request');
   return xml;
 }
 
-export function serializeSendWebhookBody(request: T.SendWebhookRequest): string {
+export function serializeSendWebhookBody(request: T.Input<T.SendWebhookRequest>): string {
   let xml = '';
   xml += serializeSendWebhookRequest(request!, 'request');
   return xml;
 }
 
-export function serializeGetPrintLayoutsBody(request: T.GetPrintLayoutsRequest): string {
+export function serializeGetPrintLayoutsBody(request: T.Input<T.GetPrintLayoutsRequest>): string {
   let xml = '';
   xml += serializeGetPrintLayoutsRequest(request!, 'request');
   return xml;
 }
 
-export function serializeGetPrintLayoutAssignmentsBody(request: T.GetPrintLayoutAssignmentsRequest): string {
+export function serializeGetPrintLayoutAssignmentsBody(request: T.Input<T.GetPrintLayoutAssignmentsRequest>): string {
   let xml = '';
   xml += serializeGetPrintLayoutAssignmentsRequest(request!, 'request');
   return xml;
 }
 
-export function serializeGetRenderedPrintLayoutBody(request: T.GetRenderedPrintLayoutRequest): string {
+export function serializeGetRenderedPrintLayoutBody(request: T.Input<T.GetRenderedPrintLayoutRequest>): string {
   let xml = '';
   xml += serializeGetRenderedPrintLayoutRequest(request!, 'request');
   return xml;
 }
 
-export function serializeGetPrintLayoutMarkupBody(request: T.GetPrintLayoutMarkupRequest): string {
+export function serializeGetPrintLayoutMarkupBody(request: T.Input<T.GetPrintLayoutMarkupRequest>): string {
   let xml = '';
   xml += serializeGetPrintLayoutMarkupRequest(request!, 'request');
   return xml;
 }
 
-export function serializePrintPrintLayoutBody(request: T.PrintPrintLayoutRequest): string {
+export function serializePrintPrintLayoutBody(request: T.Input<T.PrintPrintLayoutRequest>): string {
   let xml = '';
   xml += serializePrintPrintLayoutRequest(request!, 'request');
   return xml;
 }
 
-export function serializeGetInterbranchOrdersBody(request: T.GetInterbranchOrdersRequest): string {
+export function serializeGetInterbranchOrdersBody(request: T.Input<T.GetInterbranchOrdersRequest>): string {
   let xml = '';
   xml += serializeGetInterbranchOrdersRequest(request!, 'request');
   return xml;
 }
 
-export function serializeCreateInterbranchOrderBody(request: T.CreateInterbranchOrderRequest): string {
+export function serializeCreateInterbranchOrderBody(request: T.Input<T.CreateInterbranchOrderRequest>): string {
   let xml = '';
   xml += serializeCreateInterbranchOrderRequest(request!, 'request');
   return xml;
 }
 
-export function serializeUpdateInterbranchOrderBody(request: T.UpdateInterbranchOrderRequest): string {
+export function serializeUpdateInterbranchOrderBody(request: T.Input<T.UpdateInterbranchOrderRequest>): string {
   let xml = '';
   xml += serializeUpdateInterbranchOrderRequest(request!, 'request');
   return xml;
 }
 
-export function serializeClaimInterbranchOrderBody(request: T.ClaimInterbranchOrderRequest): string {
+export function serializeClaimInterbranchOrderBody(request: T.Input<T.ClaimInterbranchOrderRequest>): string {
   let xml = '';
   xml += serializeClaimInterbranchOrderRequest(request!, 'request');
   return xml;
 }
 
-export function serializeReleaseInterbranchOrderBody(request: T.ReleaseInterbranchOrderRequest): string {
+export function serializeReleaseInterbranchOrderBody(request: T.Input<T.ReleaseInterbranchOrderRequest>): string {
   let xml = '';
   xml += serializeReleaseInterbranchOrderRequest(request!, 'request');
   return xml;
 }
 
-export function serializeCancelInterbranchOrderBody(request: T.CancelInterbranchOrderRequest): string {
+export function serializeCancelInterbranchOrderBody(request: T.Input<T.CancelInterbranchOrderRequest>): string {
   let xml = '';
   xml += serializeCancelInterbranchOrderRequest(request!, 'request');
   return xml;
 }
 
-export function serializeGetInterbranchShipmentsBody(request: T.GetInterbranchShipmentsRequest): string {
+export function serializeGetInterbranchShipmentsBody(request: T.Input<T.GetInterbranchShipmentsRequest>): string {
   let xml = '';
   xml += serializeGetInterbranchShipmentsRequest(request!, 'request');
   return xml;
 }
 
-export function serializeShipInterbranchOrderBody(request: T.ShipInterbranchOrderRequest): string {
+export function serializeShipInterbranchOrderBody(request: T.Input<T.ShipInterbranchOrderRequest>): string {
   let xml = '';
   xml += serializeShipInterbranchOrderRequest(request!, 'request');
   return xml;
 }
 
-export function serializeGetInterbranchDeliveriesBody(request: T.GetInterbranchDeliveriesRequest): string {
+export function serializeGetInterbranchDeliveriesBody(request: T.Input<T.GetInterbranchDeliveriesRequest>): string {
   let xml = '';
   xml += serializeGetInterbranchDeliveriesRequest(request!, 'request');
   return xml;
 }
 
-export function serializeDeliverInterbranchShipmentBody(request: T.DeliverInterbranchShipmentRequest): string {
+export function serializeDeliverInterbranchShipmentBody(request: T.Input<T.DeliverInterbranchShipmentRequest>): string {
   let xml = '';
   xml += serializeDeliverInterbranchShipmentRequest(request!, 'request');
   return xml;
 }
 
-export function serializeCreateInterbranchShipmentBody(request: T.CreateInterbranchShipmentRequest): string {
+export function serializeCreateInterbranchShipmentBody(request: T.Input<T.CreateInterbranchShipmentRequest>): string {
   let xml = '';
   xml += serializeCreateInterbranchShipmentRequest(request!, 'request');
   return xml;
 }
 
-export function serializeCreateInterbranchDeliveryBody(request: T.CreateInterbranchDeliveryRequest): string {
+export function serializeCreateInterbranchDeliveryBody(request: T.Input<T.CreateInterbranchDeliveryRequest>): string {
   let xml = '';
   xml += serializeCreateInterbranchDeliveryRequest(request!, 'request');
   return xml;
 }
 
-export function serializeRunInterbranchPlannerBody(request: T.RunInterbranchPlannerRequest): string {
+export function serializeRunInterbranchPlannerBody(request: T.Input<T.RunInterbranchPlannerRequest>): string {
   let xml = '';
   xml += serializeRunInterbranchPlannerRequest(request!, 'request');
   return xml;

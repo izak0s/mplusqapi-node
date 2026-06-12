@@ -92,7 +92,7 @@ export class MplusKassaClient {
     )).priceGroup;
   }
 
-  async logMistake(params: { terminal?: T.Terminal; request?: T.LogMistakeRequest }, requestId?: string): Promise<T.LogMistakeResult> {
+  async logMistake(params: { terminal?: T.Input<T.Terminal>; request?: T.Input<T.LogMistakeRequest> }, requestId?: string): Promise<T.LogMistakeResult> {
     const bodyXml = S.serializeLogMistakeBody(params);
     return (await this.call(
       'logMistake',
@@ -104,7 +104,7 @@ export class MplusKassaClient {
     )).result;
   }
 
-  async createRelation(relation?: T.Relation, requestId?: string): Promise<T.CreateRelationResponse> {
+  async createRelation(relation?: T.Input<T.Relation>, requestId?: string): Promise<T.CreateRelationResponse> {
     const bodyXml = S.serializeCreateRelationBody(relation);
     return this.call(
       'createRelation',
@@ -116,7 +116,7 @@ export class MplusKassaClient {
     );
   }
 
-  async updateRelation(relation?: T.Relation, requestId?: string): Promise<T.UpdateRelationResponse> {
+  async updateRelation(relation?: T.Input<T.Relation>, requestId?: string): Promise<T.UpdateRelationResponse> {
     const bodyXml = S.serializeUpdateRelationBody(relation);
     return this.call(
       'updateRelation',
@@ -140,7 +140,7 @@ export class MplusKassaClient {
     );
   }
 
-  async findRelation(relation?: T.Relation, requestId?: string): Promise<T.FindRelationResponse> {
+  async findRelation(relation?: T.Input<T.Relation>, requestId?: string): Promise<T.FindRelationResponse> {
     const bodyXml = S.serializeFindRelationBody(relation);
     return this.call(
       'findRelation',
@@ -152,7 +152,7 @@ export class MplusKassaClient {
     );
   }
 
-  async getRelations(request?: T.GetRelationsRequest, requestId?: string): Promise<T.Relation[]> {
+  async getRelations(request?: T.Input<T.GetRelationsRequest>, requestId?: string): Promise<T.Relation[]> {
     const bodyXml = S.serializeGetRelationsBody(request);
     return (await this.call(
       'getRelations',
@@ -188,7 +188,7 @@ export class MplusKassaClient {
     );
   }
 
-  async adjustPoints(request: T.AdjustPointsRequest, requestId?: string): Promise<T.AdjustPointsResponse> {
+  async adjustPoints(request: T.Input<T.AdjustPointsRequest>, requestId?: string): Promise<T.AdjustPointsResponse> {
     const bodyXml = S.serializeAdjustPointsBody(request);
     return this.call(
       'adjustPoints',
@@ -200,7 +200,7 @@ export class MplusKassaClient {
     );
   }
 
-  async getRelationPoints(request: T.GetRelationPointsRequest, requestId?: string): Promise<T.GetRelationPoints[] | undefined> {
+  async getRelationPoints(request: T.Input<T.GetRelationPointsRequest>, requestId?: string): Promise<T.GetRelationPoints[] | undefined> {
     const bodyXml = S.serializeGetRelationPointsBody(request);
     return (await this.call(
       'getRelationPoints',
@@ -212,7 +212,7 @@ export class MplusKassaClient {
     )).relationPointsLst;
   }
 
-  async getEmployees(request?: T.getEmployeesRequest, requestId?: string): Promise<T.Employee[]> {
+  async getEmployees(request?: T.Input<T.getEmployeesRequest>, requestId?: string): Promise<T.Employee[]> {
     const bodyXml = S.serializeGetEmployeesBody(request);
     return (await this.call(
       'getEmployees',
@@ -236,7 +236,7 @@ export class MplusKassaClient {
     );
   }
 
-  async findEmployee(employee?: T.Employee, requestId?: string): Promise<T.FindEmployeeResponse> {
+  async findEmployee(employee?: T.Input<T.Employee>, requestId?: string): Promise<T.FindEmployeeResponse> {
     const bodyXml = S.serializeFindEmployeeBody(employee);
     return this.call(
       'findEmployee',
@@ -248,7 +248,7 @@ export class MplusKassaClient {
     );
   }
 
-  async createEmployee(employee?: T.Employee, requestId?: string): Promise<T.CreateEmployeeResponse> {
+  async createEmployee(employee?: T.Input<T.Employee>, requestId?: string): Promise<T.CreateEmployeeResponse> {
     const bodyXml = S.serializeCreateEmployeeBody(employee);
     return this.call(
       'createEmployee',
@@ -260,7 +260,7 @@ export class MplusKassaClient {
     );
   }
 
-  async updateEmployee(employee?: T.Employee, requestId?: string): Promise<T.UpdateEmployeeResponse> {
+  async updateEmployee(employee?: T.Input<T.Employee>, requestId?: string): Promise<T.UpdateEmployeeResponse> {
     const bodyXml = S.serializeUpdateEmployeeBody(employee);
     return this.call(
       'updateEmployee',
@@ -272,7 +272,7 @@ export class MplusKassaClient {
     );
   }
 
-  async getActiveEmployeeList(terminal: T.Terminal, requestId?: string): Promise<T.EmployeeName[] | undefined> {
+  async getActiveEmployeeList(terminal: T.Input<T.Terminal>, requestId?: string): Promise<T.EmployeeName[] | undefined> {
     const bodyXml = S.serializeGetActiveEmployeeListBody(terminal);
     return (await this.call(
       'getActiveEmployeeList',
@@ -284,7 +284,7 @@ export class MplusKassaClient {
     )).return;
   }
 
-  async getTableList(terminal: T.Terminal, requestId?: string): Promise<T.Table[] | undefined> {
+  async getTableList(terminal: T.Input<T.Terminal>, requestId?: string): Promise<T.Table[] | undefined> {
     const bodyXml = S.serializeGetTableListBody(terminal);
     return (await this.call(
       'getTableList',
@@ -296,7 +296,7 @@ export class MplusKassaClient {
     )).table;
   }
 
-  async getTableListV2(terminal: T.Terminal, requestId?: string): Promise<T.WholeTable[] | undefined> {
+  async getTableListV2(terminal: T.Input<T.Terminal>, requestId?: string): Promise<T.WholeTable[] | undefined> {
     const bodyXml = S.serializeGetTableListV2Body(terminal);
     return (await this.call(
       'getTableListV2',
@@ -308,7 +308,7 @@ export class MplusKassaClient {
     )).wholeTable;
   }
 
-  async getTableListV3(request: T.getTableListV3Request, requestId?: string): Promise<T.WholeTable[] | undefined> {
+  async getTableListV3(request: T.Input<T.getTableListV3Request>, requestId?: string): Promise<T.WholeTable[] | undefined> {
     const bodyXml = S.serializeGetTableListV3Body(request);
     return (await this.call(
       'getTableListV3',
@@ -320,7 +320,7 @@ export class MplusKassaClient {
     )).wholeTable;
   }
 
-  async getMainTableList(request: T.getMainTableListRequest, requestId?: string): Promise<T.MainTable[] | undefined> {
+  async getMainTableList(request: T.Input<T.getMainTableListRequest>, requestId?: string): Promise<T.MainTable[] | undefined> {
     const bodyXml = S.serializeGetMainTableListBody(request);
     return (await this.call(
       'getMainTableList',
@@ -332,7 +332,7 @@ export class MplusKassaClient {
     )).mainTable;
   }
 
-  async getSubTableList(request: T.getSubTableListRequest, requestId?: string): Promise<T.SubTableState[] | undefined> {
+  async getSubTableList(request: T.Input<T.getSubTableListRequest>, requestId?: string): Promise<T.SubTableState[] | undefined> {
     const bodyXml = S.serializeGetSubTableListBody(request);
     return (await this.call(
       'getSubTableList',
@@ -344,7 +344,7 @@ export class MplusKassaClient {
     )).subTableState;
   }
 
-  async getCourseList(terminal: T.Terminal, requestId?: string): Promise<T.Course[] | undefined> {
+  async getCourseList(terminal: T.Input<T.Terminal>, requestId?: string): Promise<T.Course[] | undefined> {
     const bodyXml = S.serializeGetCourseListBody(terminal);
     return (await this.call(
       'getCourseList',
@@ -356,7 +356,7 @@ export class MplusKassaClient {
     )).course;
   }
 
-  async getCourseListV2(request: T.GetCourseListV2Request, requestId?: string): Promise<T.CourseInfo[] | undefined> {
+  async getCourseListV2(request: T.Input<T.GetCourseListV2Request>, requestId?: string): Promise<T.CourseInfo[] | undefined> {
     const bodyXml = S.serializeGetCourseListV2Body(request);
     return (await this.call(
       'getCourseListV2',
@@ -380,7 +380,7 @@ export class MplusKassaClient {
     )).vatGroup;
   }
 
-  async saveTableOrder(params: { terminal?: T.Terminal; order?: T.Order }, requestId?: string): Promise<T.SaveTableOrderResponse> {
+  async saveTableOrder(params: { terminal?: T.Input<T.Terminal>; order?: T.Input<T.Order> }, requestId?: string): Promise<T.SaveTableOrderResponse> {
     const bodyXml = S.serializeSaveTableOrderBody(params);
     return this.call(
       'saveTableOrder',
@@ -392,7 +392,7 @@ export class MplusKassaClient {
     );
   }
 
-  async saveTableOrderV2(params: { terminal?: T.Terminal; request?: T.SaveTableOrderRequest }, requestId?: string): Promise<T.SaveTableOrderResponse> {
+  async saveTableOrderV2(params: { terminal?: T.Input<T.Terminal>; request?: T.Input<T.SaveTableOrderRequest> }, requestId?: string): Promise<T.SaveTableOrderResponse> {
     const bodyXml = S.serializeSaveTableOrderV2Body(params);
     return this.call(
       'saveTableOrderV2',
@@ -404,7 +404,7 @@ export class MplusKassaClient {
     );
   }
 
-  async createAndPayTableOrder(request?: T.CreateAndPayTableOrderRequest, requestId?: string): Promise<T.CreateAndPayTableOrderResponse> {
+  async createAndPayTableOrder(request?: T.Input<T.CreateAndPayTableOrderRequest>, requestId?: string): Promise<T.CreateAndPayTableOrderResponse> {
     const bodyXml = S.serializeCreateAndPayTableOrderBody(request);
     return this.call(
       'createAndPayTableOrder',
@@ -416,7 +416,7 @@ export class MplusKassaClient {
     );
   }
 
-  async moveTableOrder(params: { terminal?: T.Terminal; order?: T.Order; tableNumber?: number }, requestId?: string): Promise<T.MoveTableOrderResponse> {
+  async moveTableOrder(params: { terminal?: T.Input<T.Terminal>; order?: T.Input<T.Order>; tableNumber?: number }, requestId?: string): Promise<T.MoveTableOrderResponse> {
     const bodyXml = S.serializeMoveTableOrderBody(params);
     return this.call(
       'moveTableOrder',
@@ -428,7 +428,7 @@ export class MplusKassaClient {
     );
   }
 
-  async moveTableOrderV2(params: { terminal?: T.Terminal; request?: T.MoveTableOrderRequest }, requestId?: string): Promise<T.MoveTableOrderResponse> {
+  async moveTableOrderV2(params: { terminal?: T.Input<T.Terminal>; request?: T.Input<T.MoveTableOrderRequest> }, requestId?: string): Promise<T.MoveTableOrderResponse> {
     const bodyXml = S.serializeMoveTableOrderV2Body(params);
     return this.call(
       'moveTableOrderV2',
@@ -440,7 +440,7 @@ export class MplusKassaClient {
     );
   }
 
-  async moveTableOrderV3(request: T.MoveTableOrderV3Request, requestId?: string): Promise<T.MoveTableOrderV3Response> {
+  async moveTableOrderV3(request: T.Input<T.MoveTableOrderV3Request>, requestId?: string): Promise<T.MoveTableOrderV3Response> {
     const bodyXml = S.serializeMoveTableOrderV3Body(request);
     return this.call(
       'moveTableOrderV3',
@@ -452,7 +452,7 @@ export class MplusKassaClient {
     );
   }
 
-  async getTableOrder(params: { terminal?: T.Terminal; branchNumber?: number; tableNumber?: number }, requestId?: string): Promise<T.GetTableOrderResponse> {
+  async getTableOrder(params: { terminal?: T.Input<T.Terminal>; branchNumber?: number; tableNumber?: number }, requestId?: string): Promise<T.GetTableOrderResponse> {
     const bodyXml = S.serializeGetTableOrderBody(params);
     return this.call(
       'getTableOrder',
@@ -464,7 +464,7 @@ export class MplusKassaClient {
     );
   }
 
-  async getTableOrderV2(params: { terminal?: T.Terminal; request?: T.GetTableOrderRequest }, requestId?: string): Promise<T.GetTableOrderResponse> {
+  async getTableOrderV2(params: { terminal?: T.Input<T.Terminal>; request?: T.Input<T.GetTableOrderRequest> }, requestId?: string): Promise<T.GetTableOrderResponse> {
     const bodyXml = S.serializeGetTableOrderV2Body(params);
     return this.call(
       'getTableOrderV2',
@@ -476,7 +476,7 @@ export class MplusKassaClient {
     );
   }
 
-  async getTableOrderV3(request: T.GetTableOrderV3Request, requestId?: string): Promise<T.GetTableOrderResponse> {
+  async getTableOrderV3(request: T.Input<T.GetTableOrderV3Request>, requestId?: string): Promise<T.GetTableOrderResponse> {
     const bodyXml = S.serializeGetTableOrderV3Body(request);
     return this.call(
       'getTableOrderV3',
@@ -488,7 +488,7 @@ export class MplusKassaClient {
     );
   }
 
-  async findTableOrder(params: { terminal?: T.Terminal; extOrderId?: string }, requestId?: string): Promise<T.GetTableOrderResponse> {
+  async findTableOrder(params: { terminal?: T.Input<T.Terminal>; extOrderId?: string }, requestId?: string): Promise<T.GetTableOrderResponse> {
     const bodyXml = S.serializeFindTableOrderBody(params);
     return this.call(
       'findTableOrder',
@@ -500,7 +500,7 @@ export class MplusKassaClient {
     );
   }
 
-  async releaseTable(params: { terminal?: T.Terminal; request?: T.ReleaseTableRequest }, requestId?: string): Promise<T.ReleaseTableOrderResult> {
+  async releaseTable(params: { terminal?: T.Input<T.Terminal>; request?: T.Input<T.ReleaseTableRequest> }, requestId?: string): Promise<T.ReleaseTableOrderResult> {
     const bodyXml = S.serializeReleaseTableBody(params);
     return (await this.call(
       'releaseTable',
@@ -512,7 +512,7 @@ export class MplusKassaClient {
     )).result;
   }
 
-  async releaseTableV2(request: T.ReleaseTableV2Request, requestId?: string): Promise<T.ReleaseTableV2Result> {
+  async releaseTableV2(request: T.Input<T.ReleaseTableV2Request>, requestId?: string): Promise<T.ReleaseTableV2Result> {
     const bodyXml = S.serializeReleaseTableV2Body(request);
     return (await this.call(
       'releaseTableV2',
@@ -524,7 +524,7 @@ export class MplusKassaClient {
     )).result;
   }
 
-  async setSubTableCount(params: { terminal?: T.Terminal; request?: T.SetSubtableCountRequest }, requestId?: string): Promise<boolean> {
+  async setSubTableCount(params: { terminal?: T.Input<T.Terminal>; request?: T.Input<T.SetSubtableCountRequest> }, requestId?: string): Promise<boolean> {
     const bodyXml = S.serializeSetSubTableCountBody(params);
     return (await this.call(
       'setSubTableCount',
@@ -536,7 +536,7 @@ export class MplusKassaClient {
     )).ok;
   }
 
-  async getTableOrderCourseList(params: { terminal?: T.Terminal; branchNumber?: number; tableNumber?: number }, requestId?: string): Promise<T.GetTableOrderCourseListResponse> {
+  async getTableOrderCourseList(params: { terminal?: T.Input<T.Terminal>; branchNumber?: number; tableNumber?: number }, requestId?: string): Promise<T.GetTableOrderCourseListResponse> {
     const bodyXml = S.serializeGetTableOrderCourseListBody(params);
     return this.call(
       'getTableOrderCourseList',
@@ -548,7 +548,7 @@ export class MplusKassaClient {
     );
   }
 
-  async getTableOrderCourseListV2(params: { terminal?: T.Terminal; request?: T.GetTableOrderCourseListRequest }, requestId?: string): Promise<T.GetTableOrderCourseListResponse> {
+  async getTableOrderCourseListV2(params: { terminal?: T.Input<T.Terminal>; request?: T.Input<T.GetTableOrderCourseListRequest> }, requestId?: string): Promise<T.GetTableOrderCourseListResponse> {
     const bodyXml = S.serializeGetTableOrderCourseListV2Body(params);
     return this.call(
       'getTableOrderCourseListV2',
@@ -560,7 +560,7 @@ export class MplusKassaClient {
     );
   }
 
-  async getTableOrderCourseListV3(request: T.GetTableOrderCourseListRequest, requestId?: string): Promise<T.GetTableOrderCourseListResponse> {
+  async getTableOrderCourseListV3(request: T.Input<T.GetTableOrderCourseListRequest>, requestId?: string): Promise<T.GetTableOrderCourseListResponse> {
     const bodyXml = S.serializeGetTableOrderCourseListV3Body(request);
     return this.call(
       'getTableOrderCourseListV3',
@@ -572,7 +572,7 @@ export class MplusKassaClient {
     );
   }
 
-  async requestTableOrderCourse(params: { terminal?: T.Terminal; branchNumber?: number; tableNumber?: number; employeeNumber?: number; courseNumber?: number }, requestId?: string): Promise<T.RequestTableOrderCourseResponse> {
+  async requestTableOrderCourse(params: { terminal?: T.Input<T.Terminal>; branchNumber?: number; tableNumber?: number; employeeNumber?: number; courseNumber?: number }, requestId?: string): Promise<T.RequestTableOrderCourseResponse> {
     const bodyXml = S.serializeRequestTableOrderCourseBody(params);
     return this.call(
       'requestTableOrderCourse',
@@ -584,7 +584,7 @@ export class MplusKassaClient {
     );
   }
 
-  async requestNextTableOrderCourseV2(params: { terminal?: T.Terminal; request?: T.RequestNextTableOrderCourseRequest }, requestId?: string): Promise<T.RequestTableOrderCourseResponse> {
+  async requestNextTableOrderCourseV2(params: { terminal?: T.Input<T.Terminal>; request?: T.Input<T.RequestNextTableOrderCourseRequest> }, requestId?: string): Promise<T.RequestTableOrderCourseResponse> {
     const bodyXml = S.serializeRequestNextTableOrderCourseV2Body(params);
     return this.call(
       'requestNextTableOrderCourseV2',
@@ -596,7 +596,7 @@ export class MplusKassaClient {
     );
   }
 
-  async requestNextTableOrderCourseV3(request: T.RequestNextTableOrderCourseV3Request, requestId?: string): Promise<T.RequestTableOrderCourseResponse> {
+  async requestNextTableOrderCourseV3(request: T.Input<T.RequestNextTableOrderCourseV3Request>, requestId?: string): Promise<T.RequestTableOrderCourseResponse> {
     const bodyXml = S.serializeRequestNextTableOrderCourseV3Body(request);
     return this.call(
       'requestNextTableOrderCourseV3',
@@ -608,7 +608,7 @@ export class MplusKassaClient {
     );
   }
 
-  async storeSinglyEftTransaction(params: { terminal?: T.TerminalId; eftTransaction?: T.EftTransactionDetails }, requestId?: string): Promise<T.StoreSinglyEftTransactionResponse> {
+  async storeSinglyEftTransaction(params: { terminal?: T.Input<T.TerminalId>; eftTransaction?: T.Input<T.EftTransactionDetails> }, requestId?: string): Promise<T.StoreSinglyEftTransactionResponse> {
     const bodyXml = S.serializeStoreSinglyEftTransactionBody(params);
     return this.call(
       'storeSinglyEftTransaction',
@@ -620,7 +620,7 @@ export class MplusKassaClient {
     );
   }
 
-  async queueBranchOrder(order?: T.Order, requestId?: string): Promise<T.QueueBranchOrderResponse> {
+  async queueBranchOrder(order?: T.Input<T.Order>, requestId?: string): Promise<T.QueueBranchOrderResponse> {
     const bodyXml = S.serializeQueueBranchOrderBody(order);
     return this.call(
       'queueBranchOrder',
@@ -632,7 +632,7 @@ export class MplusKassaClient {
     );
   }
 
-  async queueBranchOrderPayment(paymentRequest?: T.QueueBranchOrderPaymentRequest, requestId?: string): Promise<T.QueueBranchOrderPaymentResponse> {
+  async queueBranchOrderPayment(paymentRequest?: T.Input<T.QueueBranchOrderPaymentRequest>, requestId?: string): Promise<T.QueueBranchOrderPaymentResponse> {
     const bodyXml = S.serializeQueueBranchOrderPaymentBody(paymentRequest);
     return this.call(
       'queueBranchOrderPayment',
@@ -656,7 +656,7 @@ export class MplusKassaClient {
     );
   }
 
-  async updateOrder(order?: T.Order, requestId?: string): Promise<T.UpdateOrderResponse> {
+  async updateOrder(order?: T.Input<T.Order>, requestId?: string): Promise<T.UpdateOrderResponse> {
     const bodyXml = S.serializeUpdateOrderBody(order);
     return this.call(
       'updateOrder',
@@ -668,7 +668,7 @@ export class MplusKassaClient {
     );
   }
 
-  async updateOrderV2(request: T.UpdateOrderV2Request, requestId?: string): Promise<T.UpdateOrderV2Response> {
+  async updateOrderV2(request: T.Input<T.UpdateOrderV2Request>, requestId?: string): Promise<T.UpdateOrderV2Response> {
     const bodyXml = S.serializeUpdateOrderV2Body(request);
     return this.call(
       'updateOrderV2',
@@ -680,7 +680,7 @@ export class MplusKassaClient {
     );
   }
 
-  async saveOrder(order?: T.Order, requestId?: string): Promise<T.SaveOrderResponse> {
+  async saveOrder(order?: T.Input<T.Order>, requestId?: string): Promise<T.SaveOrderResponse> {
     const bodyXml = S.serializeSaveOrderBody(order);
     return this.call(
       'saveOrder',
@@ -704,7 +704,7 @@ export class MplusKassaClient {
     );
   }
 
-  async getPackingSlips(request: T.GetPackingSlipsRequest, requestId?: string): Promise<T.PackingSlip[]> {
+  async getPackingSlips(request: T.Input<T.GetPackingSlipsRequest>, requestId?: string): Promise<T.PackingSlip[]> {
     const bodyXml = S.serializeGetPackingSlipsBody(request);
     return (await this.call(
       'getPackingSlips',
@@ -716,7 +716,7 @@ export class MplusKassaClient {
     )).packingSlipList;
   }
 
-  async getPackingSlipsByOrder(request: T.GetPackingSlipsByOrderRequest, requestId?: string): Promise<T.PackingSlip[]> {
+  async getPackingSlipsByOrder(request: T.Input<T.GetPackingSlipsByOrderRequest>, requestId?: string): Promise<T.PackingSlip[]> {
     const bodyXml = S.serializeGetPackingSlipsByOrderBody(request);
     return (await this.call(
       'getPackingSlipsByOrder',
@@ -728,7 +728,7 @@ export class MplusKassaClient {
     )).packingSlipList;
   }
 
-  async getOrderChanges(request: T.GetOrderChangesRequest, requestId?: string): Promise<T.OrderChange[]> {
+  async getOrderChanges(request: T.Input<T.GetOrderChangesRequest>, requestId?: string): Promise<T.OrderChange[]> {
     const bodyXml = S.serializeGetOrderChangesBody(request);
     return (await this.call(
       'getOrderChanges',
@@ -740,7 +740,7 @@ export class MplusKassaClient {
     )).orderChangeList;
   }
 
-  async getOrderHistory(request: T.GetOrderHistoryRequest, requestId?: string): Promise<T.OrderHistoryOrderDetailsList> {
+  async getOrderHistory(request: T.Input<T.GetOrderHistoryRequest>, requestId?: string): Promise<T.OrderHistoryOrderDetailsList> {
     const bodyXml = S.serializeGetOrderHistoryBody(request);
     return (await this.call(
       'getOrderHistory',
@@ -764,7 +764,7 @@ export class MplusKassaClient {
     );
   }
 
-  async cancelOrder(params: { orderId?: string; request?: T.CancelOrderRequest }, requestId?: string): Promise<T.CancelOrderResponse> {
+  async cancelOrder(params: { orderId?: string; request?: T.Input<T.CancelOrderRequest> }, requestId?: string): Promise<T.CancelOrderResponse> {
     const bodyXml = S.serializeCancelOrderBody(params);
     return this.call(
       'cancelOrder',
@@ -776,7 +776,7 @@ export class MplusKassaClient {
     );
   }
 
-  async cancelOrderV2(request: T.CancelOrderV2Request, requestId?: string): Promise<T.CancelOrderResponse> {
+  async cancelOrderV2(request: T.Input<T.CancelOrderV2Request>, requestId?: string): Promise<T.CancelOrderResponse> {
     const bodyXml = S.serializeCancelOrderV2Body(request);
     return this.call(
       'cancelOrderV2',
@@ -788,7 +788,7 @@ export class MplusKassaClient {
     );
   }
 
-  async cancelTableOrder(params: { terminal?: T.Terminal; branchNumber?: number; tableNumber?: number }, requestId?: string): Promise<T.CancelOrderResponse> {
+  async cancelTableOrder(params: { terminal?: T.Input<T.Terminal>; branchNumber?: number; tableNumber?: number }, requestId?: string): Promise<T.CancelOrderResponse> {
     const bodyXml = S.serializeCancelTableOrderBody(params);
     return this.call(
       'cancelTableOrder',
@@ -800,7 +800,7 @@ export class MplusKassaClient {
     );
   }
 
-  async cancelTableOrderV2(params: { terminal?: T.Terminal; request?: T.CancelTableOrderRequest }, requestId?: string): Promise<T.CancelOrderResponse> {
+  async cancelTableOrderV2(params: { terminal?: T.Input<T.Terminal>; request?: T.Input<T.CancelTableOrderRequest> }, requestId?: string): Promise<T.CancelOrderResponse> {
     const bodyXml = S.serializeCancelTableOrderV2Body(params);
     return this.call(
       'cancelTableOrderV2',
@@ -812,7 +812,7 @@ export class MplusKassaClient {
     );
   }
 
-  async payInvoice(request: T.PayInvoiceRequest, requestId?: string): Promise<T.PayInvoiceResponse> {
+  async payInvoice(request: T.Input<T.PayInvoiceRequest>, requestId?: string): Promise<T.PayInvoiceResponse> {
     const bodyXml = S.serializePayInvoiceBody(request);
     return this.call(
       'payInvoice',
@@ -824,7 +824,7 @@ export class MplusKassaClient {
     );
   }
 
-  async deliverOrder(request: T.DeliverOrderRequest, requestId?: string): Promise<T.DeliverOrderResponse> {
+  async deliverOrder(request: T.Input<T.DeliverOrderRequest>, requestId?: string): Promise<T.DeliverOrderResponse> {
     const bodyXml = S.serializeDeliverOrderBody(request);
     return this.call(
       'deliverOrder',
@@ -836,7 +836,7 @@ export class MplusKassaClient {
     );
   }
 
-  async deliverOrderV2(request: T.DeliverOrderV2Request, requestId?: string): Promise<T.DeliverOrderV2Response> {
+  async deliverOrderV2(request: T.Input<T.DeliverOrderV2Request>, requestId?: string): Promise<T.DeliverOrderV2Response> {
     const bodyXml = S.serializeDeliverOrderV2Body(request);
     return this.call(
       'deliverOrderV2',
@@ -860,7 +860,7 @@ export class MplusKassaClient {
     )).orderCategory;
   }
 
-  async getReceipts(request: T.GetReceiptsRequest, requestId?: string): Promise<T.Receipt[]> {
+  async getReceipts(request: T.Input<T.GetReceiptsRequest>, requestId?: string): Promise<T.Receipt[]> {
     const bodyXml = S.serializeGetReceiptsBody(request);
     return (await this.call(
       'getReceipts',
@@ -896,7 +896,7 @@ export class MplusKassaClient {
     );
   }
 
-  async getReceiptsByCashCount(request: T.GetReceiptsByCashCountRequest, requestId?: string): Promise<T.GetReceiptsByCashCountResponse> {
+  async getReceiptsByCashCount(request: T.Input<T.GetReceiptsByCashCountRequest>, requestId?: string): Promise<T.GetReceiptsByCashCountResponse> {
     const bodyXml = S.serializeGetReceiptsByCashCountBody(request);
     return this.call(
       'getReceiptsByCashCount',
@@ -908,7 +908,7 @@ export class MplusKassaClient {
     );
   }
 
-  async printReceipt(terminal: T.Terminal, requestId?: string): Promise<T.PrintReceiptResponse> {
+  async printReceipt(terminal: T.Input<T.Terminal>, requestId?: string): Promise<T.PrintReceiptResponse> {
     const bodyXml = S.serializePrintReceiptBody(terminal);
     return this.call(
       'printReceipt',
@@ -920,7 +920,7 @@ export class MplusKassaClient {
     );
   }
 
-  async printReceiptV2(request: T.PrintReceiptV2Request, requestId?: string): Promise<T.PrintReceiptV2Response> {
+  async printReceiptV2(request: T.Input<T.PrintReceiptV2Request>, requestId?: string): Promise<T.PrintReceiptV2Response> {
     const bodyXml = S.serializePrintReceiptV2Body(request);
     return this.call(
       'printReceiptV2',
@@ -932,7 +932,7 @@ export class MplusKassaClient {
     );
   }
 
-  async printTableReceipt(params: { terminal?: T.Terminal; tableNumber?: number }, requestId?: string): Promise<T.PrintTableReceiptResponse> {
+  async printTableReceipt(params: { terminal?: T.Input<T.Terminal>; tableNumber?: number }, requestId?: string): Promise<T.PrintTableReceiptResponse> {
     const bodyXml = S.serializePrintTableReceiptBody(params);
     return this.call(
       'printTableReceipt',
@@ -944,7 +944,7 @@ export class MplusKassaClient {
     );
   }
 
-  async printTableReceiptV2(params: { terminal?: T.Terminal; request?: T.PrintTableReceiptRequest }, requestId?: string): Promise<T.PrintTableReceiptResponse> {
+  async printTableReceiptV2(params: { terminal?: T.Input<T.Terminal>; request?: T.Input<T.PrintTableReceiptRequest> }, requestId?: string): Promise<T.PrintTableReceiptResponse> {
     const bodyXml = S.serializePrintTableReceiptV2Body(params);
     return this.call(
       'printTableReceiptV2',
@@ -956,7 +956,7 @@ export class MplusKassaClient {
     );
   }
 
-  async printTableReceiptV3(request: T.PrintTableReceiptV3Request, requestId?: string): Promise<T.PrintTableReceiptV3Response> {
+  async printTableReceiptV3(request: T.Input<T.PrintTableReceiptV3Request>, requestId?: string): Promise<T.PrintTableReceiptV3Response> {
     const bodyXml = S.serializePrintTableReceiptV3Body(request);
     return this.call(
       'printTableReceiptV3',
@@ -968,7 +968,7 @@ export class MplusKassaClient {
     );
   }
 
-  async getInvoices(request: T.GetInvoicesRequest, requestId?: string): Promise<T.Invoice[]> {
+  async getInvoices(request: T.Input<T.GetInvoicesRequest>, requestId?: string): Promise<T.Invoice[]> {
     const bodyXml = S.serializeGetInvoicesBody(request);
     return (await this.call(
       'getInvoices',
@@ -980,7 +980,7 @@ export class MplusKassaClient {
     )).invoiceList;
   }
 
-  async saveInvoice(invoice: T.Invoice, requestId?: string): Promise<T.SaveInvoiceResponse> {
+  async saveInvoice(invoice: T.Input<T.Invoice>, requestId?: string): Promise<T.SaveInvoiceResponse> {
     const bodyXml = S.serializeSaveInvoiceBody(invoice);
     return this.call(
       'saveInvoice',
@@ -1028,7 +1028,7 @@ export class MplusKassaClient {
     );
   }
 
-  async getJournals(request: T.GetJournalsRequest, requestId?: string): Promise<T.Journal[]> {
+  async getJournals(request: T.Input<T.GetJournalsRequest>, requestId?: string): Promise<T.Journal[]> {
     const bodyXml = S.serializeGetJournalsBody(request);
     return (await this.call(
       'getJournals',
@@ -1040,7 +1040,7 @@ export class MplusKassaClient {
     )).journalList;
   }
 
-  async getFinancialJournal(request: T.GetFinancialJournalRequest, requestId?: string): Promise<T.GetFinancialJournalResponse> {
+  async getFinancialJournal(request: T.Input<T.GetFinancialJournalRequest>, requestId?: string): Promise<T.GetFinancialJournalResponse> {
     const bodyXml = S.serializeGetFinancialJournalBody(request);
     return this.call(
       'getFinancialJournal',
@@ -1052,7 +1052,7 @@ export class MplusKassaClient {
     );
   }
 
-  async getFinancialJournalByCashCount(request: T.GetFinancialJournalByCashCountRequest, requestId?: string): Promise<T.GetFinancialJournalResponse> {
+  async getFinancialJournalByCashCount(request: T.Input<T.GetFinancialJournalByCashCountRequest>, requestId?: string): Promise<T.GetFinancialJournalResponse> {
     const bodyXml = S.serializeGetFinancialJournalByCashCountBody(request);
     return this.call(
       'getFinancialJournalByCashCount',
@@ -1064,7 +1064,7 @@ export class MplusKassaClient {
     );
   }
 
-  async getCashCountList(request: T.GetCashCountListRequest, requestId?: string): Promise<T.CashCount[]> {
+  async getCashCountList(request: T.Input<T.GetCashCountListRequest>, requestId?: string): Promise<T.CashCount[]> {
     const bodyXml = S.serializeGetCashCountListBody(request);
     return (await this.call(
       'getCashCountList',
@@ -1076,7 +1076,7 @@ export class MplusKassaClient {
     )).cashCountList;
   }
 
-  async getCashDrawerBalancingList(request: T.GetCashDrawerBalancingListRequest, requestId?: string): Promise<T.CashDrawerBalancing[]> {
+  async getCashDrawerBalancingList(request: T.Input<T.GetCashDrawerBalancingListRequest>, requestId?: string): Promise<T.CashDrawerBalancing[]> {
     const bodyXml = S.serializeGetCashDrawerBalancingListBody(request);
     return (await this.call(
       'getCashDrawerBalancingList',
@@ -1088,7 +1088,7 @@ export class MplusKassaClient {
     )).cashDrawerBalancingList;
   }
 
-  async getTurnoverGroups(request: T.GetTurnoverGroupsRequest, requestId?: string): Promise<T.TurnoverGroup[]> {
+  async getTurnoverGroups(request: T.Input<T.GetTurnoverGroupsRequest>, requestId?: string): Promise<T.TurnoverGroup[]> {
     const bodyXml = S.serializeGetTurnoverGroupsBody(request);
     return (await this.call(
       'getTurnoverGroups',
@@ -1100,7 +1100,7 @@ export class MplusKassaClient {
     )).turnoverGroupList;
   }
 
-  async updateTurnoverGroups(request: T.UpdateTurnoverGroupsRequest, requestId?: string): Promise<T.UpdateTurnoverGroupsResult> {
+  async updateTurnoverGroups(request: T.Input<T.UpdateTurnoverGroupsRequest>, requestId?: string): Promise<T.UpdateTurnoverGroupsResult> {
     const bodyXml = S.serializeUpdateTurnoverGroupsBody(request);
     return (await this.call(
       'updateTurnoverGroups',
@@ -1112,7 +1112,7 @@ export class MplusKassaClient {
     )).result;
   }
 
-  async getProducts(request: T.GetProductsRequest, requestId?: string): Promise<T.Product[]> {
+  async getProducts(request: T.Input<T.GetProductsRequest>, requestId?: string): Promise<T.Product[]> {
     const bodyXml = S.serializeGetProductsBody(request);
     return (await this.call(
       'getProducts',
@@ -1124,7 +1124,7 @@ export class MplusKassaClient {
     )).productList;
   }
 
-  async createProduct(product: T.Product, requestId?: string): Promise<T.CreateProductResponse> {
+  async createProduct(product: T.Input<T.Product>, requestId?: string): Promise<T.CreateProductResponse> {
     const bodyXml = S.serializeCreateProductBody(product);
     return this.call(
       'createProduct',
@@ -1136,7 +1136,7 @@ export class MplusKassaClient {
     );
   }
 
-  async updateProduct(product: T.Product, requestId?: string): Promise<T.UpdateProductResponse> {
+  async updateProduct(product: T.Input<T.Product>, requestId?: string): Promise<T.UpdateProductResponse> {
     const bodyXml = S.serializeUpdateProductBody(product);
     return this.call(
       'updateProduct',
@@ -1148,7 +1148,7 @@ export class MplusKassaClient {
     );
   }
 
-  async getArticleVariants(request: T.GetArticleVariantsRequest, requestId?: string): Promise<T.GetArticleVariantsResponse> {
+  async getArticleVariants(request: T.Input<T.GetArticleVariantsRequest>, requestId?: string): Promise<T.GetArticleVariantsResponse> {
     const bodyXml = S.serializeGetArticleVariantsBody(request);
     return this.call(
       'getArticleVariants',
@@ -1160,7 +1160,7 @@ export class MplusKassaClient {
     );
   }
 
-  async getArticlesVariants(request: T.GetArticlesVariantsRequest, requestId?: string): Promise<T.GetArticlesVariantsResponse> {
+  async getArticlesVariants(request: T.Input<T.GetArticlesVariantsRequest>, requestId?: string): Promise<T.GetArticlesVariantsResponse> {
     const bodyXml = S.serializeGetArticlesVariantsBody(request);
     return this.call(
       'getArticlesVariants',
@@ -1172,7 +1172,7 @@ export class MplusKassaClient {
     );
   }
 
-  async newArticleVariant(request: T.NewArticleVariantRequest, requestId?: string): Promise<T.NewArticleVariantResponse> {
+  async newArticleVariant(request: T.Input<T.NewArticleVariantRequest>, requestId?: string): Promise<T.NewArticleVariantResponse> {
     const bodyXml = S.serializeNewArticleVariantBody(request);
     return this.call(
       'newArticleVariant',
@@ -1184,7 +1184,7 @@ export class MplusKassaClient {
     );
   }
 
-  async updateArticleVariant(request: T.UpdateArticleVariantRequest, requestId?: string): Promise<T.UpdateArticleVariantResponse> {
+  async updateArticleVariant(request: T.Input<T.UpdateArticleVariantRequest>, requestId?: string): Promise<T.UpdateArticleVariantResponse> {
     const bodyXml = S.serializeUpdateArticleVariantBody(request);
     return this.call(
       'updateArticleVariant',
@@ -1196,7 +1196,7 @@ export class MplusKassaClient {
     );
   }
 
-  async deleteArticleVariants(request: T.DeleteArticleVariantsRequest, requestId?: string): Promise<T.DeleteArticleVariantsResult> {
+  async deleteArticleVariants(request: T.Input<T.DeleteArticleVariantsRequest>, requestId?: string): Promise<T.DeleteArticleVariantsResult> {
     const bodyXml = S.serializeDeleteArticleVariantsBody(request);
     return (await this.call(
       'deleteArticleVariants',
@@ -1208,7 +1208,7 @@ export class MplusKassaClient {
     )).result;
   }
 
-  async getStock(request: T.GetStockRequest, requestId?: string): Promise<T.ArticleStock[] | undefined> {
+  async getStock(request: T.Input<T.GetStockRequest>, requestId?: string): Promise<T.ArticleStock[] | undefined> {
     const bodyXml = S.serializeGetStockBody(request);
     return (await this.call(
       'getStock',
@@ -1220,7 +1220,7 @@ export class MplusKassaClient {
     )).articleStocks;
   }
 
-  async getStockHistory(request: T.GetStockHistoryRequest, requestId?: string): Promise<T.ArticleStockHistory[] | undefined> {
+  async getStockHistory(request: T.Input<T.GetStockHistoryRequest>, requestId?: string): Promise<T.ArticleStockHistory[] | undefined> {
     const bodyXml = S.serializeGetStockHistoryBody(request);
     return (await this.call(
       'getStockHistory',
@@ -1232,7 +1232,7 @@ export class MplusKassaClient {
     )).articleStockHistory;
   }
 
-  async getStockHistoryV2(request: T.GetStockHistoryV2Request, requestId?: string): Promise<T.ArticleStockHistory[] | undefined> {
+  async getStockHistoryV2(request: T.Input<T.GetStockHistoryV2Request>, requestId?: string): Promise<T.ArticleStockHistory[] | undefined> {
     const bodyXml = S.serializeGetStockHistoryV2Body(request);
     return (await this.call(
       'getStockHistoryV2',
@@ -1244,7 +1244,7 @@ export class MplusKassaClient {
     )).articleStockHistory;
   }
 
-  async updateStock(request: T.UpdateStockRequest, requestId?: string): Promise<T.UpdateStockResponse> {
+  async updateStock(request: T.Input<T.UpdateStockRequest>, requestId?: string): Promise<T.UpdateStockResponse> {
     const bodyXml = S.serializeUpdateStockBody(request);
     return this.call(
       'updateStock',
@@ -1256,7 +1256,7 @@ export class MplusKassaClient {
     );
   }
 
-  async setStock(request: T.SetStockRequest, requestId?: string): Promise<T.SetStockResponse> {
+  async setStock(request: T.Input<T.SetStockRequest>, requestId?: string): Promise<T.SetStockResponse> {
     const bodyXml = S.serializeSetStockBody(request);
     return this.call(
       'setStock',
@@ -1268,7 +1268,7 @@ export class MplusKassaClient {
     );
   }
 
-  async getArticleGroups(request: T.GetArticleGroupsRequest, requestId?: string): Promise<T.ArticleGroup[]> {
+  async getArticleGroups(request: T.Input<T.GetArticleGroupsRequest>, requestId?: string): Promise<T.ArticleGroup[]> {
     const bodyXml = S.serializeGetArticleGroupsBody(request);
     return (await this.call(
       'getArticleGroups',
@@ -1280,7 +1280,7 @@ export class MplusKassaClient {
     )).articleGroupList;
   }
 
-  async getArticleGroupChanges(request: T.GetArticleGroupChangesRequest, requestId?: string): Promise<T.ChangedArticleGroup[]> {
+  async getArticleGroupChanges(request: T.Input<T.GetArticleGroupChangesRequest>, requestId?: string): Promise<T.ChangedArticleGroup[]> {
     const bodyXml = S.serializeGetArticleGroupChangesBody(request);
     return (await this.call(
       'getArticleGroupChanges',
@@ -1292,7 +1292,7 @@ export class MplusKassaClient {
     )).changedArticleGroupList;
   }
 
-  async updateArticleGroup(request: T.UpdateArticleGroupRequest, requestId?: string): Promise<T.UpdateArticleGroupResult> {
+  async updateArticleGroup(request: T.Input<T.UpdateArticleGroupRequest>, requestId?: string): Promise<T.UpdateArticleGroupResult> {
     const bodyXml = S.serializeUpdateArticleGroupBody(request);
     return (await this.call(
       'updateArticleGroup',
@@ -1304,7 +1304,7 @@ export class MplusKassaClient {
     )).result;
   }
 
-  async newArticleGroup(request: T.NewArticleGroupRequest, requestId?: string): Promise<T.NewArticleGroupResponse> {
+  async newArticleGroup(request: T.Input<T.NewArticleGroupRequest>, requestId?: string): Promise<T.NewArticleGroupResponse> {
     const bodyXml = S.serializeNewArticleGroupBody(request);
     return this.call(
       'newArticleGroup',
@@ -1316,7 +1316,7 @@ export class MplusKassaClient {
     );
   }
 
-  async deleteArticleGroup(request: T.DeleteArticleGroupRequest, requestId?: string): Promise<T.DeleteArticleGroupResult> {
+  async deleteArticleGroup(request: T.Input<T.DeleteArticleGroupRequest>, requestId?: string): Promise<T.DeleteArticleGroupResult> {
     const bodyXml = S.serializeDeleteArticleGroupBody(request);
     return (await this.call(
       'deleteArticleGroup',
@@ -1328,7 +1328,7 @@ export class MplusKassaClient {
     )).result;
   }
 
-  async addProductsToArticleGroup(request: T.AddProductsToArticleGroupRequest, requestId?: string): Promise<T.AddProductsToArticleGroupResult> {
+  async addProductsToArticleGroup(request: T.Input<T.AddProductsToArticleGroupRequest>, requestId?: string): Promise<T.AddProductsToArticleGroupResult> {
     const bodyXml = S.serializeAddProductsToArticleGroupBody(request);
     return (await this.call(
       'addProductsToArticleGroup',
@@ -1340,7 +1340,7 @@ export class MplusKassaClient {
     )).result;
   }
 
-  async replaceProductsOfArticleGroup(request: T.ReplaceProductsOfArticleGroupRequest, requestId?: string): Promise<T.ReplaceProductsOfArticleGroupResult> {
+  async replaceProductsOfArticleGroup(request: T.Input<T.ReplaceProductsOfArticleGroupRequest>, requestId?: string): Promise<T.ReplaceProductsOfArticleGroupResult> {
     const bodyXml = S.serializeReplaceProductsOfArticleGroupBody(request);
     return (await this.call(
       'replaceProductsOfArticleGroup',
@@ -1352,7 +1352,7 @@ export class MplusKassaClient {
     )).result;
   }
 
-  async deleteProductsFromArticleGroup(request: T.DeleteProductsFromArticleGroupRequest, requestId?: string): Promise<T.DeleteProductsFromArticleGroupResult> {
+  async deleteProductsFromArticleGroup(request: T.Input<T.DeleteProductsFromArticleGroupRequest>, requestId?: string): Promise<T.DeleteProductsFromArticleGroupResult> {
     const bodyXml = S.serializeDeleteProductsFromArticleGroupBody(request);
     return (await this.call(
       'deleteProductsFromArticleGroup',
@@ -1364,7 +1364,7 @@ export class MplusKassaClient {
     )).result;
   }
 
-  async getMessages(request: T.GetMessagesRequest, requestId?: string): Promise<T.Message[]> {
+  async getMessages(request: T.Input<T.GetMessagesRequest>, requestId?: string): Promise<T.Message[]> {
     const bodyXml = S.serializeGetMessagesBody(request);
     return (await this.call(
       'getMessages',
@@ -1376,7 +1376,7 @@ export class MplusKassaClient {
     )).messageList;
   }
 
-  async getShifts(request: T.GetShiftsRequest, requestId?: string): Promise<T.Shift[]> {
+  async getShifts(request: T.Input<T.GetShiftsRequest>, requestId?: string): Promise<T.Shift[]> {
     const bodyXml = S.serializeGetShiftsBody(request);
     return (await this.call(
       'getShifts',
@@ -1388,7 +1388,7 @@ export class MplusKassaClient {
     )).shiftList;
   }
 
-  async getPurchaseOrders(request: T.GetPurchaseOrdersRequest, requestId?: string): Promise<T.PurchaseOrder[]> {
+  async getPurchaseOrders(request: T.Input<T.GetPurchaseOrdersRequest>, requestId?: string): Promise<T.PurchaseOrder[]> {
     const bodyXml = S.serializeGetPurchaseOrdersBody(request);
     return (await this.call(
       'getPurchaseOrders',
@@ -1400,7 +1400,7 @@ export class MplusKassaClient {
     )).purchaseOrderList;
   }
 
-  async savePurchaseOrder(purchaseOrder?: T.PurchaseOrder, requestId?: string): Promise<T.SavePurchaseOrderResponse> {
+  async savePurchaseOrder(purchaseOrder?: T.Input<T.PurchaseOrder>, requestId?: string): Promise<T.SavePurchaseOrderResponse> {
     const bodyXml = S.serializeSavePurchaseOrderBody(purchaseOrder);
     return this.call(
       'savePurchaseOrder',
@@ -1412,7 +1412,7 @@ export class MplusKassaClient {
     );
   }
 
-  async getPurchaseOrdersV2(request: T.GetPurchaseOrdersV2Request, requestId?: string): Promise<T.PurchaseOrderV2[]> {
+  async getPurchaseOrdersV2(request: T.Input<T.GetPurchaseOrdersV2Request>, requestId?: string): Promise<T.PurchaseOrderV2[]> {
     const bodyXml = S.serializeGetPurchaseOrdersV2Body(request);
     return (await this.call(
       'getPurchaseOrdersV2',
@@ -1424,7 +1424,7 @@ export class MplusKassaClient {
     )).purchaseOrderList;
   }
 
-  async savePurchaseOrderV2(request: T.SavePurchaseOrderV2Request, requestId?: string): Promise<T.SavePurchaseOrderV2Response> {
+  async savePurchaseOrderV2(request: T.Input<T.SavePurchaseOrderV2Request>, requestId?: string): Promise<T.SavePurchaseOrderV2Response> {
     const bodyXml = S.serializeSavePurchaseOrderV2Body(request);
     return this.call(
       'savePurchaseOrderV2',
@@ -1436,7 +1436,7 @@ export class MplusKassaClient {
     );
   }
 
-  async getPurchaseDeliveries(request: T.GetPurchaseDeliveriesRequest, requestId?: string): Promise<T.PurchaseDelivery[]> {
+  async getPurchaseDeliveries(request: T.Input<T.GetPurchaseDeliveriesRequest>, requestId?: string): Promise<T.PurchaseDelivery[]> {
     const bodyXml = S.serializeGetPurchaseDeliveriesBody(request);
     return (await this.call(
       'getPurchaseDeliveries',
@@ -1448,7 +1448,7 @@ export class MplusKassaClient {
     )).purchaseDeliveryList;
   }
 
-  async savePurchaseDelivery(purchaseDelivery?: T.PurchaseDelivery, requestId?: string): Promise<T.SavePurchaseDeliveryResponse> {
+  async savePurchaseDelivery(purchaseDelivery?: T.Input<T.PurchaseDelivery>, requestId?: string): Promise<T.SavePurchaseDeliveryResponse> {
     const bodyXml = S.serializeSavePurchaseDeliveryBody(purchaseDelivery);
     return this.call(
       'savePurchaseDelivery',
@@ -1460,7 +1460,7 @@ export class MplusKassaClient {
     );
   }
 
-  async getPurchaseDeliveriesV2(request: T.GetPurchaseDeliveriesV2Request, requestId?: string): Promise<T.PurchaseDeliveryV2[]> {
+  async getPurchaseDeliveriesV2(request: T.Input<T.GetPurchaseDeliveriesV2Request>, requestId?: string): Promise<T.PurchaseDeliveryV2[]> {
     const bodyXml = S.serializeGetPurchaseDeliveriesV2Body(request);
     return (await this.call(
       'getPurchaseDeliveriesV2',
@@ -1472,7 +1472,7 @@ export class MplusKassaClient {
     )).purchaseDeliveryList;
   }
 
-  async savePurchaseDeliveryV2(request: T.SavePurchaseDeliveryV2Request, requestId?: string): Promise<T.SavePurchaseDeliveryV2Response> {
+  async savePurchaseDeliveryV2(request: T.Input<T.SavePurchaseDeliveryV2Request>, requestId?: string): Promise<T.SavePurchaseDeliveryV2Response> {
     const bodyXml = S.serializeSavePurchaseDeliveryV2Body(request);
     return this.call(
       'savePurchaseDeliveryV2',
@@ -1484,7 +1484,7 @@ export class MplusKassaClient {
     );
   }
 
-  async encryptString(request: T.EncryptStringRequest, requestId?: string): Promise<string> {
+  async encryptString(request: T.Input<T.EncryptStringRequest>, requestId?: string): Promise<string> {
     const bodyXml = S.serializeEncryptStringBody(request);
     return (await this.call(
       'encryptString',
@@ -1496,7 +1496,7 @@ export class MplusKassaClient {
     )).encryptedString;
   }
 
-  async getArticleCardLayout(request: T.GetArticleCardLayoutRequest, requestId?: string): Promise<T.CardLayoutField[]> {
+  async getArticleCardLayout(request: T.Input<T.GetArticleCardLayoutRequest>, requestId?: string): Promise<T.CardLayoutField[]> {
     const bodyXml = S.serializeGetArticleCardLayoutBody(request);
     return (await this.call(
       'getArticleCardLayout',
@@ -1508,7 +1508,7 @@ export class MplusKassaClient {
     )).cardLayoutFieldList;
   }
 
-  async updateArticleCardLayout(request: T.UpdateArticleCardLayoutRequest, requestId?: string): Promise<T.UpdateArticleCardLayoutResponse> {
+  async updateArticleCardLayout(request: T.Input<T.UpdateArticleCardLayoutRequest>, requestId?: string): Promise<T.UpdateArticleCardLayoutResponse> {
     const bodyXml = S.serializeUpdateArticleCardLayoutBody(request);
     return this.call(
       'updateArticleCardLayout',
@@ -1520,7 +1520,7 @@ export class MplusKassaClient {
     );
   }
 
-  async getRetailSpaceRental(request: T.GetRetailSpaceRentalRequest, requestId?: string): Promise<T.GetRetailSpaceRentalResponse> {
+  async getRetailSpaceRental(request: T.Input<T.GetRetailSpaceRentalRequest>, requestId?: string): Promise<T.GetRetailSpaceRentalResponse> {
     const bodyXml = S.serializeGetRetailSpaceRentalBody(request);
     return this.call(
       'getRetailSpaceRental',
@@ -1532,7 +1532,7 @@ export class MplusKassaClient {
     );
   }
 
-  async getRetailSpaceRentals(request: T.GetRetailSpaceRentalsRequest, requestId?: string): Promise<T.RetailSpaceRental[]> {
+  async getRetailSpaceRentals(request: T.Input<T.GetRetailSpaceRentalsRequest>, requestId?: string): Promise<T.RetailSpaceRental[]> {
     const bodyXml = S.serializeGetRetailSpaceRentalsBody(request);
     return (await this.call(
       'getRetailSpaceRentals',
@@ -1544,7 +1544,7 @@ export class MplusKassaClient {
     )).retailSpaceRentalList;
   }
 
-  async EidSearch(request: T.EidSearchRequest, requestId?: string): Promise<T.EidSearchResponse> {
+  async EidSearch(request: T.Input<T.EidSearchRequest>, requestId?: string): Promise<T.EidSearchResponse> {
     const bodyXml = S.serializeEidSearchBody(request);
     return this.call(
       'EidSearch',
@@ -1556,7 +1556,7 @@ export class MplusKassaClient {
     );
   }
 
-  async getOverview(request: T.OverviewRequest, requestId?: string): Promise<T.OverviewResponse> {
+  async getOverview(request: T.Input<T.OverviewRequest>, requestId?: string): Promise<T.OverviewResponse> {
     const bodyXml = S.serializeGetOverviewBody(request);
     return this.call(
       'getOverview',
@@ -1568,7 +1568,7 @@ export class MplusKassaClient {
     );
   }
 
-  async getOverviewFields(request: T.GetOverviewFieldsRequest, requestId?: string): Promise<T.GetOverviewFieldsResponse> {
+  async getOverviewFields(request: T.Input<T.GetOverviewFieldsRequest>, requestId?: string): Promise<T.GetOverviewFieldsResponse> {
     const bodyXml = S.serializeGetOverviewFieldsBody(request);
     return this.call(
       'getOverviewFields',
@@ -1580,7 +1580,7 @@ export class MplusKassaClient {
     );
   }
 
-  async updateBatch(request: T.UpdateBatchRequest, requestId?: string): Promise<T.UpdateBatchResponse> {
+  async updateBatch(request: T.Input<T.UpdateBatchRequest>, requestId?: string): Promise<T.UpdateBatchResponse> {
     const bodyXml = S.serializeUpdateBatchBody(request);
     return this.call(
       'updateBatch',
@@ -1592,7 +1592,7 @@ export class MplusKassaClient {
     );
   }
 
-  async print(request: T.PrintRequest, requestId?: string): Promise<T.PrintResponse> {
+  async print(request: T.Input<T.PrintRequest>, requestId?: string): Promise<T.PrintResponse> {
     const bodyXml = S.serializePrintBody(request);
     return this.call(
       'print',
@@ -1604,7 +1604,7 @@ export class MplusKassaClient {
     );
   }
 
-  async getKitchenTickets(request: T.GetKitchenTicketsRequest, requestId?: string): Promise<T.GetKitchenTicketsResponse> {
+  async getKitchenTickets(request: T.Input<T.GetKitchenTicketsRequest>, requestId?: string): Promise<T.GetKitchenTicketsResponse> {
     const bodyXml = S.serializeGetKitchenTicketsBody(request);
     return this.call(
       'getKitchenTickets',
@@ -1616,7 +1616,7 @@ export class MplusKassaClient {
     );
   }
 
-  async saveStockCorrections(request: T.SaveStockCorrectionsRequest, requestId?: string): Promise<T.SaveStockCorrectionsResponse> {
+  async saveStockCorrections(request: T.Input<T.SaveStockCorrectionsRequest>, requestId?: string): Promise<T.SaveStockCorrectionsResponse> {
     const bodyXml = S.serializeSaveStockCorrectionsBody(request);
     return this.call(
       'saveStockCorrections',
@@ -1628,7 +1628,7 @@ export class MplusKassaClient {
     );
   }
 
-  async getPurchaseBook(request: T.GetPurchaseBookRequest, requestId?: string): Promise<T.GetPurchaseBookResponse> {
+  async getPurchaseBook(request: T.Input<T.GetPurchaseBookRequest>, requestId?: string): Promise<T.GetPurchaseBookResponse> {
     const bodyXml = S.serializeGetPurchaseBookBody(request);
     return this.call(
       'getPurchaseBook',
@@ -1640,7 +1640,7 @@ export class MplusKassaClient {
     );
   }
 
-  async savePurchaseBook(request: T.PurchaseBook, requestId?: string): Promise<T.SavePurchaseBookResponse> {
+  async savePurchaseBook(request: T.Input<T.PurchaseBook>, requestId?: string): Promise<T.SavePurchaseBookResponse> {
     const bodyXml = S.serializeSavePurchaseBookBody(request);
     return this.call(
       'savePurchaseBook',
@@ -1652,7 +1652,7 @@ export class MplusKassaClient {
     );
   }
 
-  async addToPurchaseBook(request: T.AddToPurchaseBookRequest, requestId?: string): Promise<T.AddToPurchaseBookResponse> {
+  async addToPurchaseBook(request: T.Input<T.AddToPurchaseBookRequest>, requestId?: string): Promise<T.AddToPurchaseBookResponse> {
     const bodyXml = S.serializeAddToPurchaseBookBody(request);
     return this.call(
       'addToPurchaseBook',
@@ -1664,7 +1664,7 @@ export class MplusKassaClient {
     );
   }
 
-  async getStockCorrections(request: T.GetStockCorrectionsRequest, requestId?: string): Promise<T.StockCorrectionV2[]> {
+  async getStockCorrections(request: T.Input<T.GetStockCorrectionsRequest>, requestId?: string): Promise<T.StockCorrectionV2[]> {
     const bodyXml = S.serializeGetStockCorrectionsBody(request);
     return (await this.call(
       'getStockCorrections',
@@ -1676,7 +1676,7 @@ export class MplusKassaClient {
     )).stockCorrectionList;
   }
 
-  async getArticlesNutritionalCharacteristics(request: T.GetArticlesNutritionalCharacteristicsRequest, requestId?: string): Promise<T.GetArticlesNutritionalCharacteristicsResponse> {
+  async getArticlesNutritionalCharacteristics(request: T.Input<T.GetArticlesNutritionalCharacteristicsRequest>, requestId?: string): Promise<T.GetArticlesNutritionalCharacteristicsResponse> {
     const bodyXml = S.serializeGetArticlesNutritionalCharacteristicsBody(request);
     return this.call(
       'getArticlesNutritionalCharacteristics',
@@ -1688,7 +1688,7 @@ export class MplusKassaClient {
     );
   }
 
-  async updateArticleNutritionalCharacteristics(request: T.UpdateArticleNutritionalCharacteristicsRequest, requestId?: string): Promise<T.UpdateArticleNutritionalCharacteristicsResponse> {
+  async updateArticleNutritionalCharacteristics(request: T.Input<T.UpdateArticleNutritionalCharacteristicsRequest>, requestId?: string): Promise<T.UpdateArticleNutritionalCharacteristicsResponse> {
     const bodyXml = S.serializeUpdateArticleNutritionalCharacteristicsBody(request);
     return this.call(
       'updateArticleNutritionalCharacteristics',
@@ -1700,7 +1700,7 @@ export class MplusKassaClient {
     );
   }
 
-  async getPreparationMethodGroups(request: T.GetPreparationMethodGroupsRequest, requestId?: string): Promise<T.GetPreparationMethodGroupsResponse> {
+  async getPreparationMethodGroups(request: T.Input<T.GetPreparationMethodGroupsRequest>, requestId?: string): Promise<T.GetPreparationMethodGroupsResponse> {
     const bodyXml = S.serializeGetPreparationMethodGroupsBody(request);
     return this.call(
       'getPreparationMethodGroups',
@@ -1712,7 +1712,7 @@ export class MplusKassaClient {
     );
   }
 
-  async deletePreparationMethodGroup(request: T.DeletePreparationMethodGroupRequest, requestId?: string): Promise<T.DeletePreparationMethodGroupResponse> {
+  async deletePreparationMethodGroup(request: T.Input<T.DeletePreparationMethodGroupRequest>, requestId?: string): Promise<T.DeletePreparationMethodGroupResponse> {
     const bodyXml = S.serializeDeletePreparationMethodGroupBody(request);
     return this.call(
       'deletePreparationMethodGroup',
@@ -1724,7 +1724,7 @@ export class MplusKassaClient {
     );
   }
 
-  async getArticlesPreparationMethodGroups(request: T.GetArticlesPreparationMethodGroupsRequest, requestId?: string): Promise<T.GetArticlesPreparationMethodGroupsResponse> {
+  async getArticlesPreparationMethodGroups(request: T.Input<T.GetArticlesPreparationMethodGroupsRequest>, requestId?: string): Promise<T.GetArticlesPreparationMethodGroupsResponse> {
     const bodyXml = S.serializeGetArticlesPreparationMethodGroupsBody(request);
     return this.call(
       'getArticlesPreparationMethodGroups',
@@ -1736,7 +1736,7 @@ export class MplusKassaClient {
     );
   }
 
-  async updateArticlePreparationMethodGroups(request: T.UpdateArticlePreparationMethodGroupsRequest, requestId?: string): Promise<T.UpdateArticlePreparationMethodGroupsResponse> {
+  async updateArticlePreparationMethodGroups(request: T.Input<T.UpdateArticlePreparationMethodGroupsRequest>, requestId?: string): Promise<T.UpdateArticlePreparationMethodGroupsResponse> {
     const bodyXml = S.serializeUpdateArticlePreparationMethodGroupsBody(request);
     return this.call(
       'updateArticlePreparationMethodGroups',
@@ -1748,7 +1748,7 @@ export class MplusKassaClient {
     );
   }
 
-  async placeTableOrder(request: T.PlaceTableOrderReq, requestId?: string): Promise<T.PlaceTableOrderResp> {
+  async placeTableOrder(request: T.Input<T.PlaceTableOrderReq>, requestId?: string): Promise<T.PlaceTableOrderResp> {
     const bodyXml = S.serializePlaceTableOrderBody(request);
     return this.call(
       'placeTableOrder',
@@ -1760,7 +1760,7 @@ export class MplusKassaClient {
     );
   }
 
-  async getTapTickTotals(request: T.TapTickTotalsRequest, requestId?: string): Promise<T.BranchTapTickTotals[] | undefined> {
+  async getTapTickTotals(request: T.Input<T.TapTickTotalsRequest>, requestId?: string): Promise<T.BranchTapTickTotals[] | undefined> {
     const bodyXml = S.serializeGetTapTickTotalsBody(request);
     return (await this.call(
       'getTapTickTotals',
@@ -1772,7 +1772,7 @@ export class MplusKassaClient {
     )).branchTotals;
   }
 
-  async getTapTickHistory(request: T.TapTickHistoryRequest, requestId?: string): Promise<T.TapTickHistory[] | undefined> {
+  async getTapTickHistory(request: T.Input<T.TapTickHistoryRequest>, requestId?: string): Promise<T.TapTickHistory[] | undefined> {
     const bodyXml = S.serializeGetTapTickHistoryBody(request);
     return (await this.call(
       'getTapTickHistory',
@@ -1784,7 +1784,7 @@ export class MplusKassaClient {
     )).records;
   }
 
-  async findRelationV2(request: T.FindRelationV2Request, requestId?: string): Promise<T.FindRelationV2Response> {
+  async findRelationV2(request: T.Input<T.FindRelationV2Request>, requestId?: string): Promise<T.FindRelationV2Response> {
     const bodyXml = S.serializeFindRelationV2Body(request);
     return this.call(
       'findRelationV2',
@@ -1796,7 +1796,7 @@ export class MplusKassaClient {
     );
   }
 
-  async getTodoLists(request: T.GetTodoListsRequest, requestId?: string): Promise<T.TodoList[] | undefined> {
+  async getTodoLists(request: T.Input<T.GetTodoListsRequest>, requestId?: string): Promise<T.TodoList[] | undefined> {
     const bodyXml = S.serializeGetTodoListsBody(request);
     return (await this.call(
       'getTodoLists',
@@ -1820,7 +1820,7 @@ export class MplusKassaClient {
     );
   }
 
-  async createTodoList(request: T.CreateTodoListRequest, requestId?: string): Promise<number> {
+  async createTodoList(request: T.Input<T.CreateTodoListRequest>, requestId?: string): Promise<number> {
     const bodyXml = S.serializeCreateTodoListBody(request);
     return (await this.call(
       'createTodoList',
@@ -1832,7 +1832,7 @@ export class MplusKassaClient {
     )).id;
   }
 
-  async saveTodoListV2(request: T.SaveTodoListV2Request, requestId?: string): Promise<T.SaveTodoListV2Response> {
+  async saveTodoListV2(request: T.Input<T.SaveTodoListV2Request>, requestId?: string): Promise<T.SaveTodoListV2Response> {
     const bodyXml = S.serializeSaveTodoListV2Body(request);
     return this.call(
       'saveTodoListV2',
@@ -1844,7 +1844,7 @@ export class MplusKassaClient {
     );
   }
 
-  async getFilterProfiles(request: T.GetFilterProfilesRequest, requestId?: string): Promise<T.FilterProfile[] | undefined> {
+  async getFilterProfiles(request: T.Input<T.GetFilterProfilesRequest>, requestId?: string): Promise<T.FilterProfile[] | undefined> {
     const bodyXml = S.serializeGetFilterProfilesBody(request);
     return (await this.call(
       'getFilterProfiles',
@@ -1856,7 +1856,7 @@ export class MplusKassaClient {
     )).filterProfiles;
   }
 
-  async savePreparationMethodGroup(request: T.SavePreparationMethodGroupRequest, requestId?: string): Promise<T.SavePreparationMethodGroupResponse> {
+  async savePreparationMethodGroup(request: T.Input<T.SavePreparationMethodGroupRequest>, requestId?: string): Promise<T.SavePreparationMethodGroupResponse> {
     const bodyXml = S.serializeSavePreparationMethodGroupBody(request);
     return this.call(
       'savePreparationMethodGroup',
@@ -1868,7 +1868,7 @@ export class MplusKassaClient {
     );
   }
 
-  async getNutritionalCharacteristics(request: T.GetNutritionalCharacteristicsRequest, requestId?: string): Promise<T.GetNutritionalCharacteristicsResponse> {
+  async getNutritionalCharacteristics(request: T.Input<T.GetNutritionalCharacteristicsRequest>, requestId?: string): Promise<T.GetNutritionalCharacteristicsResponse> {
     const bodyXml = S.serializeGetNutritionalCharacteristicsBody(request);
     return this.call(
       'getNutritionalCharacteristics',
@@ -1880,7 +1880,7 @@ export class MplusKassaClient {
     );
   }
 
-  async updateNutritionalCharacteristics(request: T.UpdateNutritionalCharacteristicsRequest, requestId?: string): Promise<T.UpdateNutritionalCharacteristicsResponse> {
+  async updateNutritionalCharacteristics(request: T.Input<T.UpdateNutritionalCharacteristicsRequest>, requestId?: string): Promise<T.UpdateNutritionalCharacteristicsResponse> {
     const bodyXml = S.serializeUpdateNutritionalCharacteristicsBody(request);
     return this.call(
       'updateNutritionalCharacteristics',
@@ -1892,7 +1892,7 @@ export class MplusKassaClient {
     );
   }
 
-  async determinePricing(request: T.DeterminePricingRequest, requestId?: string): Promise<T.DeterminePricingResponse> {
+  async determinePricing(request: T.Input<T.DeterminePricingRequest>, requestId?: string): Promise<T.DeterminePricingResponse> {
     const bodyXml = S.serializeDeterminePricingBody(request);
     return this.call(
       'determinePricing',
@@ -1904,7 +1904,7 @@ export class MplusKassaClient {
     );
   }
 
-  async setRelationPresence(request: T.SetRelationPresenceRequest, requestId?: string): Promise<T.SetRelationPresenceResponse> {
+  async setRelationPresence(request: T.Input<T.SetRelationPresenceRequest>, requestId?: string): Promise<T.SetRelationPresenceResponse> {
     const bodyXml = S.serializeSetRelationPresenceBody(request);
     return this.call(
       'setRelationPresence',
@@ -1916,7 +1916,7 @@ export class MplusKassaClient {
     );
   }
 
-  async getRelationPresence(request: T.GetRelationPresenceRequest, requestId?: string): Promise<T.GetRelationPresenceResponse> {
+  async getRelationPresence(request: T.Input<T.GetRelationPresenceRequest>, requestId?: string): Promise<T.GetRelationPresenceResponse> {
     const bodyXml = S.serializeGetRelationPresenceBody(request);
     return this.call(
       'getRelationPresence',
@@ -1928,7 +1928,7 @@ export class MplusKassaClient {
     );
   }
 
-  async getArticleBranchDeviations(request: T.GetArticleBranchDeviationsRequest, requestId?: string): Promise<T.ArticleBranchDeviationLine[] | undefined> {
+  async getArticleBranchDeviations(request: T.Input<T.GetArticleBranchDeviationsRequest>, requestId?: string): Promise<T.ArticleBranchDeviationLine[] | undefined> {
     const bodyXml = S.serializeGetArticleBranchDeviationsBody(request);
     return (await this.call(
       'getArticleBranchDeviations',
@@ -1940,7 +1940,7 @@ export class MplusKassaClient {
     )).articleBranchDeviationLines;
   }
 
-  async saveArticleBranchDeviations(request: T.SaveArticleBranchDeviationsRequest, requestId?: string): Promise<T.SaveArticleBranchDeviationsResponse> {
+  async saveArticleBranchDeviations(request: T.Input<T.SaveArticleBranchDeviationsRequest>, requestId?: string): Promise<T.SaveArticleBranchDeviationsResponse> {
     const bodyXml = S.serializeSaveArticleBranchDeviationsBody(request);
     return this.call(
       'saveArticleBranchDeviations',
@@ -1952,7 +1952,7 @@ export class MplusKassaClient {
     );
   }
 
-  async updateArticleNutrients(request: T.UpdateArticleNutrientsRequest, requestId?: string): Promise<T.UpdateArticleNutrientsResponse> {
+  async updateArticleNutrients(request: T.Input<T.UpdateArticleNutrientsRequest>, requestId?: string): Promise<T.UpdateArticleNutrientsResponse> {
     const bodyXml = S.serializeUpdateArticleNutrientsBody(request);
     return this.call(
       'updateArticleNutrients',
@@ -1964,7 +1964,7 @@ export class MplusKassaClient {
     );
   }
 
-  async updateArticleDynamicMinMaxStock(request: T.UpdateArticleDynamicMinMaxStockRequest, requestId?: string): Promise<T.ArticleDynamicMinMaxStock[]> {
+  async updateArticleDynamicMinMaxStock(request: T.Input<T.UpdateArticleDynamicMinMaxStockRequest>, requestId?: string): Promise<T.ArticleDynamicMinMaxStock[]> {
     const bodyXml = S.serializeUpdateArticleDynamicMinMaxStockBody(request);
     return (await this.call(
       'updateArticleDynamicMinMaxStock',
@@ -1976,7 +1976,7 @@ export class MplusKassaClient {
     )).articleDynamicMinMaxStocks;
   }
 
-  async getArticleDynamicMinMaxStock(request: T.GetArticleDynamicMinMaxStockRequest, requestId?: string): Promise<T.ArticleDynamicMinMaxStock[]> {
+  async getArticleDynamicMinMaxStock(request: T.Input<T.GetArticleDynamicMinMaxStockRequest>, requestId?: string): Promise<T.ArticleDynamicMinMaxStock[]> {
     const bodyXml = S.serializeGetArticleDynamicMinMaxStockBody(request);
     return (await this.call(
       'getArticleDynamicMinMaxStock',
@@ -1988,7 +1988,7 @@ export class MplusKassaClient {
     )).articleDynamicMinMaxStocks;
   }
 
-  async getCardFilterOptions(request: T.GetCardFilterOptionsRequest, requestId?: string): Promise<T.GetCardFilterOptionsResponse> {
+  async getCardFilterOptions(request: T.Input<T.GetCardFilterOptionsRequest>, requestId?: string): Promise<T.GetCardFilterOptionsResponse> {
     const bodyXml = S.serializeGetCardFilterOptionsBody(request);
     return this.call(
       'getCardFilterOptions',
@@ -2000,7 +2000,7 @@ export class MplusKassaClient {
     );
   }
 
-  async getPlannedCycleCounts(request: T.GetPlannedCycleCountsRequest, requestId?: string): Promise<T.PlannedCycleCount[]> {
+  async getPlannedCycleCounts(request: T.Input<T.GetPlannedCycleCountsRequest>, requestId?: string): Promise<T.PlannedCycleCount[]> {
     const bodyXml = S.serializeGetPlannedCycleCountsBody(request);
     return (await this.call(
       'getPlannedCycleCounts',
@@ -2012,7 +2012,7 @@ export class MplusKassaClient {
     )).plannedCycleCounts;
   }
 
-  async getActiveCycleCount(request: T.GetActiveCycleCountRequest, requestId?: string): Promise<T.ActiveCycleCount | undefined> {
+  async getActiveCycleCount(request: T.Input<T.GetActiveCycleCountRequest>, requestId?: string): Promise<T.ActiveCycleCount | undefined> {
     const bodyXml = S.serializeGetActiveCycleCountBody(request);
     return (await this.call(
       'getActiveCycleCount',
@@ -2024,7 +2024,7 @@ export class MplusKassaClient {
     )).activeCycleCount;
   }
 
-  async setArticleRecalled(request: T.SetArticleRecalledRequest, requestId?: string): Promise<T.SetArticleRecalledResponse> {
+  async setArticleRecalled(request: T.Input<T.SetArticleRecalledRequest>, requestId?: string): Promise<T.SetArticleRecalledResponse> {
     const bodyXml = S.serializeSetArticleRecalledBody(request);
     return this.call(
       'setArticleRecalled',
@@ -2036,7 +2036,7 @@ export class MplusKassaClient {
     );
   }
 
-  async getArticleComponents(request: T.GetArticleComponentsRequest, requestId?: string): Promise<T.ArticleComponent[]> {
+  async getArticleComponents(request: T.Input<T.GetArticleComponentsRequest>, requestId?: string): Promise<T.ArticleComponent[]> {
     const bodyXml = S.serializeGetArticleComponentsBody(request);
     return (await this.call(
       'getArticleComponents',
@@ -2048,7 +2048,7 @@ export class MplusKassaClient {
     )).articleComponents;
   }
 
-  async saveArticleComponents(request: T.SaveArticleComponentsRequest, requestId?: string): Promise<T.SaveArticleComponentsResponse> {
+  async saveArticleComponents(request: T.Input<T.SaveArticleComponentsRequest>, requestId?: string): Promise<T.SaveArticleComponentsResponse> {
     const bodyXml = S.serializeSaveArticleComponentsBody(request);
     return this.call(
       'saveArticleComponents',
@@ -2060,7 +2060,7 @@ export class MplusKassaClient {
     );
   }
 
-  async getConfiguration(request: T.GetConfigurationRequest, requestId?: string): Promise<T.Configuration[]> {
+  async getConfiguration(request: T.Input<T.GetConfigurationRequest>, requestId?: string): Promise<T.Configuration[]> {
     const bodyXml = S.serializeGetConfigurationBody(request);
     return (await this.call(
       'getConfiguration',
@@ -2072,7 +2072,7 @@ export class MplusKassaClient {
     )).configurationList;
   }
 
-  async updateConfiguration(request: T.UpdateConfigurationRequest, requestId?: string): Promise<T.UpdateConfigurationResult> {
+  async updateConfiguration(request: T.Input<T.UpdateConfigurationRequest>, requestId?: string): Promise<T.UpdateConfigurationResult> {
     const bodyXml = S.serializeUpdateConfigurationBody(request);
     return (await this.call(
       'updateConfiguration',
@@ -2084,7 +2084,7 @@ export class MplusKassaClient {
     )).result;
   }
 
-  async getConfigurationTree(request: T.GetConfigurationTreeRequest, requestId?: string): Promise<T.ConfigurationGroup[] | undefined> {
+  async getConfigurationTree(request: T.Input<T.GetConfigurationTreeRequest>, requestId?: string): Promise<T.ConfigurationGroup[] | undefined> {
     const bodyXml = S.serializeGetConfigurationTreeBody(request);
     return (await this.call(
       'getConfigurationTree',
@@ -2096,7 +2096,7 @@ export class MplusKassaClient {
     )).configurations;
   }
 
-  async getConfigurationValues(request: T.GetConfigurationValuesRequest, requestId?: string): Promise<T.ConfigurationKeyValues[] | undefined> {
+  async getConfigurationValues(request: T.Input<T.GetConfigurationValuesRequest>, requestId?: string): Promise<T.ConfigurationKeyValues[] | undefined> {
     const bodyXml = S.serializeGetConfigurationValuesBody(request);
     return (await this.call(
       'getConfigurationValues',
@@ -2108,7 +2108,7 @@ export class MplusKassaClient {
     )).configurationKeyValues;
   }
 
-  async updateConfigurationValues(request: T.UpdateConfigurationValuesRequest, requestId?: string): Promise<T.UpdateConfigurationValuesResponse> {
+  async updateConfigurationValues(request: T.Input<T.UpdateConfigurationValuesRequest>, requestId?: string): Promise<T.UpdateConfigurationValuesResponse> {
     const bodyXml = S.serializeUpdateConfigurationValuesBody(request);
     return this.call(
       'updateConfigurationValues',
@@ -2120,7 +2120,7 @@ export class MplusKassaClient {
     );
   }
 
-  async getButtonLayout(terminal: T.Terminal, requestId?: string): Promise<T.ButtonLayout> {
+  async getButtonLayout(terminal: T.Input<T.Terminal>, requestId?: string): Promise<T.ButtonLayout> {
     const bodyXml = S.serializeGetButtonLayoutBody(terminal);
     return (await this.call(
       'getButtonLayout',
@@ -2132,7 +2132,7 @@ export class MplusKassaClient {
     )).return;
   }
 
-  async getButtonLayoutGroupForBranch(request: T.ButtonLayoutGroupForBranchRequest, requestId?: string): Promise<T.ButtonLayoutGroupForBranchResponse> {
+  async getButtonLayoutGroupForBranch(request: T.Input<T.ButtonLayoutGroupForBranchRequest>, requestId?: string): Promise<T.ButtonLayoutGroupForBranchResponse> {
     const bodyXml = S.serializeGetButtonLayoutGroupForBranchBody(request);
     return this.call(
       'getButtonLayoutGroupForBranch',
@@ -2144,7 +2144,7 @@ export class MplusKassaClient {
     );
   }
 
-  async getButtonLayoutGroupsWithAssignedWorkplaces(request: T.GetButtonLayoutGroupsWithAssignedWorkplacesRequest, requestId?: string): Promise<T.ButtonLayoutGroupsWithAssignedWorkplaces[] | undefined> {
+  async getButtonLayoutGroupsWithAssignedWorkplaces(request: T.Input<T.GetButtonLayoutGroupsWithAssignedWorkplacesRequest>, requestId?: string): Promise<T.ButtonLayoutGroupsWithAssignedWorkplaces[] | undefined> {
     const bodyXml = S.serializeGetButtonLayoutGroupsWithAssignedWorkplacesBody(request);
     return (await this.call(
       'getButtonLayoutGroupsWithAssignedWorkplaces',
@@ -2156,7 +2156,7 @@ export class MplusKassaClient {
     )).buttonLayoutGroups;
   }
 
-  async getButtonLayoutGroupDetails(request: T.GetButtonLayoutGroupDetailsRequest, requestId?: string): Promise<T.GetButtonLayoutGroupDetailsResponse> {
+  async getButtonLayoutGroupDetails(request: T.Input<T.GetButtonLayoutGroupDetailsRequest>, requestId?: string): Promise<T.GetButtonLayoutGroupDetailsResponse> {
     const bodyXml = S.serializeGetButtonLayoutGroupDetailsBody(request);
     return this.call(
       'getButtonLayoutGroupDetails',
@@ -2168,7 +2168,7 @@ export class MplusKassaClient {
     );
   }
 
-  async saveButtonLayoutGroupDetails(request: T.SaveButtonLayoutGroupDetailsRequest, requestId?: string): Promise<T.SaveButtonLayoutGroupDetailsResponse> {
+  async saveButtonLayoutGroupDetails(request: T.Input<T.SaveButtonLayoutGroupDetailsRequest>, requestId?: string): Promise<T.SaveButtonLayoutGroupDetailsResponse> {
     const bodyXml = S.serializeSaveButtonLayoutGroupDetailsBody(request);
     return this.call(
       'saveButtonLayoutGroupDetails',
@@ -2180,7 +2180,7 @@ export class MplusKassaClient {
     );
   }
 
-  async deleteButtonLayoutGroup(request: T.DeleteButtonLayoutGroupRequest, requestId?: string): Promise<T.DeleteButtonLayoutGroupResponse> {
+  async deleteButtonLayoutGroup(request: T.Input<T.DeleteButtonLayoutGroupRequest>, requestId?: string): Promise<T.DeleteButtonLayoutGroupResponse> {
     const bodyXml = S.serializeDeleteButtonLayoutGroupBody(request);
     return this.call(
       'deleteButtonLayoutGroup',
@@ -2192,7 +2192,7 @@ export class MplusKassaClient {
     );
   }
 
-  async assignButtonLayoutGroupToWorkplaces(request: T.AssignButtonLayoutGroupToWorkplacesRequest, requestId?: string): Promise<T.AssignButtonLayoutGroupToWorkplacesResponse> {
+  async assignButtonLayoutGroupToWorkplaces(request: T.Input<T.AssignButtonLayoutGroupToWorkplacesRequest>, requestId?: string): Promise<T.AssignButtonLayoutGroupToWorkplacesResponse> {
     const bodyXml = S.serializeAssignButtonLayoutGroupToWorkplacesBody(request);
     return this.call(
       'assignButtonLayoutGroupToWorkplaces',
@@ -2204,7 +2204,7 @@ export class MplusKassaClient {
     );
   }
 
-  async getArticlesInLayout(terminal: T.Terminal, requestId?: string): Promise<T.ArticleSimple[] | undefined> {
+  async getArticlesInLayout(terminal: T.Input<T.Terminal>, requestId?: string): Promise<T.ArticleSimple[] | undefined> {
     const bodyXml = S.serializeGetArticlesInLayoutBody(terminal);
     return (await this.call(
       'getArticlesInLayout',
@@ -2216,7 +2216,7 @@ export class MplusKassaClient {
     )).return;
   }
 
-  async getDayStockConfiguration(request: T.GetDayStockConfigurationRequest, requestId?: string): Promise<T.DayStockConfiguration[]> {
+  async getDayStockConfiguration(request: T.Input<T.GetDayStockConfigurationRequest>, requestId?: string): Promise<T.DayStockConfiguration[]> {
     const bodyXml = S.serializeGetDayStockConfigurationBody(request);
     return (await this.call(
       'getDayStockConfiguration',
@@ -2228,7 +2228,7 @@ export class MplusKassaClient {
     )).dayStockConfigurationList;
   }
 
-  async saveDayStockConfiguration(request: T.SaveDayStockConfigurationRequest, requestId?: string): Promise<T.SaveDayStockConfigurationResult> {
+  async saveDayStockConfiguration(request: T.Input<T.SaveDayStockConfigurationRequest>, requestId?: string): Promise<T.SaveDayStockConfigurationResult> {
     const bodyXml = S.serializeSaveDayStockConfigurationBody(request);
     return (await this.call(
       'saveDayStockConfiguration',
@@ -2240,7 +2240,7 @@ export class MplusKassaClient {
     )).result;
   }
 
-  async getActivities(request: T.GetActivitiesRequest, requestId?: string): Promise<T.Activity[]> {
+  async getActivities(request: T.Input<T.GetActivitiesRequest>, requestId?: string): Promise<T.Activity[]> {
     const bodyXml = S.serializeGetActivitiesBody(request);
     return (await this.call(
       'getActivities',
@@ -2252,7 +2252,7 @@ export class MplusKassaClient {
     )).activityList;
   }
 
-  async getActivityTypes(request: T.GetActivityTypesRequest, requestId?: string): Promise<T.ActivityType[]> {
+  async getActivityTypes(request: T.Input<T.GetActivityTypesRequest>, requestId?: string): Promise<T.ActivityType[]> {
     const bodyXml = S.serializeGetActivityTypesBody(request);
     return (await this.call(
       'getActivityTypes',
@@ -2264,7 +2264,7 @@ export class MplusKassaClient {
     )).activityTypeList;
   }
 
-  async saveActivityTypes(request: T.SaveActivityTypesRequest, requestId?: string): Promise<T.SaveActivityTypesResult> {
+  async saveActivityTypes(request: T.Input<T.SaveActivityTypesRequest>, requestId?: string): Promise<T.SaveActivityTypesResult> {
     const bodyXml = S.serializeSaveActivityTypesBody(request);
     return (await this.call(
       'saveActivityTypes',
@@ -2276,7 +2276,7 @@ export class MplusKassaClient {
     )).result;
   }
 
-  async createActivity(request: T.CreateActivityRequest, requestId?: string): Promise<T.CreateActivityResponse> {
+  async createActivity(request: T.Input<T.CreateActivityRequest>, requestId?: string): Promise<T.CreateActivityResponse> {
     const bodyXml = S.serializeCreateActivityBody(request);
     return this.call(
       'createActivity',
@@ -2288,7 +2288,7 @@ export class MplusKassaClient {
     );
   }
 
-  async updateActivity(request: T.UpdateActivityRequest, requestId?: string): Promise<T.UpdateActivityResponse> {
+  async updateActivity(request: T.Input<T.UpdateActivityRequest>, requestId?: string): Promise<T.UpdateActivityResponse> {
     const bodyXml = S.serializeUpdateActivityBody(request);
     return this.call(
       'updateActivity',
@@ -2300,7 +2300,7 @@ export class MplusKassaClient {
     );
   }
 
-  async saveActivity(request: T.SaveActivityRequest, requestId?: string): Promise<T.SaveActivityResponse> {
+  async saveActivity(request: T.Input<T.SaveActivityRequest>, requestId?: string): Promise<T.SaveActivityResponse> {
     const bodyXml = S.serializeSaveActivityBody(request);
     return this.call(
       'saveActivity',
@@ -2312,7 +2312,7 @@ export class MplusKassaClient {
     );
   }
 
-  async deleteActivity(request: T.DeleteActivityRequest, requestId?: string): Promise<T.DeleteActivityResponse> {
+  async deleteActivity(request: T.Input<T.DeleteActivityRequest>, requestId?: string): Promise<T.DeleteActivityResponse> {
     const bodyXml = S.serializeDeleteActivityBody(request);
     return this.call(
       'deleteActivity',
@@ -2324,7 +2324,7 @@ export class MplusKassaClient {
     );
   }
 
-  async getGksInformation(request: T.GetGksInformationRequest, requestId?: string): Promise<string> {
+  async getGksInformation(request: T.Input<T.GetGksInformationRequest>, requestId?: string): Promise<string> {
     const bodyXml = S.serializeGetGksInformationBody(request);
     return (await this.call(
       'getGksInformation',
@@ -2336,7 +2336,7 @@ export class MplusKassaClient {
     )).gksProductionNumber;
   }
 
-  async getMealplanMomentsConfiguration(request: T.GetMealplanMomentsConfigurationRequest, requestId?: string): Promise<T.MealmomentConfiguration[] | undefined> {
+  async getMealplanMomentsConfiguration(request: T.Input<T.GetMealplanMomentsConfigurationRequest>, requestId?: string): Promise<T.MealmomentConfiguration[] | undefined> {
     const bodyXml = S.serializeGetMealplanMomentsConfigurationBody(request);
     return (await this.call(
       'getMealplanMomentsConfiguration',
@@ -2348,7 +2348,7 @@ export class MplusKassaClient {
     )).mealMomentConfigurationList;
   }
 
-  async getScheduledMealPlans(request: T.GetScheduledMealPlansRequest, requestId?: string): Promise<T.GetScheduledMealPlansResponse> {
+  async getScheduledMealPlans(request: T.Input<T.GetScheduledMealPlansRequest>, requestId?: string): Promise<T.GetScheduledMealPlansResponse> {
     const bodyXml = S.serializeGetScheduledMealPlansBody(request);
     return this.call(
       'getScheduledMealPlans',
@@ -2360,7 +2360,7 @@ export class MplusKassaClient {
     );
   }
 
-  async getArticleAlterationsGroups(request: T.GetArticleAlterationsGroupsRequest, requestId?: string): Promise<T.ArticleAlterationsGroup[]> {
+  async getArticleAlterationsGroups(request: T.Input<T.GetArticleAlterationsGroupsRequest>, requestId?: string): Promise<T.ArticleAlterationsGroup[]> {
     const bodyXml = S.serializeGetArticleAlterationsGroupsBody(request);
     return (await this.call(
       'getArticleAlterationsGroups',
@@ -2372,7 +2372,7 @@ export class MplusKassaClient {
     )).articleAlterationsGroupList;
   }
 
-  async saveArticleAlterationsGroup(request: T.SaveArticleAlterationsGroupRequest, requestId?: string): Promise<T.SaveArticleAlterationsGroupResponse> {
+  async saveArticleAlterationsGroup(request: T.Input<T.SaveArticleAlterationsGroupRequest>, requestId?: string): Promise<T.SaveArticleAlterationsGroupResponse> {
     const bodyXml = S.serializeSaveArticleAlterationsGroupBody(request);
     return this.call(
       'saveArticleAlterationsGroup',
@@ -2384,7 +2384,7 @@ export class MplusKassaClient {
     );
   }
 
-  async deleteArticleAlterationsGroup(request: T.DeleteArticleAlterationsGroupRequest, requestId?: string): Promise<T.DeleteArticleAlterationsGroupResult> {
+  async deleteArticleAlterationsGroup(request: T.Input<T.DeleteArticleAlterationsGroupRequest>, requestId?: string): Promise<T.DeleteArticleAlterationsGroupResult> {
     const bodyXml = S.serializeDeleteArticleAlterationsGroupBody(request);
     return (await this.call(
       'deleteArticleAlterationsGroup',
@@ -2396,7 +2396,7 @@ export class MplusKassaClient {
     )).result;
   }
 
-  async updateAttachedArticleAlterationsGroups(request: T.UpdateAttachedArticleAlterationsGroupsRequest, requestId?: string): Promise<T.UpdateAttachedArticleAlterationsGroupsResult> {
+  async updateAttachedArticleAlterationsGroups(request: T.Input<T.UpdateAttachedArticleAlterationsGroupsRequest>, requestId?: string): Promise<T.UpdateAttachedArticleAlterationsGroupsResult> {
     const bodyXml = S.serializeUpdateAttachedArticleAlterationsGroupsBody(request);
     return (await this.call(
       'updateAttachedArticleAlterationsGroups',
@@ -2408,7 +2408,7 @@ export class MplusKassaClient {
     )).result;
   }
 
-  async updateArticleMenu(request: T.UpdateArticleMenuRequest, requestId?: string): Promise<T.UpdateArticleMenuResponse> {
+  async updateArticleMenu(request: T.Input<T.UpdateArticleMenuRequest>, requestId?: string): Promise<T.UpdateArticleMenuResponse> {
     const bodyXml = S.serializeUpdateArticleMenuBody(request);
     return this.call(
       'updateArticleMenu',
@@ -2420,7 +2420,7 @@ export class MplusKassaClient {
     );
   }
 
-  async updateOnlineAuthorizationTree(request: T.UpdateOnlineAuthorizationTreeRequest, requestId?: string): Promise<T.UpdateOnlineAuthorizationTreeResponse> {
+  async updateOnlineAuthorizationTree(request: T.Input<T.UpdateOnlineAuthorizationTreeRequest>, requestId?: string): Promise<T.UpdateOnlineAuthorizationTreeResponse> {
     const bodyXml = S.serializeUpdateOnlineAuthorizationTreeBody(request);
     return this.call(
       'updateOnlineAuthorizationTree',
@@ -2432,7 +2432,7 @@ export class MplusKassaClient {
     );
   }
 
-  async getOwnerLabels(request: T.GetOwnerLabelsRequest, requestId?: string): Promise<T.OwnerLabel[] | undefined> {
+  async getOwnerLabels(request: T.Input<T.GetOwnerLabelsRequest>, requestId?: string): Promise<T.OwnerLabel[] | undefined> {
     const bodyXml = S.serializeGetOwnerLabelsBody(request);
     return (await this.call(
       'getOwnerLabels',
@@ -2444,7 +2444,7 @@ export class MplusKassaClient {
     )).ownerLabels;
   }
 
-  async getWordAliases(request: T.GetWordAliasesRequest, requestId?: string): Promise<T.WordAlias[]> {
+  async getWordAliases(request: T.Input<T.GetWordAliasesRequest>, requestId?: string): Promise<T.WordAlias[]> {
     const bodyXml = S.serializeGetWordAliasesBody(request);
     return (await this.call(
       'getWordAliases',
@@ -2504,7 +2504,7 @@ export class MplusKassaClient {
     )).return;
   }
 
-  async registerTerminal(params: { terminal?: T.Terminal; forceRegistration?: boolean }, requestId?: string): Promise<T.RegisterTerminalResponse> {
+  async registerTerminal(params: { terminal?: T.Input<T.Terminal>; forceRegistration?: boolean }, requestId?: string): Promise<T.RegisterTerminalResponse> {
     const bodyXml = S.serializeRegisterTerminalBody(params);
     return this.call(
       'registerTerminal',
@@ -2516,7 +2516,7 @@ export class MplusKassaClient {
     );
   }
 
-  async getTerminalSettings(terminal?: T.Terminal, requestId?: string): Promise<T.GetTerminalSettingsResponse> {
+  async getTerminalSettings(terminal?: T.Input<T.Terminal>, requestId?: string): Promise<T.GetTerminalSettingsResponse> {
     const bodyXml = S.serializeGetTerminalSettingsBody(terminal);
     return this.call(
       'getTerminalSettings',
@@ -2528,7 +2528,7 @@ export class MplusKassaClient {
     );
   }
 
-  async getBranchInformation(request: T.GetBranchInformationRequest, requestId?: string): Promise<T.GetBranchInformationResponse> {
+  async getBranchInformation(request: T.Input<T.GetBranchInformationRequest>, requestId?: string): Promise<T.GetBranchInformationResponse> {
     const bodyXml = S.serializeGetBranchInformationBody(request);
     return this.call(
       'getBranchInformation',
@@ -2540,7 +2540,7 @@ export class MplusKassaClient {
     );
   }
 
-  async getBranchGroups(request: T.GetBranchGroupsRequest, requestId?: string): Promise<T.BranchGroups[]> {
+  async getBranchGroups(request: T.Input<T.GetBranchGroupsRequest>, requestId?: string): Promise<T.BranchGroups[]> {
     const bodyXml = S.serializeGetBranchGroupsBody(request);
     return (await this.call(
       'getBranchGroups',
@@ -2564,7 +2564,7 @@ export class MplusKassaClient {
     )).deliveryMethodList;
   }
 
-  async getDeliveryMethodsV2(request: T.GetDeliveryMethodsV2Request, requestId?: string): Promise<T.DeliveryMethod[]> {
+  async getDeliveryMethodsV2(request: T.Input<T.GetDeliveryMethodsV2Request>, requestId?: string): Promise<T.DeliveryMethod[]> {
     const bodyXml = S.serializeGetDeliveryMethodsV2Body(request);
     return (await this.call(
       'getDeliveryMethodsV2',
@@ -2576,7 +2576,7 @@ export class MplusKassaClient {
     )).deliveryMethodList;
   }
 
-  async createDeliveryMethod(request: T.CreateDeliveryMethodRequest, requestId?: string): Promise<T.CreateDeliveryMethodResponse> {
+  async createDeliveryMethod(request: T.Input<T.CreateDeliveryMethodRequest>, requestId?: string): Promise<T.CreateDeliveryMethodResponse> {
     const bodyXml = S.serializeCreateDeliveryMethodBody(request);
     return this.call(
       'createDeliveryMethod',
@@ -2588,7 +2588,7 @@ export class MplusKassaClient {
     );
   }
 
-  async updateDeliveryMethod(request: T.UpdateDeliveryMethodRequest, requestId?: string): Promise<T.UpdateDeliveryMethodResponse> {
+  async updateDeliveryMethod(request: T.Input<T.UpdateDeliveryMethodRequest>, requestId?: string): Promise<T.UpdateDeliveryMethodResponse> {
     const bodyXml = S.serializeUpdateDeliveryMethodBody(request);
     return this.call(
       'updateDeliveryMethod',
@@ -2624,7 +2624,7 @@ export class MplusKassaClient {
     );
   }
 
-  async getCurrentSyncMarkersV2(request: T.GetCurrentSyncMarkersV2Request, requestId?: string): Promise<T.GetCurrentSyncMarkersV2Response> {
+  async getCurrentSyncMarkersV2(request: T.Input<T.GetCurrentSyncMarkersV2Request>, requestId?: string): Promise<T.GetCurrentSyncMarkersV2Response> {
     const bodyXml = S.serializeGetCurrentSyncMarkersV2Body(request);
     return this.call(
       'getCurrentSyncMarkersV2',
@@ -2636,7 +2636,7 @@ export class MplusKassaClient {
     );
   }
 
-  async getNutrientTypes(request: T.GetNutrientTypesRequest, requestId?: string): Promise<T.nsNutrientType[] | undefined> {
+  async getNutrientTypes(request: T.Input<T.GetNutrientTypesRequest>, requestId?: string): Promise<T.nsNutrientType[] | undefined> {
     const bodyXml = S.serializeGetNutrientTypesBody(request);
     return (await this.call(
       'getNutrientTypes',
@@ -2648,7 +2648,7 @@ export class MplusKassaClient {
     )).nutrientTypes;
   }
 
-  async verifyCredentials(request: T.VerifyCredentialsRequest, requestId?: string): Promise<T.VerifyCredentialsResponse> {
+  async verifyCredentials(request: T.Input<T.VerifyCredentialsRequest>, requestId?: string): Promise<T.VerifyCredentialsResponse> {
     const bodyXml = S.serializeVerifyCredentialsBody(request);
     return this.call(
       'verifyCredentials',
@@ -2660,7 +2660,7 @@ export class MplusKassaClient {
     );
   }
 
-  async saveCredentials(request: T.SaveCredentialsRequest, requestId?: string): Promise<T.SaveCredentialsResult> {
+  async saveCredentials(request: T.Input<T.SaveCredentialsRequest>, requestId?: string): Promise<T.SaveCredentialsResult> {
     const bodyXml = S.serializeSaveCredentialsBody(request);
     return (await this.call(
       'saveCredentials',
@@ -2672,7 +2672,7 @@ export class MplusKassaClient {
     )).result;
   }
 
-  async getPasswordRequirements(request: T.PasswordRequirementsRequest, requestId?: string): Promise<T.PasswordRequirementsResponse> {
+  async getPasswordRequirements(request: T.Input<T.PasswordRequirementsRequest>, requestId?: string): Promise<T.PasswordRequirementsResponse> {
     const bodyXml = S.serializeGetPasswordRequirementsBody(request);
     return this.call(
       'getPasswordRequirements',
@@ -2684,7 +2684,7 @@ export class MplusKassaClient {
     );
   }
 
-  async passwordReset(request: T.PasswordResetRequest, requestId?: string): Promise<T.PasswordResetResponse> {
+  async passwordReset(request: T.Input<T.PasswordResetRequest>, requestId?: string): Promise<T.PasswordResetResponse> {
     const bodyXml = S.serializePasswordResetBody(request);
     return this.call(
       'passwordReset',
@@ -2696,7 +2696,7 @@ export class MplusKassaClient {
     );
   }
 
-  async getFloorplans(request: T.GetFloorplansRequest, requestId?: string): Promise<T.Floorplan[]> {
+  async getFloorplans(request: T.Input<T.GetFloorplansRequest>, requestId?: string): Promise<T.Floorplan[]> {
     const bodyXml = S.serializeGetFloorplansBody(request);
     return (await this.call(
       'getFloorplans',
@@ -2708,7 +2708,7 @@ export class MplusKassaClient {
     )).floorplans;
   }
 
-  async changeTableProperty(request: T.ChangeTablePropertyReq, requestId?: string): Promise<T.ChangeTablePropertyResp> {
+  async changeTableProperty(request: T.Input<T.ChangeTablePropertyReq>, requestId?: string): Promise<T.ChangeTablePropertyResp> {
     const bodyXml = S.serializeChangeTablePropertyBody(request);
     return this.call(
       'changeTableProperty',
@@ -2720,7 +2720,7 @@ export class MplusKassaClient {
     );
   }
 
-  async getEmployeeAuthorizations(request: T.GetEmployeeAuthorizationsRequest, requestId?: string): Promise<T.EmployeeAuthorization[]> {
+  async getEmployeeAuthorizations(request: T.Input<T.GetEmployeeAuthorizationsRequest>, requestId?: string): Promise<T.EmployeeAuthorization[]> {
     const bodyXml = S.serializeGetEmployeeAuthorizationsBody(request);
     return (await this.call(
       'getEmployeeAuthorizations',
@@ -2732,7 +2732,7 @@ export class MplusKassaClient {
     )).authorizationsList;
   }
 
-  async getGroupAuthorizations(request: T.GetGroupAuthorizationsRequest, requestId?: string): Promise<T.GroupAuthorization[]> {
+  async getGroupAuthorizations(request: T.Input<T.GetGroupAuthorizationsRequest>, requestId?: string): Promise<T.GroupAuthorization[]> {
     const bodyXml = S.serializeGetGroupAuthorizationsBody(request);
     return (await this.call(
       'getGroupAuthorizations',
@@ -2744,7 +2744,7 @@ export class MplusKassaClient {
     )).authorizationsList;
   }
 
-  async updateGroupAuthorizations(request: T.UpdateGroupAuthorizationsRequest, requestId?: string): Promise<T.GroupAuthorization[]> {
+  async updateGroupAuthorizations(request: T.Input<T.UpdateGroupAuthorizationsRequest>, requestId?: string): Promise<T.GroupAuthorization[]> {
     const bodyXml = S.serializeUpdateGroupAuthorizationsBody(request);
     return (await this.call(
       'updateGroupAuthorizations',
@@ -2756,7 +2756,7 @@ export class MplusKassaClient {
     )).authorizationsList;
   }
 
-  async getAuthorizationGroups(request: T.GetAuthorizationGroupsRequest, requestId?: string): Promise<T.AuthorizationGroup[]> {
+  async getAuthorizationGroups(request: T.Input<T.GetAuthorizationGroupsRequest>, requestId?: string): Promise<T.AuthorizationGroup[]> {
     const bodyXml = S.serializeGetAuthorizationGroupsBody(request);
     return (await this.call(
       'getAuthorizationGroups',
@@ -2768,7 +2768,7 @@ export class MplusKassaClient {
     )).groupList;
   }
 
-  async getAuthorizationTree(request: T.GetAuthorizationTreeRequest, requestId?: string): Promise<T.GetAuthorizationTreeResponse> {
+  async getAuthorizationTree(request: T.Input<T.GetAuthorizationTreeRequest>, requestId?: string): Promise<T.GetAuthorizationTreeResponse> {
     const bodyXml = S.serializeGetAuthorizationTreeBody(request);
     return this.call(
       'getAuthorizationTree',
@@ -2780,7 +2780,7 @@ export class MplusKassaClient {
     );
   }
 
-  async getEmployeeBranchAuthorizations(request: T.GetEmployeeBranchAuthorizationsRequest, requestId?: string): Promise<T.EmployeeBranchAuthorization[]> {
+  async getEmployeeBranchAuthorizations(request: T.Input<T.GetEmployeeBranchAuthorizationsRequest>, requestId?: string): Promise<T.EmployeeBranchAuthorization[]> {
     const bodyXml = S.serializeGetEmployeeBranchAuthorizationsBody(request);
     return (await this.call(
       'getEmployeeBranchAuthorizations',
@@ -2792,7 +2792,7 @@ export class MplusKassaClient {
     )).branchAuthorizationsList;
   }
 
-  async saveAuthorizationGroup(request: T.SaveAuthorizationGroupRequest, requestId?: string): Promise<T.SaveAuthorizationGroupResponse> {
+  async saveAuthorizationGroup(request: T.Input<T.SaveAuthorizationGroupRequest>, requestId?: string): Promise<T.SaveAuthorizationGroupResponse> {
     const bodyXml = S.serializeSaveAuthorizationGroupBody(request);
     return this.call(
       'saveAuthorizationGroup',
@@ -2804,7 +2804,7 @@ export class MplusKassaClient {
     );
   }
 
-  async deleteAuthorizationGroup(request: T.DeleteAuthorizationGroupRequest, requestId?: string): Promise<T.DeleteAuthorizationGroupResponse> {
+  async deleteAuthorizationGroup(request: T.Input<T.DeleteAuthorizationGroupRequest>, requestId?: string): Promise<T.DeleteAuthorizationGroupResponse> {
     const bodyXml = S.serializeDeleteAuthorizationGroupBody(request);
     return this.call(
       'deleteAuthorizationGroup',
@@ -2816,7 +2816,7 @@ export class MplusKassaClient {
     );
   }
 
-  async getEmployeeAuthorizationGroups(request: T.GetEmployeeAuthorizationGroupsRequest, requestId?: string): Promise<T.GetEmployeeAuthorizationGroupsResponse> {
+  async getEmployeeAuthorizationGroups(request: T.Input<T.GetEmployeeAuthorizationGroupsRequest>, requestId?: string): Promise<T.GetEmployeeAuthorizationGroupsResponse> {
     const bodyXml = S.serializeGetEmployeeAuthorizationGroupsBody(request);
     return this.call(
       'getEmployeeAuthorizationGroups',
@@ -2828,7 +2828,7 @@ export class MplusKassaClient {
     );
   }
 
-  async updateEmployeeAuthorizationGroups(request: T.UpdateEmployeeAuthorizationGroupsRequest, requestId?: string): Promise<T.UpdateEmployeeAuthorizationGroupsResponse> {
+  async updateEmployeeAuthorizationGroups(request: T.Input<T.UpdateEmployeeAuthorizationGroupsRequest>, requestId?: string): Promise<T.UpdateEmployeeAuthorizationGroupsResponse> {
     const bodyXml = S.serializeUpdateEmployeeAuthorizationGroupsBody(request);
     return this.call(
       'updateEmployeeAuthorizationGroups',
@@ -2840,7 +2840,7 @@ export class MplusKassaClient {
     );
   }
 
-  async getEmployeeAuthorizationSyncMarkers(request: T.GetEmployeeAuthorizationSyncMarkersRequest, requestId?: string): Promise<T.GetEmployeeAuthorizationSyncMarkersResponse> {
+  async getEmployeeAuthorizationSyncMarkers(request: T.Input<T.GetEmployeeAuthorizationSyncMarkersRequest>, requestId?: string): Promise<T.GetEmployeeAuthorizationSyncMarkersResponse> {
     const bodyXml = S.serializeGetEmployeeAuthorizationSyncMarkersBody(request);
     return this.call(
       'getEmployeeAuthorizationSyncMarkers',
@@ -2852,7 +2852,7 @@ export class MplusKassaClient {
     );
   }
 
-  async getSpecialBarcodePatterns(request: T.GetSpecialBarcodePatternsRequest, requestId?: string): Promise<T.BarcodePattern[] | undefined> {
+  async getSpecialBarcodePatterns(request: T.Input<T.GetSpecialBarcodePatternsRequest>, requestId?: string): Promise<T.BarcodePattern[] | undefined> {
     const bodyXml = S.serializeGetSpecialBarcodePatternsBody(request);
     return (await this.call(
       'getSpecialBarcodePatterns',
@@ -2864,7 +2864,7 @@ export class MplusKassaClient {
     )).patterns;
   }
 
-  async parseSpecialBarcode(request: T.ParseSpecialBarcodeRequest, requestId?: string): Promise<T.ParseSpecialBarcodeResponse> {
+  async parseSpecialBarcode(request: T.Input<T.ParseSpecialBarcodeRequest>, requestId?: string): Promise<T.ParseSpecialBarcodeResponse> {
     const bodyXml = S.serializeParseSpecialBarcodeBody(request);
     return this.call(
       'parseSpecialBarcode',
@@ -2876,7 +2876,7 @@ export class MplusKassaClient {
     );
   }
 
-  async createImage(request: T.CreateImageRequest, requestId?: string): Promise<T.CreateImageResponse> {
+  async createImage(request: T.Input<T.CreateImageRequest>, requestId?: string): Promise<T.CreateImageResponse> {
     const bodyXml = S.serializeCreateImageBody(request);
     return this.call(
       'createImage',
@@ -2888,7 +2888,7 @@ export class MplusKassaClient {
     );
   }
 
-  async createImageFromUrl(request: T.CreateImageFromUrlRequest, requestId?: string): Promise<T.CreateImageResponse> {
+  async createImageFromUrl(request: T.Input<T.CreateImageFromUrlRequest>, requestId?: string): Promise<T.CreateImageResponse> {
     const bodyXml = S.serializeCreateImageFromUrlBody(request);
     return this.call(
       'createImageFromUrl',
@@ -2900,7 +2900,7 @@ export class MplusKassaClient {
     );
   }
 
-  async getCardImageLabels(request: T.GetCardImageLabelsRequest, requestId?: string): Promise<T.ImageLabel[] | undefined> {
+  async getCardImageLabels(request: T.Input<T.GetCardImageLabelsRequest>, requestId?: string): Promise<T.ImageLabel[] | undefined> {
     const bodyXml = S.serializeGetCardImageLabelsBody(request);
     return (await this.call(
       'getCardImageLabels',
@@ -2912,7 +2912,7 @@ export class MplusKassaClient {
     )).labels;
   }
 
-  async getCardImages(request: T.GetCardImagesRequest, requestId?: string): Promise<T.CardImageData[] | undefined> {
+  async getCardImages(request: T.Input<T.GetCardImagesRequest>, requestId?: string): Promise<T.CardImageData[] | undefined> {
     const bodyXml = S.serializeGetCardImagesBody(request);
     return (await this.call(
       'getCardImages',
@@ -2924,7 +2924,7 @@ export class MplusKassaClient {
     )).items;
   }
 
-  async saveCardImages(request: T.SaveCardImagesRequest, requestId?: string): Promise<T.SaveCardImagesResponse> {
+  async saveCardImages(request: T.Input<T.SaveCardImagesRequest>, requestId?: string): Promise<T.SaveCardImagesResponse> {
     const bodyXml = S.serializeSaveCardImagesBody(request);
     return this.call(
       'saveCardImages',
@@ -2936,7 +2936,7 @@ export class MplusKassaClient {
     );
   }
 
-  async getImages(request?: T.GetImagesRequest, requestId?: string): Promise<T.Image[]> {
+  async getImages(request?: T.Input<T.GetImagesRequest>, requestId?: string): Promise<T.Image[]> {
     const bodyXml = S.serializeGetImagesBody(request);
     return (await this.call(
       'getImages',
@@ -2948,7 +2948,7 @@ export class MplusKassaClient {
     )).imageList;
   }
 
-  async checkGiftcardPayment(request: T.CheckGiftcardPaymentRequest, requestId?: string): Promise<T.CheckGiftcardPaymentResponse> {
+  async checkGiftcardPayment(request: T.Input<T.CheckGiftcardPaymentRequest>, requestId?: string): Promise<T.CheckGiftcardPaymentResponse> {
     const bodyXml = S.serializeCheckGiftcardPaymentBody(request);
     return this.call(
       'checkGiftcardPayment',
@@ -2960,7 +2960,7 @@ export class MplusKassaClient {
     );
   }
 
-  async registerGiftcardPayment(request: T.RegisterGiftcardPaymentRequest, requestId?: string): Promise<T.RegisterGiftcardPaymentResponse> {
+  async registerGiftcardPayment(request: T.Input<T.RegisterGiftcardPaymentRequest>, requestId?: string): Promise<T.RegisterGiftcardPaymentResponse> {
     const bodyXml = S.serializeRegisterGiftcardPaymentBody(request);
     return this.call(
       'registerGiftcardPayment',
@@ -2972,7 +2972,7 @@ export class MplusKassaClient {
     );
   }
 
-  async registerGiftcardPaymentV2(request: T.RegisterGiftcardPaymentV2Request, requestId?: string): Promise<T.RegisterGiftcardPaymentV2Response> {
+  async registerGiftcardPaymentV2(request: T.Input<T.RegisterGiftcardPaymentV2Request>, requestId?: string): Promise<T.RegisterGiftcardPaymentV2Response> {
     const bodyXml = S.serializeRegisterGiftcardPaymentV2Body(request);
     return this.call(
       'registerGiftcardPaymentV2',
@@ -2984,7 +2984,7 @@ export class MplusKassaClient {
     );
   }
 
-  async createGiftcard(request: T.CreateGiftcardRequest, requestId?: string): Promise<T.CreateGiftcardResponse> {
+  async createGiftcard(request: T.Input<T.CreateGiftcardRequest>, requestId?: string): Promise<T.CreateGiftcardResponse> {
     const bodyXml = S.serializeCreateGiftcardBody(request);
     return this.call(
       'createGiftcard',
@@ -2996,7 +2996,7 @@ export class MplusKassaClient {
     );
   }
 
-  async reloadGiftcard(request: T.ReloadGiftcardRequest, requestId?: string): Promise<T.ReloadGiftcardResponse> {
+  async reloadGiftcard(request: T.Input<T.ReloadGiftcardRequest>, requestId?: string): Promise<T.ReloadGiftcardResponse> {
     const bodyXml = S.serializeReloadGiftcardBody(request);
     return this.call(
       'reloadGiftcard',
@@ -3008,7 +3008,7 @@ export class MplusKassaClient {
     );
   }
 
-  async getGiftcardTypes(request: T.GetGiftcardTypesRequest, requestId?: string): Promise<T.GiftcardType[]> {
+  async getGiftcardTypes(request: T.Input<T.GetGiftcardTypesRequest>, requestId?: string): Promise<T.GiftcardType[]> {
     const bodyXml = S.serializeGetGiftcardTypesBody(request);
     return (await this.call(
       'getGiftcardTypes',
@@ -3020,7 +3020,7 @@ export class MplusKassaClient {
     )).giftcardTypesList;
   }
 
-  async getRelationGiftcards(request: T.GetRelationGiftcardsRequest, requestId?: string): Promise<T.RelationGiftcard[]> {
+  async getRelationGiftcards(request: T.Input<T.GetRelationGiftcardsRequest>, requestId?: string): Promise<T.RelationGiftcard[]> {
     const bodyXml = S.serializeGetRelationGiftcardsBody(request);
     return (await this.call(
       'getRelationGiftcards',
@@ -3032,7 +3032,7 @@ export class MplusKassaClient {
     )).relationGiftcardList;
   }
 
-  async getGiftcard(request: T.GetGiftcardRequest, requestId?: string): Promise<T.GetGiftcardResponse> {
+  async getGiftcard(request: T.Input<T.GetGiftcardRequest>, requestId?: string): Promise<T.GetGiftcardResponse> {
     const bodyXml = S.serializeGetGiftcardBody(request);
     return this.call(
       'getGiftcard',
@@ -3044,7 +3044,7 @@ export class MplusKassaClient {
     );
   }
 
-  async getGiftcardHistory(request: T.GetGiftcardHistoryRequest, requestId?: string): Promise<T.GetGiftcardHistoryResponse> {
+  async getGiftcardHistory(request: T.Input<T.GetGiftcardHistoryRequest>, requestId?: string): Promise<T.GetGiftcardHistoryResponse> {
     const bodyXml = S.serializeGetGiftcardHistoryBody(request);
     return this.call(
       'getGiftcardHistory',
@@ -3056,7 +3056,7 @@ export class MplusKassaClient {
     );
   }
 
-  async getGiftcards(request: T.GetGiftcardsRequest, requestId?: string): Promise<T.GetGiftcard[]> {
+  async getGiftcards(request: T.Input<T.GetGiftcardsRequest>, requestId?: string): Promise<T.GetGiftcard[]> {
     const bodyXml = S.serializeGetGiftcardsBody(request);
     return (await this.call(
       'getGiftcards',
@@ -3068,7 +3068,7 @@ export class MplusKassaClient {
     )).giftcardList;
   }
 
-  async saveGiftcards(request: T.SaveGiftcardsRequest, requestId?: string): Promise<T.SaveGiftcardsResponse> {
+  async saveGiftcards(request: T.Input<T.SaveGiftcardsRequest>, requestId?: string): Promise<T.SaveGiftcardsResponse> {
     const bodyXml = S.serializeSaveGiftcardsBody(request);
     return this.call(
       'saveGiftcards',
@@ -3080,7 +3080,7 @@ export class MplusKassaClient {
     );
   }
 
-  async restituteGiftcards(request: T.RestituteGiftcardsRequest, requestId?: string): Promise<T.RestituteGiftcardsResponse> {
+  async restituteGiftcards(request: T.Input<T.RestituteGiftcardsRequest>, requestId?: string): Promise<T.RestituteGiftcardsResponse> {
     const bodyXml = S.serializeRestituteGiftcardsBody(request);
     return this.call(
       'restituteGiftcards',
@@ -3092,7 +3092,7 @@ export class MplusKassaClient {
     );
   }
 
-  async linkGiftcardsToRelation(request: T.LinkGiftcardsToRelationRequest, requestId?: string): Promise<T.LinkGiftcardsToRelationResponse> {
+  async linkGiftcardsToRelation(request: T.Input<T.LinkGiftcardsToRelationRequest>, requestId?: string): Promise<T.LinkGiftcardsToRelationResponse> {
     const bodyXml = S.serializeLinkGiftcardsToRelationBody(request);
     return this.call(
       'linkGiftcardsToRelation',
@@ -3104,7 +3104,7 @@ export class MplusKassaClient {
     );
   }
 
-  async getVouchers(request: T.GetVouchersRequest, requestId?: string): Promise<T.VoucherView[]> {
+  async getVouchers(request: T.Input<T.GetVouchersRequest>, requestId?: string): Promise<T.VoucherView[]> {
     const bodyXml = S.serializeGetVouchersBody(request);
     return (await this.call(
       'getVouchers',
@@ -3116,7 +3116,7 @@ export class MplusKassaClient {
     )).voucherViews;
   }
 
-  async getVoucher(request: T.GetVoucherRequest, requestId?: string): Promise<T.Voucher | undefined> {
+  async getVoucher(request: T.Input<T.GetVoucherRequest>, requestId?: string): Promise<T.Voucher | undefined> {
     const bodyXml = S.serializeGetVoucherBody(request);
     return (await this.call(
       'getVoucher',
@@ -3128,7 +3128,7 @@ export class MplusKassaClient {
     )).voucher;
   }
 
-  async getVoucherCategories(request: T.GetVoucherCategoriesRequest, requestId?: string): Promise<T.VoucherCategory[]> {
+  async getVoucherCategories(request: T.Input<T.GetVoucherCategoriesRequest>, requestId?: string): Promise<T.VoucherCategory[]> {
     const bodyXml = S.serializeGetVoucherCategoriesBody(request);
     return (await this.call(
       'getVoucherCategories',
@@ -3140,7 +3140,7 @@ export class MplusKassaClient {
     )).voucherCategories;
   }
 
-  async getVoucherIssuances(request: T.GetVoucherIssuancesRequest, requestId?: string): Promise<T.VoucherIssuance[]> {
+  async getVoucherIssuances(request: T.Input<T.GetVoucherIssuancesRequest>, requestId?: string): Promise<T.VoucherIssuance[]> {
     const bodyXml = S.serializeGetVoucherIssuancesBody(request);
     return (await this.call(
       'getVoucherIssuances',
@@ -3152,7 +3152,7 @@ export class MplusKassaClient {
     )).voucherIssuances;
   }
 
-  async getVoucherSettings(request: T.GetVoucherSettingsRequest, requestId?: string): Promise<T.VoucherSettingsV1[]> {
+  async getVoucherSettings(request: T.Input<T.GetVoucherSettingsRequest>, requestId?: string): Promise<T.VoucherSettingsV1[]> {
     const bodyXml = S.serializeGetVoucherSettingsBody(request);
     return (await this.call(
       'getVoucherSettings',
@@ -3164,7 +3164,7 @@ export class MplusKassaClient {
     )).voucherSettingsV1;
   }
 
-  async issueVouchers(request: T.IssueVouchersRequest, requestId?: string): Promise<T.IssueVouchersResponse> {
+  async issueVouchers(request: T.Input<T.IssueVouchersRequest>, requestId?: string): Promise<T.IssueVouchersResponse> {
     const bodyXml = S.serializeIssueVouchersBody(request);
     return this.call(
       'issueVouchers',
@@ -3176,7 +3176,7 @@ export class MplusKassaClient {
     );
   }
 
-  async issueVoucherExternalScanCodes(request: T.IssueVoucherExternalScanCodesRequest, requestId?: string): Promise<T.IssueVoucherExternalScanCodesResponse> {
+  async issueVoucherExternalScanCodes(request: T.Input<T.IssueVoucherExternalScanCodesRequest>, requestId?: string): Promise<T.IssueVoucherExternalScanCodesResponse> {
     const bodyXml = S.serializeIssueVoucherExternalScanCodesBody(request);
     return this.call(
       'issueVoucherExternalScanCodes',
@@ -3188,7 +3188,7 @@ export class MplusKassaClient {
     );
   }
 
-  async getVoucherExternalScanCodes(request: T.GetVoucherExternalScanCodesRequest, requestId?: string): Promise<T.VoucherExternalScanCode[]> {
+  async getVoucherExternalScanCodes(request: T.Input<T.GetVoucherExternalScanCodesRequest>, requestId?: string): Promise<T.VoucherExternalScanCode[]> {
     const bodyXml = S.serializeGetVoucherExternalScanCodesBody(request);
     return (await this.call(
       'getVoucherExternalScanCodes',
@@ -3200,7 +3200,7 @@ export class MplusKassaClient {
     )).scanCodes;
   }
 
-  async getRedeemableVoucherIssuances(request: T.GetRedeemableVoucherIssuancesRequest, requestId?: string): Promise<T.RedeemableVoucherIssuance[]> {
+  async getRedeemableVoucherIssuances(request: T.Input<T.GetRedeemableVoucherIssuancesRequest>, requestId?: string): Promise<T.RedeemableVoucherIssuance[]> {
     const bodyXml = S.serializeGetRedeemableVoucherIssuancesBody(request);
     return (await this.call(
       'getRedeemableVoucherIssuances',
@@ -3212,7 +3212,7 @@ export class MplusKassaClient {
     )).redeemableVoucherIssuances;
   }
 
-  async redeemVoucherIssuance(request: T.RedeemVoucherIssuanceRequest, requestId?: string): Promise<T.RedeemVoucherIssuanceResponse> {
+  async redeemVoucherIssuance(request: T.Input<T.RedeemVoucherIssuanceRequest>, requestId?: string): Promise<T.RedeemVoucherIssuanceResponse> {
     const bodyXml = S.serializeRedeemVoucherIssuanceBody(request);
     return this.call(
       'redeemVoucherIssuance',
@@ -3224,7 +3224,7 @@ export class MplusKassaClient {
     );
   }
 
-  async reportTurnoverByBranch(request: T.ReportTurnoverByBranchRequest, requestId?: string): Promise<T.ReportTurnoverByBranch[]> {
+  async reportTurnoverByBranch(request: T.Input<T.ReportTurnoverByBranchRequest>, requestId?: string): Promise<T.ReportTurnoverByBranch[]> {
     const bodyXml = S.serializeReportTurnoverByBranchBody(request);
     return (await this.call(
       'reportTurnoverByBranch',
@@ -3236,7 +3236,7 @@ export class MplusKassaClient {
     )).turnoverList;
   }
 
-  async reportTurnoverByEmployee(request: T.ReportTurnoverByEmployeeRequest, requestId?: string): Promise<T.ReportTurnoverByEmployee[]> {
+  async reportTurnoverByEmployee(request: T.Input<T.ReportTurnoverByEmployeeRequest>, requestId?: string): Promise<T.ReportTurnoverByEmployee[]> {
     const bodyXml = S.serializeReportTurnoverByEmployeeBody(request);
     return (await this.call(
       'reportTurnoverByEmployee',
@@ -3248,7 +3248,7 @@ export class MplusKassaClient {
     )).turnoverList;
   }
 
-  async reportTurnoverByActivity(request: T.ReportTurnoverByActivityRequest, requestId?: string): Promise<T.ReportTurnoverByActivity[]> {
+  async reportTurnoverByActivity(request: T.Input<T.ReportTurnoverByActivityRequest>, requestId?: string): Promise<T.ReportTurnoverByActivity[]> {
     const bodyXml = S.serializeReportTurnoverByActivityBody(request);
     return (await this.call(
       'reportTurnoverByActivity',
@@ -3260,7 +3260,7 @@ export class MplusKassaClient {
     )).turnoverList;
   }
 
-  async reportTurnoverByTurnoverGroup(request: T.ReportTurnoverByTurnoverGroupRequest, requestId?: string): Promise<T.ReportTurnoverByTurnoverGroup[]> {
+  async reportTurnoverByTurnoverGroup(request: T.Input<T.ReportTurnoverByTurnoverGroupRequest>, requestId?: string): Promise<T.ReportTurnoverByTurnoverGroup[]> {
     const bodyXml = S.serializeReportTurnoverByTurnoverGroupBody(request);
     return (await this.call(
       'reportTurnoverByTurnoverGroup',
@@ -3272,7 +3272,7 @@ export class MplusKassaClient {
     )).turnoverList;
   }
 
-  async reportTurnoverByArticle(request: T.ReportTurnoverByArticleRequest, requestId?: string): Promise<T.ReportTurnoverByArticle[]> {
+  async reportTurnoverByArticle(request: T.Input<T.ReportTurnoverByArticleRequest>, requestId?: string): Promise<T.ReportTurnoverByArticle[]> {
     const bodyXml = S.serializeReportTurnoverByArticleBody(request);
     return (await this.call(
       'reportTurnoverByArticle',
@@ -3284,7 +3284,7 @@ export class MplusKassaClient {
     )).turnoverList;
   }
 
-  async reportHoursByEmployee(request: T.ReportHoursByEmployeeRequest, requestId?: string): Promise<T.ReportHoursByEmployee[]> {
+  async reportHoursByEmployee(request: T.Input<T.ReportHoursByEmployeeRequest>, requestId?: string): Promise<T.ReportHoursByEmployee[]> {
     const bodyXml = S.serializeReportHoursByEmployeeBody(request);
     return (await this.call(
       'reportHoursByEmployee',
@@ -3296,7 +3296,7 @@ export class MplusKassaClient {
     )).hoursList;
   }
 
-  async reportPaymentMethods(request: T.ReportPaymentMethodsRequest, requestId?: string): Promise<T.ReportPaymentMethods[]> {
+  async reportPaymentMethods(request: T.Input<T.ReportPaymentMethodsRequest>, requestId?: string): Promise<T.ReportPaymentMethods[]> {
     const bodyXml = S.serializeReportPaymentMethodsBody(request);
     return (await this.call(
       'reportPaymentMethods',
@@ -3308,7 +3308,7 @@ export class MplusKassaClient {
     )).paymentMethodsList;
   }
 
-  async reportTables(request: T.ReportTablesRequest, requestId?: string): Promise<T.ReportTables[]> {
+  async reportTables(request: T.Input<T.ReportTablesRequest>, requestId?: string): Promise<T.ReportTables[]> {
     const bodyXml = S.serializeReportTablesBody(request);
     return (await this.call(
       'reportTables',
@@ -3320,7 +3320,7 @@ export class MplusKassaClient {
     )).tablesList;
   }
 
-  async reportCancellations(request: T.ReportCancellationsRequest, requestId?: string): Promise<T.ReportCancellations[]> {
+  async reportCancellations(request: T.Input<T.ReportCancellationsRequest>, requestId?: string): Promise<T.ReportCancellations[]> {
     const bodyXml = S.serializeReportCancellationsBody(request);
     return (await this.call(
       'reportCancellations',
@@ -3332,7 +3332,7 @@ export class MplusKassaClient {
     )).cancellationsList;
   }
 
-  async reportBPE(request: T.ReportBPERequest, requestId?: string): Promise<T.ReportBPE[]> {
+  async reportBPE(request: T.Input<T.ReportBPERequest>, requestId?: string): Promise<T.ReportBPE[]> {
     const bodyXml = S.serializeReportBPEBody(request);
     return (await this.call(
       'reportBPE',
@@ -3344,7 +3344,7 @@ export class MplusKassaClient {
     )).bpeList;
   }
 
-  async reportBranchPerformance(request: T.ReportBranchPerformanceRequest, requestId?: string): Promise<T.ReportBranchPerformance[]> {
+  async reportBranchPerformance(request: T.Input<T.ReportBranchPerformanceRequest>, requestId?: string): Promise<T.ReportBranchPerformance[]> {
     const bodyXml = S.serializeReportBranchPerformanceBody(request);
     return (await this.call(
       'reportBranchPerformance',
@@ -3356,7 +3356,7 @@ export class MplusKassaClient {
     )).branchPerformanceList;
   }
 
-  async reportAverageSpending(request: T.ReportAverageSpendingRequest, requestId?: string): Promise<T.ReportAverageSpending[]> {
+  async reportAverageSpending(request: T.Input<T.ReportAverageSpendingRequest>, requestId?: string): Promise<T.ReportAverageSpending[]> {
     const bodyXml = S.serializeReportAverageSpendingBody(request);
     return (await this.call(
       'reportAverageSpending',
@@ -3368,7 +3368,7 @@ export class MplusKassaClient {
     )).averageSpendingList;
   }
 
-  async reportTurnover(request: T.ReportTurnoverRequest, requestId?: string): Promise<T.ReportTurnover[]> {
+  async reportTurnover(request: T.Input<T.ReportTurnoverRequest>, requestId?: string): Promise<T.ReportTurnover[]> {
     const bodyXml = S.serializeReportTurnoverBody(request);
     return (await this.call(
       'reportTurnover',
@@ -3380,7 +3380,7 @@ export class MplusKassaClient {
     )).turnoverList;
   }
 
-  async reportPaymentMethodDetails(request: T.ReportPaymentMethodDetailsRequest, requestId?: string): Promise<T.ReportPaymentSource[] | undefined> {
+  async reportPaymentMethodDetails(request: T.Input<T.ReportPaymentMethodDetailsRequest>, requestId?: string): Promise<T.ReportPaymentSource[] | undefined> {
     const bodyXml = S.serializeReportPaymentMethodDetailsBody(request);
     return (await this.call(
       'reportPaymentMethodDetails',
@@ -3392,7 +3392,7 @@ export class MplusKassaClient {
     )).paymentSourceList;
   }
 
-  async reportPrintableFinancialTotals(request: T.ReportPrintableFinancialTotalsRequest, requestId?: string): Promise<T.ReportPrintableFinancialTotalsLine[]> {
+  async reportPrintableFinancialTotals(request: T.Input<T.ReportPrintableFinancialTotalsRequest>, requestId?: string): Promise<T.ReportPrintableFinancialTotalsLine[]> {
     const bodyXml = S.serializeReportPrintableFinancialTotalsBody(request);
     return (await this.call(
       'reportPrintableFinancialTotals',
@@ -3404,7 +3404,7 @@ export class MplusKassaClient {
     )).printableFinancialTotalsList;
   }
 
-  async reportArticlePerformance(request: T.ReportArticlePerformanceRequest, requestId?: string): Promise<T.ReportArticlePerformance[]> {
+  async reportArticlePerformance(request: T.Input<T.ReportArticlePerformanceRequest>, requestId?: string): Promise<T.ReportArticlePerformance[]> {
     const bodyXml = S.serializeReportArticlePerformanceBody(request);
     return (await this.call(
       'reportArticlePerformance',
@@ -3416,7 +3416,7 @@ export class MplusKassaClient {
     )).articlePerformanceList;
   }
 
-  async getSalesRepeatTemplates(request: T.GetSalesRepeatTemplatesRequest, requestId?: string): Promise<T.SalesRepeatTemplate[]> {
+  async getSalesRepeatTemplates(request: T.Input<T.GetSalesRepeatTemplatesRequest>, requestId?: string): Promise<T.SalesRepeatTemplate[]> {
     const bodyXml = S.serializeGetSalesRepeatTemplatesBody(request);
     return (await this.call(
       'getSalesRepeatTemplates',
@@ -3428,7 +3428,7 @@ export class MplusKassaClient {
     )).salesRepeatTemplateList;
   }
 
-  async saveSalesRepeatTemplate(request: T.SaveSalesRepeatTemplateRequest, requestId?: string): Promise<T.SaveSalesRepeatTemplateResponse> {
+  async saveSalesRepeatTemplate(request: T.Input<T.SaveSalesRepeatTemplateRequest>, requestId?: string): Promise<T.SaveSalesRepeatTemplateResponse> {
     const bodyXml = S.serializeSaveSalesRepeatTemplateBody(request);
     return this.call(
       'saveSalesRepeatTemplate',
@@ -3440,7 +3440,7 @@ export class MplusKassaClient {
     );
   }
 
-  async performBpeBudgetChecks(request: T.PerformBpeBudgetChecksRequest, requestId?: string): Promise<T.PerformBpeBudgetChecksResponse> {
+  async performBpeBudgetChecks(request: T.Input<T.PerformBpeBudgetChecksRequest>, requestId?: string): Promise<T.PerformBpeBudgetChecksResponse> {
     const bodyXml = S.serializePerformBpeBudgetChecksBody(request);
     return this.call(
       'performBpeBudgetChecks',
@@ -3452,7 +3452,7 @@ export class MplusKassaClient {
     );
   }
 
-  async getTicketCounterSales(request: T.GetTicketCounterSalesRequest, requestId?: string): Promise<T.TicketCounterSale[]> {
+  async getTicketCounterSales(request: T.Input<T.GetTicketCounterSalesRequest>, requestId?: string): Promise<T.TicketCounterSale[]> {
     const bodyXml = S.serializeGetTicketCounterSalesBody(request);
     return (await this.call(
       'getTicketCounterSales',
@@ -3464,7 +3464,7 @@ export class MplusKassaClient {
     )).ticketCounterSaleList;
   }
 
-  async getSalePromotions(request: T.GetSalePromotionsRequest, requestId?: string): Promise<T.SalePromotions[]> {
+  async getSalePromotions(request: T.Input<T.GetSalePromotionsRequest>, requestId?: string): Promise<T.SalePromotions[]> {
     const bodyXml = S.serializeGetSalePromotionsBody(request);
     return (await this.call(
       'getSalePromotions',
@@ -3488,7 +3488,7 @@ export class MplusKassaClient {
     )).paymentMethodList;
   }
 
-  async getPaymentMethodsV2(request: T.GetPaymentMethodsRequest, requestId?: string): Promise<T.PaymentMethod[]> {
+  async getPaymentMethodsV2(request: T.Input<T.GetPaymentMethodsRequest>, requestId?: string): Promise<T.PaymentMethod[]> {
     const bodyXml = S.serializeGetPaymentMethodsV2Body(request);
     return (await this.call(
       'getPaymentMethodsV2',
@@ -3500,7 +3500,7 @@ export class MplusKassaClient {
     )).paymentMethodList;
   }
 
-  async getAvailablePaymentMethods(terminal?: T.Terminal, requestId?: string): Promise<T.PaymentMethod[]> {
+  async getAvailablePaymentMethods(terminal?: T.Input<T.Terminal>, requestId?: string): Promise<T.PaymentMethod[]> {
     const bodyXml = S.serializeGetAvailablePaymentMethodsBody(terminal);
     return (await this.call(
       'getAvailablePaymentMethods',
@@ -3512,7 +3512,7 @@ export class MplusKassaClient {
     )).paymentMethodList;
   }
 
-  async getAvailablePaymentMethodsV2(request: T.GetAvailablePaymentMethodsV2Request, requestId?: string): Promise<T.PaymentMethod[]> {
+  async getAvailablePaymentMethodsV2(request: T.Input<T.GetAvailablePaymentMethodsV2Request>, requestId?: string): Promise<T.PaymentMethod[]> {
     const bodyXml = S.serializeGetAvailablePaymentMethodsV2Body(request);
     return (await this.call(
       'getAvailablePaymentMethodsV2',
@@ -3524,7 +3524,7 @@ export class MplusKassaClient {
     )).paymentMethodList;
   }
 
-  async createOrder(order?: T.Order, requestId?: string): Promise<T.CreateOrderResponse> {
+  async createOrder(order?: T.Input<T.Order>, requestId?: string): Promise<T.CreateOrderResponse> {
     const bodyXml = S.serializeCreateOrderBody(order);
     return this.call(
       'createOrder',
@@ -3536,7 +3536,7 @@ export class MplusKassaClient {
     );
   }
 
-  async createOrderV2(request: T.CreateOrderV2Request, requestId?: string): Promise<T.CreateOrderV2Response> {
+  async createOrderV2(request: T.Input<T.CreateOrderV2Request>, requestId?: string): Promise<T.CreateOrderV2Response> {
     const bodyXml = S.serializeCreateOrderV2Body(request);
     return this.call(
       'createOrderV2',
@@ -3548,7 +3548,7 @@ export class MplusKassaClient {
     );
   }
 
-  async createOrderV3(request: T.CreateOrderV3Request, requestId?: string): Promise<T.CreateOrderV3Response> {
+  async createOrderV3(request: T.Input<T.CreateOrderV3Request>, requestId?: string): Promise<T.CreateOrderV3Response> {
     const bodyXml = S.serializeCreateOrderV3Body(request);
     return this.call(
       'createOrderV3',
@@ -3560,7 +3560,7 @@ export class MplusKassaClient {
     );
   }
 
-  async payOrder(request: T.PayOrderRequest, requestId?: string): Promise<T.PayOrderResponse> {
+  async payOrder(request: T.Input<T.PayOrderRequest>, requestId?: string): Promise<T.PayOrderResponse> {
     const bodyXml = S.serializePayOrderBody(request);
     return this.call(
       'payOrder',
@@ -3572,7 +3572,7 @@ export class MplusKassaClient {
     );
   }
 
-  async payOrderV2(request: T.PayOrderV2Request, requestId?: string): Promise<T.PayOrderV2Response> {
+  async payOrderV2(request: T.Input<T.PayOrderV2Request>, requestId?: string): Promise<T.PayOrderV2Response> {
     const bodyXml = S.serializePayOrderV2Body(request);
     return this.call(
       'payOrderV2',
@@ -3584,7 +3584,7 @@ export class MplusKassaClient {
     );
   }
 
-  async payTableOrder(params: { terminal?: T.Terminal; order?: T.Order; paymentList?: T.Payment[] }, requestId?: string): Promise<T.PayTableOrderResponse> {
+  async payTableOrder(params: { terminal?: T.Input<T.Terminal>; order?: T.Input<T.Order>; paymentList?: T.Input<T.Payment>[] }, requestId?: string): Promise<T.PayTableOrderResponse> {
     const bodyXml = S.serializePayTableOrderBody(params);
     return this.call(
       'payTableOrder',
@@ -3596,7 +3596,7 @@ export class MplusKassaClient {
     );
   }
 
-  async payTableOrderV2(params: { terminal?: T.Terminal; request?: T.PayTableOrderRequest }, requestId?: string): Promise<T.PayTableOrderResponse> {
+  async payTableOrderV2(params: { terminal?: T.Input<T.Terminal>; request?: T.Input<T.PayTableOrderRequest> }, requestId?: string): Promise<T.PayTableOrderResponse> {
     const bodyXml = S.serializePayTableOrderV2Body(params);
     return this.call(
       'payTableOrderV2',
@@ -3608,7 +3608,7 @@ export class MplusKassaClient {
     );
   }
 
-  async prepayTableOrder(params: { terminal?: T.Terminal; order?: T.Order; paymentList?: T.Payment[]; prepayAmount?: number }, requestId?: string): Promise<T.PrepayTableOrderResponse> {
+  async prepayTableOrder(params: { terminal?: T.Input<T.Terminal>; order?: T.Input<T.Order>; paymentList?: T.Input<T.Payment>[]; prepayAmount?: number }, requestId?: string): Promise<T.PrepayTableOrderResponse> {
     const bodyXml = S.serializePrepayTableOrderBody(params);
     return this.call(
       'prepayTableOrder',
@@ -3620,7 +3620,7 @@ export class MplusKassaClient {
     );
   }
 
-  async prepayTableOrderV2(params: { terminal?: T.Terminal; request?: T.PrepayTableOrderRequest }, requestId?: string): Promise<T.PrepayTableOrderResponse> {
+  async prepayTableOrderV2(params: { terminal?: T.Input<T.Terminal>; request?: T.Input<T.PrepayTableOrderRequest> }, requestId?: string): Promise<T.PrepayTableOrderResponse> {
     const bodyXml = S.serializePrepayTableOrderV2Body(params);
     return this.call(
       'prepayTableOrderV2',
@@ -3632,7 +3632,7 @@ export class MplusKassaClient {
     );
   }
 
-  async getOrdersByExtOrderIds(request: T.GetOrdersByExtOrderIdsRequest, requestId?: string): Promise<T.Order[]> {
+  async getOrdersByExtOrderIds(request: T.Input<T.GetOrdersByExtOrderIdsRequest>, requestId?: string): Promise<T.Order[]> {
     const bodyXml = S.serializeGetOrdersByExtOrderIdsBody(request);
     return (await this.call(
       'getOrdersByExtOrderIds',
@@ -3644,7 +3644,7 @@ export class MplusKassaClient {
     )).orderList;
   }
 
-  async getProposals(request: T.GetProposalsRequest, requestId?: string): Promise<T.Proposal[]> {
+  async getProposals(request: T.Input<T.GetProposalsRequest>, requestId?: string): Promise<T.Proposal[]> {
     const bodyXml = S.serializeGetProposalsBody(request);
     return (await this.call(
       'getProposals',
@@ -3668,7 +3668,7 @@ export class MplusKassaClient {
     );
   }
 
-  async saveProposal(proposal: T.Proposal, requestId?: string): Promise<T.SaveProposalResponse> {
+  async saveProposal(proposal: T.Input<T.Proposal>, requestId?: string): Promise<T.SaveProposalResponse> {
     const bodyXml = S.serializeSaveProposalBody(proposal);
     return this.call(
       'saveProposal',
@@ -3716,7 +3716,7 @@ export class MplusKassaClient {
     );
   }
 
-  async getOrdersByReceipts(request: T.GetOrdersByReceiptsRequest, requestId?: string): Promise<T.Order[]> {
+  async getOrdersByReceipts(request: T.Input<T.GetOrdersByReceiptsRequest>, requestId?: string): Promise<T.Order[]> {
     const bodyXml = S.serializeGetOrdersByReceiptsBody(request);
     return (await this.call(
       'getOrdersByReceipts',
@@ -3728,7 +3728,7 @@ export class MplusKassaClient {
     )).orderList;
   }
 
-  async getCurrentTableOrders(request: T.GetCurrentTableOrdersRequest, requestId?: string): Promise<T.Order[]> {
+  async getCurrentTableOrders(request: T.Input<T.GetCurrentTableOrdersRequest>, requestId?: string): Promise<T.Order[]> {
     const bodyXml = S.serializeGetCurrentTableOrdersBody(request);
     return (await this.call(
       'getCurrentTableOrders',
@@ -3740,7 +3740,7 @@ export class MplusKassaClient {
     )).orderList;
   }
 
-  async getOrders(request: T.GetOrdersRequest, requestId?: string): Promise<T.Order[]> {
+  async getOrders(request: T.Input<T.GetOrdersRequest>, requestId?: string): Promise<T.Order[]> {
     const bodyXml = S.serializeGetOrdersBody(request);
     return (await this.call(
       'getOrders',
@@ -3752,7 +3752,7 @@ export class MplusKassaClient {
     )).orderList;
   }
 
-  async determineContractLines(request: T.DetermineContractLinesRequest, requestId?: string): Promise<T.Line[]> {
+  async determineContractLines(request: T.Input<T.DetermineContractLinesRequest>, requestId?: string): Promise<T.Line[]> {
     const bodyXml = S.serializeDetermineContractLinesBody(request);
     return (await this.call(
       'determineContractLines',
@@ -3764,7 +3764,7 @@ export class MplusKassaClient {
     )).lineList;
   }
 
-  async createInvoiceFromPackingSlips(request: T.CreateInvoiceFromPackingSlipsRequest, requestId?: string): Promise<T.CreateInvoiceFromPackingSlipsResponse> {
+  async createInvoiceFromPackingSlips(request: T.Input<T.CreateInvoiceFromPackingSlipsRequest>, requestId?: string): Promise<T.CreateInvoiceFromPackingSlipsResponse> {
     const bodyXml = S.serializeCreateInvoiceFromPackingSlipsBody(request);
     return this.call(
       'createInvoiceFromPackingSlips',
@@ -3776,7 +3776,7 @@ export class MplusKassaClient {
     );
   }
 
-  async getCashCountInfo(request: T.GetCashCountInfoRequest, requestId?: string): Promise<T.CashCountInfo> {
+  async getCashCountInfo(request: T.Input<T.GetCashCountInfoRequest>, requestId?: string): Promise<T.CashCountInfo> {
     const bodyXml = S.serializeGetCashCountInfoBody(request);
     return (await this.call(
       'getCashCountInfo',
@@ -3788,7 +3788,7 @@ export class MplusKassaClient {
     )).cashCountInfo;
   }
 
-  async saveCashCount(request: T.SaveCashCountRequest, requestId?: string): Promise<T.SaveCashCountResponse> {
+  async saveCashCount(request: T.Input<T.SaveCashCountRequest>, requestId?: string): Promise<T.SaveCashCountResponse> {
     const bodyXml = S.serializeSaveCashCountBody(request);
     return this.call(
       'saveCashCount',
@@ -3800,7 +3800,7 @@ export class MplusKassaClient {
     );
   }
 
-  async processInvoice(request: T.ProcessInvoiceRequest, requestId?: string): Promise<T.ProcessInvoiceResponse> {
+  async processInvoice(request: T.Input<T.ProcessInvoiceRequest>, requestId?: string): Promise<T.ProcessInvoiceResponse> {
     const bodyXml = S.serializeProcessInvoiceBody(request);
     return this.call(
       'processInvoice',
@@ -3812,7 +3812,7 @@ export class MplusKassaClient {
     );
   }
 
-  async processProposal(request: T.ProcessProposalRequest, requestId?: string): Promise<T.ProcessProposalResponse> {
+  async processProposal(request: T.Input<T.ProcessProposalRequest>, requestId?: string): Promise<T.ProcessProposalResponse> {
     const bodyXml = S.serializeProcessProposalBody(request);
     return this.call(
       'processProposal',
@@ -3824,7 +3824,7 @@ export class MplusKassaClient {
     );
   }
 
-  async processOrder(request: T.ProcessOrderRequest, requestId?: string): Promise<T.ProcessOrderResponse> {
+  async processOrder(request: T.Input<T.ProcessOrderRequest>, requestId?: string): Promise<T.ProcessOrderResponse> {
     const bodyXml = S.serializeProcessOrderBody(request);
     return this.call(
       'processOrder',
@@ -3836,7 +3836,7 @@ export class MplusKassaClient {
     );
   }
 
-  async getWebhookConsumers(request: T.GetWebhookConsumersRequest, requestId?: string): Promise<T.WebhookConsumer[]> {
+  async getWebhookConsumers(request: T.Input<T.GetWebhookConsumersRequest>, requestId?: string): Promise<T.WebhookConsumer[]> {
     const bodyXml = S.serializeGetWebhookConsumersBody(request);
     return (await this.call(
       'getWebhookConsumers',
@@ -3848,7 +3848,7 @@ export class MplusKassaClient {
     )).webhookConsumerList;
   }
 
-  async startExternalPayment(params: { terminal?: T.Terminal; request?: T.StartExternalPaymentRequest }, requestId?: string): Promise<T.StartExternalPaymentResponse> {
+  async startExternalPayment(params: { terminal?: T.Input<T.Terminal>; request?: T.Input<T.StartExternalPaymentRequest> }, requestId?: string): Promise<T.StartExternalPaymentResponse> {
     const bodyXml = S.serializeStartExternalPaymentBody(params);
     return this.call(
       'startExternalPayment',
@@ -3860,7 +3860,7 @@ export class MplusKassaClient {
     );
   }
 
-  async pollExternalPayment(params: { terminal?: T.Terminal; request?: T.PollExternalPaymentRequest }, requestId?: string): Promise<T.PollExternalPaymentResponse> {
+  async pollExternalPayment(params: { terminal?: T.Input<T.Terminal>; request?: T.Input<T.PollExternalPaymentRequest> }, requestId?: string): Promise<T.PollExternalPaymentResponse> {
     const bodyXml = S.serializePollExternalPaymentBody(params);
     return this.call(
       'pollExternalPayment',
@@ -3872,7 +3872,7 @@ export class MplusKassaClient {
     );
   }
 
-  async requestCancelExternalPayment(params: { terminal?: T.Terminal; request?: T.RequestCancelExternalPaymentRequest }, requestId?: string): Promise<T.RequestCancelExternalPaymentResponse> {
+  async requestCancelExternalPayment(params: { terminal?: T.Input<T.Terminal>; request?: T.Input<T.RequestCancelExternalPaymentRequest> }, requestId?: string): Promise<T.RequestCancelExternalPaymentResponse> {
     const bodyXml = S.serializeRequestCancelExternalPaymentBody(params);
     return this.call(
       'requestCancelExternalPayment',
@@ -3884,7 +3884,7 @@ export class MplusKassaClient {
     );
   }
 
-  async cancelExternalPayment(params: { terminal?: T.Terminal; request?: T.CancelExternalPaymentRequest }, requestId?: string): Promise<T.CancelExternalPaymentResponse> {
+  async cancelExternalPayment(params: { terminal?: T.Input<T.Terminal>; request?: T.Input<T.CancelExternalPaymentRequest> }, requestId?: string): Promise<T.CancelExternalPaymentResponse> {
     const bodyXml = S.serializeCancelExternalPaymentBody(params);
     return this.call(
       'cancelExternalPayment',
@@ -3896,7 +3896,7 @@ export class MplusKassaClient {
     );
   }
 
-  async startExternalPaymentV2(request: T.ExternalPaymentWebhookRequest, requestId?: string): Promise<T.ExternalPaymentWebhookResponse> {
+  async startExternalPaymentV2(request: T.Input<T.ExternalPaymentWebhookRequest>, requestId?: string): Promise<T.ExternalPaymentWebhookResponse> {
     const bodyXml = S.serializeStartExternalPaymentV2Body(request);
     return this.call(
       'startExternalPaymentV2',
@@ -3908,7 +3908,7 @@ export class MplusKassaClient {
     );
   }
 
-  async pollExternalPaymentV2(request: T.ExternalPaymentWebhookRequest, requestId?: string): Promise<T.ExternalPaymentWebhookResponse> {
+  async pollExternalPaymentV2(request: T.Input<T.ExternalPaymentWebhookRequest>, requestId?: string): Promise<T.ExternalPaymentWebhookResponse> {
     const bodyXml = S.serializePollExternalPaymentV2Body(request);
     return this.call(
       'pollExternalPaymentV2',
@@ -3920,7 +3920,7 @@ export class MplusKassaClient {
     );
   }
 
-  async requestCancelExternalPaymentV2(request: T.ExternalPaymentWebhookRequest, requestId?: string): Promise<T.ExternalPaymentWebhookResponse> {
+  async requestCancelExternalPaymentV2(request: T.Input<T.ExternalPaymentWebhookRequest>, requestId?: string): Promise<T.ExternalPaymentWebhookResponse> {
     const bodyXml = S.serializeRequestCancelExternalPaymentV2Body(request);
     return this.call(
       'requestCancelExternalPaymentV2',
@@ -3932,7 +3932,7 @@ export class MplusKassaClient {
     );
   }
 
-  async cancelExternalPaymentV2(request: T.ExternalPaymentWebhookRequest, requestId?: string): Promise<T.ExternalPaymentWebhookResponse> {
+  async cancelExternalPaymentV2(request: T.Input<T.ExternalPaymentWebhookRequest>, requestId?: string): Promise<T.ExternalPaymentWebhookResponse> {
     const bodyXml = S.serializeCancelExternalPaymentV2Body(request);
     return this.call(
       'cancelExternalPaymentV2',
@@ -3944,7 +3944,7 @@ export class MplusKassaClient {
     );
   }
 
-  async sendWebhook(request: T.SendWebhookRequest, requestId?: string): Promise<T.WebhookResp> {
+  async sendWebhook(request: T.Input<T.SendWebhookRequest>, requestId?: string): Promise<T.WebhookResp> {
     const bodyXml = S.serializeSendWebhookBody(request);
     return this.call(
       'sendWebhook',
@@ -3956,7 +3956,7 @@ export class MplusKassaClient {
     );
   }
 
-  async getPrintLayouts(request: T.GetPrintLayoutsRequest, requestId?: string): Promise<T.GetPrintLayoutsResponse> {
+  async getPrintLayouts(request: T.Input<T.GetPrintLayoutsRequest>, requestId?: string): Promise<T.GetPrintLayoutsResponse> {
     const bodyXml = S.serializeGetPrintLayoutsBody(request);
     return this.call(
       'getPrintLayouts',
@@ -3968,7 +3968,7 @@ export class MplusKassaClient {
     );
   }
 
-  async getPrintLayoutAssignments(request: T.GetPrintLayoutAssignmentsRequest, requestId?: string): Promise<T.PrintLayoutAssignment[] | undefined> {
+  async getPrintLayoutAssignments(request: T.Input<T.GetPrintLayoutAssignmentsRequest>, requestId?: string): Promise<T.PrintLayoutAssignment[] | undefined> {
     const bodyXml = S.serializeGetPrintLayoutAssignmentsBody(request);
     return (await this.call(
       'getPrintLayoutAssignments',
@@ -3980,7 +3980,7 @@ export class MplusKassaClient {
     )).printLayoutAssignments;
   }
 
-  async getRenderedPrintLayout(request: T.GetRenderedPrintLayoutRequest, requestId?: string): Promise<T.GetRenderedPrintLayoutResponse> {
+  async getRenderedPrintLayout(request: T.Input<T.GetRenderedPrintLayoutRequest>, requestId?: string): Promise<T.GetRenderedPrintLayoutResponse> {
     const bodyXml = S.serializeGetRenderedPrintLayoutBody(request);
     return this.call(
       'getRenderedPrintLayout',
@@ -3992,7 +3992,7 @@ export class MplusKassaClient {
     );
   }
 
-  async getPrintLayoutMarkup(request: T.GetPrintLayoutMarkupRequest, requestId?: string): Promise<T.GetPrintLayoutMarkupResponse> {
+  async getPrintLayoutMarkup(request: T.Input<T.GetPrintLayoutMarkupRequest>, requestId?: string): Promise<T.GetPrintLayoutMarkupResponse> {
     const bodyXml = S.serializeGetPrintLayoutMarkupBody(request);
     return this.call(
       'getPrintLayoutMarkup',
@@ -4004,7 +4004,7 @@ export class MplusKassaClient {
     );
   }
 
-  async printPrintLayout(request: T.PrintPrintLayoutRequest, requestId?: string): Promise<T.PrintPrintLayoutResponse> {
+  async printPrintLayout(request: T.Input<T.PrintPrintLayoutRequest>, requestId?: string): Promise<T.PrintPrintLayoutResponse> {
     const bodyXml = S.serializePrintPrintLayoutBody(request);
     return this.call(
       'printPrintLayout',
@@ -4016,7 +4016,7 @@ export class MplusKassaClient {
     );
   }
 
-  async getInterbranchOrders(request: T.GetInterbranchOrdersRequest, requestId?: string): Promise<T.InterbranchOrder[]> {
+  async getInterbranchOrders(request: T.Input<T.GetInterbranchOrdersRequest>, requestId?: string): Promise<T.InterbranchOrder[]> {
     const bodyXml = S.serializeGetInterbranchOrdersBody(request);
     return (await this.call(
       'getInterbranchOrders',
@@ -4028,7 +4028,7 @@ export class MplusKassaClient {
     )).interbranchOrderList;
   }
 
-  async createInterbranchOrder(request: T.CreateInterbranchOrderRequest, requestId?: string): Promise<T.CreateInterbranchOrderResponse> {
+  async createInterbranchOrder(request: T.Input<T.CreateInterbranchOrderRequest>, requestId?: string): Promise<T.CreateInterbranchOrderResponse> {
     const bodyXml = S.serializeCreateInterbranchOrderBody(request);
     return this.call(
       'createInterbranchOrder',
@@ -4040,7 +4040,7 @@ export class MplusKassaClient {
     );
   }
 
-  async updateInterbranchOrder(request: T.UpdateInterbranchOrderRequest, requestId?: string): Promise<T.UpdateInterbranchOrderResponse> {
+  async updateInterbranchOrder(request: T.Input<T.UpdateInterbranchOrderRequest>, requestId?: string): Promise<T.UpdateInterbranchOrderResponse> {
     const bodyXml = S.serializeUpdateInterbranchOrderBody(request);
     return this.call(
       'updateInterbranchOrder',
@@ -4052,7 +4052,7 @@ export class MplusKassaClient {
     );
   }
 
-  async claimInterbranchOrder(request: T.ClaimInterbranchOrderRequest, requestId?: string): Promise<T.ClaimInterbranchOrderResponse> {
+  async claimInterbranchOrder(request: T.Input<T.ClaimInterbranchOrderRequest>, requestId?: string): Promise<T.ClaimInterbranchOrderResponse> {
     const bodyXml = S.serializeClaimInterbranchOrderBody(request);
     return this.call(
       'claimInterbranchOrder',
@@ -4064,7 +4064,7 @@ export class MplusKassaClient {
     );
   }
 
-  async releaseInterbranchOrder(request: T.ReleaseInterbranchOrderRequest, requestId?: string): Promise<T.ReleaseInterbranchOrderResponse> {
+  async releaseInterbranchOrder(request: T.Input<T.ReleaseInterbranchOrderRequest>, requestId?: string): Promise<T.ReleaseInterbranchOrderResponse> {
     const bodyXml = S.serializeReleaseInterbranchOrderBody(request);
     return this.call(
       'releaseInterbranchOrder',
@@ -4076,7 +4076,7 @@ export class MplusKassaClient {
     );
   }
 
-  async cancelInterbranchOrder(request: T.CancelInterbranchOrderRequest, requestId?: string): Promise<T.CancelInterbranchOrderResponse> {
+  async cancelInterbranchOrder(request: T.Input<T.CancelInterbranchOrderRequest>, requestId?: string): Promise<T.CancelInterbranchOrderResponse> {
     const bodyXml = S.serializeCancelInterbranchOrderBody(request);
     return this.call(
       'cancelInterbranchOrder',
@@ -4088,7 +4088,7 @@ export class MplusKassaClient {
     );
   }
 
-  async getInterbranchShipments(request: T.GetInterbranchShipmentsRequest, requestId?: string): Promise<T.InterbranchShipment[]> {
+  async getInterbranchShipments(request: T.Input<T.GetInterbranchShipmentsRequest>, requestId?: string): Promise<T.InterbranchShipment[]> {
     const bodyXml = S.serializeGetInterbranchShipmentsBody(request);
     return (await this.call(
       'getInterbranchShipments',
@@ -4100,7 +4100,7 @@ export class MplusKassaClient {
     )).interbranchShipmentList;
   }
 
-  async shipInterbranchOrder(request: T.ShipInterbranchOrderRequest, requestId?: string): Promise<T.ShipInterbranchOrderResponse> {
+  async shipInterbranchOrder(request: T.Input<T.ShipInterbranchOrderRequest>, requestId?: string): Promise<T.ShipInterbranchOrderResponse> {
     const bodyXml = S.serializeShipInterbranchOrderBody(request);
     return this.call(
       'shipInterbranchOrder',
@@ -4112,7 +4112,7 @@ export class MplusKassaClient {
     );
   }
 
-  async getInterbranchDeliveries(request: T.GetInterbranchDeliveriesRequest, requestId?: string): Promise<T.InterbranchDelivery[]> {
+  async getInterbranchDeliveries(request: T.Input<T.GetInterbranchDeliveriesRequest>, requestId?: string): Promise<T.InterbranchDelivery[]> {
     const bodyXml = S.serializeGetInterbranchDeliveriesBody(request);
     return (await this.call(
       'getInterbranchDeliveries',
@@ -4124,7 +4124,7 @@ export class MplusKassaClient {
     )).interbranchDeliveryList;
   }
 
-  async deliverInterbranchShipment(request: T.DeliverInterbranchShipmentRequest, requestId?: string): Promise<T.DeliverInterbranchShipmentResponse> {
+  async deliverInterbranchShipment(request: T.Input<T.DeliverInterbranchShipmentRequest>, requestId?: string): Promise<T.DeliverInterbranchShipmentResponse> {
     const bodyXml = S.serializeDeliverInterbranchShipmentBody(request);
     return this.call(
       'deliverInterbranchShipment',
@@ -4136,7 +4136,7 @@ export class MplusKassaClient {
     );
   }
 
-  async createInterbranchShipment(request: T.CreateInterbranchShipmentRequest, requestId?: string): Promise<T.CreateInterbranchShipmentResponse> {
+  async createInterbranchShipment(request: T.Input<T.CreateInterbranchShipmentRequest>, requestId?: string): Promise<T.CreateInterbranchShipmentResponse> {
     const bodyXml = S.serializeCreateInterbranchShipmentBody(request);
     return this.call(
       'createInterbranchShipment',
@@ -4148,7 +4148,7 @@ export class MplusKassaClient {
     );
   }
 
-  async createInterbranchDelivery(request: T.CreateInterbranchDeliveryRequest, requestId?: string): Promise<T.CreateInterbranchDeliveryResponse> {
+  async createInterbranchDelivery(request: T.Input<T.CreateInterbranchDeliveryRequest>, requestId?: string): Promise<T.CreateInterbranchDeliveryResponse> {
     const bodyXml = S.serializeCreateInterbranchDeliveryBody(request);
     return this.call(
       'createInterbranchDelivery',
@@ -4160,7 +4160,7 @@ export class MplusKassaClient {
     );
   }
 
-  async runInterbranchPlanner(request: T.RunInterbranchPlannerRequest, requestId?: string): Promise<T.RunInterbranchPlannerResponse> {
+  async runInterbranchPlanner(request: T.Input<T.RunInterbranchPlannerRequest>, requestId?: string): Promise<T.RunInterbranchPlannerResponse> {
     const bodyXml = S.serializeRunInterbranchPlannerBody(request);
     return this.call(
       'runInterbranchPlanner',
