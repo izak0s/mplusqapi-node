@@ -703,6 +703,7 @@ function generateDeserializer(
   enumNames: Set<string>,
   listWrapperMap: ListWrapperMap,
   primitiveWrapperMap: PrimitiveWrapperMap,
+  responseTypeNames: Set<string>,
 ): string {
   const lines: string[] = [
     HEADER,
@@ -719,13 +720,13 @@ function generateDeserializer(
 
   for (const ct of complexTypes) {
     if (skip.has(ct.name)) continue;
-    lines.push(...emitComplexTypeDeserializer(ct, enumNames, listWrapperMap, primitiveWrapperMap));
+    lines.push(...emitComplexTypeDeserializer(ct, enumNames, listWrapperMap, primitiveWrapperMap, responseTypeNames.has(ct.name)));
   }
 
   return lines.join('\n');
 }
 
-function emitComplexTypeDeserializer(ct: ComplexTypeDef, enumNames: Set<string>, listWrapperMap: ListWrapperMap, primitiveWrapperMap: PrimitiveWrapperMap): string[] {
+function emitComplexTypeDeserializer(ct: ComplexTypeDef, enumNames: Set<string>, listWrapperMap: ListWrapperMap, primitiveWrapperMap: PrimitiveWrapperMap, isResponseType = false): string[] {
   const lines: string[] = [];
   lines.push(`export function deserialize${ct.name}(obj: Record<string, unknown>): T.${ct.name} {`);
   lines.push(`  const r: Partial<T.${ct.name}> = {};`);
@@ -807,7 +808,11 @@ function emitComplexTypeDeserializer(ct: ComplexTypeDef, enumNames: Set<string>,
         lines.push(`  if (${val} !== undefined) r.${f.name} = deserialize${f.wsdlType}(${val} as Record<string, unknown>);`);
       }
     } else {
-      // Required field
+      // Required field. In top-level response types a missing value is a
+      // protocol violation — fail loudly instead of fabricating ''/NaN/false.
+      if (isResponseType && f.tsType !== 'unknown') {
+        lines.push(`  if (${val} === undefined) throw new Error("Missing required field '${f.xmlName}' in ${ct.name}");`);
+      }
       if (f.tsType === 'Date' && f.wsdlType === 'SoapMplusDateTime') {
         lines.push(`  r.${f.name} = deserializeDateTime(${val} as Record<string, unknown> ?? {});`);
       } else if (f.tsType === 'Date' && f.wsdlType === 'SoapMplusDate') {
@@ -839,6 +844,7 @@ function emitComplexTypeDeserializer(ct: ComplexTypeDef, enumNames: Set<string>,
 function generateClient(operations: OperationDef[], enumNames: Set<string>, listWrapperMap: ListWrapperMap, primitiveWrapperMap: PrimitiveWrapperMap, complexTypes: ComplexTypeDef[]): string {
   const lines: string[] = [
     HEADER,
+    `import { randomUUID } from 'node:crypto';`,
     `import { SoapTransport, TransportOptions } from '../transport';`,
     `import { buildEnvelope, parseEnvelopeBody } from '../soap';`,
     `import {`,
@@ -867,6 +873,7 @@ function generateClient(operations: OperationDef[], enumNames: Set<string>, list
     `    responseTypeName: string,`,
     `    bodyXml: string,`,
     `    deserialize: (obj: Record<string, unknown>) => R,`,
+    `    idempotent: boolean,`,
     `    requestId?: string,`,
     `  ): Promise<R> {`,
     `    let xmlRequest = '';`,
@@ -876,7 +883,7 @@ function generateClient(operations: OperationDef[], enumNames: Set<string>, list
     `      throw new MplusApiSerializationError(\`Failed to serialize \${operationName}: \${err}\`);`,
     `    }`,
     '',
-    `    const xmlResponse = await this.transport.send(operationName, xmlRequest, requestId);`,
+    `    const xmlResponse = await this.transport.send(operationName, xmlRequest, requestId, idempotent);`,
     '',
     `    const parsed = parseEnvelopeBody(xmlResponse);`,
     `    if ('fault' in parsed) {`,
@@ -930,6 +937,16 @@ function emitClientMethod(op: OperationDef, enumNames: Set<string>, listWrapperM
     ? `${paramStr}, requestId?: string`
     : `requestId?: string`;
 
+  // Requests extending IdempotentReq are safe to retry once they carry a key.
+  // Auto-generate one when the caller didn't, and tell the transport the call
+  // is idempotent so network errors can be retried without duplicating work.
+  const requestField = inputElement.fields.length === 1
+    && inputElement.fields[0].name === 'request'
+    && !isPrimitive(inputElement.fields[0].tsType)
+    ? inputElement.fields[0] : undefined;
+  const requestCt = requestField ? complexTypeMap.get(requestField.tsType) : undefined;
+  const idempotent = requestCt?.fields.some((f) => f.name === 'idempotencyKey') ?? false;
+
   // Determine if response type has a single field that can be unwrapped
   let returnType = `T.${outputTsType}`;
   let singleFieldName: string | undefined;
@@ -954,6 +971,9 @@ function emitClientMethod(op: OperationDef, enumNames: Set<string>, listWrapperM
   }
 
   lines.push(`  async ${name}(${allParams}): Promise<${returnType}> {`);
+  if (idempotent) {
+    lines.push(`    request = { idempotencyKey: randomUUID(), ...request };`);
+  }
   lines.push(`    const bodyXml = ${bodyCallStr};`);
   if (singleFieldName) {
     lines.push(`    return (await this.call(`);
@@ -962,6 +982,7 @@ function emitClientMethod(op: OperationDef, enumNames: Set<string>, listWrapperM
     lines.push(`      '${outputTsType}',`);
     lines.push(`      bodyXml,`);
     lines.push(`      D.deserialize${outputTsType},`);
+    lines.push(`      ${idempotent},`);
     lines.push(`      requestId,`);
     lines.push(`    )).${singleFieldName};`);
   } else {
@@ -971,6 +992,7 @@ function emitClientMethod(op: OperationDef, enumNames: Set<string>, listWrapperM
     lines.push(`      '${outputTsType}',`);
     lines.push(`      bodyXml,`);
     lines.push(`      D.deserialize${outputTsType},`);
+    lines.push(`      ${idempotent},`);
     lines.push(`      requestId,`);
     lines.push(`    );`);
   }
@@ -1138,6 +1160,23 @@ async function main(): Promise<void> {
   const listWrapperMap = buildListWrapperMap(complexTypes);
   const primitiveWrapperMap = buildPrimitiveWrapperMap(complexTypes);
 
+  // Top-level response types: the WSDL marks fields required, but the server
+  // omits e.g. `relation` when result is NOT-FOUND. Complex fields become
+  // optional so absent data deserializes to undefined instead of a fabricated
+  // empty object. Remaining required fields (scalars/enums/dates) get an
+  // explicit missing-field throw in the deserializer instead of ''/NaN/false.
+  const responseTypeNames = new Set(operations.map((op) => op.outputTsType));
+  const complexTypeByName = new Map(complexTypes.map((ct) => [ct.name, ct]));
+  for (const name of responseTypeNames) {
+    const ct = complexTypeByName.get(name);
+    if (!ct) continue;
+    for (const f of ct.fields) {
+      const isComplex = !isPrimitive(f.tsType) && f.tsType !== 'Date' && f.tsType !== 'unknown'
+        && !enumNames.has(f.wsdlType) && !listWrapperMap.has(f.wsdlType) && !f.array;
+      if (isComplex && !f.optional) f.optional = true;
+    }
+  }
+
   console.log('Generating types.ts...');
   fs.writeFileSync(path.join(outDir, 'types.ts'), generateTypes(enums, complexTypes, listWrapperMap, primitiveWrapperMap));
 
@@ -1145,7 +1184,7 @@ async function main(): Promise<void> {
   fs.writeFileSync(path.join(outDir, 'serializer.ts'), generateSerializer(complexTypes, inputElements, operations, enumNames, listWrapperMap, primitiveWrapperMap));
 
   console.log('Generating deserializer.ts...');
-  fs.writeFileSync(path.join(outDir, 'deserializer.ts'), generateDeserializer(complexTypes, operations, enumNames, listWrapperMap, primitiveWrapperMap));
+  fs.writeFileSync(path.join(outDir, 'deserializer.ts'), generateDeserializer(complexTypes, operations, enumNames, listWrapperMap, primitiveWrapperMap, responseTypeNames));
 
   console.log('Generating client.ts...');
   fs.writeFileSync(path.join(outDir, 'client.ts'), generateClient(operations, enumNames, listWrapperMap, primitiveWrapperMap, complexTypes));

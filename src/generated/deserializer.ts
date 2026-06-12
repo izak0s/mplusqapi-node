@@ -7256,23 +7256,29 @@ export function deserializegetPriceGroupListResponse(obj: Record<string, unknown
 
 export function deserializeLogMistakeResponse(obj: Record<string, unknown>): T.LogMistakeResponse {
   const r: Partial<T.LogMistakeResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in LogMistakeResponse");
   r.result = String(obj['result'] ?? '') as T.LogMistakeResult;
   return r as T.LogMistakeResponse;
 }
 
 export function deserializeCreateRelationResponse(obj: Record<string, unknown>): T.CreateRelationResponse {
   const r: Partial<T.CreateRelationResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in CreateRelationResponse");
   r.result = String(obj['result'] ?? '') as T.CreateRelationResult;
+  if (obj['relationNumber'] === undefined) throw new Error("Missing required field 'relationNumber' in CreateRelationResponse");
   r.relationNumber = Number(obj['relationNumber']);
   if (obj['changeTimestamp'] !== undefined) r.changeTimestamp = deserializeDateTime(obj['changeTimestamp'] as Record<string, unknown>);
   if (obj['syncMarker'] !== undefined) r.syncMarker = Number(obj['syncMarker']);
+  if (obj['errorMessage'] === undefined) throw new Error("Missing required field 'errorMessage' in CreateRelationResponse");
   r.errorMessage = String(obj['errorMessage'] ?? '') as string;
   return r as T.CreateRelationResponse;
 }
 
 export function deserializeUpdateRelationResponse(obj: Record<string, unknown>): T.UpdateRelationResponse {
   const r: Partial<T.UpdateRelationResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in UpdateRelationResponse");
   r.result = String(obj['result'] ?? '') as T.UpdateRelationResult;
+  if (obj['errorMessage'] === undefined) throw new Error("Missing required field 'errorMessage' in UpdateRelationResponse");
   r.errorMessage = String(obj['errorMessage'] ?? '') as string;
   if (obj['changeTimestamp'] !== undefined) r.changeTimestamp = deserializeDateTime(obj['changeTimestamp'] as Record<string, unknown>);
   if (obj['syncMarker'] !== undefined) r.syncMarker = Number(obj['syncMarker']);
@@ -7281,13 +7287,15 @@ export function deserializeUpdateRelationResponse(obj: Record<string, unknown>):
 
 export function deserializeGetRelationResponse(obj: Record<string, unknown>): T.GetRelationResponse {
   const r: Partial<T.GetRelationResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in GetRelationResponse");
   r.result = String(obj['result'] ?? '') as T.GetRelationResult;
-  r.relation = deserializeRelation(obj['relation'] as Record<string, unknown> ?? {});
+  if (obj['relation'] !== undefined) r.relation = deserializeRelation(obj['relation'] as Record<string, unknown>);
   return r as T.GetRelationResponse;
 }
 
 export function deserializeFindRelationResponse(obj: Record<string, unknown>): T.FindRelationResponse {
   const r: Partial<T.FindRelationResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in FindRelationResponse");
   r.result = String(obj['result'] ?? '') as T.FindRelationResult;
   if (obj['relation'] !== undefined) r.relation = deserializeRelation(obj['relation'] as Record<string, unknown>);
   return r as T.FindRelationResponse;
@@ -7387,6 +7395,7 @@ export function deserializeGetCardCategoriesResponse(obj: Record<string, unknown
 
 export function deserializeAdjustPointsResponse(obj: Record<string, unknown>): T.AdjustPointsResponse {
   const r: Partial<T.AdjustPointsResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in AdjustPointsResponse");
   r.result = String(obj['result'] ?? '') as T.AdjustPointsResult;
   if (obj['relation'] !== undefined) r.relation = deserializeRelation(obj['relation'] as Record<string, unknown>);
   return r as T.AdjustPointsResponse;
@@ -7418,6 +7427,7 @@ export function deserializeGetEmployeesResponse(obj: Record<string, unknown>): T
 
 export function deserializeGetEmployeeResponse(obj: Record<string, unknown>): T.GetEmployeeResponse {
   const r: Partial<T.GetEmployeeResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in GetEmployeeResponse");
   r.result = String(obj['result'] ?? '') as T.GetEmployeeResult;
   if (obj['employee'] !== undefined) r.employee = deserializeEmployee(obj['employee'] as Record<string, unknown>);
   return r as T.GetEmployeeResponse;
@@ -7425,6 +7435,7 @@ export function deserializeGetEmployeeResponse(obj: Record<string, unknown>): T.
 
 export function deserializeFindEmployeeResponse(obj: Record<string, unknown>): T.FindEmployeeResponse {
   const r: Partial<T.FindEmployeeResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in FindEmployeeResponse");
   r.result = String(obj['result'] ?? '') as T.FindEmployeeResult;
   if (obj['employee'] !== undefined) r.employee = deserializeEmployee(obj['employee'] as Record<string, unknown>);
   return r as T.FindEmployeeResponse;
@@ -7432,17 +7443,22 @@ export function deserializeFindEmployeeResponse(obj: Record<string, unknown>): T
 
 export function deserializeCreateEmployeeResponse(obj: Record<string, unknown>): T.CreateEmployeeResponse {
   const r: Partial<T.CreateEmployeeResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in CreateEmployeeResponse");
   r.result = String(obj['result'] ?? '') as T.CreateEmployeeResult;
+  if (obj['employeeNumber'] === undefined) throw new Error("Missing required field 'employeeNumber' in CreateEmployeeResponse");
   r.employeeNumber = Number(obj['employeeNumber']);
   if (obj['changeTimestamp'] !== undefined) r.changeTimestamp = deserializeDateTime(obj['changeTimestamp'] as Record<string, unknown>);
   if (obj['syncMarker'] !== undefined) r.syncMarker = Number(obj['syncMarker']);
+  if (obj['errorMessage'] === undefined) throw new Error("Missing required field 'errorMessage' in CreateEmployeeResponse");
   r.errorMessage = String(obj['errorMessage'] ?? '') as string;
   return r as T.CreateEmployeeResponse;
 }
 
 export function deserializeUpdateEmployeeResponse(obj: Record<string, unknown>): T.UpdateEmployeeResponse {
   const r: Partial<T.UpdateEmployeeResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in UpdateEmployeeResponse");
   r.result = String(obj['result'] ?? '') as T.UpdateEmployeeResult;
+  if (obj['errorMessage'] === undefined) throw new Error("Missing required field 'errorMessage' in UpdateEmployeeResponse");
   r.errorMessage = String(obj['errorMessage'] ?? '') as string;
   if (obj['changeTimestamp'] !== undefined) r.changeTimestamp = deserializeDateTime(obj['changeTimestamp'] as Record<string, unknown>);
   if (obj['syncMarker'] !== undefined) r.syncMarker = Number(obj['syncMarker']);
@@ -7523,7 +7539,9 @@ export function deserializegetVatGroupListResponse(obj: Record<string, unknown>)
 
 export function deserializeSaveTableOrderResponse(obj: Record<string, unknown>): T.SaveTableOrderResponse {
   const r: Partial<T.SaveTableOrderResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in SaveTableOrderResponse");
   r.result = String(obj['result'] ?? '') as T.SaveTableOrderResult;
+  if (obj['errorMessage'] === undefined) throw new Error("Missing required field 'errorMessage' in SaveTableOrderResponse");
   r.errorMessage = String(obj['errorMessage'] ?? '') as string;
   if (obj['orderId'] !== undefined) r.orderId = String(obj['orderId']) as string;
   return r as T.SaveTableOrderResponse;
@@ -7531,10 +7549,13 @@ export function deserializeSaveTableOrderResponse(obj: Record<string, unknown>):
 
 export function deserializeCreateAndPayTableOrderResponse(obj: Record<string, unknown>): T.CreateAndPayTableOrderResponse {
   const r: Partial<T.CreateAndPayTableOrderResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in CreateAndPayTableOrderResponse");
   r.result = String(obj['result'] ?? '') as T.CreateAndPayTableOrderResult;
   if (obj['orderId'] !== undefined) r.orderId = String(obj['orderId']) as string;
   if (obj['omzetId'] !== undefined) r.omzetId = String(obj['omzetId']) as string;
+  if (obj['errorMessage'] === undefined) throw new Error("Missing required field 'errorMessage' in CreateAndPayTableOrderResponse");
   r.errorMessage = String(obj['errorMessage'] ?? '') as string;
+  if (obj['duplicate'] === undefined) throw new Error("Missing required field 'duplicate' in CreateAndPayTableOrderResponse");
   r.duplicate = obj['duplicate'] === 'true' || obj['duplicate'] === true;
   if (obj['voucherIssuances'] !== undefined) {
     const _w = obj['voucherIssuances'] as Record<string, unknown>;
@@ -7563,21 +7584,27 @@ export function deserializeCreateAndPayTableOrderResponse(obj: Record<string, un
 
 export function deserializeMoveTableOrderResponse(obj: Record<string, unknown>): T.MoveTableOrderResponse {
   const r: Partial<T.MoveTableOrderResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in MoveTableOrderResponse");
   r.result = String(obj['result'] ?? '') as T.MoveTableOrderResult;
+  if (obj['errorMessage'] === undefined) throw new Error("Missing required field 'errorMessage' in MoveTableOrderResponse");
   r.errorMessage = String(obj['errorMessage'] ?? '') as string;
   return r as T.MoveTableOrderResponse;
 }
 
 export function deserializeMoveTableOrderV3Response(obj: Record<string, unknown>): T.MoveTableOrderV3Response {
   const r: Partial<T.MoveTableOrderV3Response> = {};
+  if (obj['idempotencyResult'] === undefined) throw new Error("Missing required field 'idempotencyResult' in MoveTableOrderV3Response");
   r.idempotencyResult = String(obj['idempotencyResult'] ?? '') as T.IdempotencyResult;
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in MoveTableOrderV3Response");
   r.result = String(obj['result'] ?? '') as T.MoveTableOrderResult;
+  if (obj['errorMessage'] === undefined) throw new Error("Missing required field 'errorMessage' in MoveTableOrderV3Response");
   r.errorMessage = String(obj['errorMessage'] ?? '') as string;
   return r as T.MoveTableOrderV3Response;
 }
 
 export function deserializeGetTableOrderResponse(obj: Record<string, unknown>): T.GetTableOrderResponse {
   const r: Partial<T.GetTableOrderResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in GetTableOrderResponse");
   r.result = String(obj['result'] ?? '') as T.GetTableOrderResult;
   if (obj['claimedByWorkplaceNumber'] !== undefined) r.claimedByWorkplaceNumber = Number(obj['claimedByWorkplaceNumber']);
   if (obj['order'] !== undefined) r.order = deserializeOrder(obj['order'] as Record<string, unknown>);
@@ -7597,24 +7624,28 @@ export function deserializeGetTableOrderResponse(obj: Record<string, unknown>): 
 
 export function deserializeReleaseTableResponse(obj: Record<string, unknown>): T.ReleaseTableResponse {
   const r: Partial<T.ReleaseTableResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in ReleaseTableResponse");
   r.result = String(obj['result'] ?? '') as T.ReleaseTableOrderResult;
   return r as T.ReleaseTableResponse;
 }
 
 export function deserializeReleaseTableV2Response(obj: Record<string, unknown>): T.ReleaseTableV2Response {
   const r: Partial<T.ReleaseTableV2Response> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in ReleaseTableV2Response");
   r.result = String(obj['result'] ?? '') as T.ReleaseTableV2Result;
   return r as T.ReleaseTableV2Response;
 }
 
 export function deserializeSetSubtableCountResponse(obj: Record<string, unknown>): T.SetSubtableCountResponse {
   const r: Partial<T.SetSubtableCountResponse> = {};
+  if (obj['ok'] === undefined) throw new Error("Missing required field 'ok' in SetSubtableCountResponse");
   r.ok = obj['ok'] === 'true' || obj['ok'] === true;
   return r as T.SetSubtableCountResponse;
 }
 
 export function deserializeGetTableOrderCourseListResponse(obj: Record<string, unknown>): T.GetTableOrderCourseListResponse {
   const r: Partial<T.GetTableOrderCourseListResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in GetTableOrderCourseListResponse");
   r.result = String(obj['result'] ?? '') as T.GetTableOrderCourseListResult;
   if (obj['orderId'] !== undefined) r.orderId = String(obj['orderId']) as string;
   if (obj['branchNumber'] !== undefined) r.branchNumber = Number(obj['branchNumber']);
@@ -7636,6 +7667,7 @@ export function deserializeGetTableOrderCourseListResponse(obj: Record<string, u
 
 export function deserializeRequestTableOrderCourseResponse(obj: Record<string, unknown>): T.RequestTableOrderCourseResponse {
   const r: Partial<T.RequestTableOrderCourseResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in RequestTableOrderCourseResponse");
   r.result = String(obj['result'] ?? '') as T.RequestTableOrderCourseResult;
   if (obj['orderId'] !== undefined) r.orderId = String(obj['orderId']) as string;
   if (obj['branchNumber'] !== undefined) r.branchNumber = Number(obj['branchNumber']);
@@ -7648,23 +7680,30 @@ export function deserializeRequestTableOrderCourseResponse(obj: Record<string, u
 
 export function deserializeStoreSinglyEftTransactionResponse(obj: Record<string, unknown>): T.StoreSinglyEftTransactionResponse {
   const r: Partial<T.StoreSinglyEftTransactionResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in StoreSinglyEftTransactionResponse");
   r.result = String(obj['result'] ?? '') as T.StoreSinglyEftTransactionResult;
+  if (obj['eftTransactionId'] === undefined) throw new Error("Missing required field 'eftTransactionId' in StoreSinglyEftTransactionResponse");
   r.eftTransactionId = String(obj['eftTransactionId'] ?? '') as string;
+  if (obj['errorMessage'] === undefined) throw new Error("Missing required field 'errorMessage' in StoreSinglyEftTransactionResponse");
   r.errorMessage = String(obj['errorMessage'] ?? '') as string;
   return r as T.StoreSinglyEftTransactionResponse;
 }
 
 export function deserializeQueueBranchOrderResponse(obj: Record<string, unknown>): T.QueueBranchOrderResponse {
   const r: Partial<T.QueueBranchOrderResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in QueueBranchOrderResponse");
   r.result = String(obj['result'] ?? '') as T.QueueBranchOrderResult;
-  r.info = deserializeQueueBranchOrderInfo(obj['info'] as Record<string, unknown> ?? {});
+  if (obj['info'] !== undefined) r.info = deserializeQueueBranchOrderInfo(obj['info'] as Record<string, unknown>);
+  if (obj['errorMessage'] === undefined) throw new Error("Missing required field 'errorMessage' in QueueBranchOrderResponse");
   r.errorMessage = String(obj['errorMessage'] ?? '') as string;
   return r as T.QueueBranchOrderResponse;
 }
 
 export function deserializeQueueBranchOrderPaymentResponse(obj: Record<string, unknown>): T.QueueBranchOrderPaymentResponse {
   const r: Partial<T.QueueBranchOrderPaymentResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in QueueBranchOrderPaymentResponse");
   r.result = String(obj['result'] ?? '') as T.QueueBranchOrderPaymentResult;
+  if (obj['errorMessage'] === undefined) throw new Error("Missing required field 'errorMessage' in QueueBranchOrderPaymentResponse");
   r.errorMessage = String(obj['errorMessage'] ?? '') as string;
   if (obj['queuedPaymentId'] !== undefined) r.queuedPaymentId = String(obj['queuedPaymentId']) as string;
   return r as T.QueueBranchOrderPaymentResponse;
@@ -7672,40 +7711,50 @@ export function deserializeQueueBranchOrderPaymentResponse(obj: Record<string, u
 
 export function deserializeGetQueueBranchOrderPaymentStatusResponse(obj: Record<string, unknown>): T.GetQueueBranchOrderPaymentStatusResponse {
   const r: Partial<T.GetQueueBranchOrderPaymentStatusResponse> = {};
+  if (obj['queuedPaymentId'] === undefined) throw new Error("Missing required field 'queuedPaymentId' in GetQueueBranchOrderPaymentStatusResponse");
   r.queuedPaymentId = String(obj['queuedPaymentId'] ?? '') as string;
+  if (obj['state'] === undefined) throw new Error("Missing required field 'state' in GetQueueBranchOrderPaymentStatusResponse");
   r.state = String(obj['state'] ?? '') as T.QueuedPaymentState;
+  if (obj['resultCode'] === undefined) throw new Error("Missing required field 'resultCode' in GetQueueBranchOrderPaymentStatusResponse");
   r.resultCode = String(obj['resultCode'] ?? '') as string;
+  if (obj['resultMessage'] === undefined) throw new Error("Missing required field 'resultMessage' in GetQueueBranchOrderPaymentStatusResponse");
   r.resultMessage = String(obj['resultMessage'] ?? '') as string;
   return r as T.GetQueueBranchOrderPaymentStatusResponse;
 }
 
 export function deserializeUpdateOrderResponse(obj: Record<string, unknown>): T.UpdateOrderResponse {
   const r: Partial<T.UpdateOrderResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in UpdateOrderResponse");
   r.result = String(obj['result'] ?? '') as T.UpdateOrderResult;
-  r.info = deserializeUpdateOrderInfo(obj['info'] as Record<string, unknown> ?? {});
+  if (obj['info'] !== undefined) r.info = deserializeUpdateOrderInfo(obj['info'] as Record<string, unknown>);
+  if (obj['errorMessage'] === undefined) throw new Error("Missing required field 'errorMessage' in UpdateOrderResponse");
   r.errorMessage = String(obj['errorMessage'] ?? '') as string;
   return r as T.UpdateOrderResponse;
 }
 
 export function deserializeUpdateOrderV2Response(obj: Record<string, unknown>): T.UpdateOrderV2Response {
   const r: Partial<T.UpdateOrderV2Response> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in UpdateOrderV2Response");
   r.result = String(obj['result'] ?? '') as T.UpdateOrderResult;
   if (obj['order'] !== undefined) r.order = deserializeOrder(obj['order'] as Record<string, unknown>);
   if (obj['errorMessage'] !== undefined) r.errorMessage = String(obj['errorMessage']) as string;
-  r.info = deserializeUpdateOrderInfo(obj['info'] as Record<string, unknown> ?? {});
+  if (obj['info'] !== undefined) r.info = deserializeUpdateOrderInfo(obj['info'] as Record<string, unknown>);
   return r as T.UpdateOrderV2Response;
 }
 
 export function deserializeSaveOrderResponse(obj: Record<string, unknown>): T.SaveOrderResponse {
   const r: Partial<T.SaveOrderResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in SaveOrderResponse");
   r.result = String(obj['result'] ?? '') as T.SaveOrderResult;
-  r.info = deserializeSaveOrderInfo(obj['info'] as Record<string, unknown> ?? {});
+  if (obj['info'] !== undefined) r.info = deserializeSaveOrderInfo(obj['info'] as Record<string, unknown>);
+  if (obj['errorMessage'] === undefined) throw new Error("Missing required field 'errorMessage' in SaveOrderResponse");
   r.errorMessage = String(obj['errorMessage'] ?? '') as string;
   return r as T.SaveOrderResponse;
 }
 
 export function deserializeGetOrderResponse(obj: Record<string, unknown>): T.GetOrderResponse {
   const r: Partial<T.GetOrderResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in GetOrderResponse");
   r.result = String(obj['result'] ?? '') as T.GetOrderResult;
   if (obj['order'] !== undefined) r.order = deserializeOrder(obj['order'] as Record<string, unknown>);
   return r as T.GetOrderResponse;
@@ -7761,29 +7810,35 @@ export function deserializeGetOrderChangesResponse(obj: Record<string, unknown>)
 
 export function deserializeGetOrderHistoryResponse(obj: Record<string, unknown>): T.GetOrderHistoryResponse {
   const r: Partial<T.GetOrderHistoryResponse> = {};
-  r.orderHistoryOrderDetailsList = deserializeOrderHistoryOrderDetailsList(obj['orderHistoryOrderDetailsList'] as Record<string, unknown> ?? {});
+  if (obj['orderHistoryOrderDetailsList'] !== undefined) r.orderHistoryOrderDetailsList = deserializeOrderHistoryOrderDetailsList(obj['orderHistoryOrderDetailsList'] as Record<string, unknown>);
   return r as T.GetOrderHistoryResponse;
 }
 
 export function deserializeCancelOrderResponse(obj: Record<string, unknown>): T.CancelOrderResponse {
   const r: Partial<T.CancelOrderResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in CancelOrderResponse");
   r.result = String(obj['result'] ?? '') as T.CancelOrderResult;
+  if (obj['message'] === undefined) throw new Error("Missing required field 'message' in CancelOrderResponse");
   r.message = String(obj['message'] ?? '') as string;
   return r as T.CancelOrderResponse;
 }
 
 export function deserializePayInvoiceResponse(obj: Record<string, unknown>): T.PayInvoiceResponse {
   const r: Partial<T.PayInvoiceResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in PayInvoiceResponse");
   r.result = String(obj['result'] ?? '') as T.PayInvoiceResult;
+  if (obj['errorMessage'] === undefined) throw new Error("Missing required field 'errorMessage' in PayInvoiceResponse");
   r.errorMessage = String(obj['errorMessage'] ?? '') as string;
   return r as T.PayInvoiceResponse;
 }
 
 export function deserializeDeliverOrderResponse(obj: Record<string, unknown>): T.DeliverOrderResponse {
   const r: Partial<T.DeliverOrderResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in DeliverOrderResponse");
   r.result = String(obj['result'] ?? '') as T.DeliverOrderResult;
   if (obj['packingSlipId'] !== undefined) r.packingSlipId = String(obj['packingSlipId']) as string;
   if (obj['invoiceId'] !== undefined) r.invoiceId = String(obj['invoiceId']) as string;
+  if (obj['errorMessage'] === undefined) throw new Error("Missing required field 'errorMessage' in DeliverOrderResponse");
   r.errorMessage = String(obj['errorMessage'] ?? '') as string;
   if (obj['voucherIssuances'] !== undefined) {
     const _w = obj['voucherIssuances'] as Record<string, unknown>;
@@ -7812,6 +7867,7 @@ export function deserializeDeliverOrderResponse(obj: Record<string, unknown>): T
 
 export function deserializeDeliverOrderV2Response(obj: Record<string, unknown>): T.DeliverOrderV2Response {
   const r: Partial<T.DeliverOrderV2Response> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in DeliverOrderV2Response");
   r.result = String(obj['result'] ?? '') as T.DeliverOrderV2Result;
   if (obj['packingSlipId'] !== undefined) r.packingSlipId = String(obj['packingSlipId']) as string;
   if (obj['invoiceId'] !== undefined) r.invoiceId = String(obj['invoiceId']) as string;
@@ -7867,6 +7923,7 @@ export function deserializeGetReceiptsResponse(obj: Record<string, unknown>): T.
 
 export function deserializeGetReceiptResponse(obj: Record<string, unknown>): T.GetReceiptResponse {
   const r: Partial<T.GetReceiptResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in GetReceiptResponse");
   r.result = String(obj['result'] ?? '') as T.GetReceiptResult;
   if (obj['receipt'] !== undefined) r.receipt = deserializeReceipt(obj['receipt'] as Record<string, unknown>);
   return r as T.GetReceiptResponse;
@@ -7874,6 +7931,7 @@ export function deserializeGetReceiptResponse(obj: Record<string, unknown>): T.G
 
 export function deserializeGetReceiptsByOrderResponse(obj: Record<string, unknown>): T.GetReceiptsByOrderResponse {
   const r: Partial<T.GetReceiptsByOrderResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in GetReceiptsByOrderResponse");
   r.result = String(obj['result'] ?? '') as T.GetReceiptsByOrderResult;
   if (obj['receiptList'] !== undefined) {
     const _w = obj['receiptList'] as Record<string, unknown>;
@@ -7891,6 +7949,7 @@ export function deserializeGetReceiptsByOrderResponse(obj: Record<string, unknow
 
 export function deserializeGetReceiptsByCashCountResponse(obj: Record<string, unknown>): T.GetReceiptsByCashCountResponse {
   const r: Partial<T.GetReceiptsByCashCountResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in GetReceiptsByCashCountResponse");
   r.result = String(obj['result'] ?? '') as T.GetReceiptsByCashCountResult;
   if (obj['receiptList'] !== undefined) {
     const _w = obj['receiptList'] as Record<string, unknown>;
@@ -7908,30 +7967,40 @@ export function deserializeGetReceiptsByCashCountResponse(obj: Record<string, un
 
 export function deserializePrintReceiptResponse(obj: Record<string, unknown>): T.PrintReceiptResponse {
   const r: Partial<T.PrintReceiptResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in PrintReceiptResponse");
   r.result = String(obj['result'] ?? '') as T.PrintReceiptResult;
+  if (obj['errorMessage'] === undefined) throw new Error("Missing required field 'errorMessage' in PrintReceiptResponse");
   r.errorMessage = String(obj['errorMessage'] ?? '') as string;
   return r as T.PrintReceiptResponse;
 }
 
 export function deserializePrintReceiptV2Response(obj: Record<string, unknown>): T.PrintReceiptV2Response {
   const r: Partial<T.PrintReceiptV2Response> = {};
+  if (obj['idempotencyResult'] === undefined) throw new Error("Missing required field 'idempotencyResult' in PrintReceiptV2Response");
   r.idempotencyResult = String(obj['idempotencyResult'] ?? '') as T.IdempotencyResult;
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in PrintReceiptV2Response");
   r.result = String(obj['result'] ?? '') as T.PrintReceiptResult;
+  if (obj['errorMessage'] === undefined) throw new Error("Missing required field 'errorMessage' in PrintReceiptV2Response");
   r.errorMessage = String(obj['errorMessage'] ?? '') as string;
   return r as T.PrintReceiptV2Response;
 }
 
 export function deserializePrintTableReceiptResponse(obj: Record<string, unknown>): T.PrintTableReceiptResponse {
   const r: Partial<T.PrintTableReceiptResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in PrintTableReceiptResponse");
   r.result = String(obj['result'] ?? '') as T.PrintTableReceiptResult;
+  if (obj['errorMessage'] === undefined) throw new Error("Missing required field 'errorMessage' in PrintTableReceiptResponse");
   r.errorMessage = String(obj['errorMessage'] ?? '') as string;
   return r as T.PrintTableReceiptResponse;
 }
 
 export function deserializePrintTableReceiptV3Response(obj: Record<string, unknown>): T.PrintTableReceiptV3Response {
   const r: Partial<T.PrintTableReceiptV3Response> = {};
+  if (obj['idempotencyResult'] === undefined) throw new Error("Missing required field 'idempotencyResult' in PrintTableReceiptV3Response");
   r.idempotencyResult = String(obj['idempotencyResult'] ?? '') as T.IdempotencyResult;
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in PrintTableReceiptV3Response");
   r.result = String(obj['result'] ?? '') as T.PrintTableReceiptResult;
+  if (obj['errorMessage'] === undefined) throw new Error("Missing required field 'errorMessage' in PrintTableReceiptV3Response");
   r.errorMessage = String(obj['errorMessage'] ?? '') as string;
   return r as T.PrintTableReceiptV3Response;
 }
@@ -7954,8 +8023,10 @@ export function deserializeGetInvoicesResponse(obj: Record<string, unknown>): T.
 
 export function deserializeSaveInvoiceResponse(obj: Record<string, unknown>): T.SaveInvoiceResponse {
   const r: Partial<T.SaveInvoiceResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in SaveInvoiceResponse");
   r.result = String(obj['result'] ?? '') as T.SaveInvoiceResult;
-  r.info = deserializeSaveInvoiceInfo(obj['info'] as Record<string, unknown> ?? {});
+  if (obj['info'] !== undefined) r.info = deserializeSaveInvoiceInfo(obj['info'] as Record<string, unknown>);
+  if (obj['errorMessage'] === undefined) throw new Error("Missing required field 'errorMessage' in SaveInvoiceResponse");
   r.errorMessage = String(obj['errorMessage'] ?? '') as string;
   if (obj['voucherIssuances'] !== undefined) {
     const _w = obj['voucherIssuances'] as Record<string, unknown>;
@@ -7984,6 +8055,7 @@ export function deserializeSaveInvoiceResponse(obj: Record<string, unknown>): T.
 
 export function deserializeGetInvoiceResponse(obj: Record<string, unknown>): T.GetInvoiceResponse {
   const r: Partial<T.GetInvoiceResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in GetInvoiceResponse");
   r.result = String(obj['result'] ?? '') as T.GetInvoiceResult;
   if (obj['invoice'] !== undefined) r.invoice = deserializeInvoice(obj['invoice'] as Record<string, unknown>);
   return r as T.GetInvoiceResponse;
@@ -7991,7 +8063,9 @@ export function deserializeGetInvoiceResponse(obj: Record<string, unknown>): T.G
 
 export function deserializeCreditInvoiceResponse(obj: Record<string, unknown>): T.CreditInvoiceResponse {
   const r: Partial<T.CreditInvoiceResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in CreditInvoiceResponse");
   r.result = String(obj['result'] ?? '') as T.CreditInvoiceResult;
+  if (obj['message'] === undefined) throw new Error("Missing required field 'message' in CreditInvoiceResponse");
   r.message = String(obj['message'] ?? '') as string;
   return r as T.CreditInvoiceResponse;
 }
@@ -8079,6 +8153,7 @@ export function deserializeGetTurnoverGroupsResponse(obj: Record<string, unknown
 
 export function deserializeUpdateTurnoverGroupsResponse(obj: Record<string, unknown>): T.UpdateTurnoverGroupsResponse {
   const r: Partial<T.UpdateTurnoverGroupsResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in UpdateTurnoverGroupsResponse");
   r.result = String(obj['result'] ?? '') as T.UpdateTurnoverGroupsResult;
   return r as T.UpdateTurnoverGroupsResponse;
 }
@@ -8101,19 +8176,23 @@ export function deserializeGetProductsResponse(obj: Record<string, unknown>): T.
 
 export function deserializeCreateProductResponse(obj: Record<string, unknown>): T.CreateProductResponse {
   const r: Partial<T.CreateProductResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in CreateProductResponse");
   r.result = String(obj['result'] ?? '') as T.CreateProductResult;
+  if (obj['productNumber'] === undefined) throw new Error("Missing required field 'productNumber' in CreateProductResponse");
   r.productNumber = Number(obj['productNumber']);
   if (obj['articleNumbers'] !== undefined) {
     r.articleNumbers = toArray(obj['articleNumbers']).map(Number);
   }
   if (obj['changeTimestamp'] !== undefined) r.changeTimestamp = deserializeDateTime(obj['changeTimestamp'] as Record<string, unknown>);
   if (obj['syncMarker'] !== undefined) r.syncMarker = Number(obj['syncMarker']);
+  if (obj['errorMessage'] === undefined) throw new Error("Missing required field 'errorMessage' in CreateProductResponse");
   r.errorMessage = String(obj['errorMessage'] ?? '') as string;
   return r as T.CreateProductResponse;
 }
 
 export function deserializeUpdateProductResponse(obj: Record<string, unknown>): T.UpdateProductResponse {
   const r: Partial<T.UpdateProductResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in UpdateProductResponse");
   r.result = String(obj['result'] ?? '') as T.UpdateProductResult;
   if (obj['existingArticleNumbers'] !== undefined) {
     r.existingArticleNumbers = toArray(obj['existingArticleNumbers']).map(Number);
@@ -8123,12 +8202,14 @@ export function deserializeUpdateProductResponse(obj: Record<string, unknown>): 
   }
   if (obj['changeTimestamp'] !== undefined) r.changeTimestamp = deserializeDateTime(obj['changeTimestamp'] as Record<string, unknown>);
   if (obj['syncMarker'] !== undefined) r.syncMarker = Number(obj['syncMarker']);
+  if (obj['errorMessage'] === undefined) throw new Error("Missing required field 'errorMessage' in UpdateProductResponse");
   r.errorMessage = String(obj['errorMessage'] ?? '') as string;
   return r as T.UpdateProductResponse;
 }
 
 export function deserializeGetArticleVariantsResponse(obj: Record<string, unknown>): T.GetArticleVariantsResponse {
   const r: Partial<T.GetArticleVariantsResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in GetArticleVariantsResponse");
   r.result = String(obj['result'] ?? '') as T.GetArticleVariantsResult;
   if (obj['articleVariants'] !== undefined) {
     const _w = obj['articleVariants'] as Record<string, unknown>;
@@ -8146,6 +8227,7 @@ export function deserializeGetArticleVariantsResponse(obj: Record<string, unknow
 
 export function deserializeGetArticlesVariantsResponse(obj: Record<string, unknown>): T.GetArticlesVariantsResponse {
   const r: Partial<T.GetArticlesVariantsResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in GetArticlesVariantsResponse");
   r.result = String(obj['result'] ?? '') as T.GetArticlesVariantsResult;
   if (obj['articleVariants'] !== undefined) {
     r.articleVariants = toArray(obj['articleVariants']).map((v) => deserializeGetArticlesVariantsResponseElem(v as Record<string, unknown>));
@@ -8155,6 +8237,7 @@ export function deserializeGetArticlesVariantsResponse(obj: Record<string, unkno
 
 export function deserializeNewArticleVariantResponse(obj: Record<string, unknown>): T.NewArticleVariantResponse {
   const r: Partial<T.NewArticleVariantResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in NewArticleVariantResponse");
   r.result = String(obj['result'] ?? '') as T.NewArticleVariantResult;
   if (obj['articleVariantId'] !== undefined) r.articleVariantId = Number(obj['articleVariantId']);
   if (obj['message'] !== undefined) r.message = String(obj['message']) as string;
@@ -8163,6 +8246,7 @@ export function deserializeNewArticleVariantResponse(obj: Record<string, unknown
 
 export function deserializeUpdateArticleVariantResponse(obj: Record<string, unknown>): T.UpdateArticleVariantResponse {
   const r: Partial<T.UpdateArticleVariantResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in UpdateArticleVariantResponse");
   r.result = String(obj['result'] ?? '') as T.UpdateArticleVariantResult;
   if (obj['message'] !== undefined) r.message = String(obj['message']) as string;
   return r as T.UpdateArticleVariantResponse;
@@ -8170,6 +8254,7 @@ export function deserializeUpdateArticleVariantResponse(obj: Record<string, unkn
 
 export function deserializeDeleteArticleVariantsResponse(obj: Record<string, unknown>): T.DeleteArticleVariantsResponse {
   const r: Partial<T.DeleteArticleVariantsResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in DeleteArticleVariantsResponse");
   r.result = String(obj['result'] ?? '') as T.DeleteArticleVariantsResult;
   return r as T.DeleteArticleVariantsResponse;
 }
@@ -8192,6 +8277,7 @@ export function deserializeGetStockHistoryResponse(obj: Record<string, unknown>)
 
 export function deserializeUpdateStockResponse(obj: Record<string, unknown>): T.UpdateStockResponse {
   const r: Partial<T.UpdateStockResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in UpdateStockResponse");
   r.result = String(obj['result'] ?? '') as T.UpdateStockResult;
   if (obj['stockId'] !== undefined) r.stockId = Number(obj['stockId']);
   return r as T.UpdateStockResponse;
@@ -8199,6 +8285,7 @@ export function deserializeUpdateStockResponse(obj: Record<string, unknown>): T.
 
 export function deserializeSetStockResponse(obj: Record<string, unknown>): T.SetStockResponse {
   const r: Partial<T.SetStockResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in SetStockResponse");
   r.result = String(obj['result'] ?? '') as T.SetStockResult;
   if (obj['stockId'] !== undefined) r.stockId = Number(obj['stockId']);
   return r as T.SetStockResponse;
@@ -8238,37 +8325,44 @@ export function deserializeGetArticleGroupChangesResponse(obj: Record<string, un
 
 export function deserializeUpdateArticleGroupResponse(obj: Record<string, unknown>): T.UpdateArticleGroupResponse {
   const r: Partial<T.UpdateArticleGroupResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in UpdateArticleGroupResponse");
   r.result = String(obj['result'] ?? '') as T.UpdateArticleGroupResult;
   return r as T.UpdateArticleGroupResponse;
 }
 
 export function deserializeNewArticleGroupResponse(obj: Record<string, unknown>): T.NewArticleGroupResponse {
   const r: Partial<T.NewArticleGroupResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in NewArticleGroupResponse");
   r.result = String(obj['result'] ?? '') as T.NewArticleGroupResult;
+  if (obj['groupNumber'] === undefined) throw new Error("Missing required field 'groupNumber' in NewArticleGroupResponse");
   r.groupNumber = Number(obj['groupNumber']);
   return r as T.NewArticleGroupResponse;
 }
 
 export function deserializeDeleteArticleGroupResponse(obj: Record<string, unknown>): T.DeleteArticleGroupResponse {
   const r: Partial<T.DeleteArticleGroupResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in DeleteArticleGroupResponse");
   r.result = String(obj['result'] ?? '') as T.DeleteArticleGroupResult;
   return r as T.DeleteArticleGroupResponse;
 }
 
 export function deserializeAddProductsToArticleGroupResponse(obj: Record<string, unknown>): T.AddProductsToArticleGroupResponse {
   const r: Partial<T.AddProductsToArticleGroupResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in AddProductsToArticleGroupResponse");
   r.result = String(obj['result'] ?? '') as T.AddProductsToArticleGroupResult;
   return r as T.AddProductsToArticleGroupResponse;
 }
 
 export function deserializeReplaceProductsOfArticleGroupResponse(obj: Record<string, unknown>): T.ReplaceProductsOfArticleGroupResponse {
   const r: Partial<T.ReplaceProductsOfArticleGroupResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in ReplaceProductsOfArticleGroupResponse");
   r.result = String(obj['result'] ?? '') as T.ReplaceProductsOfArticleGroupResult;
   return r as T.ReplaceProductsOfArticleGroupResponse;
 }
 
 export function deserializeDeleteProductsFromArticleGroupResponse(obj: Record<string, unknown>): T.DeleteProductsFromArticleGroupResponse {
   const r: Partial<T.DeleteProductsFromArticleGroupResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in DeleteProductsFromArticleGroupResponse");
   r.result = String(obj['result'] ?? '') as T.DeleteProductsFromArticleGroupResult;
   return r as T.DeleteProductsFromArticleGroupResponse;
 }
@@ -8323,6 +8417,7 @@ export function deserializeGetPurchaseOrdersResponse(obj: Record<string, unknown
 
 export function deserializeSavePurchaseOrderResponse(obj: Record<string, unknown>): T.SavePurchaseOrderResponse {
   const r: Partial<T.SavePurchaseOrderResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in SavePurchaseOrderResponse");
   r.result = String(obj['result'] ?? '') as T.SavePurchaseOrderResult;
   if (obj['info'] !== undefined) r.info = deserializeSavePurchaseOrderInfo(obj['info'] as Record<string, unknown>);
   if (obj['errorMessage'] !== undefined) r.errorMessage = String(obj['errorMessage']) as string;
@@ -8347,6 +8442,7 @@ export function deserializeGetPurchaseOrdersV2Response(obj: Record<string, unkno
 
 export function deserializeSavePurchaseOrderV2Response(obj: Record<string, unknown>): T.SavePurchaseOrderV2Response {
   const r: Partial<T.SavePurchaseOrderV2Response> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in SavePurchaseOrderV2Response");
   r.result = String(obj['result'] ?? '') as T.SavePurchaseOrderResult;
   if (obj['info'] !== undefined) r.info = deserializeSavePurchaseOrderInfo(obj['info'] as Record<string, unknown>);
   if (obj['errorMessage'] !== undefined) r.errorMessage = String(obj['errorMessage']) as string;
@@ -8372,6 +8468,7 @@ export function deserializeGetPurchaseDeliveriesResponse(obj: Record<string, unk
 
 export function deserializeSavePurchaseDeliveryResponse(obj: Record<string, unknown>): T.SavePurchaseDeliveryResponse {
   const r: Partial<T.SavePurchaseDeliveryResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in SavePurchaseDeliveryResponse");
   r.result = String(obj['result'] ?? '') as T.SavePurchaseDeliveryResult;
   if (obj['info'] !== undefined) r.info = deserializeSavePurchaseDeliveryInfo(obj['info'] as Record<string, unknown>);
   if (obj['errorMessage'] !== undefined) r.errorMessage = String(obj['errorMessage']) as string;
@@ -8396,6 +8493,7 @@ export function deserializeGetPurchaseDeliveriesV2Response(obj: Record<string, u
 
 export function deserializeSavePurchaseDeliveryV2Response(obj: Record<string, unknown>): T.SavePurchaseDeliveryV2Response {
   const r: Partial<T.SavePurchaseDeliveryV2Response> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in SavePurchaseDeliveryV2Response");
   r.result = String(obj['result'] ?? '') as T.SavePurchaseDeliveryResult;
   if (obj['info'] !== undefined) r.info = deserializeSavePurchaseDeliveryInfo(obj['info'] as Record<string, unknown>);
   if (obj['errorMessage'] !== undefined) r.errorMessage = String(obj['errorMessage']) as string;
@@ -8404,6 +8502,7 @@ export function deserializeSavePurchaseDeliveryV2Response(obj: Record<string, un
 
 export function deserializeEncryptStringResponse(obj: Record<string, unknown>): T.EncryptStringResponse {
   const r: Partial<T.EncryptStringResponse> = {};
+  if (obj['encryptedString'] === undefined) throw new Error("Missing required field 'encryptedString' in EncryptStringResponse");
   r.encryptedString = String(obj['encryptedString'] ?? '') as string;
   return r as T.EncryptStringResponse;
 }
@@ -8426,6 +8525,7 @@ export function deserializeGetArticleCardLayoutResponse(obj: Record<string, unkn
 
 export function deserializeUpdateArticleCardLayoutResponse(obj: Record<string, unknown>): T.UpdateArticleCardLayoutResponse {
   const r: Partial<T.UpdateArticleCardLayoutResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in UpdateArticleCardLayoutResponse");
   r.result = String(obj['result'] ?? '') as T.UpdateArticleCardLayoutResult;
   if (obj['errorMessage'] !== undefined) r.errorMessage = String(obj['errorMessage']) as string;
   return r as T.UpdateArticleCardLayoutResponse;
@@ -8433,6 +8533,7 @@ export function deserializeUpdateArticleCardLayoutResponse(obj: Record<string, u
 
 export function deserializeGetRetailSpaceRentalResponse(obj: Record<string, unknown>): T.GetRetailSpaceRentalResponse {
   const r: Partial<T.GetRetailSpaceRentalResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in GetRetailSpaceRentalResponse");
   r.result = String(obj['result'] ?? '') as T.GetRetailSpaceRentalResult;
   if (obj['retailSpaceRental'] !== undefined) r.retailSpaceRental = deserializeRetailSpaceRental(obj['retailSpaceRental'] as Record<string, unknown>);
   return r as T.GetRetailSpaceRentalResponse;
@@ -8456,6 +8557,7 @@ export function deserializeGetRetailSpaceRentalsResponse(obj: Record<string, unk
 
 export function deserializeEidSearchResponse(obj: Record<string, unknown>): T.EidSearchResponse {
   const r: Partial<T.EidSearchResponse> = {};
+  if (obj['entityType'] === undefined) throw new Error("Missing required field 'entityType' in EidSearchResponse");
   r.entityType = String(obj['entityType'] ?? '') as T.nsEntityType;
   if (obj['number'] !== undefined) r.number = Number(obj['number']);
   if (obj['relation'] !== undefined) r.relation = deserializeRelation(obj['relation'] as Record<string, unknown>);
@@ -8464,9 +8566,13 @@ export function deserializeEidSearchResponse(obj: Record<string, unknown>): T.Ei
 
 export function deserializeOverviewResponse(obj: Record<string, unknown>): T.OverviewResponse {
   const r: Partial<T.OverviewResponse> = {};
+  if (obj['currentPageNumber'] === undefined) throw new Error("Missing required field 'currentPageNumber' in OverviewResponse");
   r.currentPageNumber = Number(obj['currentPageNumber']);
+  if (obj['lastPageNumber'] === undefined) throw new Error("Missing required field 'lastPageNumber' in OverviewResponse");
   r.lastPageNumber = Number(obj['lastPageNumber']);
+  if (obj['maxPerPage'] === undefined) throw new Error("Missing required field 'maxPerPage' in OverviewResponse");
   r.maxPerPage = Number(obj['maxPerPage']);
+  if (obj['totalRecords'] === undefined) throw new Error("Missing required field 'totalRecords' in OverviewResponse");
   r.totalRecords = Number(obj['totalRecords']);
   if (obj['overviewList'] !== undefined) {
     const _w = obj['overviewList'] as Record<string, unknown>;
@@ -8479,6 +8585,7 @@ export function deserializeOverviewResponse(obj: Record<string, unknown>): T.Ove
   } else {
     r.overviewList = [];
   }
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in OverviewResponse");
   r.result = String(obj['result'] ?? '') as T.GetOverviewResult;
   if (obj['errorList'] !== undefined) {
     const _w = obj['errorList'] as Record<string, unknown>;
@@ -8507,6 +8614,7 @@ export function deserializeGetOverviewFieldsResponse(obj: Record<string, unknown
   } else {
     r.overviewFieldsList = [];
   }
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in GetOverviewFieldsResponse");
   r.result = String(obj['result'] ?? '') as T.GetOverviewFieldsResult;
   if (obj['errorList'] !== undefined) {
     const _w = obj['errorList'] as Record<string, unknown>;
@@ -8524,7 +8632,9 @@ export function deserializeGetOverviewFieldsResponse(obj: Record<string, unknown
 
 export function deserializeUpdateBatchResponse(obj: Record<string, unknown>): T.UpdateBatchResponse {
   const r: Partial<T.UpdateBatchResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in UpdateBatchResponse");
   r.result = String(obj['result'] ?? '') as T.UpdateBatchResult;
+  if (obj['updateCount'] === undefined) throw new Error("Missing required field 'updateCount' in UpdateBatchResponse");
   r.updateCount = Number(obj['updateCount']);
   if (obj['errorList'] !== undefined) {
     const _w = obj['errorList'] as Record<string, unknown>;
@@ -8542,7 +8652,9 @@ export function deserializeUpdateBatchResponse(obj: Record<string, unknown>): T.
 
 export function deserializePrintResponse(obj: Record<string, unknown>): T.PrintResponse {
   const r: Partial<T.PrintResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in PrintResponse");
   r.result = String(obj['result'] ?? '') as T.PrintResult;
+  if (obj['errorMessage'] === undefined) throw new Error("Missing required field 'errorMessage' in PrintResponse");
   r.errorMessage = String(obj['errorMessage'] ?? '') as string;
   return r as T.PrintResponse;
 }
@@ -8566,6 +8678,7 @@ export function deserializeGetKitchenTicketsResponse(obj: Record<string, unknown
 
 export function deserializeSaveStockCorrectionsResponse(obj: Record<string, unknown>): T.SaveStockCorrectionsResponse {
   const r: Partial<T.SaveStockCorrectionsResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in SaveStockCorrectionsResponse");
   r.result = String(obj['result'] ?? '') as T.SaveStockCorrectionsResult;
   if (obj['stockId'] !== undefined) r.stockId = Number(obj['stockId']);
   if (obj['failedArticleNumber'] !== undefined) r.failedArticleNumber = Number(obj['failedArticleNumber']);
@@ -8574,6 +8687,7 @@ export function deserializeSaveStockCorrectionsResponse(obj: Record<string, unkn
 
 export function deserializeGetPurchaseBookResponse(obj: Record<string, unknown>): T.GetPurchaseBookResponse {
   const r: Partial<T.GetPurchaseBookResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in GetPurchaseBookResponse");
   r.result = String(obj['result'] ?? '') as T.GetPurchaseBookResult;
   if (obj['message'] !== undefined) r.message = String(obj['message']) as string;
   if (obj['purchaseBook'] !== undefined) r.purchaseBook = deserializePurchaseBook(obj['purchaseBook'] as Record<string, unknown>);
@@ -8582,6 +8696,7 @@ export function deserializeGetPurchaseBookResponse(obj: Record<string, unknown>)
 
 export function deserializeSavePurchaseBookResponse(obj: Record<string, unknown>): T.SavePurchaseBookResponse {
   const r: Partial<T.SavePurchaseBookResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in SavePurchaseBookResponse");
   r.result = String(obj['result'] ?? '') as T.SavePurchaseBookResult;
   if (obj['message'] !== undefined) r.message = String(obj['message']) as string;
   return r as T.SavePurchaseBookResponse;
@@ -8589,6 +8704,7 @@ export function deserializeSavePurchaseBookResponse(obj: Record<string, unknown>
 
 export function deserializeAddToPurchaseBookResponse(obj: Record<string, unknown>): T.AddToPurchaseBookResponse {
   const r: Partial<T.AddToPurchaseBookResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in AddToPurchaseBookResponse");
   r.result = String(obj['result'] ?? '') as T.AddToPurchaseBookResult;
   if (obj['message'] !== undefined) r.message = String(obj['message']) as string;
   return r as T.AddToPurchaseBookResponse;
@@ -8612,6 +8728,7 @@ export function deserializeGetStockCorrectionsResponse(obj: Record<string, unkno
 
 export function deserializeGetArticlesNutritionalCharacteristicsResponse(obj: Record<string, unknown>): T.GetArticlesNutritionalCharacteristicsResponse {
   const r: Partial<T.GetArticlesNutritionalCharacteristicsResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in GetArticlesNutritionalCharacteristicsResponse");
   r.result = String(obj['result'] ?? '') as T.GetArticlesNutritionalCharacteristicsResult;
   if (obj['errorMessage'] !== undefined) r.errorMessage = String(obj['errorMessage']) as string;
   if (obj['articleNutritionalCharacteristics'] !== undefined) {
@@ -8622,6 +8739,7 @@ export function deserializeGetArticlesNutritionalCharacteristicsResponse(obj: Re
 
 export function deserializeUpdateArticleNutritionalCharacteristicsResponse(obj: Record<string, unknown>): T.UpdateArticleNutritionalCharacteristicsResponse {
   const r: Partial<T.UpdateArticleNutritionalCharacteristicsResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in UpdateArticleNutritionalCharacteristicsResponse");
   r.result = String(obj['result'] ?? '') as T.UpdateArticleNutritionalCharacteristicsResult;
   if (obj['errorMessage'] !== undefined) r.errorMessage = String(obj['errorMessage']) as string;
   return r as T.UpdateArticleNutritionalCharacteristicsResponse;
@@ -8629,6 +8747,7 @@ export function deserializeUpdateArticleNutritionalCharacteristicsResponse(obj: 
 
 export function deserializeGetPreparationMethodGroupsResponse(obj: Record<string, unknown>): T.GetPreparationMethodGroupsResponse {
   const r: Partial<T.GetPreparationMethodGroupsResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in GetPreparationMethodGroupsResponse");
   r.result = String(obj['result'] ?? '') as T.GetPreparationMethodGroupsResult;
   if (obj['preparationMethodGroupList'] !== undefined) {
     const _w = obj['preparationMethodGroupList'] as Record<string, unknown>;
@@ -8646,6 +8765,7 @@ export function deserializeGetPreparationMethodGroupsResponse(obj: Record<string
 
 export function deserializeDeletePreparationMethodGroupResponse(obj: Record<string, unknown>): T.DeletePreparationMethodGroupResponse {
   const r: Partial<T.DeletePreparationMethodGroupResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in DeletePreparationMethodGroupResponse");
   r.result = String(obj['result'] ?? '') as T.DeletePreparationMethodGroupResult;
   if (obj['errorMessage'] !== undefined) r.errorMessage = String(obj['errorMessage']) as string;
   return r as T.DeletePreparationMethodGroupResponse;
@@ -8653,6 +8773,7 @@ export function deserializeDeletePreparationMethodGroupResponse(obj: Record<stri
 
 export function deserializeGetArticlesPreparationMethodGroupsResponse(obj: Record<string, unknown>): T.GetArticlesPreparationMethodGroupsResponse {
   const r: Partial<T.GetArticlesPreparationMethodGroupsResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in GetArticlesPreparationMethodGroupsResponse");
   r.result = String(obj['result'] ?? '') as T.GetArticlesPreparationMethodGroupsResult;
   if (obj['errorMessage'] !== undefined) r.errorMessage = String(obj['errorMessage']) as string;
   if (obj['articlePreparationMethodGroupsList'] !== undefined) {
@@ -8671,6 +8792,7 @@ export function deserializeGetArticlesPreparationMethodGroupsResponse(obj: Recor
 
 export function deserializeUpdateArticlePreparationMethodGroupsResponse(obj: Record<string, unknown>): T.UpdateArticlePreparationMethodGroupsResponse {
   const r: Partial<T.UpdateArticlePreparationMethodGroupsResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in UpdateArticlePreparationMethodGroupsResponse");
   r.result = String(obj['result'] ?? '') as T.UpdateArticlePreparationMethodGroupsResult;
   if (obj['errorMessage'] !== undefined) r.errorMessage = String(obj['errorMessage']) as string;
   return r as T.UpdateArticlePreparationMethodGroupsResponse;
@@ -8678,7 +8800,9 @@ export function deserializeUpdateArticlePreparationMethodGroupsResponse(obj: Rec
 
 export function deserializePlaceTableOrderResp(obj: Record<string, unknown>): T.PlaceTableOrderResp {
   const r: Partial<T.PlaceTableOrderResp> = {};
+  if (obj['idempotencyResult'] === undefined) throw new Error("Missing required field 'idempotencyResult' in PlaceTableOrderResp");
   r.idempotencyResult = String(obj['idempotencyResult'] ?? '') as T.IdempotencyResult;
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in PlaceTableOrderResp");
   r.result = String(obj['result'] ?? '') as T.PlaceTableOrderResult;
   if (obj['errorMessage'] !== undefined) r.errorMessage = String(obj['errorMessage']) as string;
   if (obj['linesResult'] !== undefined) r.linesResult = String(obj['linesResult']) as T.LinesResult;
@@ -8728,6 +8852,7 @@ export function deserializeTapTickHistoryResponse(obj: Record<string, unknown>):
 
 export function deserializeFindRelationV2Response(obj: Record<string, unknown>): T.FindRelationV2Response {
   const r: Partial<T.FindRelationV2Response> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in FindRelationV2Response");
   r.result = String(obj['result'] ?? '') as T.FindRelationResult;
   if (obj['relation'] !== undefined) r.relation = deserializeRelation(obj['relation'] as Record<string, unknown>);
   return r as T.FindRelationV2Response;
@@ -8743,9 +8868,13 @@ export function deserializeGetTodoListsResponse(obj: Record<string, unknown>): T
 
 export function deserializeTodoList(obj: Record<string, unknown>): T.TodoList {
   const r: Partial<T.TodoList> = {};
+  if (obj['id'] === undefined) throw new Error("Missing required field 'id' in TodoList");
   r.id = Number(obj['id']);
+  if (obj['branchNumber'] === undefined) throw new Error("Missing required field 'branchNumber' in TodoList");
   r.branchNumber = Number(obj['branchNumber']);
+  if (obj['category'] === undefined) throw new Error("Missing required field 'category' in TodoList");
   r.category = String(obj['category'] ?? '') as T.TodoListCategory;
+  if (obj['name'] === undefined) throw new Error("Missing required field 'name' in TodoList");
   r.name = String(obj['name'] ?? '') as string;
   if (obj['entriesCount'] !== undefined) r.entriesCount = Number(obj['entriesCount']);
   if (obj['entries'] !== undefined) {
@@ -8756,13 +8885,16 @@ export function deserializeTodoList(obj: Record<string, unknown>): T.TodoList {
 
 export function deserializeCreateTodoListResponse(obj: Record<string, unknown>): T.CreateTodoListResponse {
   const r: Partial<T.CreateTodoListResponse> = {};
+  if (obj['id'] === undefined) throw new Error("Missing required field 'id' in CreateTodoListResponse");
   r.id = Number(obj['id']);
   return r as T.CreateTodoListResponse;
 }
 
 export function deserializeSaveTodoListV2Response(obj: Record<string, unknown>): T.SaveTodoListV2Response {
   const r: Partial<T.SaveTodoListV2Response> = {};
+  if (obj['idempotencyResult'] === undefined) throw new Error("Missing required field 'idempotencyResult' in SaveTodoListV2Response");
   r.idempotencyResult = String(obj['idempotencyResult'] ?? '') as T.IdempotencyResult;
+  if (obj['id'] === undefined) throw new Error("Missing required field 'id' in SaveTodoListV2Response");
   r.id = Number(obj['id']);
   return r as T.SaveTodoListV2Response;
 }
@@ -8777,14 +8909,17 @@ export function deserializeGetFilterProfilesResponse(obj: Record<string, unknown
 
 export function deserializeSavePreparationMethodGroupResponse(obj: Record<string, unknown>): T.SavePreparationMethodGroupResponse {
   const r: Partial<T.SavePreparationMethodGroupResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in SavePreparationMethodGroupResponse");
   r.result = String(obj['result'] ?? '') as T.SavePreparationMethodGroupResult;
   if (obj['preparationMethodGroupNumber'] !== undefined) r.preparationMethodGroupNumber = Number(obj['preparationMethodGroupNumber']);
+  if (obj['errorMessage'] === undefined) throw new Error("Missing required field 'errorMessage' in SavePreparationMethodGroupResponse");
   r.errorMessage = String(obj['errorMessage'] ?? '') as string;
   return r as T.SavePreparationMethodGroupResponse;
 }
 
 export function deserializeGetNutritionalCharacteristicsResponse(obj: Record<string, unknown>): T.GetNutritionalCharacteristicsResponse {
   const r: Partial<T.GetNutritionalCharacteristicsResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in GetNutritionalCharacteristicsResponse");
   r.result = String(obj['result'] ?? '') as T.GetNutritionalCharacteristicsResult;
   if (obj['errorMessage'] !== undefined) r.errorMessage = String(obj['errorMessage']) as string;
   if (obj['nutritionalCharacteristics'] !== undefined) {
@@ -8795,6 +8930,7 @@ export function deserializeGetNutritionalCharacteristicsResponse(obj: Record<str
 
 export function deserializeUpdateNutritionalCharacteristicsResponse(obj: Record<string, unknown>): T.UpdateNutritionalCharacteristicsResponse {
   const r: Partial<T.UpdateNutritionalCharacteristicsResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in UpdateNutritionalCharacteristicsResponse");
   r.result = String(obj['result'] ?? '') as T.UpdateNutritionalCharacteristicsResult;
   if (obj['errorMessage'] !== undefined) r.errorMessage = String(obj['errorMessage']) as string;
   return r as T.UpdateNutritionalCharacteristicsResponse;
@@ -8843,16 +8979,20 @@ export function deserializeDeterminePricingResponse(obj: Record<string, unknown>
 
 export function deserializeSetRelationPresenceResponse(obj: Record<string, unknown>): T.SetRelationPresenceResponse {
   const r: Partial<T.SetRelationPresenceResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in SetRelationPresenceResponse");
   r.result = String(obj['result'] ?? '') as T.SetRelationPresenceResult;
-  r.table = deserializeTableNumber(obj['table'] as Record<string, unknown> ?? {});
+  if (obj['table'] !== undefined) r.table = deserializeTableNumber(obj['table'] as Record<string, unknown>);
+  if (obj['errorMessage'] === undefined) throw new Error("Missing required field 'errorMessage' in SetRelationPresenceResponse");
   r.errorMessage = String(obj['errorMessage'] ?? '') as string;
   return r as T.SetRelationPresenceResponse;
 }
 
 export function deserializeGetRelationPresenceResponse(obj: Record<string, unknown>): T.GetRelationPresenceResponse {
   const r: Partial<T.GetRelationPresenceResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in GetRelationPresenceResponse");
   r.result = String(obj['result'] ?? '') as T.GetRelationPresenceResponseResult;
-  r.lastKnownRelationPresence = deserializeRelationPresence(obj['lastKnownRelationPresence'] as Record<string, unknown> ?? {});
+  if (obj['lastKnownRelationPresence'] !== undefined) r.lastKnownRelationPresence = deserializeRelationPresence(obj['lastKnownRelationPresence'] as Record<string, unknown>);
+  if (obj['lastKnownTimestamp'] === undefined) throw new Error("Missing required field 'lastKnownTimestamp' in GetRelationPresenceResponse");
   r.lastKnownTimestamp = new Date(String(obj['lastKnownTimestamp'] ?? ''));
   return r as T.GetRelationPresenceResponse;
 }
@@ -8867,13 +9007,16 @@ export function deserializeGetArticleBranchDeviationsResponse(obj: Record<string
 
 export function deserializeSaveArticleBranchDeviationsResponse(obj: Record<string, unknown>): T.SaveArticleBranchDeviationsResponse {
   const r: Partial<T.SaveArticleBranchDeviationsResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in SaveArticleBranchDeviationsResponse");
   r.result = String(obj['result'] ?? '') as T.SaveArticleBranchDeviationsResponseResult;
+  if (obj['errorMessage'] === undefined) throw new Error("Missing required field 'errorMessage' in SaveArticleBranchDeviationsResponse");
   r.errorMessage = String(obj['errorMessage'] ?? '') as string;
   return r as T.SaveArticleBranchDeviationsResponse;
 }
 
 export function deserializeUpdateArticleNutrientsResponse(obj: Record<string, unknown>): T.UpdateArticleNutrientsResponse {
   const r: Partial<T.UpdateArticleNutrientsResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in UpdateArticleNutrientsResponse");
   r.result = String(obj['result'] ?? '') as T.UpdateArticleNutrientsResponseResult;
   if (obj['error'] !== undefined) r.error = String(obj['error']) as string;
   return r as T.UpdateArticleNutrientsResponse;
@@ -8962,6 +9105,7 @@ export function deserializeGetActiveCycleCountResponse(obj: Record<string, unkno
 
 export function deserializeSetArticleRecalledResponse(obj: Record<string, unknown>): T.SetArticleRecalledResponse {
   const r: Partial<T.SetArticleRecalledResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in SetArticleRecalledResponse");
   r.result = String(obj['result'] ?? '') as T.SetArticleRecalledResult;
   if (obj['errorMessage'] !== undefined) r.errorMessage = String(obj['errorMessage']) as string;
   return r as T.SetArticleRecalledResponse;
@@ -8985,7 +9129,9 @@ export function deserializeGetArticleComponentsResponse(obj: Record<string, unkn
 
 export function deserializeSaveArticleComponentsResponse(obj: Record<string, unknown>): T.SaveArticleComponentsResponse {
   const r: Partial<T.SaveArticleComponentsResponse> = {};
+  if (obj['idempotencyResult'] === undefined) throw new Error("Missing required field 'idempotencyResult' in SaveArticleComponentsResponse");
   r.idempotencyResult = String(obj['idempotencyResult'] ?? '') as T.IdempotencyResult;
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in SaveArticleComponentsResponse");
   r.result = String(obj['result'] ?? '') as T.SaveArticleComponentsResult;
   if (obj['newArticleComponents'] !== undefined) {
     const _w = obj['newArticleComponents'] as Record<string, unknown>;
@@ -10703,6 +10849,7 @@ export function deserializeGetConfigurationResponse(obj: Record<string, unknown>
 
 export function deserializeUpdateConfigurationResponse(obj: Record<string, unknown>): T.UpdateConfigurationResponse {
   const r: Partial<T.UpdateConfigurationResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in UpdateConfigurationResponse");
   r.result = String(obj['result'] ?? '') as T.UpdateConfigurationResult;
   return r as T.UpdateConfigurationResponse;
 }
@@ -10725,14 +10872,16 @@ export function deserializeGetConfigurationValuesResponse(obj: Record<string, un
 
 export function deserializeUpdateConfigurationValuesResponse(obj: Record<string, unknown>): T.UpdateConfigurationValuesResponse {
   const r: Partial<T.UpdateConfigurationValuesResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in UpdateConfigurationValuesResponse");
   r.result = String(obj['result'] ?? '') as T.UpdateConfigurationValuesResult;
+  if (obj['errorMessage'] === undefined) throw new Error("Missing required field 'errorMessage' in UpdateConfigurationValuesResponse");
   r.errorMessage = String(obj['errorMessage'] ?? '') as string;
   return r as T.UpdateConfigurationValuesResponse;
 }
 
 export function deserializegetButtonLayoutResponse(obj: Record<string, unknown>): T.getButtonLayoutResponse {
   const r: Partial<T.getButtonLayoutResponse> = {};
-  r.return = deserializeButtonLayout(obj['return'] as Record<string, unknown> ?? {});
+  if (obj['return'] !== undefined) r.return = deserializeButtonLayout(obj['return'] as Record<string, unknown>);
   return r as T.getButtonLayoutResponse;
 }
 
@@ -10755,30 +10904,39 @@ export function deserializeGetButtonLayoutGroupsWithAssignedWorkplacesResponse(o
 
 export function deserializeGetButtonLayoutGroupDetailsResponse(obj: Record<string, unknown>): T.GetButtonLayoutGroupDetailsResponse {
   const r: Partial<T.GetButtonLayoutGroupDetailsResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in GetButtonLayoutGroupDetailsResponse");
   r.result = String(obj['result'] ?? '') as T.GetButtonLayoutGroupDetailsResult;
   if (obj['buttonLayoutGroup'] !== undefined) r.buttonLayoutGroup = deserializeButtonLayoutGroup(obj['buttonLayoutGroup'] as Record<string, unknown>);
+  if (obj['errorMessage'] === undefined) throw new Error("Missing required field 'errorMessage' in GetButtonLayoutGroupDetailsResponse");
   r.errorMessage = String(obj['errorMessage'] ?? '') as string;
   return r as T.GetButtonLayoutGroupDetailsResponse;
 }
 
 export function deserializeSaveButtonLayoutGroupDetailsResponse(obj: Record<string, unknown>): T.SaveButtonLayoutGroupDetailsResponse {
   const r: Partial<T.SaveButtonLayoutGroupDetailsResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in SaveButtonLayoutGroupDetailsResponse");
   r.result = String(obj['result'] ?? '') as T.SaveButtonLayoutGroupDetailsResult;
+  if (obj['errorMessage'] === undefined) throw new Error("Missing required field 'errorMessage' in SaveButtonLayoutGroupDetailsResponse");
   r.errorMessage = String(obj['errorMessage'] ?? '') as string;
+  if (obj['buttonLayoutGroupId'] === undefined) throw new Error("Missing required field 'buttonLayoutGroupId' in SaveButtonLayoutGroupDetailsResponse");
   r.buttonLayoutGroupId = Number(obj['buttonLayoutGroupId']);
   return r as T.SaveButtonLayoutGroupDetailsResponse;
 }
 
 export function deserializeDeleteButtonLayoutGroupResponse(obj: Record<string, unknown>): T.DeleteButtonLayoutGroupResponse {
   const r: Partial<T.DeleteButtonLayoutGroupResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in DeleteButtonLayoutGroupResponse");
   r.result = String(obj['result'] ?? '') as T.DeleteButtonLayoutGroupResult;
+  if (obj['errorMessage'] === undefined) throw new Error("Missing required field 'errorMessage' in DeleteButtonLayoutGroupResponse");
   r.errorMessage = String(obj['errorMessage'] ?? '') as string;
   return r as T.DeleteButtonLayoutGroupResponse;
 }
 
 export function deserializeAssignButtonLayoutGroupToWorkplacesResponse(obj: Record<string, unknown>): T.AssignButtonLayoutGroupToWorkplacesResponse {
   const r: Partial<T.AssignButtonLayoutGroupToWorkplacesResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in AssignButtonLayoutGroupToWorkplacesResponse");
   r.result = String(obj['result'] ?? '') as T.AssignButtonLayoutGroupToWorkplacesResult;
+  if (obj['errorMessage'] === undefined) throw new Error("Missing required field 'errorMessage' in AssignButtonLayoutGroupToWorkplacesResponse");
   r.errorMessage = String(obj['errorMessage'] ?? '') as string;
   return r as T.AssignButtonLayoutGroupToWorkplacesResponse;
 }
@@ -10809,6 +10967,7 @@ export function deserializeGetDayStockConfigurationResponse(obj: Record<string, 
 
 export function deserializeSaveDayStockConfigurationResponse(obj: Record<string, unknown>): T.SaveDayStockConfigurationResponse {
   const r: Partial<T.SaveDayStockConfigurationResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in SaveDayStockConfigurationResponse");
   r.result = String(obj['result'] ?? '') as T.SaveDayStockConfigurationResult;
   return r as T.SaveDayStockConfigurationResponse;
 }
@@ -10847,12 +11006,14 @@ export function deserializeGetActivityTypesResponse(obj: Record<string, unknown>
 
 export function deserializeSaveActivityTypesResponse(obj: Record<string, unknown>): T.SaveActivityTypesResponse {
   const r: Partial<T.SaveActivityTypesResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in SaveActivityTypesResponse");
   r.result = String(obj['result'] ?? '') as T.SaveActivityTypesResult;
   return r as T.SaveActivityTypesResponse;
 }
 
 export function deserializeCreateActivityResponse(obj: Record<string, unknown>): T.CreateActivityResponse {
   const r: Partial<T.CreateActivityResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in CreateActivityResponse");
   r.result = String(obj['result'] ?? '') as T.CreateActivityResult;
   if (obj['activity'] !== undefined) r.activity = deserializeActivity(obj['activity'] as Record<string, unknown>);
   if (obj['errorMessage'] !== undefined) r.errorMessage = String(obj['errorMessage']) as string;
@@ -10861,6 +11022,7 @@ export function deserializeCreateActivityResponse(obj: Record<string, unknown>):
 
 export function deserializeUpdateActivityResponse(obj: Record<string, unknown>): T.UpdateActivityResponse {
   const r: Partial<T.UpdateActivityResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in UpdateActivityResponse");
   r.result = String(obj['result'] ?? '') as T.UpdateActivityResult;
   if (obj['activity'] !== undefined) r.activity = deserializeActivity(obj['activity'] as Record<string, unknown>);
   if (obj['errorMessage'] !== undefined) r.errorMessage = String(obj['errorMessage']) as string;
@@ -10869,6 +11031,7 @@ export function deserializeUpdateActivityResponse(obj: Record<string, unknown>):
 
 export function deserializeSaveActivityResponse(obj: Record<string, unknown>): T.SaveActivityResponse {
   const r: Partial<T.SaveActivityResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in SaveActivityResponse");
   r.result = String(obj['result'] ?? '') as T.SaveActivityResult;
   if (obj['activity'] !== undefined) r.activity = deserializeActivity(obj['activity'] as Record<string, unknown>);
   if (obj['errorMessage'] !== undefined) r.errorMessage = String(obj['errorMessage']) as string;
@@ -10877,6 +11040,7 @@ export function deserializeSaveActivityResponse(obj: Record<string, unknown>): T
 
 export function deserializeDeleteActivityResponse(obj: Record<string, unknown>): T.DeleteActivityResponse {
   const r: Partial<T.DeleteActivityResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in DeleteActivityResponse");
   r.result = String(obj['result'] ?? '') as T.DeleteActivityResult;
   if (obj['errorMessage'] !== undefined) r.errorMessage = String(obj['errorMessage']) as string;
   return r as T.DeleteActivityResponse;
@@ -10884,6 +11048,7 @@ export function deserializeDeleteActivityResponse(obj: Record<string, unknown>):
 
 export function deserializeGetGksInformationResponse(obj: Record<string, unknown>): T.GetGksInformationResponse {
   const r: Partial<T.GetGksInformationResponse> = {};
+  if (obj['gksProductionNumber'] === undefined) throw new Error("Missing required field 'gksProductionNumber' in GetGksInformationResponse");
   r.gksProductionNumber = String(obj['gksProductionNumber'] ?? '') as string;
   return r as T.GetGksInformationResponse;
 }
@@ -10898,6 +11063,7 @@ export function deserializeGetMealplanMomentsConfigurationResponse(obj: Record<s
 
 export function deserializeGetScheduledMealPlansResponse(obj: Record<string, unknown>): T.GetScheduledMealPlansResponse {
   const r: Partial<T.GetScheduledMealPlansResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in GetScheduledMealPlansResponse");
   r.result = String(obj['result'] ?? '') as T.GetScheduledMealPlansResult;
   if (obj['scheduledMealPlans'] !== undefined) {
     r.scheduledMealPlans = toArray(obj['scheduledMealPlans']).map((v) => deserializeScheduledMealPlan(v as Record<string, unknown>));
@@ -10923,6 +11089,7 @@ export function deserializeGetArticleAlterationsGroupsResponse(obj: Record<strin
 
 export function deserializeSaveArticleAlterationsGroupResponse(obj: Record<string, unknown>): T.SaveArticleAlterationsGroupResponse {
   const r: Partial<T.SaveArticleAlterationsGroupResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in SaveArticleAlterationsGroupResponse");
   r.result = String(obj['result'] ?? '') as T.SaveArticleAlterationsGroupResult;
   if (obj['groupNumber'] !== undefined) r.groupNumber = Number(obj['groupNumber']);
   return r as T.SaveArticleAlterationsGroupResponse;
@@ -10930,18 +11097,21 @@ export function deserializeSaveArticleAlterationsGroupResponse(obj: Record<strin
 
 export function deserializeDeleteArticleAlterationsGroupResponse(obj: Record<string, unknown>): T.DeleteArticleAlterationsGroupResponse {
   const r: Partial<T.DeleteArticleAlterationsGroupResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in DeleteArticleAlterationsGroupResponse");
   r.result = String(obj['result'] ?? '') as T.DeleteArticleAlterationsGroupResult;
   return r as T.DeleteArticleAlterationsGroupResponse;
 }
 
 export function deserializeUpdateAttachedArticleAlterationsGroupsResponse(obj: Record<string, unknown>): T.UpdateAttachedArticleAlterationsGroupsResponse {
   const r: Partial<T.UpdateAttachedArticleAlterationsGroupsResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in UpdateAttachedArticleAlterationsGroupsResponse");
   r.result = String(obj['result'] ?? '') as T.UpdateAttachedArticleAlterationsGroupsResult;
   return r as T.UpdateAttachedArticleAlterationsGroupsResponse;
 }
 
 export function deserializeUpdateArticleMenuResponse(obj: Record<string, unknown>): T.UpdateArticleMenuResponse {
   const r: Partial<T.UpdateArticleMenuResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in UpdateArticleMenuResponse");
   r.result = String(obj['result'] ?? '') as T.UpdateArticleMenuResult;
   if (obj['errorMessage'] !== undefined) r.errorMessage = String(obj['errorMessage']) as string;
   return r as T.UpdateArticleMenuResponse;
@@ -10949,6 +11119,7 @@ export function deserializeUpdateArticleMenuResponse(obj: Record<string, unknown
 
 export function deserializeUpdateOnlineAuthorizationTreeResponse(obj: Record<string, unknown>): T.UpdateOnlineAuthorizationTreeResponse {
   const r: Partial<T.UpdateOnlineAuthorizationTreeResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in UpdateOnlineAuthorizationTreeResponse");
   r.result = String(obj['result'] ?? '') as T.UpdateOnlineAuthorizationTreeResult;
   if (obj['errorMessage'] !== undefined) r.errorMessage = String(obj['errorMessage']) as string;
   return r as T.UpdateOnlineAuthorizationTreeResponse;
@@ -10980,8 +11151,11 @@ export function deserializeGetWordAliasesResponse(obj: Record<string, unknown>):
 
 export function deserializegetApiVersionResponse(obj: Record<string, unknown>): T.getApiVersionResponse {
   const r: Partial<T.getApiVersionResponse> = {};
+  if (obj['majorNumber'] === undefined) throw new Error("Missing required field 'majorNumber' in getApiVersionResponse");
   r.majorNumber = Number(obj['majorNumber']);
+  if (obj['minorNumber'] === undefined) throw new Error("Missing required field 'minorNumber' in getApiVersionResponse");
   r.minorNumber = Number(obj['minorNumber']);
+  if (obj['revisionNumber'] === undefined) throw new Error("Missing required field 'revisionNumber' in getApiVersionResponse");
   r.revisionNumber = Number(obj['revisionNumber']);
   if (obj['databaseMajorNumber'] !== undefined) r.databaseMajorNumber = Number(obj['databaseMajorNumber']);
   if (obj['databaseMinorNumber'] !== undefined) r.databaseMinorNumber = Number(obj['databaseMinorNumber']);
@@ -11004,6 +11178,7 @@ export function deserializegetApiVersionResponse(obj: Record<string, unknown>): 
   if (obj['serverRevisionNumber'] !== undefined) r.serverRevisionNumber = Number(obj['serverRevisionNumber']);
   if (obj['serverDate'] !== undefined) r.serverDate = deserializeDate(obj['serverDate'] as Record<string, unknown>);
   if (obj['serverDateTime'] !== undefined) r.serverDateTime = deserializeDateTime(obj['serverDateTime'] as Record<string, unknown>);
+  if (obj['inDebugMode'] === undefined) throw new Error("Missing required field 'inDebugMode' in getApiVersionResponse");
   r.inDebugMode = obj['inDebugMode'] === 'true' || obj['inDebugMode'] === true;
   if (obj['isSlaveApi'] !== undefined) r.isSlaveApi = obj['isSlaveApi'] === 'true' || obj['isSlaveApi'] === true;
   if (obj['slaveApiType'] !== undefined) r.slaveApiType = String(obj['slaveApiType']) as T.SlaveApiType;
@@ -11014,8 +11189,11 @@ export function deserializegetApiVersionResponse(obj: Record<string, unknown>): 
 
 export function deserializegetDatabaseVersionResponse(obj: Record<string, unknown>): T.getDatabaseVersionResponse {
   const r: Partial<T.getDatabaseVersionResponse> = {};
+  if (obj['majorNumber'] === undefined) throw new Error("Missing required field 'majorNumber' in getDatabaseVersionResponse");
   r.majorNumber = Number(obj['majorNumber']);
+  if (obj['minorNumber'] === undefined) throw new Error("Missing required field 'minorNumber' in getDatabaseVersionResponse");
   r.minorNumber = Number(obj['minorNumber']);
+  if (obj['revisionNumber'] === undefined) throw new Error("Missing required field 'revisionNumber' in getDatabaseVersionResponse");
   r.revisionNumber = Number(obj['revisionNumber']);
   if (obj['serverMajorNumber'] !== undefined) r.serverMajorNumber = Number(obj['serverMajorNumber']);
   if (obj['serverMinorNumber'] !== undefined) r.serverMinorNumber = Number(obj['serverMinorNumber']);
@@ -11054,7 +11232,9 @@ export function deserializegetAvailableTerminalListResponse(obj: Record<string, 
 
 export function deserializeRegisterTerminalResponse(obj: Record<string, unknown>): T.RegisterTerminalResponse {
   const r: Partial<T.RegisterTerminalResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in RegisterTerminalResponse");
   r.result = String(obj['result'] ?? '') as T.RegisterTerminalResult;
+  if (obj['errorMessage'] === undefined) throw new Error("Missing required field 'errorMessage' in RegisterTerminalResponse");
   r.errorMessage = String(obj['errorMessage'] ?? '') as string;
   return r as T.RegisterTerminalResponse;
 }
@@ -11071,11 +11251,17 @@ export function deserializeGetTerminalSettingsResponse(obj: Record<string, unkno
   if (obj['askToKeepTableName'] !== undefined) r.askToKeepTableName = obj['askToKeepTableName'] === 'true' || obj['askToKeepTableName'] === true;
   if (obj['showTotalAmountOnTable'] !== undefined) r.showTotalAmountOnTable = obj['showTotalAmountOnTable'] === 'true' || obj['showTotalAmountOnTable'] === true;
   if (obj['showPrepaidAmountOnTable'] !== undefined) r.showPrepaidAmountOnTable = obj['showPrepaidAmountOnTable'] === 'true' || obj['showPrepaidAmountOnTable'] === true;
+  if (obj['splitLineOnAddPreparationMethod'] === undefined) throw new Error("Missing required field 'splitLineOnAddPreparationMethod' in GetTerminalSettingsResponse");
   r.splitLineOnAddPreparationMethod = obj['splitLineOnAddPreparationMethod'] === 'true' || obj['splitLineOnAddPreparationMethod'] === true;
+  if (obj['directPaymentMode'] === undefined) throw new Error("Missing required field 'directPaymentMode' in GetTerminalSettingsResponse");
   r.directPaymentMode = obj['directPaymentMode'] === 'true' || obj['directPaymentMode'] === true;
+  if (obj['directPaymentModeTableNumber'] === undefined) throw new Error("Missing required field 'directPaymentModeTableNumber' in GetTerminalSettingsResponse");
   r.directPaymentModeTableNumber = Number(obj['directPaymentModeTableNumber']);
+  if (obj['branchHasKitchenScreen'] === undefined) throw new Error("Missing required field 'branchHasKitchenScreen' in GetTerminalSettingsResponse");
   r.branchHasKitchenScreen = obj['branchHasKitchenScreen'] === 'true' || obj['branchHasKitchenScreen'] === true;
+  if (obj['directPaymentModeAllowTableSelection'] === undefined) throw new Error("Missing required field 'directPaymentModeAllowTableSelection' in GetTerminalSettingsResponse");
   r.directPaymentModeAllowTableSelection = obj['directPaymentModeAllowTableSelection'] === 'true' || obj['directPaymentModeAllowTableSelection'] === true;
+  if (obj['onlyQuantityButtons'] === undefined) throw new Error("Missing required field 'onlyQuantityButtons' in GetTerminalSettingsResponse");
   r.onlyQuantityButtons = obj['onlyQuantityButtons'] === 'true' || obj['onlyQuantityButtons'] === true;
   if (obj['dayStockBehaviour'] !== undefined) r.dayStockBehaviour = String(obj['dayStockBehaviour']) as T.DayStockBehaviour;
   if (obj['dayStockShowAvailableStock'] !== undefined) r.dayStockShowAvailableStock = obj['dayStockShowAvailableStock'] === 'true' || obj['dayStockShowAvailableStock'] === true;
@@ -11084,6 +11270,7 @@ export function deserializeGetTerminalSettingsResponse(obj: Record<string, unkno
 
 export function deserializeGetBranchInformationResponse(obj: Record<string, unknown>): T.GetBranchInformationResponse {
   const r: Partial<T.GetBranchInformationResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in GetBranchInformationResponse");
   r.result = String(obj['result'] ?? '') as T.GetBranchInformationResult;
   if (obj['branchInformation'] !== undefined) r.branchInformation = deserializeBranchInformation(obj['branchInformation'] as Record<string, unknown>);
   if (obj['errorMessage'] !== undefined) r.errorMessage = String(obj['errorMessage']) as string;
@@ -11140,6 +11327,7 @@ export function deserializeGetDeliveryMethodsV2Response(obj: Record<string, unkn
 
 export function deserializeCreateDeliveryMethodResponse(obj: Record<string, unknown>): T.CreateDeliveryMethodResponse {
   const r: Partial<T.CreateDeliveryMethodResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in CreateDeliveryMethodResponse");
   r.result = String(obj['result'] ?? '') as T.CreateDeliveryMethodResult;
   if (obj['deliveryMethod'] !== undefined) r.deliveryMethod = deserializeDeliveryMethod(obj['deliveryMethod'] as Record<string, unknown>);
   if (obj['errorMessage'] !== undefined) r.errorMessage = String(obj['errorMessage']) as string;
@@ -11148,6 +11336,7 @@ export function deserializeCreateDeliveryMethodResponse(obj: Record<string, unkn
 
 export function deserializeUpdateDeliveryMethodResponse(obj: Record<string, unknown>): T.UpdateDeliveryMethodResponse {
   const r: Partial<T.UpdateDeliveryMethodResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in UpdateDeliveryMethodResponse");
   r.result = String(obj['result'] ?? '') as T.UpdateDeliveryMethodResult;
   if (obj['deliveryMethod'] !== undefined) r.deliveryMethod = deserializeDeliveryMethod(obj['deliveryMethod'] as Record<string, unknown>);
   if (obj['errorMessage'] !== undefined) r.errorMessage = String(obj['errorMessage']) as string;
@@ -11172,12 +11361,18 @@ export function deserializegetBranchesResponse(obj: Record<string, unknown>): T.
 
 export function deserializegetCurrentSyncMarkersResponse(obj: Record<string, unknown>): T.getCurrentSyncMarkersResponse {
   const r: Partial<T.getCurrentSyncMarkersResponse> = {};
+  if (obj['articleSyncMarker'] === undefined) throw new Error("Missing required field 'articleSyncMarker' in getCurrentSyncMarkersResponse");
   r.articleSyncMarker = Number(obj['articleSyncMarker']);
   if (obj['articleGroupSyncMarker'] !== undefined) r.articleGroupSyncMarker = Number(obj['articleGroupSyncMarker']);
+  if (obj['relationSyncMarker'] === undefined) throw new Error("Missing required field 'relationSyncMarker' in getCurrentSyncMarkersResponse");
   r.relationSyncMarker = Number(obj['relationSyncMarker']);
+  if (obj['employeeSyncMarker'] === undefined) throw new Error("Missing required field 'employeeSyncMarker' in getCurrentSyncMarkersResponse");
   r.employeeSyncMarker = Number(obj['employeeSyncMarker']);
+  if (obj['invoiceSyncMarker'] === undefined) throw new Error("Missing required field 'invoiceSyncMarker' in getCurrentSyncMarkersResponse");
   r.invoiceSyncMarker = Number(obj['invoiceSyncMarker']);
+  if (obj['receiptSyncMarker'] === undefined) throw new Error("Missing required field 'receiptSyncMarker' in getCurrentSyncMarkersResponse");
   r.receiptSyncMarker = Number(obj['receiptSyncMarker']);
+  if (obj['orderSyncMarker'] === undefined) throw new Error("Missing required field 'orderSyncMarker' in getCurrentSyncMarkersResponse");
   r.orderSyncMarker = Number(obj['orderSyncMarker']);
   if (obj['proposalSyncMarker'] !== undefined) r.proposalSyncMarker = Number(obj['proposalSyncMarker']);
   if (obj['stockId'] !== undefined) r.stockId = Number(obj['stockId']);
@@ -11229,9 +11424,11 @@ export function deserializeGetNutrientTypesResponse(obj: Record<string, unknown>
 
 export function deserializeVerifyCredentialsResponse(obj: Record<string, unknown>): T.VerifyCredentialsResponse {
   const r: Partial<T.VerifyCredentialsResponse> = {};
+  if (obj['verified'] === undefined) throw new Error("Missing required field 'verified' in VerifyCredentialsResponse");
   r.verified = obj['verified'] === 'true' || obj['verified'] === true;
   if (obj['employee'] !== undefined) r.employee = deserializeEmployee(obj['employee'] as Record<string, unknown>);
   if (obj['relation'] !== undefined) r.relation = deserializeRelation(obj['relation'] as Record<string, unknown>);
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in VerifyCredentialsResponse");
   r.result = String(obj['result'] ?? '') as T.VerifyResult;
   if (obj['expiresOn'] !== undefined) r.expiresOn = new Date(String(obj['expiresOn']));
   return r as T.VerifyCredentialsResponse;
@@ -11239,24 +11436,33 @@ export function deserializeVerifyCredentialsResponse(obj: Record<string, unknown
 
 export function deserializeSaveCredentialsResponse(obj: Record<string, unknown>): T.SaveCredentialsResponse {
   const r: Partial<T.SaveCredentialsResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in SaveCredentialsResponse");
   r.result = String(obj['result'] ?? '') as T.SaveCredentialsResult;
   return r as T.SaveCredentialsResponse;
 }
 
 export function deserializePasswordRequirementsResponse(obj: Record<string, unknown>): T.PasswordRequirementsResponse {
   const r: Partial<T.PasswordRequirementsResponse> = {};
+  if (obj['minPasswordLength'] === undefined) throw new Error("Missing required field 'minPasswordLength' in PasswordRequirementsResponse");
   r.minPasswordLength = Number(obj['minPasswordLength']);
+  if (obj['minNumberLowerCase'] === undefined) throw new Error("Missing required field 'minNumberLowerCase' in PasswordRequirementsResponse");
   r.minNumberLowerCase = Number(obj['minNumberLowerCase']);
+  if (obj['minNumberUpperCase'] === undefined) throw new Error("Missing required field 'minNumberUpperCase' in PasswordRequirementsResponse");
   r.minNumberUpperCase = Number(obj['minNumberUpperCase']);
+  if (obj['minNumberDigits'] === undefined) throw new Error("Missing required field 'minNumberDigits' in PasswordRequirementsResponse");
   r.minNumberDigits = Number(obj['minNumberDigits']);
+  if (obj['minNumberSpecial'] === undefined) throw new Error("Missing required field 'minNumberSpecial' in PasswordRequirementsResponse");
   r.minNumberSpecial = Number(obj['minNumberSpecial']);
+  if (obj['reuseDetection'] === undefined) throw new Error("Missing required field 'reuseDetection' in PasswordRequirementsResponse");
   r.reuseDetection = Number(obj['reuseDetection']);
   return r as T.PasswordRequirementsResponse;
 }
 
 export function deserializePasswordResetResponse(obj: Record<string, unknown>): T.PasswordResetResponse {
   const r: Partial<T.PasswordResetResponse> = {};
+  if (obj['passwordResetKey'] === undefined) throw new Error("Missing required field 'passwordResetKey' in PasswordResetResponse");
   r.passwordResetKey = String(obj['passwordResetKey'] ?? '') as string;
+  if (obj['expiresAt'] === undefined) throw new Error("Missing required field 'expiresAt' in PasswordResetResponse");
   r.expiresAt = new Date(String(obj['expiresAt'] ?? ''));
   return r as T.PasswordResetResponse;
 }
@@ -11279,11 +11485,13 @@ export function deserializeGetFloorplansResponse(obj: Record<string, unknown>): 
 
 export function deserializeChangeTablePropertyResp(obj: Record<string, unknown>): T.ChangeTablePropertyResp {
   const r: Partial<T.ChangeTablePropertyResp> = {};
+  if (obj['idempotencyResult'] === undefined) throw new Error("Missing required field 'idempotencyResult' in ChangeTablePropertyResp");
   r.idempotencyResult = String(obj['idempotencyResult'] ?? '') as T.IdempotencyResult;
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in ChangeTablePropertyResp");
   r.result = String(obj['result'] ?? '') as T.ChangeTablePropertyResult;
   if (obj['errorMessage'] !== undefined) r.errorMessage = String(obj['errorMessage']) as string;
-  r.tableIdentifier = deserializeTableIdentifier(obj['tableIdentifier'] as Record<string, unknown> ?? {});
-  r.tableProperties = deserializeTableProperties(obj['tableProperties'] as Record<string, unknown> ?? {});
+  if (obj['tableIdentifier'] !== undefined) r.tableIdentifier = deserializeTableIdentifier(obj['tableIdentifier'] as Record<string, unknown>);
+  if (obj['tableProperties'] !== undefined) r.tableProperties = deserializeTableProperties(obj['tableProperties'] as Record<string, unknown>);
   return r as T.ChangeTablePropertyResp;
 }
 
@@ -11419,7 +11627,9 @@ export function deserializeGetAuthorizationTreeResponse(obj: Record<string, unkn
   } else {
     r.kmsAuthorizationsList = [];
   }
+  if (obj['onlineAuthorizationsVersion'] === undefined) throw new Error("Missing required field 'onlineAuthorizationsVersion' in GetAuthorizationTreeResponse");
   r.onlineAuthorizationsVersion = String(obj['onlineAuthorizationsVersion'] ?? '') as string;
+  if (obj['kmsAuthorizationsVersion'] === undefined) throw new Error("Missing required field 'kmsAuthorizationsVersion' in GetAuthorizationTreeResponse");
   r.kmsAuthorizationsVersion = String(obj['kmsAuthorizationsVersion'] ?? '') as string;
   return r as T.GetAuthorizationTreeResponse;
 }
@@ -11442,15 +11652,19 @@ export function deserializeGetEmployeeBranchAuthorizationsResponse(obj: Record<s
 
 export function deserializeSaveAuthorizationGroupResponse(obj: Record<string, unknown>): T.SaveAuthorizationGroupResponse {
   const r: Partial<T.SaveAuthorizationGroupResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in SaveAuthorizationGroupResponse");
   r.result = String(obj['result'] ?? '') as T.SaveAuthorizationGroupResult;
   if (obj['groupNumber'] !== undefined) r.groupNumber = Number(obj['groupNumber']);
+  if (obj['errorMessage'] === undefined) throw new Error("Missing required field 'errorMessage' in SaveAuthorizationGroupResponse");
   r.errorMessage = String(obj['errorMessage'] ?? '') as string;
   return r as T.SaveAuthorizationGroupResponse;
 }
 
 export function deserializeDeleteAuthorizationGroupResponse(obj: Record<string, unknown>): T.DeleteAuthorizationGroupResponse {
   const r: Partial<T.DeleteAuthorizationGroupResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in DeleteAuthorizationGroupResponse");
   r.result = String(obj['result'] ?? '') as T.DeleteAuthorizationGroupResult;
+  if (obj['errorMessage'] === undefined) throw new Error("Missing required field 'errorMessage' in DeleteAuthorizationGroupResponse");
   r.errorMessage = String(obj['errorMessage'] ?? '') as string;
   return r as T.DeleteAuthorizationGroupResponse;
 }
@@ -11468,16 +11682,22 @@ export function deserializeGetEmployeeAuthorizationGroupsResponse(obj: Record<st
 
 export function deserializeUpdateEmployeeAuthorizationGroupsResponse(obj: Record<string, unknown>): T.UpdateEmployeeAuthorizationGroupsResponse {
   const r: Partial<T.UpdateEmployeeAuthorizationGroupsResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in UpdateEmployeeAuthorizationGroupsResponse");
   r.result = String(obj['result'] ?? '') as T.UpdateEmployeeAuthorizationGroupsResult;
+  if (obj['errorMessage'] === undefined) throw new Error("Missing required field 'errorMessage' in UpdateEmployeeAuthorizationGroupsResponse");
   r.errorMessage = String(obj['errorMessage'] ?? '') as string;
   return r as T.UpdateEmployeeAuthorizationGroupsResponse;
 }
 
 export function deserializeGetEmployeeAuthorizationSyncMarkersResponse(obj: Record<string, unknown>): T.GetEmployeeAuthorizationSyncMarkersResponse {
   const r: Partial<T.GetEmployeeAuthorizationSyncMarkersResponse> = {};
+  if (obj['authGroepSyncMarker'] === undefined) throw new Error("Missing required field 'authGroepSyncMarker' in GetEmployeeAuthorizationSyncMarkersResponse");
   r.authGroepSyncMarker = Number(obj['authGroepSyncMarker']);
+  if (obj['authGroepRechtenSyncMarker'] === undefined) throw new Error("Missing required field 'authGroepRechtenSyncMarker' in GetEmployeeAuthorizationSyncMarkersResponse");
   r.authGroepRechtenSyncMarker = Number(obj['authGroepRechtenSyncMarker']);
+  if (obj['authMedewGroepSyncMarker'] === undefined) throw new Error("Missing required field 'authMedewGroepSyncMarker' in GetEmployeeAuthorizationSyncMarkersResponse");
   r.authMedewGroepSyncMarker = Number(obj['authMedewGroepSyncMarker']);
+  if (obj['authMedewRechtenSyncMarker'] === undefined) throw new Error("Missing required field 'authMedewRechtenSyncMarker' in GetEmployeeAuthorizationSyncMarkersResponse");
   r.authMedewRechtenSyncMarker = Number(obj['authMedewRechtenSyncMarker']);
   if (obj['employeeBranchGroupSyncMarker'] !== undefined) r.employeeBranchGroupSyncMarker = Number(obj['employeeBranchGroupSyncMarker']);
   if (obj['employeeSyncMarker'] !== undefined) r.employeeSyncMarker = Number(obj['employeeSyncMarker']);
@@ -11494,7 +11714,9 @@ export function deserializeGetSpecialBarcodePatternsResponse(obj: Record<string,
 
 export function deserializeParseSpecialBarcodeResponse(obj: Record<string, unknown>): T.ParseSpecialBarcodeResponse {
   const r: Partial<T.ParseSpecialBarcodeResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in ParseSpecialBarcodeResponse");
   r.result = String(obj['result'] ?? '') as T.ParseSpecialBarcodeResult;
+  if (obj['kind'] === undefined) throw new Error("Missing required field 'kind' in ParseSpecialBarcodeResponse");
   r.kind = String(obj['kind'] ?? '') as T.BarcodePatternKind;
   if (obj['articleResult'] !== undefined) r.articleResult = deserializeSpecialBarcodeArticleResult(obj['articleResult'] as Record<string, unknown>);
   return r as T.ParseSpecialBarcodeResponse;
@@ -11650,9 +11872,13 @@ export function deserializeGetImagesRequest(obj: Record<string, unknown>): T.Get
 
 export function deserializeCreateImageResponse(obj: Record<string, unknown>): T.CreateImageResponse {
   const r: Partial<T.CreateImageResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in CreateImageResponse");
   r.result = String(obj['result'] ?? '') as T.CreateImageResult;
+  if (obj['imageId'] === undefined) throw new Error("Missing required field 'imageId' in CreateImageResponse");
   r.imageId = Number(obj['imageId']);
+  if (obj['imageHash'] === undefined) throw new Error("Missing required field 'imageHash' in CreateImageResponse");
   r.imageHash = String(obj['imageHash'] ?? '') as string;
+  if (obj['imageUrl'] === undefined) throw new Error("Missing required field 'imageUrl' in CreateImageResponse");
   r.imageUrl = String(obj['imageUrl'] ?? '') as string;
   if (obj['errorMsg'] !== undefined) r.errorMsg = String(obj['errorMsg']) as string;
   return r as T.CreateImageResponse;
@@ -12303,13 +12529,15 @@ export function deserializeRedeemVoucherIssuanceRequest(obj: Record<string, unkn
 
 export function deserializeCheckGiftcardPaymentResponse(obj: Record<string, unknown>): T.CheckGiftcardPaymentResponse {
   const r: Partial<T.CheckGiftcardPaymentResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in CheckGiftcardPaymentResponse");
   r.result = String(obj['result'] ?? '') as T.GiftcardResult;
-  r.giftcard = deserializeGiftcard(obj['giftcard'] as Record<string, unknown> ?? {});
+  if (obj['giftcard'] !== undefined) r.giftcard = deserializeGiftcard(obj['giftcard'] as Record<string, unknown>);
   return r as T.CheckGiftcardPaymentResponse;
 }
 
 export function deserializeRegisterGiftcardPaymentResponse(obj: Record<string, unknown>): T.RegisterGiftcardPaymentResponse {
   const r: Partial<T.RegisterGiftcardPaymentResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in RegisterGiftcardPaymentResponse");
   r.result = String(obj['result'] ?? '') as T.GiftcardResult;
   if (obj['newBalance'] !== undefined) r.newBalance = Number(obj['newBalance']);
   if (obj['receiptId'] !== undefined) r.receiptId = String(obj['receiptId']) as string;
@@ -12319,7 +12547,9 @@ export function deserializeRegisterGiftcardPaymentResponse(obj: Record<string, u
 
 export function deserializeRegisterGiftcardPaymentV2Response(obj: Record<string, unknown>): T.RegisterGiftcardPaymentV2Response {
   const r: Partial<T.RegisterGiftcardPaymentV2Response> = {};
+  if (obj['idempotencyResult'] === undefined) throw new Error("Missing required field 'idempotencyResult' in RegisterGiftcardPaymentV2Response");
   r.idempotencyResult = String(obj['idempotencyResult'] ?? '') as T.IdempotencyResult;
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in RegisterGiftcardPaymentV2Response");
   r.result = String(obj['result'] ?? '') as T.GiftcardResult;
   if (obj['newBalance'] !== undefined) r.newBalance = String(obj['newBalance']) as string;
   if (obj['receiptId'] !== undefined) r.receiptId = String(obj['receiptId']) as string;
@@ -12329,6 +12559,7 @@ export function deserializeRegisterGiftcardPaymentV2Response(obj: Record<string,
 
 export function deserializeCreateGiftcardResponse(obj: Record<string, unknown>): T.CreateGiftcardResponse {
   const r: Partial<T.CreateGiftcardResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in CreateGiftcardResponse");
   r.result = String(obj['result'] ?? '') as T.GiftcardResult;
   if (obj['cardId'] !== undefined) r.cardId = String(obj['cardId']) as string;
   return r as T.CreateGiftcardResponse;
@@ -12336,6 +12567,7 @@ export function deserializeCreateGiftcardResponse(obj: Record<string, unknown>):
 
 export function deserializeReloadGiftcardResponse(obj: Record<string, unknown>): T.ReloadGiftcardResponse {
   const r: Partial<T.ReloadGiftcardResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in ReloadGiftcardResponse");
   r.result = String(obj['result'] ?? '') as T.GiftcardResult;
   if (obj['cardId'] !== undefined) r.cardId = String(obj['cardId']) as string;
   return r as T.ReloadGiftcardResponse;
@@ -12415,7 +12647,9 @@ export function deserializeGetGiftcardsResponse(obj: Record<string, unknown>): T
 
 export function deserializeSaveGiftcardsResponse(obj: Record<string, unknown>): T.SaveGiftcardsResponse {
   const r: Partial<T.SaveGiftcardsResponse> = {};
+  if (obj['idempotencyResult'] === undefined) throw new Error("Missing required field 'idempotencyResult' in SaveGiftcardsResponse");
   r.idempotencyResult = String(obj['idempotencyResult'] ?? '') as T.IdempotencyResult;
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in SaveGiftcardsResponse");
   r.result = String(obj['result'] ?? '') as T.SaveGiftcardsResult;
   if (obj['errorMessage'] !== undefined) r.errorMessage = String(obj['errorMessage']) as string;
   return r as T.SaveGiftcardsResponse;
@@ -12423,7 +12657,9 @@ export function deserializeSaveGiftcardsResponse(obj: Record<string, unknown>): 
 
 export function deserializeRestituteGiftcardsResponse(obj: Record<string, unknown>): T.RestituteGiftcardsResponse {
   const r: Partial<T.RestituteGiftcardsResponse> = {};
+  if (obj['idempotencyResult'] === undefined) throw new Error("Missing required field 'idempotencyResult' in RestituteGiftcardsResponse");
   r.idempotencyResult = String(obj['idempotencyResult'] ?? '') as T.IdempotencyResult;
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in RestituteGiftcardsResponse");
   r.result = String(obj['result'] ?? '') as T.RestituteGiftcardsResult;
   if (obj['errorMessage'] !== undefined) r.errorMessage = String(obj['errorMessage']) as string;
   if (obj['packingSlipId'] !== undefined) r.packingSlipId = String(obj['packingSlipId']) as string;
@@ -12432,7 +12668,9 @@ export function deserializeRestituteGiftcardsResponse(obj: Record<string, unknow
 
 export function deserializeLinkGiftcardsToRelationResponse(obj: Record<string, unknown>): T.LinkGiftcardsToRelationResponse {
   const r: Partial<T.LinkGiftcardsToRelationResponse> = {};
+  if (obj['idempotencyResult'] === undefined) throw new Error("Missing required field 'idempotencyResult' in LinkGiftcardsToRelationResponse");
   r.idempotencyResult = String(obj['idempotencyResult'] ?? '') as T.IdempotencyResult;
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in LinkGiftcardsToRelationResponse");
   r.result = String(obj['result'] ?? '') as T.LinkGiftcardsToRelationResult;
   if (obj['errorMessage'] !== undefined) r.errorMessage = String(obj['errorMessage']) as string;
   return r as T.LinkGiftcardsToRelationResponse;
@@ -12510,7 +12748,9 @@ export function deserializeGetVoucherSettingsResponse(obj: Record<string, unknow
 
 export function deserializeIssueVouchersResponse(obj: Record<string, unknown>): T.IssueVouchersResponse {
   const r: Partial<T.IssueVouchersResponse> = {};
+  if (obj['idempotencyResult'] === undefined) throw new Error("Missing required field 'idempotencyResult' in IssueVouchersResponse");
   r.idempotencyResult = String(obj['idempotencyResult'] ?? '') as T.IdempotencyResult;
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in IssueVouchersResponse");
   r.result = String(obj['result'] ?? '') as T.IssueVouchersResult;
   if (obj['voucherIssuances'] !== undefined) {
     const _w = obj['voucherIssuances'] as Record<string, unknown>;
@@ -12528,7 +12768,9 @@ export function deserializeIssueVouchersResponse(obj: Record<string, unknown>): 
 
 export function deserializeIssueVoucherExternalScanCodesResponse(obj: Record<string, unknown>): T.IssueVoucherExternalScanCodesResponse {
   const r: Partial<T.IssueVoucherExternalScanCodesResponse> = {};
+  if (obj['idempotencyResult'] === undefined) throw new Error("Missing required field 'idempotencyResult' in IssueVoucherExternalScanCodesResponse");
   r.idempotencyResult = String(obj['idempotencyResult'] ?? '') as T.IdempotencyResult;
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in IssueVoucherExternalScanCodesResponse");
   r.result = String(obj['result'] ?? '') as T.IssueVoucherExternalScanCodesResult;
   return r as T.IssueVoucherExternalScanCodesResponse;
 }
@@ -12579,6 +12821,7 @@ export function deserializeRedeemVoucherIssuanceResponse(obj: Record<string, unk
     r.voucherIssuanceRedeems = [];
   }
   if (obj['voucherCanApplyResult'] !== undefined) r.voucherCanApplyResult = deserializeVoucherCanApplyResult(obj['voucherCanApplyResult'] as Record<string, unknown>);
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in RedeemVoucherIssuanceResponse");
   r.result = String(obj['result'] ?? '') as T.RedeemVoucherIssuanceResult;
   if (obj['errorMessage'] !== undefined) r.errorMessage = String(obj['errorMessage']) as string;
   return r as T.RedeemVoucherIssuanceResponse;
@@ -15435,7 +15678,9 @@ export function deserializeGetSalesRepeatTemplatesResponse(obj: Record<string, u
 
 export function deserializeSaveSalesRepeatTemplateResponse(obj: Record<string, unknown>): T.SaveSalesRepeatTemplateResponse {
   const r: Partial<T.SaveSalesRepeatTemplateResponse> = {};
+  if (obj['idempotencyResult'] === undefined) throw new Error("Missing required field 'idempotencyResult' in SaveSalesRepeatTemplateResponse");
   r.idempotencyResult = String(obj['idempotencyResult'] ?? '') as T.IdempotencyResult;
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in SaveSalesRepeatTemplateResponse");
   r.result = String(obj['result'] ?? '') as T.SaveSalesRepeatTemplateResult;
   if (obj['errorMessage'] !== undefined) r.errorMessage = String(obj['errorMessage']) as string;
   if (obj['salesRepeatTemplateId'] !== undefined) r.salesRepeatTemplateId = String(obj['salesRepeatTemplateId']) as string;
@@ -15444,6 +15689,7 @@ export function deserializeSaveSalesRepeatTemplateResponse(obj: Record<string, u
 
 export function deserializePerformBpeBudgetChecksResponse(obj: Record<string, unknown>): T.PerformBpeBudgetChecksResponse {
   const r: Partial<T.PerformBpeBudgetChecksResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in PerformBpeBudgetChecksResponse");
   r.result = String(obj['result'] ?? '') as T.PerformBpeBudgetChecksResult;
   if (obj['bpeResults'] !== undefined) {
     const _w = obj['bpeResults'] as Record<string, unknown>;
@@ -15526,28 +15772,33 @@ export function deserializeGetAvailablePaymentMethodsResponse(obj: Record<string
 
 export function deserializeCreateOrderResponse(obj: Record<string, unknown>): T.CreateOrderResponse {
   const r: Partial<T.CreateOrderResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in CreateOrderResponse");
   r.result = String(obj['result'] ?? '') as T.CreateOrderResult;
-  r.info = deserializeCreateOrderInfo(obj['info'] as Record<string, unknown> ?? {});
+  if (obj['info'] !== undefined) r.info = deserializeCreateOrderInfo(obj['info'] as Record<string, unknown>);
+  if (obj['errorMessage'] === undefined) throw new Error("Missing required field 'errorMessage' in CreateOrderResponse");
   r.errorMessage = String(obj['errorMessage'] ?? '') as string;
   return r as T.CreateOrderResponse;
 }
 
 export function deserializeCreateOrderV2Response(obj: Record<string, unknown>): T.CreateOrderV2Response {
   const r: Partial<T.CreateOrderV2Response> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in CreateOrderV2Response");
   r.result = String(obj['result'] ?? '') as T.CreateOrderResult;
   if (obj['order'] !== undefined) r.order = deserializeOrder(obj['order'] as Record<string, unknown>);
   if (obj['errorMessage'] !== undefined) r.errorMessage = String(obj['errorMessage']) as string;
-  r.info = deserializeCreateOrderInfo(obj['info'] as Record<string, unknown> ?? {});
+  if (obj['info'] !== undefined) r.info = deserializeCreateOrderInfo(obj['info'] as Record<string, unknown>);
   return r as T.CreateOrderV2Response;
 }
 
 export function deserializeCreateOrderV3Response(obj: Record<string, unknown>): T.CreateOrderV3Response {
   const r: Partial<T.CreateOrderV3Response> = {};
+  if (obj['idempotencyResult'] === undefined) throw new Error("Missing required field 'idempotencyResult' in CreateOrderV3Response");
   r.idempotencyResult = String(obj['idempotencyResult'] ?? '') as T.IdempotencyResult;
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in CreateOrderV3Response");
   r.result = String(obj['result'] ?? '') as T.CreateOrderResult;
   if (obj['order'] !== undefined) r.order = deserializeOrder(obj['order'] as Record<string, unknown>);
   if (obj['errorMessage'] !== undefined) r.errorMessage = String(obj['errorMessage']) as string;
-  r.info = deserializeCreateOrderInfo(obj['info'] as Record<string, unknown> ?? {});
+  if (obj['info'] !== undefined) r.info = deserializeCreateOrderInfo(obj['info'] as Record<string, unknown>);
   if (obj['payResult'] !== undefined) r.payResult = String(obj['payResult']) as T.PayOrderResult;
   if (obj['invoiceId'] !== undefined) r.invoiceId = String(obj['invoiceId']) as string;
   if (obj['voucherIssuances'] !== undefined) {
@@ -15577,8 +15828,10 @@ export function deserializeCreateOrderV3Response(obj: Record<string, unknown>): 
 
 export function deserializePayOrderResponse(obj: Record<string, unknown>): T.PayOrderResponse {
   const r: Partial<T.PayOrderResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in PayOrderResponse");
   r.result = String(obj['result'] ?? '') as T.PayOrderResult;
   if (obj['invoiceId'] !== undefined) r.invoiceId = String(obj['invoiceId']) as string;
+  if (obj['errorMessage'] === undefined) throw new Error("Missing required field 'errorMessage' in PayOrderResponse");
   r.errorMessage = String(obj['errorMessage'] ?? '') as string;
   if (obj['voucherIssuances'] !== undefined) {
     const _w = obj['voucherIssuances'] as Record<string, unknown>;
@@ -15607,9 +15860,12 @@ export function deserializePayOrderResponse(obj: Record<string, unknown>): T.Pay
 
 export function deserializePayOrderV2Response(obj: Record<string, unknown>): T.PayOrderV2Response {
   const r: Partial<T.PayOrderV2Response> = {};
+  if (obj['idempotencyResult'] === undefined) throw new Error("Missing required field 'idempotencyResult' in PayOrderV2Response");
   r.idempotencyResult = String(obj['idempotencyResult'] ?? '') as T.IdempotencyResult;
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in PayOrderV2Response");
   r.result = String(obj['result'] ?? '') as T.PayOrderResult;
   if (obj['invoiceId'] !== undefined) r.invoiceId = String(obj['invoiceId']) as string;
+  if (obj['errorMessage'] === undefined) throw new Error("Missing required field 'errorMessage' in PayOrderV2Response");
   r.errorMessage = String(obj['errorMessage'] ?? '') as string;
   if (obj['voucherIssuances'] !== undefined) {
     const _w = obj['voucherIssuances'] as Record<string, unknown>;
@@ -15638,8 +15894,10 @@ export function deserializePayOrderV2Response(obj: Record<string, unknown>): T.P
 
 export function deserializePayTableOrderResponse(obj: Record<string, unknown>): T.PayTableOrderResponse {
   const r: Partial<T.PayTableOrderResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in PayTableOrderResponse");
   r.result = String(obj['result'] ?? '') as T.PayOrderResult;
   if (obj['receiptId'] !== undefined) r.receiptId = String(obj['receiptId']) as string;
+  if (obj['errorMessage'] === undefined) throw new Error("Missing required field 'errorMessage' in PayTableOrderResponse");
   r.errorMessage = String(obj['errorMessage'] ?? '') as string;
   if (obj['voucherIssuances'] !== undefined) {
     const _w = obj['voucherIssuances'] as Record<string, unknown>;
@@ -15668,7 +15926,9 @@ export function deserializePayTableOrderResponse(obj: Record<string, unknown>): 
 
 export function deserializePrepayTableOrderResponse(obj: Record<string, unknown>): T.PrepayTableOrderResponse {
   const r: Partial<T.PrepayTableOrderResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in PrepayTableOrderResponse");
   r.result = String(obj['result'] ?? '') as T.PayOrderResult;
+  if (obj['errorMessage'] === undefined) throw new Error("Missing required field 'errorMessage' in PrepayTableOrderResponse");
   r.errorMessage = String(obj['errorMessage'] ?? '') as string;
   if (obj['voucherIssuances'] !== undefined) {
     const _w = obj['voucherIssuances'] as Record<string, unknown>;
@@ -15729,6 +15989,7 @@ export function deserializeGetProposalsResponse(obj: Record<string, unknown>): T
 
 export function deserializeGetProposalResponse(obj: Record<string, unknown>): T.GetProposalResponse {
   const r: Partial<T.GetProposalResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in GetProposalResponse");
   r.result = String(obj['result'] ?? '') as T.GetProposalResult;
   if (obj['proposal'] !== undefined) r.proposal = deserializeProposal(obj['proposal'] as Record<string, unknown>);
   return r as T.GetProposalResponse;
@@ -15736,14 +15997,17 @@ export function deserializeGetProposalResponse(obj: Record<string, unknown>): T.
 
 export function deserializeSaveProposalResponse(obj: Record<string, unknown>): T.SaveProposalResponse {
   const r: Partial<T.SaveProposalResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in SaveProposalResponse");
   r.result = String(obj['result'] ?? '') as T.SaveProposalResult;
-  r.info = deserializeSaveProposalInfo(obj['info'] as Record<string, unknown> ?? {});
+  if (obj['info'] !== undefined) r.info = deserializeSaveProposalInfo(obj['info'] as Record<string, unknown>);
+  if (obj['errorMessage'] === undefined) throw new Error("Missing required field 'errorMessage' in SaveProposalResponse");
   r.errorMessage = String(obj['errorMessage'] ?? '') as string;
   return r as T.SaveProposalResponse;
 }
 
 export function deserializeCancelProposalResponse(obj: Record<string, unknown>): T.CancelProposalResponse {
   const r: Partial<T.CancelProposalResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in CancelProposalResponse");
   r.result = String(obj['result'] ?? '') as T.CancelProposalResult;
   if (obj['message'] !== undefined) r.message = String(obj['message']) as string;
   return r as T.CancelProposalResponse;
@@ -15751,6 +16015,7 @@ export function deserializeCancelProposalResponse(obj: Record<string, unknown>):
 
 export function deserializeCreateOrderFromProposalResponse(obj: Record<string, unknown>): T.CreateOrderFromProposalResponse {
   const r: Partial<T.CreateOrderFromProposalResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in CreateOrderFromProposalResponse");
   r.result = String(obj['result'] ?? '') as T.CreateOrderFromProposalResult;
   if (obj['info'] !== undefined) r.info = deserializeCreateOrderFromProposalInfo(obj['info'] as Record<string, unknown>);
   if (obj['errorMessage'] !== undefined) r.errorMessage = String(obj['errorMessage']) as string;
@@ -15770,6 +16035,7 @@ export function deserializeCreateOrderFromProposalResponse(obj: Record<string, u
 
 export function deserializeCreateInvoiceFromProposalResponse(obj: Record<string, unknown>): T.CreateInvoiceFromProposalResponse {
   const r: Partial<T.CreateInvoiceFromProposalResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in CreateInvoiceFromProposalResponse");
   r.result = String(obj['result'] ?? '') as T.CreateInvoiceFromProposalResult;
   if (obj['info'] !== undefined) r.info = deserializeCreateInvoiceFromProposalInfo(obj['info'] as Record<string, unknown>);
   if (obj['errorMessage'] !== undefined) r.errorMessage = String(obj['errorMessage']) as string;
@@ -15864,7 +16130,9 @@ export function deserializeDetermineContractLinesResponse(obj: Record<string, un
 
 export function deserializeCreateInvoiceFromPackingSlipsResponse(obj: Record<string, unknown>): T.CreateInvoiceFromPackingSlipsResponse {
   const r: Partial<T.CreateInvoiceFromPackingSlipsResponse> = {};
+  if (obj['idempotencyResult'] === undefined) throw new Error("Missing required field 'idempotencyResult' in CreateInvoiceFromPackingSlipsResponse");
   r.idempotencyResult = String(obj['idempotencyResult'] ?? '') as T.IdempotencyResult;
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in CreateInvoiceFromPackingSlipsResponse");
   r.result = String(obj['result'] ?? '') as T.CreateInvoiceFromPackingSlipsResponseResult;
   if (obj['invoiceId'] !== undefined) r.invoiceId = String(obj['invoiceId']) as string;
   if (obj['voucherIssuances'] !== undefined) {
@@ -15894,13 +16162,15 @@ export function deserializeCreateInvoiceFromPackingSlipsResponse(obj: Record<str
 
 export function deserializeGetCashCountInfoResponse(obj: Record<string, unknown>): T.GetCashCountInfoResponse {
   const r: Partial<T.GetCashCountInfoResponse> = {};
-  r.cashCountInfo = deserializeCashCountInfo(obj['cashCountInfo'] as Record<string, unknown> ?? {});
+  if (obj['cashCountInfo'] !== undefined) r.cashCountInfo = deserializeCashCountInfo(obj['cashCountInfo'] as Record<string, unknown>);
   return r as T.GetCashCountInfoResponse;
 }
 
 export function deserializeSaveCashCountResponse(obj: Record<string, unknown>): T.SaveCashCountResponse {
   const r: Partial<T.SaveCashCountResponse> = {};
+  if (obj['idempotencyResult'] === undefined) throw new Error("Missing required field 'idempotencyResult' in SaveCashCountResponse");
   r.idempotencyResult = String(obj['idempotencyResult'] ?? '') as T.IdempotencyResult;
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in SaveCashCountResponse");
   r.result = String(obj['result'] ?? '') as T.SaveCashCountResult;
   if (obj['errorMessage'] !== undefined) r.errorMessage = String(obj['errorMessage']) as string;
   if (obj['cashCountInfoState'] !== undefined) r.cashCountInfoState = String(obj['cashCountInfoState']) as T.CashCountInfoState;
@@ -15909,28 +16179,34 @@ export function deserializeSaveCashCountResponse(obj: Record<string, unknown>): 
 
 export function deserializeProcessInvoiceResponse(obj: Record<string, unknown>): T.ProcessInvoiceResponse {
   const r: Partial<T.ProcessInvoiceResponse> = {};
+  if (obj['idempotencyResult'] === undefined) throw new Error("Missing required field 'idempotencyResult' in ProcessInvoiceResponse");
   r.idempotencyResult = String(obj['idempotencyResult'] ?? '') as T.IdempotencyResult;
   if (obj['invoice'] !== undefined) r.invoice = deserializeInvoice(obj['invoice'] as Record<string, unknown>);
   if (obj['processorResult'] !== undefined) r.processorResult = deserializeSalesProcessorResult(obj['processorResult'] as Record<string, unknown>);
+  if (obj['resultCode'] === undefined) throw new Error("Missing required field 'resultCode' in ProcessInvoiceResponse");
   r.resultCode = String(obj['resultCode'] ?? '') as T.ProcessInvoiceResultCode;
   return r as T.ProcessInvoiceResponse;
 }
 
 export function deserializeProcessProposalResponse(obj: Record<string, unknown>): T.ProcessProposalResponse {
   const r: Partial<T.ProcessProposalResponse> = {};
+  if (obj['idempotencyResult'] === undefined) throw new Error("Missing required field 'idempotencyResult' in ProcessProposalResponse");
   r.idempotencyResult = String(obj['idempotencyResult'] ?? '') as T.IdempotencyResult;
   if (obj['proposal'] !== undefined) r.proposal = deserializeProposal(obj['proposal'] as Record<string, unknown>);
   if (obj['processorResult'] !== undefined) r.processorResult = deserializeSalesProcessorResult(obj['processorResult'] as Record<string, unknown>);
+  if (obj['resultCode'] === undefined) throw new Error("Missing required field 'resultCode' in ProcessProposalResponse");
   r.resultCode = String(obj['resultCode'] ?? '') as T.ProcessProposalResultCode;
   return r as T.ProcessProposalResponse;
 }
 
 export function deserializeProcessOrderResponse(obj: Record<string, unknown>): T.ProcessOrderResponse {
   const r: Partial<T.ProcessOrderResponse> = {};
+  if (obj['idempotencyResult'] === undefined) throw new Error("Missing required field 'idempotencyResult' in ProcessOrderResponse");
   r.idempotencyResult = String(obj['idempotencyResult'] ?? '') as T.IdempotencyResult;
   if (obj['order'] !== undefined) r.order = deserializeOrder(obj['order'] as Record<string, unknown>);
   if (obj['queuedOrderId'] !== undefined) r.queuedOrderId = String(obj['queuedOrderId']) as string;
   if (obj['processorResult'] !== undefined) r.processorResult = deserializeSalesProcessorResult(obj['processorResult'] as Record<string, unknown>);
+  if (obj['resultCode'] === undefined) throw new Error("Missing required field 'resultCode' in ProcessOrderResponse");
   r.resultCode = String(obj['resultCode'] ?? '') as T.ProcessOrderResultCode;
   return r as T.ProcessOrderResponse;
 }
@@ -16566,8 +16842,11 @@ export function deserializeGetWebhookConsumersResponse(obj: Record<string, unkno
 
 export function deserializeStartExternalPaymentResponse(obj: Record<string, unknown>): T.StartExternalPaymentResponse {
   const r: Partial<T.StartExternalPaymentResponse> = {};
+  if (obj['isStarted'] === undefined) throw new Error("Missing required field 'isStarted' in StartExternalPaymentResponse");
   r.isStarted = obj['isStarted'] === 'true' || obj['isStarted'] === true;
+  if (obj['isConfirmed'] === undefined) throw new Error("Missing required field 'isConfirmed' in StartExternalPaymentResponse");
   r.isConfirmed = obj['isConfirmed'] === 'true' || obj['isConfirmed'] === true;
+  if (obj['isCancelled'] === undefined) throw new Error("Missing required field 'isCancelled' in StartExternalPaymentResponse");
   r.isCancelled = obj['isCancelled'] === 'true' || obj['isCancelled'] === true;
   if (obj['finalAmount'] !== undefined) r.finalAmount = Number(obj['finalAmount']);
   if (obj['messages'] !== undefined) {
@@ -16588,7 +16867,9 @@ export function deserializeStartExternalPaymentResponse(obj: Record<string, unkn
 
 export function deserializePollExternalPaymentResponse(obj: Record<string, unknown>): T.PollExternalPaymentResponse {
   const r: Partial<T.PollExternalPaymentResponse> = {};
+  if (obj['isConfirmed'] === undefined) throw new Error("Missing required field 'isConfirmed' in PollExternalPaymentResponse");
   r.isConfirmed = obj['isConfirmed'] === 'true' || obj['isConfirmed'] === true;
+  if (obj['isCancelled'] === undefined) throw new Error("Missing required field 'isCancelled' in PollExternalPaymentResponse");
   r.isCancelled = obj['isCancelled'] === 'true' || obj['isCancelled'] === true;
   if (obj['finalAmount'] !== undefined) r.finalAmount = Number(obj['finalAmount']);
   if (obj['messages'] !== undefined) {
@@ -16609,7 +16890,9 @@ export function deserializePollExternalPaymentResponse(obj: Record<string, unkno
 
 export function deserializeRequestCancelExternalPaymentResponse(obj: Record<string, unknown>): T.RequestCancelExternalPaymentResponse {
   const r: Partial<T.RequestCancelExternalPaymentResponse> = {};
+  if (obj['isConfirmed'] === undefined) throw new Error("Missing required field 'isConfirmed' in RequestCancelExternalPaymentResponse");
   r.isConfirmed = obj['isConfirmed'] === 'true' || obj['isConfirmed'] === true;
+  if (obj['isCancelled'] === undefined) throw new Error("Missing required field 'isCancelled' in RequestCancelExternalPaymentResponse");
   r.isCancelled = obj['isCancelled'] === 'true' || obj['isCancelled'] === true;
   if (obj['finalAmount'] !== undefined) r.finalAmount = Number(obj['finalAmount']);
   if (obj['messages'] !== undefined) {
@@ -16635,6 +16918,7 @@ export function deserializeCancelExternalPaymentResponse(obj: Record<string, unk
 
 export function deserializeExternalPaymentWebhookResponse(obj: Record<string, unknown>): T.ExternalPaymentWebhookResponse {
   const r: Partial<T.ExternalPaymentWebhookResponse> = {};
+  if (obj['idempotencyResult'] === undefined) throw new Error("Missing required field 'idempotencyResult' in ExternalPaymentWebhookResponse");
   r.idempotencyResult = String(obj['idempotencyResult'] ?? '') as T.IdempotencyResult;
   if (obj['messages'] !== undefined) {
     r.messages = toArray(obj['messages']).map((v) => deserializeWebhookMessage(v as Record<string, unknown>));
@@ -16662,6 +16946,7 @@ export function deserializeExternalPaymentWebhookResponse(obj: Record<string, un
 
 export function deserializeWebhookResp(obj: Record<string, unknown>): T.WebhookResp {
   const r: Partial<T.WebhookResp> = {};
+  if (obj['idempotencyResult'] === undefined) throw new Error("Missing required field 'idempotencyResult' in WebhookResp");
   r.idempotencyResult = String(obj['idempotencyResult'] ?? '') as T.IdempotencyResult;
   if (obj['messages'] !== undefined) {
     r.messages = toArray(obj['messages']).map((v) => deserializeWebhookMessage(v as Record<string, unknown>));
@@ -16790,6 +17075,7 @@ export function deserializePrintPrintLayoutRequest(obj: Record<string, unknown>)
 
 export function deserializeGetPrintLayoutsResponse(obj: Record<string, unknown>): T.GetPrintLayoutsResponse {
   const r: Partial<T.GetPrintLayoutsResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in GetPrintLayoutsResponse");
   r.result = String(obj['result'] ?? '') as T.GetPrintLayoutsResponseResult;
   if (obj['printLayouts'] !== undefined) {
     r.printLayouts = toArray(obj['printLayouts']).map((v) => deserializePrintLayoutView(v as Record<string, unknown>));
@@ -16807,25 +17093,32 @@ export function deserializeGetPrintLayoutAssignmentsResponse(obj: Record<string,
 
 export function deserializeGetRenderedPrintLayoutResponse(obj: Record<string, unknown>): T.GetRenderedPrintLayoutResponse {
   const r: Partial<T.GetRenderedPrintLayoutResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in GetRenderedPrintLayoutResponse");
   r.result = String(obj['result'] ?? '') as T.GetRenderedPrintLayoutResponseResult;
+  if (obj['errorMessage'] === undefined) throw new Error("Missing required field 'errorMessage' in GetRenderedPrintLayoutResponse");
   r.errorMessage = String(obj['errorMessage'] ?? '') as string;
   if (obj['renderedPrintLayouts'] !== undefined) {
     r.renderedPrintLayouts = toArray(obj['renderedPrintLayouts']).map(String);
   }
+  if (obj['hasDigitalSignatureField'] === undefined) throw new Error("Missing required field 'hasDigitalSignatureField' in GetRenderedPrintLayoutResponse");
   r.hasDigitalSignatureField = obj['hasDigitalSignatureField'] === 'true' || obj['hasDigitalSignatureField'] === true;
   return r as T.GetRenderedPrintLayoutResponse;
 }
 
 export function deserializeGetPrintLayoutMarkupResponse(obj: Record<string, unknown>): T.GetPrintLayoutMarkupResponse {
   const r: Partial<T.GetPrintLayoutMarkupResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in GetPrintLayoutMarkupResponse");
   r.result = String(obj['result'] ?? '') as T.GetPrintLayoutMarkupResult;
+  if (obj['errorMessage'] === undefined) throw new Error("Missing required field 'errorMessage' in GetPrintLayoutMarkupResponse");
   r.errorMessage = String(obj['errorMessage'] ?? '') as string;
+  if (obj['printLayoutMarkup'] === undefined) throw new Error("Missing required field 'printLayoutMarkup' in GetPrintLayoutMarkupResponse");
   r.printLayoutMarkup = String(obj['printLayoutMarkup'] ?? '') as string;
   return r as T.GetPrintLayoutMarkupResponse;
 }
 
 export function deserializePrintPrintLayoutResponse(obj: Record<string, unknown>): T.PrintPrintLayoutResponse {
   const r: Partial<T.PrintPrintLayoutResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in PrintPrintLayoutResponse");
   r.result = String(obj['result'] ?? '') as T.PrintPrintLayoutResponseResult;
   if (obj['errorMessage'] !== undefined) r.errorMessage = String(obj['errorMessage']) as string;
   return r as T.PrintPrintLayoutResponse;
@@ -17228,6 +17521,7 @@ export function deserializeGetInterbranchOrdersResponse(obj: Record<string, unkn
 
 export function deserializeCreateInterbranchOrderResponse(obj: Record<string, unknown>): T.CreateInterbranchOrderResponse {
   const r: Partial<T.CreateInterbranchOrderResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in CreateInterbranchOrderResponse");
   r.result = String(obj['result'] ?? '') as T.CreateInterbranchOrderResult;
   if (obj['interbranchOrder'] !== undefined) r.interbranchOrder = deserializeInterbranchOrder(obj['interbranchOrder'] as Record<string, unknown>);
   return r as T.CreateInterbranchOrderResponse;
@@ -17235,6 +17529,7 @@ export function deserializeCreateInterbranchOrderResponse(obj: Record<string, un
 
 export function deserializeUpdateInterbranchOrderResponse(obj: Record<string, unknown>): T.UpdateInterbranchOrderResponse {
   const r: Partial<T.UpdateInterbranchOrderResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in UpdateInterbranchOrderResponse");
   r.result = String(obj['result'] ?? '') as T.UpdateInterbranchOrderResult;
   if (obj['interbranchOrder'] !== undefined) r.interbranchOrder = deserializeInterbranchOrder(obj['interbranchOrder'] as Record<string, unknown>);
   return r as T.UpdateInterbranchOrderResponse;
@@ -17242,6 +17537,7 @@ export function deserializeUpdateInterbranchOrderResponse(obj: Record<string, un
 
 export function deserializeClaimInterbranchOrderResponse(obj: Record<string, unknown>): T.ClaimInterbranchOrderResponse {
   const r: Partial<T.ClaimInterbranchOrderResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in ClaimInterbranchOrderResponse");
   r.result = String(obj['result'] ?? '') as T.ClaimInterbranchOrderResult;
   if (obj['interbranchOrder'] !== undefined) r.interbranchOrder = deserializeInterbranchOrder(obj['interbranchOrder'] as Record<string, unknown>);
   return r as T.ClaimInterbranchOrderResponse;
@@ -17249,6 +17545,7 @@ export function deserializeClaimInterbranchOrderResponse(obj: Record<string, unk
 
 export function deserializeReleaseInterbranchOrderResponse(obj: Record<string, unknown>): T.ReleaseInterbranchOrderResponse {
   const r: Partial<T.ReleaseInterbranchOrderResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in ReleaseInterbranchOrderResponse");
   r.result = String(obj['result'] ?? '') as T.ReleaseInterbranchOrderResult;
   if (obj['interbranchOrder'] !== undefined) r.interbranchOrder = deserializeInterbranchOrder(obj['interbranchOrder'] as Record<string, unknown>);
   return r as T.ReleaseInterbranchOrderResponse;
@@ -17256,6 +17553,7 @@ export function deserializeReleaseInterbranchOrderResponse(obj: Record<string, u
 
 export function deserializeCancelInterbranchOrderResponse(obj: Record<string, unknown>): T.CancelInterbranchOrderResponse {
   const r: Partial<T.CancelInterbranchOrderResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in CancelInterbranchOrderResponse");
   r.result = String(obj['result'] ?? '') as T.CancelInterbranchOrderResult;
   if (obj['errorMessage'] !== undefined) r.errorMessage = String(obj['errorMessage']) as string;
   if (obj['interbranchOrder'] !== undefined) r.interbranchOrder = deserializeInterbranchOrder(obj['interbranchOrder'] as Record<string, unknown>);
@@ -17280,6 +17578,7 @@ export function deserializeGetInterbranchShipmentsResponse(obj: Record<string, u
 
 export function deserializeShipInterbranchOrderResponse(obj: Record<string, unknown>): T.ShipInterbranchOrderResponse {
   const r: Partial<T.ShipInterbranchOrderResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in ShipInterbranchOrderResponse");
   r.result = String(obj['result'] ?? '') as T.ShipInterbranchOrderResult;
   if (obj['interbranchShipment'] !== undefined) r.interbranchShipment = deserializeInterbranchShipment(obj['interbranchShipment'] as Record<string, unknown>);
   return r as T.ShipInterbranchOrderResponse;
@@ -17303,6 +17602,7 @@ export function deserializeGetInterbranchDeliveriesResponse(obj: Record<string, 
 
 export function deserializeDeliverInterbranchShipmentResponse(obj: Record<string, unknown>): T.DeliverInterbranchShipmentResponse {
   const r: Partial<T.DeliverInterbranchShipmentResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in DeliverInterbranchShipmentResponse");
   r.result = String(obj['result'] ?? '') as T.DeliverInterbranchShipmentResult;
   if (obj['interbranchDelivery'] !== undefined) r.interbranchDelivery = deserializeInterbranchDelivery(obj['interbranchDelivery'] as Record<string, unknown>);
   return r as T.DeliverInterbranchShipmentResponse;
@@ -17310,6 +17610,7 @@ export function deserializeDeliverInterbranchShipmentResponse(obj: Record<string
 
 export function deserializeCreateInterbranchShipmentResponse(obj: Record<string, unknown>): T.CreateInterbranchShipmentResponse {
   const r: Partial<T.CreateInterbranchShipmentResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in CreateInterbranchShipmentResponse");
   r.result = String(obj['result'] ?? '') as T.CreateInterbranchShipmentResult;
   if (obj['interbranchShipment'] !== undefined) r.interbranchShipment = deserializeInterbranchShipment(obj['interbranchShipment'] as Record<string, unknown>);
   return r as T.CreateInterbranchShipmentResponse;
@@ -17317,6 +17618,7 @@ export function deserializeCreateInterbranchShipmentResponse(obj: Record<string,
 
 export function deserializeCreateInterbranchDeliveryResponse(obj: Record<string, unknown>): T.CreateInterbranchDeliveryResponse {
   const r: Partial<T.CreateInterbranchDeliveryResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in CreateInterbranchDeliveryResponse");
   r.result = String(obj['result'] ?? '') as T.CreateInterbranchDeliveryResult;
   if (obj['interbranchDelivery'] !== undefined) r.interbranchDelivery = deserializeInterbranchDelivery(obj['interbranchDelivery'] as Record<string, unknown>);
   return r as T.CreateInterbranchDeliveryResponse;
@@ -17324,7 +17626,9 @@ export function deserializeCreateInterbranchDeliveryResponse(obj: Record<string,
 
 export function deserializeRunInterbranchPlannerResponse(obj: Record<string, unknown>): T.RunInterbranchPlannerResponse {
   const r: Partial<T.RunInterbranchPlannerResponse> = {};
+  if (obj['idempotencyResult'] === undefined) throw new Error("Missing required field 'idempotencyResult' in RunInterbranchPlannerResponse");
   r.idempotencyResult = String(obj['idempotencyResult'] ?? '') as T.IdempotencyResult;
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in RunInterbranchPlannerResponse");
   r.result = String(obj['result'] ?? '') as T.RunInterbranchPlannerResult;
   if (obj['errorMessage'] !== undefined) r.errorMessage = String(obj['errorMessage']) as string;
   if (obj['createdInterbranchOrders'] !== undefined) {

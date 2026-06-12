@@ -43,7 +43,7 @@
     "generate": "ts-node --project scripts/tsconfig.json scripts/generate.ts",
     "generate:local": "ts-node --project scripts/tsconfig.json scripts/generate.ts wsdl.xml",
     "check": "npm run build && npm run test:types && npm test",
-    "test": "node --require ts-node/register/transpile-only --test test/soap.test.ts test/transport.test.ts test/roundtrip.test.ts",
+    "test": "node --require ts-node/register/transpile-only --test test/soap.test.ts test/transport.test.ts test/roundtrip.test.ts test/client.test.ts",
     "test:types": "tsc --noEmit -p tsconfig.test.json",
     "prepack": "npm run build",
     "pack:dry-run": "npm pack --dry-run"

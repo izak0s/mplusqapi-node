@@ -5029,7 +5029,7 @@ export interface UpdateRelationResponse {
 
 export interface GetRelationResponse {
   result: GetRelationResult;
-  relation: Relation;
+  relation?: Relation;
 }
 
 export interface FindRelationResponse {
@@ -5201,7 +5201,7 @@ export interface StoreSinglyEftTransactionResponse {
 
 export interface QueueBranchOrderResponse {
   result: QueueBranchOrderResult;
-  info: QueueBranchOrderInfo;
+  info?: QueueBranchOrderInfo;
   errorMessage: string;
 }
 
@@ -5221,7 +5221,7 @@ export interface GetQueueBranchOrderPaymentStatusResponse {
 
 export interface UpdateOrderResponse {
   result: UpdateOrderResult;
-  info: UpdateOrderInfo;
+  info?: UpdateOrderInfo;
   errorMessage: string;
 }
 
@@ -5229,12 +5229,12 @@ export interface UpdateOrderV2Response {
   result: UpdateOrderResult;
   order?: Order;
   errorMessage?: string;
-  info: UpdateOrderInfo;
+  info?: UpdateOrderInfo;
 }
 
 export interface SaveOrderResponse {
   result: SaveOrderResult;
-  info: SaveOrderInfo;
+  info?: SaveOrderInfo;
   errorMessage: string;
 }
 
@@ -5256,7 +5256,7 @@ export interface GetOrderChangesResponse {
 }
 
 export interface GetOrderHistoryResponse {
-  orderHistoryOrderDetailsList: OrderHistoryOrderDetailsList;
+  orderHistoryOrderDetailsList?: OrderHistoryOrderDetailsList;
 }
 
 export interface CancelOrderResponse {
@@ -5340,7 +5340,7 @@ export interface GetInvoicesResponse {
 
 export interface SaveInvoiceResponse {
   result: SaveInvoiceResult;
-  info: SaveInvoiceInfo;
+  info?: SaveInvoiceInfo;
   errorMessage: string;
   voucherIssuances: VoucherIssuance[];
   unappliedVoucherIssuances: UnappliedVoucherIssuance[];
@@ -5734,13 +5734,13 @@ export interface DeterminePricingResponse {
 
 export interface SetRelationPresenceResponse {
   result: SetRelationPresenceResult;
-  table: TableNumber;
+  table?: TableNumber;
   errorMessage: string;
 }
 
 export interface GetRelationPresenceResponse {
   result: GetRelationPresenceResponseResult;
-  lastKnownRelationPresence: RelationPresence;
+  lastKnownRelationPresence?: RelationPresence;
   lastKnownTimestamp: Date;
 }
 
@@ -6860,7 +6860,7 @@ export interface UpdateConfigurationValuesResponse {
 }
 
 export interface getButtonLayoutResponse {
-  return: ButtonLayout;
+  return?: ButtonLayout;
 }
 
 export interface ButtonLayoutGroupForBranchResponse {
@@ -7185,8 +7185,8 @@ export interface ChangeTablePropertyResp {
   idempotencyResult: IdempotencyResult;
   result: ChangeTablePropertyResult;
   errorMessage?: string;
-  tableIdentifier: TableIdentifier;
-  tableProperties: TableProperties;
+  tableIdentifier?: TableIdentifier;
+  tableProperties?: TableProperties;
 }
 
 export interface GetEmployeeAuthorizationsResponse {
@@ -7756,7 +7756,7 @@ export interface RedeemVoucherIssuanceRequest {
 
 export interface CheckGiftcardPaymentResponse {
   result: GiftcardResult;
-  giftcard: Giftcard;
+  giftcard?: Giftcard;
 }
 
 export interface RegisterGiftcardPaymentResponse {
@@ -9055,7 +9055,7 @@ export interface GetAvailablePaymentMethodsResponse {
 
 export interface CreateOrderResponse {
   result: CreateOrderResult;
-  info: CreateOrderInfo;
+  info?: CreateOrderInfo;
   errorMessage: string;
 }
 
@@ -9063,7 +9063,7 @@ export interface CreateOrderV2Response {
   result: CreateOrderResult;
   order?: Order;
   errorMessage?: string;
-  info: CreateOrderInfo;
+  info?: CreateOrderInfo;
 }
 
 export interface CreateOrderV3Response {
@@ -9072,7 +9072,7 @@ export interface CreateOrderV3Response {
   result: CreateOrderResult;
   order?: Order;
   errorMessage?: string;
-  info: CreateOrderInfo;
+  info?: CreateOrderInfo;
   payResult?: PayOrderResult;
   invoiceId?: string;
   voucherIssuances: VoucherIssuance[];
@@ -9127,7 +9127,7 @@ export interface GetProposalResponse {
 
 export interface SaveProposalResponse {
   result: SaveProposalResult;
-  info: SaveProposalInfo;
+  info?: SaveProposalInfo;
   errorMessage: string;
 }
 
@@ -9177,7 +9177,7 @@ export interface CreateInvoiceFromPackingSlipsResponse {
 }
 
 export interface GetCashCountInfoResponse {
-  cashCountInfo: CashCountInfo;
+  cashCountInfo?: CashCountInfo;
 }
 
 export interface SaveCashCountResponse {

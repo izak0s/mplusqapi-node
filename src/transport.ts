@@ -1,5 +1,8 @@
 import axios, { AxiosInstance } from 'axios';
 import { Agent } from 'node:https';
+
+/** Errors where the connection was never established — the request cannot have been processed. */
+const SAFE_RETRY_CODES = new Set(['ECONNREFUSED', 'ENOTFOUND', 'EAI_AGAIN', 'EHOSTUNREACH', 'ENETUNREACH']);
 import {
   MplusApiClientError,
   MplusApiCommunicationError,
@@ -56,7 +59,9 @@ export class SoapTransport {
     });
   }
 
-  async send(operationName: string, xmlRequest: string, requestId?: string): Promise<string> {
+  async send(operationName: string, xmlRequest: string, requestId?: string, idempotent = false): Promise<string> {
+    // One ID for all attempts so the server can correlate/dedupe retries.
+    const rid = requestId ?? `mpac_${Date.now()}_${Math.random().toString(36).slice(2)}`;
     let lastError: unknown;
     for (let attempt = 0; attempt <= this.maxRetries; attempt++) {
       if (attempt > 0) {
@@ -65,10 +70,10 @@ export class SoapTransport {
         await new Promise(resolve => setTimeout(resolve, backoff * (0.5 + Math.random() * 0.5)));
       }
       try {
-        return await this.sendOnce(operationName, xmlRequest, requestId);
+        return await this.sendOnce(operationName, xmlRequest, rid);
       } catch (err) {
         lastError = err;
-        if (!(err instanceof MplusApiCommunicationError) || this.signal?.aborted) {
+        if (!this.isRetryable(err, idempotent)) {
           throw err;
         }
       }
@@ -76,10 +81,22 @@ export class SoapTransport {
     throw lastError;
   }
 
-  private async sendOnce(operationName: string, xmlRequest: string, requestId?: string): Promise<string> {
+  /**
+   * Idempotent calls (request carries an idempotencyKey) may retry any
+   * communication error. For everything else, only retry when the request
+   * provably never reached the server — a timeout or reset after sending a
+   * non-idempotent mutation (e.g. createOrder) could otherwise duplicate it.
+   */
+  private isRetryable(err: unknown, idempotent: boolean): boolean {
+    if (!(err instanceof MplusApiCommunicationError) || this.signal?.aborted) return false;
+    if (idempotent) return true;
+    return err.code !== undefined && SAFE_RETRY_CODES.has(err.code);
+  }
+
+  private async sendOnce(operationName: string, xmlRequest: string, requestId: string): Promise<string> {
     const headers: Record<string, string> = {
       'SOAPAction': operationName,
-      'X-Request-Id': requestId ?? `mpac_${Date.now()}_${Math.random().toString(36).slice(2)}`,
+      'X-Request-Id': requestId,
     };
 
     let xmlResponse = '';
@@ -122,10 +139,12 @@ export class SoapTransport {
             `HTTP ${err.response.status}: ${err.message}`,
             xmlRequest,
             xmlResponse,
+            err.code,
+            err.response.status,
           );
         }
 
-        throw new MplusApiCommunicationError(err.message, xmlRequest, xmlResponse);
+        throw new MplusApiCommunicationError(err.message, xmlRequest, xmlResponse, err.code);
       }
 
       throw new MplusApiCommunicationError(

@@ -57,9 +57,11 @@ for (const order of orders) {
   console.log(order.orderId, order.financialDate);
 }
 
-// Fetch a single relation
-const { relation } = await client.getRelation(42);
-console.log(relation.name, relation.email);
+// Fetch a single relation — `relation` is undefined when result is NOT-FOUND
+const { result, relation } = await client.getRelation(42);
+if (result === 'GET-RELATION-RESULT-OK') {
+  console.log(relation?.name, relation?.email);
+}
 ```
 
 ---
@@ -83,10 +85,25 @@ const client = new MplusKassaClient({
 | Option | Default | Description |
 |---|---|---|
 | `timeout` | `30` | Request timeout in seconds |
-| `maxRetries` | `3` | Retry attempts on network/transport errors (SOAP faults are never retried) |
-| `retryDelay` | `500` | Base retry delay in ms, doubled per attempt (exponential backoff) |
+| `maxRetries` | `3` | Retry attempts on retryable transport errors (see below; SOAP faults are never retried) |
+| `retryDelay` | `500` | Base retry delay in ms, doubled per attempt (exponential backoff with jitter) |
 | `rejectUnauthorized` | `true` | Set `false` to accept self-signed TLS certificates |
 | `signal` | — | `AbortSignal` to cancel all in-flight requests from this client (e.g. on shutdown) |
+
+### Retries and idempotency
+
+Retrying a mutation after an ambiguous network failure (e.g. a connection reset after the request was sent) could execute it twice — duplicate orders, double payments. The client guards against this:
+
+- **Idempotent operations** (requests carrying an `idempotencyKey`, e.g. `createOrderV3`, `payOrderV2`): the key is **auto-generated** (UUID) when you don't provide one, and any transport error is retried freely — the server deduplicates by key. Provide your own key to make retries safe across process restarts.
+- **All other operations**: only errors where the request provably never reached the server are retried (`ECONNREFUSED`, `ENOTFOUND`, DNS failures, unreachable host/network). Timeouts, connection resets, and HTTP 5xx responses are **not** retried — inspect `MplusApiCommunicationError.code` / `.httpStatus` and decide yourself.
+
+All attempts of one call share the same `X-Request-Id` header.
+
+### Response guarantees
+
+- List fields are always present on responses (`[]` when the server omits them).
+- Complex response fields (e.g. `GetRelationResponse.relation`) are `undefined` when the server omits them — check the accompanying `result` field.
+- A required scalar field missing from a response throws `MplusApiDeserializationError` instead of silently producing `''`/`NaN`/`false`.
 
 ---
 

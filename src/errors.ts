@@ -38,9 +38,16 @@ export class MplusApiServerError extends MplusApiFaultError {
 
 /** Network or HTTP-level failure. */
 export class MplusApiCommunicationError extends MplusApiError {
-  constructor(message: string, xmlRequest: string, xmlResponse: string) {
+  /** Low-level error code (e.g. 'ECONNREFUSED', 'ECONNRESET', 'ERR_BAD_RESPONSE'). */
+  readonly code?: string;
+  /** HTTP status, when a response was received. */
+  readonly httpStatus?: number;
+
+  constructor(message: string, xmlRequest: string, xmlResponse: string, code?: string, httpStatus?: number) {
     super(message, xmlRequest, xmlResponse);
     this.name = 'MplusApiCommunicationError';
+    this.code = code;
+    this.httpStatus = httpStatus;
   }
 }
 

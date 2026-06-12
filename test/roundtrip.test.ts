@@ -48,6 +48,7 @@ test('getRelationResponse round-trip: XML → parse → typed object', () => {
   );
 
   assert.equal(resp.result, 'GET-RELATION-RESULT-OK');
+  assert.ok(resp.relation, 'relation present on OK result');
   assert.equal(resp.relation.relationNumber, 42);
   assert.equal(resp.relation.name, 'Acme & Co');
   assert.equal(resp.relation.active, true);
