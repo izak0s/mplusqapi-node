@@ -3,8 +3,8 @@
  * Reads a WSDL URL or local WSDL file and writes src/generated/{types,serializer,deserializer,client}.ts
  *
  * Run:
- *   npm run generate
  *   npm run generate -- https://api.mpluskassa.nl:PORT/?wsdl
+ *   MPLUS_WSDL_URL=https://api.mpluskassa.nl:PORT/?wsdl npm run generate
  *   npm run generate -- wsdl.xml
  */
 
@@ -98,7 +98,6 @@ const XSD_PRIMITIVES: Record<string, string> = {
 const ISO_DATE_WSDL_TYPES = new Set(['date', 'dateTime']);
 
 const DATETIME_TYPES = new Set(['SoapMplusDateTime', 'SoapMplusDate']);
-const DEFAULT_WSDL_URL = 'https://api.mpluskassa.nl:44281/?wsdl';
 
 function stripNs(value: string): string {
   const idx = value.indexOf(':');
@@ -1050,10 +1049,15 @@ function fetchText(url: string, redirectCount = 0): Promise<string> {
 
 async function main(): Promise<void> {
   const projectRoot = path.resolve(__dirname, '..');
-  const wsdlSourceArg = process.argv[2];
-  const wsdlSource = wsdlSourceArg
-    ? isUrl(wsdlSourceArg) ? wsdlSourceArg : path.resolve(projectRoot, wsdlSourceArg)
-    : DEFAULT_WSDL_URL;
+  const wsdlSourceArg = process.argv[2] ?? process.env.MPLUS_WSDL_URL;
+  if (!wsdlSourceArg) {
+    throw new Error(
+      'Missing WSDL source. Run `npm run generate -- <wsdl-url-or-path>` or set MPLUS_WSDL_URL.',
+    );
+  }
+  const wsdlSource = isUrl(wsdlSourceArg)
+    ? wsdlSourceArg
+    : path.resolve(projectRoot, wsdlSourceArg);
   const outDir = path.join(projectRoot, 'src', 'generated');
 
   console.log(`Loading WSDL from ${wsdlSource}...`);
