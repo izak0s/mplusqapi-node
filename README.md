@@ -21,7 +21,7 @@ A fully-typed TypeScript client for the [MplusKASSA](https://www.mpluskassa.nl) 
 ## Installation
 
 ```bash
-npm install mplusqapi-node
+npm install @izak0s/mplusqapi-node
 ```
 
 **Runtime dependencies:**
@@ -38,7 +38,7 @@ import {
   MplusApiClientError,
   MplusApiServerError,
   MplusApiCommunicationError,
-} from 'mplusqapi-node';
+} from '@izak0s/mplusqapi-node';
 
 const client = new MplusKassaClient({
   host: process.env.MPLUS_HOST!,
@@ -51,9 +51,9 @@ const client = new MplusKassaClient({
 const version = await client.getApiVersion();
 console.log(`API: ${version.majorNumber}.${version.minorNumber}.${version.revisionNumber}`);
 
-// Fetch orders (returns Order[] directly)
-const { orderList } = await client.getOrders({ syncMarkerLimit: 10 });
-for (const order of orderList) {
+// Fetch orders (returns Order[] directly — list wrappers are unwrapped)
+const orders = await client.getOrders({ syncMarkerLimit: 10 });
+for (const order of orders) {
   console.log(order.orderId, order.financialDate);
 }
 
@@ -78,6 +78,16 @@ const client = new MplusKassaClient({
 });
 ```
 
+### Transport options
+
+| Option | Default | Description |
+|---|---|---|
+| `timeout` | `30` | Request timeout in seconds |
+| `maxRetries` | `3` | Retry attempts on network/transport errors (SOAP faults are never retried) |
+| `retryDelay` | `500` | Base retry delay in ms, doubled per attempt (exponential backoff) |
+| `rejectUnauthorized` | `true` | Set `false` to accept self-signed TLS certificates |
+| `signal` | — | `AbortSignal` to cancel all in-flight requests from this client (e.g. on shutdown) |
+
 ---
 
 ## Error Handling
@@ -91,7 +101,7 @@ import {
   MplusApiCommunicationError, // network / HTTP error
   MplusApiSerializationError, // failed to build request XML
   MplusApiDeserializationError, // failed to parse response XML
-} from 'mplusqapi-node';
+} from '@izak0s/mplusqapi-node';
 
 try {
   await client.getOrder('invalid-id');
@@ -117,19 +127,27 @@ try {
 Enum fields are typed as TypeScript string unions:
 
 ```typescript
-import type { OrderType, ArticleType } from 'mplusqapi-node';
+import type { OrderType, ArticleType } from '@izak0s/mplusqapi-node';
 
-const type: OrderType = 'SALES_ORDER';
+const type: OrderType = 'ORDER-TYPE-SALES-ORDER';
 ```
 
-### Decimal fields
+### Money and decimal fields
 
-Price and quantity fields (`xsd:decimal`) are typed as `string` to preserve precision:
+The WSDL uses two conventions for money/quantity values, and the generated types mirror them faithfully:
+
+- **`xsd:decimal` → `string`** — fractional values like `"12.50"`. Kept as strings end-to-end to preserve precision (the XML parser is configured to never coerce them to floats).
+- **`xsd:long` → `number`** — scaled integers, typically cents (look for sibling fields like `minimumAmountDecimalPlaces`). Safe as JS numbers.
 
 ```typescript
-const price: string = order.totalPrice; // e.g. "12.50", not 12.5
-const amount = parseFloat(price);
+// xsd:decimal — string, e.g. SalesLineContractLine
+const price: string = contractLine.priceIncl; // "12.50", not 12.5
+
+// xsd:long — integer cents, e.g. Payment
+const payment = { method: 'CASH', amount: 1000 }; // €10.00
 ```
+
+The same field name (e.g. `priceIncl`) can be a `string` on one type and a `number` on another — trust the TypeScript type, it reflects what the API sends.
 
 ### Dates
 
@@ -140,14 +158,25 @@ const amount = parseFloat(price);
 `*List` wrapper types are flattened to plain arrays in both requests and responses:
 
 ```typescript
-// Response: orderList is Order[], not OrderList
-const { orderList } = await client.getOrders({});
-const first: Order = orderList[0];
+// Response: getOrders returns Order[] directly, not { orderList: ... }
+const orders = await client.getOrders({});
+const first: Order = orders[0];
 
 // Request: pass an array directly
 await client.payTableOrder({
   terminal: myTerminal,
-  paymentList: [{ method: 'CASH', amount: '10.00' }],
+  paymentList: [{ method: 'CASH', amount: 1000 }], // amount in cents
+});
+```
+
+### Request input types
+
+Request parameters use `Input<T>` — a deep-partial variant of the response types. All fields are optional when building requests; fields the WSDL marks required describe what *responses* are guaranteed to contain (e.g. `Order.orderId` is assigned by the server on create). Omitted fields are simply not serialized. The server validates true requirements at runtime and responds with a SOAP fault.
+
+```typescript
+// Order without orderId — server assigns it
+await client.createOrderV3({
+  order: { lineList: [{ articleNumber: 123, data: { quantity: 1 } }] },
 });
 ```
 
@@ -225,4 +254,4 @@ wsdl.xml                Cached WSDL for offline/local regeneration
 
 ## License
 
-MIT
+[GPL-3.0-only](LICENSE)

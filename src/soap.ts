@@ -21,7 +21,10 @@ export function buildEnvelope(operationName: string, bodyXml: string): string {
 const responseParser = new XMLParser({
   ignoreAttributes: true,
   removeNSPrefix: true,
-  parseTagValue: true,
+  // Keep all leaf values as raw strings: the generated deserializers coerce
+  // each field explicitly. Letting the parser guess would corrupt xsd:decimal
+  // values ("12.50" -> 12.5) and numeric-looking string IDs.
+  parseTagValue: false,
   parseAttributeValue: false,
   isArray: () => false,
 });

@@ -1,4 +1,5 @@
 import axios, { AxiosInstance } from 'axios';
+import { Agent } from 'node:https';
 import {
   MplusApiClientError,
   MplusApiCommunicationError,
@@ -20,6 +21,8 @@ export interface TransportOptions {
   retryDelay?: number;
   /** Disable TLS certificate validation (not recommended in production). */
   rejectUnauthorized?: boolean;
+  /** Abort all in-flight requests from this client (e.g. on shutdown). */
+  signal?: AbortSignal;
 }
 
 export class SoapTransport {
@@ -27,12 +30,14 @@ export class SoapTransport {
   private readonly endpoint: string;
   private readonly maxRetries: number;
   private readonly retryDelay: number;
+  private readonly signal?: AbortSignal;
 
   constructor(options: TransportOptions) {
     const scheme = 'https';
     this.endpoint = `${scheme}://${options.host}:${options.port}/`;
     this.maxRetries = options.maxRetries ?? 3;
     this.retryDelay = options.retryDelay ?? 500;
+    this.signal = options.signal;
 
     this.http = axios.create({
       baseURL: this.endpoint,
@@ -42,9 +47,12 @@ export class SoapTransport {
         'User-Agent': 'mplusqapi-node/1.0.0',
       },
       httpsAgent: options.rejectUnauthorized === false
-        ? new (require('https').Agent)({ rejectUnauthorized: false })
+        ? new Agent({ rejectUnauthorized: false })
         : undefined,
       timeout: (options.timeout ?? 30) * 1000,
+      // The body is always XML — never let axios JSON-parse it.
+      responseType: 'text',
+      signal: options.signal,
     });
   }
 
@@ -52,13 +60,15 @@ export class SoapTransport {
     let lastError: unknown;
     for (let attempt = 0; attempt <= this.maxRetries; attempt++) {
       if (attempt > 0) {
-        await new Promise(resolve => setTimeout(resolve, this.retryDelay * Math.pow(2, attempt - 1)));
+        // Full jitter on exponential backoff to avoid synchronized retries.
+        const backoff = this.retryDelay * Math.pow(2, attempt - 1);
+        await new Promise(resolve => setTimeout(resolve, backoff * (0.5 + Math.random() * 0.5)));
       }
       try {
         return await this.sendOnce(operationName, xmlRequest, requestId);
       } catch (err) {
         lastError = err;
-        if (!(err instanceof MplusApiCommunicationError)) {
+        if (!(err instanceof MplusApiCommunicationError) || this.signal?.aborted) {
           throw err;
         }
       }
