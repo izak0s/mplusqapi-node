@@ -279,7 +279,7 @@ npm version patch   # or minor / major — bumps package.json, commits, tags
 git push --follow-tags
 ```
 
-The tag triggers `.github/workflows/publish.yml`: gate on `npm run check`, publish to npm via [trusted publishing](https://docs.npmjs.com/trusted-publishers) (OIDC, no token), and create a GitHub release with generated notes. The workflow refuses to publish if the tag doesn't match `package.json`.
+The tag triggers `.github/workflows/publish.yml`: it first runs the full CI workflow (lint, build, type-check, tests across the Node matrix, pack check) as a gate, then — only if CI passes — publishes to npm via [trusted publishing](https://docs.npmjs.com/trusted-publishers) (OIDC, no token) and creates a GitHub release with generated notes. The workflow refuses to publish if the tag doesn't match `package.json`.
 
 ### Run the example
 

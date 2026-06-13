@@ -4,6 +4,7 @@ on:
   push:
     branches: [master]
   pull_request:
+  workflow_call: # let publish.yml gate releases on a full CI run
 
 jobs:
   test:

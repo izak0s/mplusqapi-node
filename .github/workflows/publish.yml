@@ -9,7 +9,13 @@ permissions:
   id-token: write # npm trusted publishing (OIDC) + provenance
 
 jobs:
+  # Full CI (lint, build, type-check, tests across the Node matrix, pack check).
+  # Gates the release: publish does not run unless this passes.
+  ci:
+    uses: ./.github/workflows/ci.yml
+
   publish:
+    needs: ci
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
@@ -31,8 +37,6 @@ jobs:
             echo "::error::Tag $GITHUB_REF_NAME does not match package.json version v$PKG_VERSION. Use 'npm version' to release."
             exit 1
           fi
-
-      - run: npm run check
 
       # No token: authenticated via OIDC trusted publishing. Provenance is
       # attached automatically once the repo is public.
