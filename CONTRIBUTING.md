@@ -20,18 +20,17 @@ npm run generate:local             # afterwards: regenerate from the cached wsdl
 ## Commands
 
 ```bash
-npm run lint        # eslint (hand-written code only)
 npm run build       # tsup → dist/ (CJS + ESM + d.ts)
 npm run test:types  # tsc --noEmit over src + test + scripts
 npm test            # node:test suite
-npm run check       # all of the above except lint — what CI runs
+npm run check       # all of the above — what CI runs
 ```
 
 ## Pull requests
 
 - Keep PRs focused; one concern per PR.
 - New behavior needs a test. Bug fixes need a test that fails without the fix.
-- CI (lint, build, types, tests on Node 20/22/24) must pass.
+- CI (build, types, tests on Node 20/22/24) must pass.
 - Don't bump the version in PRs — releases are tagged by maintainers via `npm version`.
 
 ## Reporting bugs

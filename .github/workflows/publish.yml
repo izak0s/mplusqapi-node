@@ -9,7 +9,7 @@ permissions:
   id-token: write # npm trusted publishing (OIDC) + provenance
 
 jobs:
-  # Full CI (lint, build, type-check, tests across the Node matrix, pack check).
+  # Full CI (build, type-check, tests across the Node matrix, pack check).
   # Gates the release: publish does not run unless this passes.
   ci:
     uses: ./.github/workflows/ci.yml

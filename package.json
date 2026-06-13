@@ -46,7 +46,6 @@
   "scripts": {
     "clean": "node -e \"require('fs').rmSync('dist', { recursive: true, force: true })\"",
     "build": "npm run clean && tsup",
-    "lint": "eslint .",
     "generate": "ts-node --project scripts/tsconfig.json scripts/generate.ts",
     "generate:local": "ts-node --project scripts/tsconfig.json scripts/generate.ts wsdl.xml",
     "sync:readme": "ts-node --project scripts/tsconfig.json scripts/sync-readme.ts",
@@ -64,10 +63,8 @@
   },
   "devDependencies": {
     "@types/node": "^25.9.3",
-    "eslint": "^10.5.0",
     "ts-node": "^10.9.2",
     "tsup": "^8.5.1",
-    "typescript": "^6.0.3",
-    "typescript-eslint": "^8.61.0"
+    "typescript": "^6.0.3"
   }
 }
