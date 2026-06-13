@@ -52,7 +52,7 @@
     "sync:readme": "ts-node --project scripts/tsconfig.json scripts/sync-readme.ts",
     "check": "npm run build && npm run test:types && npm test",
     "test": "node --require ts-node/register/transpile-only --test test/*.test.ts",
-    "test:types": "tsc --noEmit -p tsconfig.test.json",
+    "test:types": "tsc --noEmit -p tsconfig.json",
     "prepack": "npm run build",
     "pack:dry-run": "npm pack --dry-run"
   },
