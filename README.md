@@ -12,9 +12,9 @@ A fully-typed TypeScript client for the [MplusKASSA](https://www.mpluskassa.nl) 
 
 ## Features
 
-- **342 typed async methods** covering the full MplusKASSA API surface
+- **351 typed async methods** covering the full MplusKASSA API surface
 - **Auto-generated** from the official WSDL URL — regenerate anytime the WSDL changes
-- **Fully typed** — 259 enum types and 1200+ interfaces, all derived from the WSDL
+- **Fully typed** — 261 enum types and 1200+ interfaces, all derived from the WSDL
 - **List flattening** — `*List` wrapper types (e.g. `OrderList`) are transparently unwrapped to plain arrays (`Order[]`)
 - **Decimal-safe** — `xsd:decimal` fields typed as `string` to avoid floating-point precision loss
 - **Date handling** — `SoapMplusDateTime` structs and ISO date fields both map to `Date`
@@ -282,7 +282,7 @@ src/
     types.ts            TypeScript interfaces and string union enums
     serializer.ts       TS objects → SOAP XML
     deserializer.ts     Response XML → typed TS objects
-    client.ts           MplusKassaClient with all 342 methods
+    client.ts           MplusKassaClient with all 351 methods
 
 scripts/
   generate.ts           WSDL parser + code generator
