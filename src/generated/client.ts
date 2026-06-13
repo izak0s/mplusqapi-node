@@ -200,6 +200,19 @@ export class MplusKassaClient {
     );
   }
 
+  async getCardCategoriesV2(request: T.Input<T.GetCardCategoriesV2Request>, requestId?: string): Promise<T.GetCardCategoriesV2Response> {
+    const bodyXml = S.serializeGetCardCategoriesV2Body(request);
+    return this.call(
+      'getCardCategoriesV2',
+      'GetCardCategoriesV2Response',
+      'GetCardCategoriesV2Response',
+      bodyXml,
+      D.deserializeGetCardCategoriesV2Response,
+      false,
+      requestId,
+    );
+  }
+
   async adjustPoints(request: T.Input<T.AdjustPointsRequest>, requestId?: string): Promise<T.AdjustPointsResponse> {
     const bodyXml = S.serializeAdjustPointsBody(request);
     return this.call(
@@ -302,6 +315,32 @@ export class MplusKassaClient {
       false,
       requestId,
     )).return;
+  }
+
+  async verifyEmployeePassword(params: { terminal?: T.Input<T.Terminal>; employeeNumber?: number; password?: string }, requestId?: string): Promise<boolean> {
+    const bodyXml = S.serializeVerifyEmployeePasswordBody(params);
+    return (await this.call(
+      'verifyEmployeePassword',
+      'verifyEmployeePasswordResponse',
+      'verifyEmployeePasswordResponse',
+      bodyXml,
+      D.deserializeverifyEmployeePasswordResponse,
+      false,
+      requestId,
+    )).response;
+  }
+
+  async getMaxTableNumber(terminal: T.Input<T.Terminal>, requestId?: string): Promise<number> {
+    const bodyXml = S.serializeGetMaxTableNumberBody(terminal);
+    return (await this.call(
+      'getMaxTableNumber',
+      'getMaxTableNumberResponse',
+      'getMaxTableNumberResponse',
+      bodyXml,
+      D.deserializegetMaxTableNumberResponse,
+      false,
+      requestId,
+    )).maxTableNumber;
   }
 
   async getTableList(terminal: T.Input<T.Terminal>, requestId?: string): Promise<T.Table[] | undefined> {
@@ -1477,6 +1516,19 @@ export class MplusKassaClient {
     )).result;
   }
 
+  async sendMessage(request: T.Input<T.SendMessageRequest>, requestId?: string): Promise<boolean> {
+    const bodyXml = S.serializeSendMessageBody(request);
+    return (await this.call(
+      'sendMessage',
+      'sendMessageResponse',
+      'sendMessageResponse',
+      bodyXml,
+      D.deserializesendMessageResponse,
+      false,
+      requestId,
+    )).response;
+  }
+
   async getMessages(request: T.Input<T.GetMessagesRequest>, requestId?: string): Promise<T.Message[]> {
     const bodyXml = S.serializeGetMessagesBody(request);
     return (await this.call(
@@ -1985,6 +2037,19 @@ export class MplusKassaClient {
     )).id;
   }
 
+  async saveTodoList(request: T.Input<T.SaveTodoListRequest>, requestId?: string): Promise<T.Struct1 | undefined> {
+    const bodyXml = S.serializeSaveTodoListBody(request);
+    return (await this.call(
+      'saveTodoList',
+      'saveTodoListResponse',
+      'saveTodoListResponse',
+      bodyXml,
+      D.deserializesaveTodoListResponse,
+      false,
+      requestId,
+    )).response;
+  }
+
   async saveTodoListV2(request: T.Input<T.SaveTodoListV2Request>, requestId?: string): Promise<T.SaveTodoListV2Response> {
     request = { idempotencyKey: randomUUID(), ...request };
     const bodyXml = S.serializeSaveTodoListV2Body(request);
@@ -1997,6 +2062,32 @@ export class MplusKassaClient {
       true,
       requestId,
     );
+  }
+
+  async addToTodoList(request: T.Input<T.AddToTodoListRequest>, requestId?: string): Promise<T.Struct2 | undefined> {
+    const bodyXml = S.serializeAddToTodoListBody(request);
+    return (await this.call(
+      'addToTodoList',
+      'addToTodoListResponse',
+      'addToTodoListResponse',
+      bodyXml,
+      D.deserializeaddToTodoListResponse,
+      false,
+      requestId,
+    )).response;
+  }
+
+  async removeTodoList(id: number, requestId?: string): Promise<T.Struct3 | undefined> {
+    const bodyXml = S.serializeRemoveTodoListBody(id);
+    return (await this.call(
+      'removeTodoList',
+      'removeTodoListResponse',
+      'removeTodoListResponse',
+      bodyXml,
+      D.deserializeremoveTodoListResponse,
+      false,
+      requestId,
+    )).response;
   }
 
   async getFilterProfiles(request: T.Input<T.GetFilterProfilesRequest>, requestId?: string): Promise<T.FilterProfile[] | undefined> {
@@ -2650,6 +2741,20 @@ export class MplusKassaClient {
     )).ownerLabels;
   }
 
+  async saveOwnerLabels(request: T.Input<T.SaveOwnerLabelsRequest>, requestId?: string): Promise<T.SaveOwnerLabelsResponse> {
+    request = { idempotencyKey: randomUUID(), ...request };
+    const bodyXml = S.serializeSaveOwnerLabelsBody(request);
+    return this.call(
+      'saveOwnerLabels',
+      'SaveOwnerLabelsResponse',
+      'SaveOwnerLabelsResponse',
+      bodyXml,
+      D.deserializeSaveOwnerLabelsResponse,
+      true,
+      requestId,
+    );
+  }
+
   async getWordAliases(request: T.Input<T.GetWordAliasesRequest>, requestId?: string): Promise<T.WordAlias[]> {
     const bodyXml = S.serializeGetWordAliasesBody(request);
     return (await this.call(
@@ -3117,6 +3222,19 @@ export class MplusKassaClient {
       false,
       requestId,
     );
+  }
+
+  async getEmployeeWorkplaceLoginStates(request: T.Input<T.GetEmployeeWorkplaceLoginStatesRequest>, requestId?: string): Promise<T.WorkplaceLoginStateInfo[] | undefined> {
+    const bodyXml = S.serializeGetEmployeeWorkplaceLoginStatesBody(request);
+    return (await this.call(
+      'getEmployeeWorkplaceLoginStates',
+      'GetEmployeeWorkplaceLoginStatesResponse',
+      'GetEmployeeWorkplaceLoginStatesResponse',
+      bodyXml,
+      D.deserializeGetEmployeeWorkplaceLoginStatesResponse,
+      false,
+      requestId,
+    )).workplaceLoginStateInfo;
   }
 
   async createImage(request: T.Input<T.CreateImageRequest>, requestId?: string): Promise<T.CreateImageResponse> {

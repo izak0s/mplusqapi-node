@@ -29,7 +29,7 @@ export type ExternalPaymentReceiptTextType = 'EXTERNAL-PAYMENT-RECEIPT-TEXT-TYPE
 
 export type TerminalStatus = 'TERMINAL-STATUS-AVAILABLE' | 'TERMINAL-STATUS-REGISTERED';
 
-export type TurnoverGroupType = 'TURNOVER-GROUP-TYPE-TURNOVER' | 'TURNOVER-GROUP-TYPE-PAYMENT' | 'TURNOVER-GROUP-TYPE-SUSPENSE' | 'TURNOVER-GROUP-TYPE-CASH-INFLOW' | 'TURNOVER-GROUP-TYPE-CASH-OUTFLOW' | 'TURNOVER-GROUP-TYPE-BALANCE-UPGRADE' | 'TURNOVER-GROUP-TYPE-UNKNOWN';
+export type TurnoverGroupType = 'TURNOVER-GROUP-TYPE-TURNOVER' | 'TURNOVER-GROUP-TYPE-PAYMENT' | 'TURNOVER-GROUP-TYPE-SUSPENSE' | 'TURNOVER-GROUP-TYPE-CASH-INFLOW' | 'TURNOVER-GROUP-TYPE-CASH-OUTFLOW' | 'TURNOVER-GROUP-TYPE-BALANCE-UPGRADE' | 'TURNOVER-GROUP-TYPE-UNKNOWN' | 'TURNOVER-GROUP-TYPE-REFUNDABLE-DEPOSIT';
 
 export type IdempotencyResult = 'IDEMPOTENCY-RESULT-ORIGINAL-RESPONSE' | 'IDEMPOTENCY-RESULT-REPLAY-RESPONSE';
 
@@ -163,7 +163,7 @@ export type CreditInvoiceResult = 'CREDIT-INVOICE-RESULT-OK' | 'CREDIT-INVOICE-R
 
 export type JournalFilter = 'JOURNAL-FILTER-RECEIPT' | 'JOURNAL-FILTER-INVOICE' | 'JOURNAL-FILTER-ORDER';
 
-export type FinancialGroupType = 'FINANCIAL-GROUP-TYPE-TURNOVER' | 'FINANCIAL-GROUP-TYPE-PAYMENT' | 'FINANCIAL-GROUP-TYPE-SUSPENSE-ACCOUNT' | 'FINANCIAL-GROUP-TYPE-CASH-INFLOW' | 'FINANCIAL-GROUP-TYPE-CASH-OUTFLOW' | 'FINANCIAL-GROUP-TYPE-BPE';
+export type FinancialGroupType = 'FINANCIAL-GROUP-TYPE-TURNOVER' | 'FINANCIAL-GROUP-TYPE-PAYMENT' | 'FINANCIAL-GROUP-TYPE-SUSPENSE-ACCOUNT' | 'FINANCIAL-GROUP-TYPE-CASH-INFLOW' | 'FINANCIAL-GROUP-TYPE-CASH-OUTFLOW' | 'FINANCIAL-GROUP-TYPE-BPE' | 'FINANCIAL-GROUP-TYPE-REFUNDABLE-DEPOSIT';
 
 export type FinancialGroupSource = 'FINANCIAL-GROUP-SOURCE-INVOICE' | 'FINANCIAL-GROUP-SOURCE-RECEIPT' | 'FINANCIAL-GROUP-SOURCE-ORDER';
 
@@ -384,6 +384,8 @@ export type BarcodePatternKind = 'BARCODE-PATTERN-KIND-PRICE' | 'BARCODE-PATTERN
 
 export type ParseSpecialBarcodeResult = 'PARSE-SPECIAL-BARCODE-RESULT-OK' | 'PARSE-SPECIAL-BARCODE-RESULT-NOT-RECOGNIZED' | 'PARSE-SPECIAL-BARCODE-RESULT-ARTICLE-NOT-FOUND';
 
+export type WorkplaceLoginState = 'WORKPLACE-LOGIN-STATE-ALLOWED' | 'WORKPLACE-LOGIN-STATE-REJECTED-BY-OWNER-LABEL';
+
 export type CreateImageResult = 'CREATE-IMAGE-OK' | 'CREATE-IMAGE-TOO-LARGE' | 'CREATE-IMAGE-STORAGE-ERROR' | 'CREATE-IMAGE-NOT-SUPPORTED';
 
 export type VoucherActivationMoment = 'ISSUE-DATE' | 'START-OF-DAY' | 'START-OF-WEEK' | 'START-OF-MONTH' | 'START-OF-YEAR' | 'CHOICE';
@@ -396,7 +398,7 @@ export type VoucherLineType = 'ARTICLE' | 'TURNOVER-GROUP';
 
 export type GiftcardResult = 'RESULT-OK' | 'RESULT-GIFTCARD-UNKNOWN' | 'RESULT-GIFTCARD-NOT-ACTIVE' | 'RESULT-GIFTCARD-EXPIRED' | 'RESULT-GIFTCARD-NOT-VALID-FOR-BRANCH' | 'RESULT-GIFTCARD-UNSUFFICIENT-BALANCE' | 'RESULT-GIFTCARD-INVALID-DEVALUATE-AMOUNT' | 'RESULT-GIFTCARD-CARDNUMMER-ALREADY-TAKEN' | 'RESULT-GIFTCARD-UNKNOWN-RELATION' | 'RESULT-GIFTCARD-INVALID-RELOAD-AMOUNT' | 'RESULT-GIFTCARD-UNABLE-TO-RELOAD' | 'RESULT-GIFTCARD-OFFLINE-NOT-ALLOWED';
 
-export type GiftcardBookingType = 'INITIAL-VALUE' | 'CREATION' | 'RELOAD' | 'DEVALUATE' | 'PAYMENT' | 'REMIT' | 'DEACTIVATE' | 'START-BALANCE';
+export type GiftcardBookingType = 'INITIAL-VALUE' | 'CREATION' | 'RELOAD' | 'DEVALUATE' | 'PAYMENT' | 'REMIT' | 'DEACTIVATE' | 'START-BALANCE' | 'RESTITUTION' | 'REACTIVATE' | 'RELATION-CHANGE' | 'CORRECTION';
 
 export type SaveGiftcardsResult = 'SAVE-GIFTCARDS-RESULT-OK' | 'SAVE-GIFTCARDS-RESULT-FAILED' | 'SAVE-GIFTCARDS-RESULT-NOT-FOUND';
 
@@ -404,7 +406,7 @@ export type RestituteGiftcardsResult = 'RESTITUTE-GIFTCARDS-RESULT-OK' | 'RESTIT
 
 export type LinkGiftcardsToRelationResult = 'LINK-GIFTCARDS-TO-RELATION-SUCCESS' | 'LINK-GIFTCARDS-TO-RELATION-INVALID-RELATION' | 'LINK-GIFTCARDS-TO-RELATION-INVALID-ISSUANCE-ID' | 'LINK-GIFTCARDS-TO-RELATION-ALREADY-LINKED-TO-RELATION' | 'LINK-GIFTCARDS-TO-RELATION-CANT-LINK-HAS-HISTORY-OTHER-RELATION';
 
-export type IssueVouchersResult = 'ISSUE-VOUCHERS-OK' | 'ISSUE-VOUCHERS-TOO-MANY-ISSUANCES' | 'ISSUE-VOUCHERS-VOUCHER-NO-BOOK-ARTICLE-NUMBER' | 'ISSUE-VOUCHERS-INVALID-BOOK-BPE-ID' | 'ISSUE-VOUCHERS-DUPLICATE-SCAN-CODE' | 'ISSUE-VOUCHERS-DUPLICATE-GROUP-SCAN-CODE' | 'ISSUE-VOUCHERS-SCAN-CODE-NOT-ALLOWED-ON-EXTERNAL-VOUCHER' | 'ISSUE-VOUCHERS-RELATION-REQUIRED' | 'ISSUE-VOUCHERS-NOT-ENOUGH-EXTERNAL-SCAN-CODES';
+export type IssueVouchersResult = 'ISSUE-VOUCHERS-OK' | 'ISSUE-VOUCHERS-TOO-MANY-ISSUANCES' | 'ISSUE-VOUCHERS-VOUCHER-NO-BOOK-ARTICLE-NUMBER' | 'ISSUE-VOUCHERS-INVALID-BOOK-BPE-ID' | 'ISSUE-VOUCHERS-DUPLICATE-SCAN-CODE' | 'ISSUE-VOUCHERS-DUPLICATE-GROUP-SCAN-CODE' | 'ISSUE-VOUCHERS-SCAN-CODE-NOT-ALLOWED-ON-EXTERNAL-VOUCHER' | 'ISSUE-VOUCHERS-RELATION-REQUIRED' | 'ISSUE-VOUCHERS-NOT-ENOUGH-EXTERNAL-SCAN-CODES' | 'ISSUE-VOUCHERS-CONSTRAINT-VIOLATION';
 
 export type IssueVoucherExternalScanCodesResult = 'ISSUE-VOUCHER-SCAN-CODES-OK' | 'ISSUE-VOUCHER-SCAN-CODES-WRONG-IDENT' | 'ISSUE-VOUCHER-SCAN-CODES-DUPLICATE-SCAN-CODE' | 'ISSUE-VOUCHER-SCAN-CODES-FAIL';
 
@@ -416,7 +418,7 @@ export type ReportTurnoverSource = 'REPORT-TURNOVER-SOURCE-INVOICE' | 'REPORT-TU
 
 export type PaymentSourceType = 'PAYMENT-SOURCE-TYPE-RECEIPT' | 'PAYMENT-SOURCE-TYPE-CREDIT-RECEIPT' | 'PAYMENT-SOURCE-TYPE-CASH-INFLOW' | 'PAYMENT-SOURCE-TYPE-CASH-OUTFLOW' | 'PAYMENT-SOURCE-TYPE-PAYMENT-METHOD-TRANSFER' | 'PAYMENT-SOURCE-TYPE-INVOICE' | 'PAYMENT-SOURCE-TYPE-DIRECT-INVOICE' | 'PAYMENT-SOURCE-TYPE-CREDIT-INVOICE' | 'PAYMENT-SOURCE-TYPE-REPEATING-INVOICE' | 'PAYMENT-SOURCE-TYPE-EXTERNAL-INVOICE' | 'PAYMENT-SOURCE-TYPE-SALES-ORDER' | 'PAYMENT-SOURCE-TYPE-REPEAT-SALES-ORDER' | 'PAYMENT-SOURCE-TYPE-EXTERNAL-SALES-ORDER' | 'PAYMENT-SOURCE-TYPE-TABLE-ORDER' | 'PAYMENT-SOURCE-TYPE-CAFETERIA-ORDER' | 'PAYMENT-SOURCE-TYPE-UNKNOWN';
 
-export type ReportPrintableFinancialTotalsOption = 'REPORT-PRINTABLE-FINANCIAL-TOTALS-OPTION-ACCOUNT-NUMBERS' | 'REPORT-PRINTABLE-FINANCIAL-TOTALS-OPTION-RETURNS' | 'REPORT-PRINTABLE-FINANCIAL-TOTALS-OPTION-RETURNS-CONDENSED' | 'REPORT-PRINTABLE-FINANCIAL-TOTALS-OPTION-POINTS' | 'REPORT-PRINTABLE-FINANCIAL-TOTALS-OPTION-DRAWER-OPENINGS' | 'REPORT-PRINTABLE-FINANCIAL-TOTALS-OPTION-DRAWER-OPENINGS-CONDENSED' | 'REPORT-PRINTABLE-FINANCIAL-TOTALS-OPTION-CASH-INFLOW-OUTFLOW' | 'REPORT-PRINTABLE-FINANCIAL-TOTALS-OPTION-DISCOUNTS' | 'REPORT-PRINTABLE-FINANCIAL-TOTALS-OPTION-OPEN-TABLES' | 'REPORT-PRINTABLE-FINANCIAL-TOTALS-OPTION-CANCELLED-ORDERS' | 'REPORT-PRINTABLE-FINANCIAL-TOTALS-OPTION-CANCELLED-ORDERS-CONDENSED' | 'REPORT-PRINTABLE-FINANCIAL-TOTALS-OPTION-MISTAKES' | 'REPORT-PRINTABLE-FINANCIAL-TOTALS-OPTION-MISTAKES-CONDENSED' | 'REPORT-PRINTABLE-FINANCIAL-TOTALS-OPTION-POS-CLOSED' | 'REPORT-PRINTABLE-FINANCIAL-TOTALS-OPTION-POS-CLOSED-CONDENSED' | 'REPORT-PRINTABLE-FINANCIAL-TOTALS-OPTION-CASH-COUNTS-CONDENSED' | 'REPORT-PRINTABLE-FINANCIAL-TOTALS-OPTION-CONDENSE-EFT' | 'REPORT-PRINTABLE-FINANCIAL-TOTALS-OPTION-EFT-REFUNDS' | 'REPORT-PRINTABLE-FINANCIAL-TOTALS-OPTION-EMPLOYEES' | 'REPORT-PRINTABLE-FINANCIAL-TOTALS-OPTION-AVERAGE-SPENDING';
+export type ReportPrintableFinancialTotalsOption = 'REPORT-PRINTABLE-FINANCIAL-TOTALS-OPTION-ACCOUNT-NUMBERS' | 'REPORT-PRINTABLE-FINANCIAL-TOTALS-OPTION-RETURNS' | 'REPORT-PRINTABLE-FINANCIAL-TOTALS-OPTION-RETURNS-CONDENSED' | 'REPORT-PRINTABLE-FINANCIAL-TOTALS-OPTION-POINTS' | 'REPORT-PRINTABLE-FINANCIAL-TOTALS-OPTION-DRAWER-OPENINGS' | 'REPORT-PRINTABLE-FINANCIAL-TOTALS-OPTION-DRAWER-OPENINGS-CONDENSED' | 'REPORT-PRINTABLE-FINANCIAL-TOTALS-OPTION-CASH-INFLOW-OUTFLOW' | 'REPORT-PRINTABLE-FINANCIAL-TOTALS-OPTION-DISCOUNTS' | 'REPORT-PRINTABLE-FINANCIAL-TOTALS-OPTION-OPEN-TABLES' | 'REPORT-PRINTABLE-FINANCIAL-TOTALS-OPTION-CANCELLED-ORDERS' | 'REPORT-PRINTABLE-FINANCIAL-TOTALS-OPTION-CANCELLED-ORDERS-CONDENSED' | 'REPORT-PRINTABLE-FINANCIAL-TOTALS-OPTION-MISTAKES' | 'REPORT-PRINTABLE-FINANCIAL-TOTALS-OPTION-MISTAKES-CONDENSED' | 'REPORT-PRINTABLE-FINANCIAL-TOTALS-OPTION-POS-CLOSED' | 'REPORT-PRINTABLE-FINANCIAL-TOTALS-OPTION-POS-CLOSED-CONDENSED' | 'REPORT-PRINTABLE-FINANCIAL-TOTALS-OPTION-CASH-COUNTS-CONDENSED' | 'REPORT-PRINTABLE-FINANCIAL-TOTALS-OPTION-CONDENSE-EFT' | 'REPORT-PRINTABLE-FINANCIAL-TOTALS-OPTION-EFT-REFUNDS' | 'REPORT-PRINTABLE-FINANCIAL-TOTALS-OPTION-EMPLOYEES' | 'REPORT-PRINTABLE-FINANCIAL-TOTALS-OPTION-AVERAGE-SPENDING' | 'REPORT-PRINTABLE-FINANCIAL-TOTALS-OPTION-HIDE-TURNOVER-GROUPS';
 
 export type SalesRepeatTemplateState = 'SALES-REPEAT-TEMPLATE-STATE-STARTED' | 'SALES-REPEAT-TEMPLATE-STATE-PAUSED' | 'SALES-REPEAT-TEMPLATE-STATE-ENDED';
 
@@ -432,7 +434,7 @@ export type BpeBudgetCheckResult = 'PERFORM-BPE-BUDGET-CHECKS-RESULT-OK' | 'PERF
 /** overall result of the call */
 export type PerformBpeBudgetChecksResult = 'CHECK-BUDGETS-RESULT-OK' | 'CHECK-BUDGETS-RESULT-FAILED';
 
-export type SaleType = 'GROUP-DISCOUNT' | 'SLIDING-SCALE' | 'X-FOR-Y' | 'MIX-MATCH' | 'SET' | 'INDIVIDUAL' | 'CASH-DISCOUNT' | 'ARRANGEMENT';
+export type SaleType = 'GROUP-DISCOUNT' | 'SLIDING-SCALE' | 'X-FOR-Y' | 'MIX-MATCH' | 'SET' | 'INDIVIDUAL' | 'CASH-DISCOUNT' | 'ARRANGEMENT' | 'FREE-ARTICLE';
 
 export type DiscountPercentageType = 'DISCOUNT-ON-CHEAPEST' | 'DISCOUNT-ON-ALL';
 
@@ -497,6 +499,8 @@ export type GetPrintLayoutMarkupResult = 'OK' | 'PRINT-LAYOUT-NOT-FOUND' | 'INVA
 export type PrintPrintLayoutResponseResult = 'OK' | 'INVALID-PRINT-INFO' | 'NONE-PRINTED' | 'OTHER';
 
 export type InterbranchOrderState = 'INTERBRANCH-ORDER-STATE-OPEN' | 'INTERBRANCH-ORDER-STATE-PARTIALLY-SENT' | 'INTERBRANCH-ORDER-STATE-COMPLETELY-SENT' | 'INTERBRANCH-ORDER-STATE-PARTIALLY-CANCELLED' | 'INTERBRANCH-ORDER-STATE-COMPLETELY-CANCELLED' | 'INTERBRANCH-ORDER-STATE-PARTIALLY-SENT-PARTIALLY-CANCELLED' | 'INTERBRANCH-ORDER-STATE-COMPLETELY-SENT-PARTIALLY-CANCELLED';
+
+export type InterbranchOrderPickStatus = 'INTERBRANCH-ORDER-PICK-STATUS-NOT-PICKED' | 'INTERBRANCH-ORDER-PICK-STATUS-PICKED';
 
 export type CreateInterbranchOrderResult = 'CREATE-INTERBRANCH-ORDER-RESULT-OK' | 'CREATE-INTERBRANCH-ORDER-RESULT-FAILED';
 
@@ -671,6 +675,7 @@ export interface Relation {
   birthDate?: Date;
   relationCode?: string;
   points?: number;
+  /** this is the totalized balance made up of invoiceCredit and accountBalance. */
   balance?: number;
   priceGroupNumber?: number;
   discountPercentage?: number;
@@ -699,6 +704,8 @@ export interface Relation {
   /** set of branch numbers where articles of this supplier can't be ordered from */
   branchesNonPurchasable?: number[];
   cardNumbers?: string[];
+  invoiceCredit?: string;
+  accountBalance?: string;
 }
 
 export interface Colour {
@@ -726,6 +733,10 @@ export interface WorkplaceIdentifier {
   workplaceNumber: number;
 }
 
+export interface WorkplaceIdentifierSet {
+  workplaceIdentifier?: WorkplaceIdentifier[];
+}
+
 export interface BranchAccountNumber {
   branchNumber: number;
   extBranchId?: string;
@@ -736,6 +747,18 @@ export interface BranchAccountNumber {
 
 export interface BranchAccountNumberList {
   branchAccountNumber?: BranchAccountNumber[];
+}
+
+export interface BranchCostCenterNumber {
+  branchNumber: number;
+  extBranchId?: string;
+  turnoverCostCenterNumber?: string;
+  purchaseCostCenterNumber?: string;
+  stockCostCenterNumber?: string;
+}
+
+export interface BranchCostCenterNumberList {
+  branchCostCenterNumber?: BranchCostCenterNumber[];
 }
 
 export interface GiftcardType {
@@ -755,6 +778,7 @@ export interface GiftcardType {
   branchNumbers?: number[];
   availableValues?: number[];
   maximumBalance?: number;
+  minimumBalance?: number;
 }
 
 export interface BpeConfiguration {
@@ -818,11 +842,24 @@ export interface ExternalPaymentReceiptText {
   requiresSignature?: boolean;
 }
 
+export interface ExternalPaymentReceiptBarcode {
+  code: string;
+  codeType: string;
+}
+
+export interface ExternalPaymentReceiptFooter {
+  text: string;
+  textAfter: string;
+  barcode: ExternalPaymentReceiptBarcode;
+  printSeparate?: boolean;
+}
+
 export interface ExternalPaymentTransactionDetails {
   externalPaymentId: string;
   amount: number;
   externalTransactionReference: string;
   receiptTexts?: ExternalPaymentReceiptText[];
+  receiptFooters?: ExternalPaymentReceiptFooter[];
   cardType: string;
   terminalId: string;
   externalMethod: string;
@@ -887,7 +924,6 @@ export interface SalePromotionLineData {
 
 export interface SalePromotionLineDataInput {
   salePromotionLineId: string;
-  description?: string;
   setNumber?: number;
 }
 
@@ -952,6 +988,10 @@ export interface OwnerLabelFilter {
 }
 
 export interface IdList {
+  id?: string[];
+}
+
+export interface IdSet {
   id?: string[];
 }
 
@@ -1021,6 +1061,8 @@ export interface Order {
   proposalId?: string;
   extProposalId?: string;
   proposalNumber?: YearNumber;
+  branchGroupNumber?: number;
+  ownerId?: string;
 }
 
 export interface OrderList {
@@ -1031,13 +1073,13 @@ export interface OrderInput {
   orderId?: string;
   extOrderId?: string;
   orderType?: OrderType;
-  entryBranchNumber?: number;
-  employeeNumber?: number;
-  relationNumber?: number;
+  employeeNumber: number;
+  relationNumber: number;
+  financialDate?: Date;
   deliveryAddress?: Address;
   invoiceAddress?: Address;
-  financialDate?: Date;
-  financialBranchNumber?: number;
+  financialBranchNumber: number;
+  entryBranchNumber: number;
   workplaceNumber?: number;
   reference?: string;
   vatMethod?: VatMethod;
@@ -1047,8 +1089,6 @@ export interface OrderInput {
   deliveryPeriodEnd?: Date;
   changeCounter?: number;
   versionNumber?: number;
-  tableNumber?: number;
-  tableSubNumber?: number;
   orderCategoryNumber?: number;
   onDeliveryUrl?: string;
   onInvoiceUrl?: string;
@@ -1156,6 +1196,7 @@ export interface LineData {
   turnoverGroupType?: TurnoverGroupType;
   /** process-readonly */
   turnoverGroupAccountNumber?: number;
+  turnoverGroupCostCenter?: string;
   vatCode?: number;
   /** process-readonly */
   vatPercentage?: number;
@@ -1231,16 +1272,18 @@ export interface Line {
   uncondensedLines: Line[];
   /** Can be used in the process calls to identify this specific line when the line isn't saved yet and thus the lineId is still empty. */
   tempLineId?: string;
+  subLineType?: SubLineTypeV2;
+  /** If supplied, the id of the article alteration (preparation method) that was chosen resulting in this preparation method. */
+  articleAlterationId?: number;
 }
 
 export interface LineDataInput {
-  quantity?: string;
+  quantity: string;
   price?: string;
   priceExcl?: string;
   originalPrice?: string;
   purchasePrice?: string;
   vatCode?: number;
-  vatPercentage?: string;
   discountType?: DiscountType;
   discountPercentage?: string;
   discountAmount?: string;
@@ -1261,19 +1304,18 @@ export interface LineInputList {
 
 export interface LineInput {
   lineId?: string;
+  tempLineId?: string;
+  lineType?: LineType;
   articleNumber?: number;
   pluNumber?: string;
   text?: string;
   data?: LineDataInput;
-  menuHash?: string;
-  menuAmount?: string;
-  salePromotionData?: SalePromotionLineDataInput;
-  lineType?: LineType;
   preparationList: LineInput[];
-  suppressDisposableComponent?: boolean;
-  sequenceNumber?: number;
   contractLines: SalesLineContractLine[];
-  tempLineId?: string;
+  suppressDisposableComponent?: boolean;
+  salePromotionData?: SalePromotionLineDataInput;
+  /** If supplied, the id of the article alteration (preparation method) that was chosen resulting in this preparation method. */
+  articleAlterationId?: number;
 }
 
 export interface Answer {
@@ -1378,16 +1420,13 @@ export interface InvoiceList {
 export interface InvoiceInput {
   invoiceId?: string;
   extInvoiceId?: string;
-  employeeNumber?: number;
-  relationNumber?: number;
-  deliveryAddress?: Address;
-  invoiceAddress?: Address;
+  employeeNumber: number;
+  relationNumber: number;
   financialDate?: Date;
-  financialBranchNumber?: number;
+  financialBranchNumber: number;
+  entryBranchNumber: number;
   workplaceNumber?: number;
-  entryBranchNumber?: number;
   reference?: string;
-  activityId?: string;
   dueDate?: Date;
   vatMethod?: VatMethod;
   changeCounter?: number;
@@ -1487,6 +1526,8 @@ export interface VoucherIssuanceCompact {
   voucherIssuanceRedeems: VoucherIssuanceRedeem[];
   groupScanCode?: string;
   quantity: number;
+  positiveIssuanceIds: string[];
+  negativeIssuanceIds: string[];
 }
 
 export interface VoucherIssuanceCompactList {
@@ -1509,6 +1550,8 @@ export interface VoucherIssuanceCandidate {
   voucherIssuanceRedeems: VoucherIssuanceRedeem[];
   groupScanCode?: string;
   quantity: number;
+  positiveIssuanceIds: string[];
+  negativeIssuanceIds: string[];
   sourceArticleNumber: number;
   relationRequired: boolean;
   pendingStartTsRequired: boolean;
@@ -1656,6 +1699,21 @@ export interface CardCategory {
 
 export interface CardCategoryList {
   cardCategory?: CardCategory[];
+}
+
+export interface CardCategoryV2 {
+  id: number;
+  name: string;
+  isVipGroup?: boolean;
+  isSupplierGroup?: boolean;
+}
+
+export interface CardCategoryV2List {
+  cardCategory?: CardCategoryV2[];
+}
+
+export interface GetCardCategoriesV2Request {
+  workplaceKey?: WorkplaceIdentifier;
 }
 
 export interface AdjustPointsRequest {
@@ -2015,6 +2073,8 @@ export interface PackingSlip {
   proposalId?: string;
   extProposalId?: string;
   proposalNumber?: YearNumber;
+  branchGroupNumber?: number;
+  ownerId?: string;
 }
 
 export interface PackingSlipList {
@@ -2355,6 +2415,8 @@ export interface LineChangeEventData {
   priceInCredits?: DecimalDataChange;
   totalInclAmount?: DecimalDataChange;
   totalExclAmount?: DecimalDataChange;
+  salePromotionLineId?: StringDataChange;
+  salePromotionSetNumber?: IntDataChange;
 }
 
 export interface LineChangeEvent {
@@ -2379,6 +2441,8 @@ export interface LineChangeEvent {
   menuDescription?: StringDataChange;
   menuAmount?: DecimalDataChange;
   menuSequenceNumber?: IntDataChange;
+  menuId?: StringDataChange;
+  menuLinesId?: StringDataChange;
   preparationList: LineChangeEvent[];
 }
 
@@ -2429,6 +2493,9 @@ export interface OrderHistory {
   vatChange?: VatChangeDataChange;
   tableSplitTo?: TableSplitEvent;
   tableSplitFrom?: TableSplitEvent;
+  financialBranchNumber?: IntDataChange;
+  entryBranchNumber?: IntDataChange;
+  workplaceNumber?: IntDataChange;
 }
 
 export interface OrderHistoryList {
@@ -2596,6 +2663,8 @@ export interface Receipt {
   tableSubNumber?: number;
   salesCategoryNumber?: number;
   salesCategoryDescription?: string;
+  branchGroupNumber?: number;
+  ownerId?: string;
 }
 
 export interface ReceiptList {
@@ -2730,6 +2799,13 @@ export interface TurnoverGroup {
   defaultStockAccountNumber?: number;
   stockAccountNumber?: number;
   defaultVatCode?: number;
+  branchCostCenterNumberList: BranchCostCenterNumber[];
+  defaultTurnoverCostCenterNumber?: string;
+  turnoverCostCenterNumber?: string;
+  defaultPurchaseCostCenterNumber?: string;
+  purchaseCostCenterNumber?: string;
+  defaultStockCostCenterNumber?: string;
+  stockCostCenterNumber?: string;
 }
 
 export interface TurnoverGroupList {
@@ -2863,6 +2939,7 @@ export interface FinancialGroup {
   vatGroupList: VatGroup[];
   purchaseAccountNumber?: number;
   stockAccountNumber?: number;
+  turnoverGroupCostCenter?: string;
 }
 
 export interface FinancialGroupList {
@@ -3030,6 +3107,8 @@ export interface PreparationMethod {
   maxOneSelection: boolean;
   selectionRequired: boolean;
   nutritionalCharacteristics?: NutritionalCharacteristics;
+  selectionRangeMin?: number;
+  selectionRangeMax?: number;
 }
 
 export interface PreparationMethodList {
@@ -3140,6 +3219,8 @@ export interface Article {
   specialBehaviour?: SpecialBehaviour;
   ageCheckMinimumAge?: number;
   oldestBestBeforeDate?: Date;
+  shelfLifeInDays?: number;
+  shelfLifeInHours?: number;
 }
 
 export interface ArticleList {
@@ -3282,11 +3363,16 @@ export interface ArticleNumberList {
   articleNumbers?: number[];
 }
 
+export interface BranchNumberList {
+  branchNumber?: number[];
+}
+
 export interface GetStockRequest {
   branchNumber?: number;
   articleNumbers?: number[];
   stockId?: number;
   dayStockOnlyFilter?: boolean;
+  branchNumbers?: number[];
 }
 
 export interface ArticleStockHistory {
@@ -4490,6 +4576,8 @@ export interface PreparationMethodGroup {
   syncMarker: number;
   isPosGroup: boolean;
   isOnlineGroup: boolean;
+  selectionRangeMin?: number;
+  selectionRangeMax?: number;
 }
 
 export interface PreparationMethodGroupList {
@@ -4555,6 +4643,8 @@ export interface PlaceTableOrderLineElem {
   lineType?: LineType;
   /** Can be used for DeterminePricing to identify the returned lines. */
   tempId?: string;
+  /** If supplied, the id of the article alteration (preparation method) that was chosen resulting in this preparation method. */
+  articleAlterationId?: number;
 }
 
 export interface PlaceTableOrderPaymentElem {
@@ -4739,6 +4829,8 @@ export interface SavePreparationMethodGroupRequest {
   preparationMethodItems?: SavePreparationMethodItem[];
   isPosGroup?: boolean;
   isOnlineGroup?: boolean;
+  selectionRangeMin?: number;
+  selectionRangeMax?: number;
 }
 
 export interface GetNutritionalCharacteristicsRequest {
@@ -4777,6 +4869,7 @@ export interface DeterminePricingRequest {
   /** Can be used to load in an existing order on the table before calculating the price with the specified lines. */
   table?: TableNumber;
   scannedVoucherIssuanceCodes?: string[];
+  automaticNewMenus?: boolean;
 }
 
 export interface DeterminePricingResponseLine {
@@ -4807,6 +4900,7 @@ export interface DeterminePricingResponseLine {
   priceExcl: string;
   discountAmountExcl: string;
   amountExcl: string;
+  articleAlterationId?: number;
 }
 
 export interface RelationPresence {
@@ -5051,6 +5145,12 @@ export interface GetCardCategoriesResponse {
   articleCardCategoryList: CardCategory[];
   employeeCardCategoryList: CardCategory[];
   relationCardCategoryList: CardCategory[];
+}
+
+export interface GetCardCategoriesV2Response {
+  articleCardCategories: CardCategoryV2[];
+  employeeCardCategories: CardCategoryV2[];
+  relationCardCategories: CardCategoryV2[];
 }
 
 export interface AdjustPointsResponse {
@@ -5870,6 +5970,7 @@ export interface UpdateConfigurationRequest {
 export interface ConfigurationOption {
   key: string;
   value: string;
+  locked: boolean;
 }
 
 export interface ConfigurationItem {
@@ -5935,6 +6036,7 @@ export interface ButtonLayoutButton {
   isTableComment?: boolean;
   showAvailableStock?: boolean;
   isDayStockArticle?: boolean;
+  showSalesPrice?: boolean;
 }
 
 export interface ButtonLayoutButtonList {
@@ -5946,6 +6048,7 @@ export interface ButtonLayoutSubGroup {
   colour: Colour;
   column: number;
   row: number;
+  showSalesPrice?: boolean;
   buttonList: ButtonLayoutButton[];
 }
 
@@ -5958,6 +6061,7 @@ export interface ButtonLayoutMainGroup {
   colour: Colour;
   column: number;
   row: number;
+  showSalesPrice?: boolean;
   subGroupList: ButtonLayoutSubGroup[];
 }
 
@@ -6332,6 +6436,8 @@ export interface ArticleAlterationsGroup {
   isPosGroup: boolean;
   isOnlineGroup: boolean;
   groupType: ArticleAlterationsGroupType;
+  selectionRangeMin?: number;
+  selectionRangeMax?: number;
 }
 
 export interface ArticleAlterationsGroupList {
@@ -6365,6 +6471,8 @@ export interface SaveArticleAlterationsGroupRequest {
   /** Optional, if not given will keep previous saved value. */
   isOnlineGroup?: boolean;
   groupType?: ArticleAlterationsGroupType;
+  selectionRangeMin?: number;
+  selectionRangeMax?: number;
 }
 
 export interface DeleteArticleAlterationsGroupRequest {
@@ -6419,6 +6527,25 @@ export interface OwnerLabel {
   description: string;
   color: Colour;
   isActive: boolean;
+  externalReference?: string;
+}
+
+export interface SaveOwnerLabel {
+  id?: string;
+  description?: string;
+  externalReference?: string;
+  color?: Colour;
+  isActive?: boolean;
+}
+
+export interface SaveOwnerLabelList {
+  saveOwnerLabel?: SaveOwnerLabel[];
+}
+
+export interface SaveOwnerLabelsRequest {
+  /** Must be unique for every request that you only want to have executed once. If you want to recheck if a certain request came through, reuse the same idempotencyKey. */
+  idempotencyKey?: string;
+  saveOwnerLabels?: SaveOwnerLabel[];
 }
 
 export interface WordAlias {
@@ -6838,6 +6965,16 @@ export interface SpecialBarcodeArticleResult {
   weight?: number;
 }
 
+export interface WorkplaceLoginStateInfo {
+  workplaceIdentifier: WorkplaceIdentifier;
+  workplaceLoginState: WorkplaceLoginState;
+}
+
+export interface GetEmployeeWorkplaceLoginStatesRequest {
+  employeeNumber?: number;
+  workplaceIdentifiers?: WorkplaceIdentifier[];
+}
+
 export interface GetConfigurationResponse {
   configurationList: Configuration[];
 }
@@ -6983,6 +7120,12 @@ export interface UpdateOnlineAuthorizationTreeResponse {
 
 export interface GetOwnerLabelsResponse {
   ownerLabels?: OwnerLabel[];
+}
+
+export interface SaveOwnerLabelsResponse {
+  /** Shows you whether you have received the original response or a replay of the response. Either way, all other properties of this response will be the same. This is just for informational purposes. */
+  idempotencyResult: IdempotencyResult;
+  newOwnerLabels?: OwnerLabel[];
 }
 
 export interface GetWordAliasesResponse {
@@ -7261,6 +7404,10 @@ export interface ParseSpecialBarcodeResponse {
   articleResult?: SpecialBarcodeArticleResult;
 }
 
+export interface GetEmployeeWorkplaceLoginStatesResponse {
+  workplaceLoginStateInfo?: WorkplaceLoginStateInfo[];
+}
+
 /** Descripter of how a label should be used by code */
 export interface ImageLabel {
   /** Id of the label id's below 1000 are defined by code and will never change meaning */
@@ -7388,6 +7535,7 @@ export interface VoucherSettingsV1 {
   hasArticleChoice: boolean;
   redeemOnNewArticle: boolean;
   applyOnPreparationMethods: boolean;
+  applyOnComponents: boolean;
 }
 
 export interface VoucherSettingsV1List {
@@ -7537,6 +7685,7 @@ export interface RegisterGiftcardPaymentV2Request {
   employeeNumber?: number;
   externalReference?: string;
   lineList?: GiftcardPaymentLine[];
+  workplaceNumber?: number;
 }
 
 export interface CreateGiftcardRequest {
@@ -7854,6 +8003,7 @@ export interface IssueVouchersResponse {
   idempotencyResult: IdempotencyResult;
   result: IssueVouchersResult;
   voucherIssuances: VoucherIssuance[];
+  errorMessage: string;
 }
 
 export interface IssueVoucherExternalScanCodesResponse {
@@ -8485,6 +8635,8 @@ export interface SalesRepeatTemplate {
   vatCountryIso3?: string;
   lineList: SalesRepeatTemplateLine[];
   contractFrequency?: ContractFrequency;
+  branchGroupNumber?: number;
+  ownerId?: string;
 }
 
 export interface SalesRepeatTemplateList {
@@ -8606,6 +8758,17 @@ export interface SalePromotionLineDiscountList {
   salePromotionLineDiscountList?: SalePromotionLineDiscount[];
 }
 
+export interface SalePromotionLineFreeArticleData {
+  /** How much of the trigger article should be selected before the SalePromotion applies. */
+  selectionQuantity: string;
+  /** The article that is free when this SalePromotion applies. */
+  freeArticleNumber: number;
+  /** The quantity of this article that is free. */
+  freeArticleQuantity: string;
+  /** The maximum quantity of this article that is free. */
+  maxFreeArticleQuantity?: string;
+}
+
 export interface SalePromotionLine {
   id: string;
   saleType: SaleType;
@@ -8629,6 +8792,7 @@ export interface SalePromotionLine {
   arrangementArticleNumber?: number;
   hoursValid?: number;
   salePromotionLineDiscountList: SalePromotionLineDiscount[];
+  freeArticleData?: SalePromotionLineFreeArticleData;
 }
 
 export interface SalePromotionLineList {
@@ -8642,6 +8806,7 @@ export interface SalePromotions {
   startDate?: Date;
   endDate?: Date;
   salePromotionLineList: SalePromotionLine[];
+  hasEndDate: boolean;
 }
 
 export interface SalePromotionsList {
@@ -8764,6 +8929,8 @@ export interface Proposal {
   invoiceIds: string[];
   extInvoiceIds: string[];
   invoiceNumbers: YearNumber[];
+  branchGroupNumber?: number;
+  ownerId?: string;
 }
 
 export interface ProposalList {
@@ -8974,9 +9141,9 @@ export interface SalesProcessorContext {
 }
 
 export interface SalesProcessorResult {
-  voucherIssuances: VoucherIssuance[];
-  voucherIssuanceCandidates: VoucherIssuanceCandidate[];
+  voucherIssuances: VoucherIssuanceCompact[];
   voucherIssuancesToCancel: VoucherIssuanceCompact[];
+  voucherIssuanceCandidates: VoucherIssuanceCandidate[];
   unappliedVoucherIssuances: UnappliedVoucherIssuance[];
   scannedVoucherIssuances: VoucherIssuanceRedeemable[];
   errorMessages?: string[];
@@ -8992,12 +9159,12 @@ export interface ProcessInvoiceRequest {
 export interface ProposalInput {
   proposalId?: string;
   extProposalId?: string;
-  employeeNumber?: number;
-  relationNumber?: number;
+  employeeNumber: number;
+  relationNumber: number;
   financialDate?: Date;
-  financialBranchNumber?: number;
+  financialBranchNumber: number;
+  entryBranchNumber: number;
   workplaceNumber?: number;
-  entryBranchNumber?: number;
   reference?: string;
   vatMethod?: VatMethod;
   changeCounter?: number;
@@ -9408,6 +9575,9 @@ export interface WebhookSessionInput {
   openAmount?: string;
   totalInclAmount?: string;
   totalExclAmount?: string;
+  webhookConsumerId: string;
+  salesBaseId: string;
+  salesTypeId: string;
 }
 
 export interface WebhookSelectRelationInput {
@@ -9493,6 +9663,7 @@ export interface WebhookFormOption {
   extArticleId?: string;
   color?: string;
   image?: string;
+  disabled?: boolean;
 }
 
 export interface WebhookFormSelect {
@@ -9610,6 +9781,7 @@ export interface ExternalPaymentResp {
   finalAmount?: number;
   externalTransactionReference?: string;
   receiptTexts?: ExternalPaymentReceiptText[];
+  receiptFooters?: ExternalPaymentReceiptFooter[];
   cardType?: string;
   terminalId?: string;
   externalMethod?: string;
@@ -9828,6 +10000,9 @@ export interface InterbranchOrderLine {
   articleNumber: number;
   quantity: number;
   decimalPlaces?: number;
+  quantityShipped?: string;
+  quantityCancelled?: string;
+  quantityUndetermined?: string;
 }
 
 export interface InterbranchOrderLineList {
@@ -9845,6 +10020,7 @@ export interface InterbranchOrder {
   interbranchOrderState: InterbranchOrderState;
   interbranchOrderLineList: InterbranchOrderLine[];
   scancode?: string;
+  pickStatus?: InterbranchOrderPickStatus;
 }
 
 export interface InterbranchOrderList {
@@ -10117,6 +10293,30 @@ export interface RunInterbranchPlannerResponse {
   createdInterbranchOrders?: YearNumber[];
   updatedInterbranchOrders?: YearNumber[];
   messages?: InterbranchPlannerMessage[];
+}
+
+export interface verifyEmployeePasswordResponse {
+  response: boolean;
+}
+
+export interface getMaxTableNumberResponse {
+  maxTableNumber: number;
+}
+
+export interface sendMessageResponse {
+  response: boolean;
+}
+
+export interface saveTodoListResponse {
+  response?: Struct1;
+}
+
+export interface addToTodoListResponse {
+  response?: Struct2;
+}
+
+export interface removeTodoListResponse {
+  response?: Struct3;
 }
 
 /**
