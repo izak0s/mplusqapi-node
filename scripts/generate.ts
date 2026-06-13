@@ -284,7 +284,22 @@ export function parseWsdl(xml: string): {
     }
 
     const inputEl = inputElements.get(inputElementName) ?? { name: inputElementName, fields: [] };
-    const outputEl = outputElements.get(outputElementName);
+    let outputEl = outputElements.get(outputElementName);
+    if (!outputEl) {
+      // Some response wrappers are declared with an inline complexType instead of a
+      // type="tns:..." ref, so they were parsed into inputElements. Synthesize a named
+      // complexType from those fields so the output pipeline can resolve them.
+      const inlineEl = inputElements.get(outputElementName);
+      if (inlineEl) {
+        const synthName = sanitizeIdent(outputElementName);
+        if (!complexTypeMap.has(synthName)) {
+          const def: ComplexTypeDef = { name: synthName, fields: inlineEl.fields };
+          complexTypes.push(def);
+          complexTypeMap.set(synthName, def);
+        }
+        outputEl = { name: outputElementName, typeRef: synthName };
+      }
+    }
     if (!outputEl) {
       skippedOperations.push(opName);
       continue;
