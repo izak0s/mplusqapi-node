@@ -1,25 +1,28 @@
 import { test, beforeEach } from 'node:test';
 import { strict as assert } from 'node:assert';
-import axios from 'axios';
 import { MplusKassaClient } from '../src/generated/client';
+import { SoapTransport, HttpClient } from '../src/transport';
 import { MplusApiDeserializationError } from '../src/errors';
 
 let postedBodies: string[] = [];
 let responseXml: string;
 
-(axios as { create: unknown }).create = () => ({
-  post: async (_url: string, body: string) => {
-    postedBodies.push(body);
-    return { data: responseXml };
-  },
-});
+const httpStub: HttpClient = async (req) => {
+  postedBodies.push(req.body);
+  return { status: 200, body: responseXml };
+};
 
 beforeEach(() => {
   postedBodies = [];
 });
 
 function makeClient() {
-  return new MplusKassaClient({ host: 'test.invalid', port: 443, ident: 'i', secret: 's' });
+  const options = { host: 'test.invalid', port: 443, ident: 'i', secret: 's' };
+  const client = new MplusKassaClient(options);
+  // Swap in a socket-free transport — these tests exercise (de)serialization,
+  // not the HTTP layer (covered by transport.test.ts).
+  (client as unknown as { transport: SoapTransport }).transport = new SoapTransport(options, httpStub);
+  return client;
 }
 
 function envelope(inner: string): string {

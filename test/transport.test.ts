@@ -1,33 +1,29 @@
 import { test, beforeEach } from 'node:test';
 import { strict as assert } from 'node:assert';
-import axios, { AxiosError } from 'axios';
-import { SoapTransport } from '../src/transport';
+import { SoapTransport, HttpClient, HttpRequest, HttpResponse } from '../src/transport';
 import {
   MplusApiClientError,
   MplusApiServerError,
   MplusApiCommunicationError,
 } from '../src/errors';
 
-// SoapTransport builds its own axios instance in the constructor; intercept
-// axios.create so every instance posts through our stub.
+// SoapTransport takes an injectable HttpClient; stub it so tests never touch a socket.
 let postCalls = 0;
 let postHeaders: Array<Record<string, string>> = [];
-let postImpl: () => Promise<{ data: string }>;
+let httpImpl: (req: HttpRequest) => Promise<HttpResponse>;
 
-(axios as { create: unknown }).create = () => ({
-  post: (_url: string, _body: string, config?: { headers?: Record<string, string> }) => {
-    postCalls++;
-    postHeaders.push(config?.headers ?? {});
-    return postImpl();
-  },
-});
+const httpStub: HttpClient = (req) => {
+  postCalls++;
+  postHeaders.push(req.headers);
+  return httpImpl(req);
+};
 
 beforeEach(() => {
   postCalls = 0;
   postHeaders = [];
 });
 
-function makeTransport() {
+function makeTransport(signal?: AbortSignal) {
   return new SoapTransport({
     host: 'test.invalid',
     port: 443,
@@ -35,7 +31,8 @@ function makeTransport() {
     secret: 'secret',
     maxRetries: 2,
     retryDelay: 1,
-  });
+    signal,
+  }, httpStub);
 }
 
 function faultEnvelope(faultcode: string, faultstring: string): string {
@@ -48,27 +45,22 @@ function faultEnvelope(faultcode: string, faultstring: string): string {
   );
 }
 
-function httpError(status: number, data: string): AxiosError {
-  return new AxiosError(
-    `Request failed with status code ${status}`,
-    'ERR_BAD_RESPONSE',
-    undefined,
-    undefined,
-    { status, statusText: 'Error', data, headers: {}, config: {} } as never,
-  );
+/** A transport-level failure carrying a low-level error code (no response received). */
+function codedError(code: string, message = code): NodeJS.ErrnoException {
+  const e = new Error(message) as NodeJS.ErrnoException;
+  e.code = code;
+  return e;
 }
 
 test('send returns response body on success', async () => {
-  postImpl = async () => ({ data: '<ok/>' });
+  httpImpl = async () => ({ status: 200, body: '<ok/>' });
   const result = await makeTransport().send('getApiVersion', '<xml/>');
   assert.equal(result, '<ok/>');
   assert.equal(postCalls, 1);
 });
 
 test('HTTP error with Client.* fault throws MplusApiClientError without retry', async () => {
-  postImpl = async () => {
-    throw httpError(500, faultEnvelope('Client.ORDER_NOT_FOUND', 'Order not found'));
-  };
+  httpImpl = async () => ({ status: 500, body: faultEnvelope('Client.ORDER_NOT_FOUND', 'Order not found') });
   await assert.rejects(
     makeTransport().send('getOrder', '<xml/>'),
     (err: unknown) => {
@@ -84,17 +76,13 @@ test('HTTP error with Client.* fault throws MplusApiClientError without retry', 
 });
 
 test('HTTP error with Server.* fault throws MplusApiServerError without retry', async () => {
-  postImpl = async () => {
-    throw httpError(500, faultEnvelope('Server.INTERNAL', 'boom'));
-  };
+  httpImpl = async () => ({ status: 500, body: faultEnvelope('Server.INTERNAL', 'boom') });
   await assert.rejects(makeTransport().send('getOrder', '<xml/>'), MplusApiServerError);
   assert.equal(postCalls, 1);
 });
 
 test('connection-refused errors are retried (request never reached the server)', async () => {
-  postImpl = async () => {
-    throw new AxiosError('connect ECONNREFUSED', 'ECONNREFUSED');
-  };
+  httpImpl = async () => { throw codedError('ECONNREFUSED', 'connect ECONNREFUSED'); };
   await assert.rejects(
     makeTransport().send('getOrders', '<xml/>'),
     MplusApiCommunicationError,
@@ -103,9 +91,7 @@ test('connection-refused errors are retried (request never reached the server)',
 });
 
 test('ambiguous network errors are NOT retried for non-idempotent calls', async () => {
-  postImpl = async () => {
-    throw new AxiosError('socket hang up', 'ECONNRESET');
-  };
+  httpImpl = async () => { throw codedError('ECONNRESET', 'socket hang up'); };
   await assert.rejects(
     makeTransport().send('createOrder', '<xml/>'),
     (err: unknown) => {
@@ -118,9 +104,7 @@ test('ambiguous network errors are NOT retried for non-idempotent calls', async 
 });
 
 test('ambiguous network errors ARE retried for idempotent calls', async () => {
-  postImpl = async () => {
-    throw new AxiosError('socket hang up', 'ECONNRESET');
-  };
+  httpImpl = async () => { throw codedError('ECONNRESET', 'socket hang up'); };
   await assert.rejects(
     makeTransport().send('createOrderV3', '<xml/>', undefined, true),
     MplusApiCommunicationError,
@@ -129,9 +113,7 @@ test('ambiguous network errors ARE retried for idempotent calls', async () => {
 });
 
 test('HTTP error without fault body is not retried for non-idempotent calls', async () => {
-  postImpl = async () => {
-    throw httpError(502, '<html>Bad Gateway</html>');
-  };
+  httpImpl = async () => ({ status: 502, body: '<html>Bad Gateway</html>' });
   await assert.rejects(
     makeTransport().send('createOrder', '<xml/>'),
     (err: unknown) => {
@@ -145,9 +127,7 @@ test('HTTP error without fault body is not retried for non-idempotent calls', as
 });
 
 test('X-Request-Id is identical across retry attempts', async () => {
-  postImpl = async () => {
-    throw new AxiosError('connect ECONNREFUSED', 'ECONNREFUSED');
-  };
+  httpImpl = async () => { throw codedError('ECONNREFUSED', 'connect ECONNREFUSED'); };
   await assert.rejects(makeTransport().send('getOrders', '<xml/>'));
   assert.equal(postCalls, 3);
   const ids = postHeaders.map((h) => h['X-Request-Id']);
@@ -159,27 +139,16 @@ test('X-Request-Id is identical across retry attempts', async () => {
 test('aborted requests are not retried', async () => {
   const controller = new AbortController();
   controller.abort();
-  postImpl = async () => {
-    throw new AxiosError('canceled', 'ERR_CANCELED');
-  };
-  const transport = new SoapTransport({
-    host: 'test.invalid',
-    port: 443,
-    ident: 'ident',
-    secret: 'secret',
-    maxRetries: 2,
-    retryDelay: 1,
-    signal: controller.signal,
-  });
-  await assert.rejects(transport.send('getOrders', '<xml/>'), MplusApiCommunicationError);
+  httpImpl = async () => { throw codedError('ABORT_ERR', 'Request aborted'); };
+  await assert.rejects(makeTransport(controller.signal).send('getOrders', '<xml/>'), MplusApiCommunicationError);
   assert.equal(postCalls, 1, 'aborted call must not be retried');
 });
 
 test('recovers when a retry succeeds', async () => {
   let n = 0;
-  postImpl = async () => {
-    if (++n < 2) throw new AxiosError('connect ECONNREFUSED', 'ECONNREFUSED');
-    return { data: '<recovered/>' };
+  httpImpl = async () => {
+    if (++n < 2) throw codedError('ECONNREFUSED', 'connect ECONNREFUSED');
+    return { status: 200, body: '<recovered/>' };
   };
   const result = await makeTransport().send('getOrders', '<xml/>');
   assert.equal(result, '<recovered/>');

@@ -1,8 +1,4 @@
-import axios, { AxiosInstance } from 'axios';
-import { Agent } from 'node:https';
-
-/** Errors where the connection was never established — the request cannot have been processed. */
-const SAFE_RETRY_CODES = new Set(['ECONNREFUSED', 'ENOTFOUND', 'EAI_AGAIN', 'EHOSTUNREACH', 'ENETUNREACH']);
+import { Agent, request as httpsRequest } from 'node:https';
 import {
   MplusApiClientError,
   MplusApiCommunicationError,
@@ -10,6 +6,9 @@ import {
   MplusApiFaultError,
 } from './errors';
 import { parseEnvelopeBody, setTimeZone } from './soap';
+
+/** Errors where the connection was never established — the request cannot have been processed. */
+const SAFE_RETRY_CODES = new Set(['ECONNREFUSED', 'ENOTFOUND', 'EAI_AGAIN', 'EHOSTUNREACH', 'ENETUNREACH']);
 
 export interface TransportOptions {
   host: string;
@@ -22,8 +21,6 @@ export interface TransportOptions {
   maxRetries?: number;
   /** Base retry delay in ms (exponential backoff). Default: 500. */
   retryDelay?: number;
-  /** Disable TLS certificate validation (not recommended in production). */
-  rejectUnauthorized?: boolean;
   /**
    * IANA time zone used to interpret/emit the API's wall-clock date structs.
    * Default: 'Europe/Amsterdam'. Process-wide — see setTimeZone in soap.ts.
@@ -33,38 +30,101 @@ export interface TransportOptions {
   signal?: AbortSignal;
 }
 
+/** A completed HTTP response. Any status — non-2xx is not an error here. */
+export interface HttpResponse {
+  status: number;
+  body: string;
+}
+
+export interface HttpRequest {
+  url: string;
+  headers: Record<string, string>;
+  body: string;
+  timeoutMs: number;
+  signal?: AbortSignal;
+}
+
+/**
+ * Performs one HTTP POST. Resolves for any completed response (including 4xx/5xx);
+ * rejects only on transport failure, with `code` set (e.g. 'ECONNREFUSED').
+ * Injectable so tests can run without sockets; defaults to {@link nodeHttpsClient}.
+ */
+export type HttpClient = (req: HttpRequest) => Promise<HttpResponse>;
+
+function abortError(): NodeJS.ErrnoException {
+  const e = new Error('Request aborted') as NodeJS.ErrnoException;
+  e.code = 'ABORT_ERR';
+  return e;
+}
+
+const keepAliveAgent = new Agent({ keepAlive: true });
+
+const nodeHttpsClient: HttpClient = (req) =>
+  new Promise<HttpResponse>((resolve, reject) => {
+    const url = new URL(req.url);
+    const clientReq = httpsRequest(
+      {
+        method: 'POST',
+        hostname: url.hostname,
+        port: url.port,
+        path: url.pathname + url.search,
+        agent: keepAliveAgent,
+        headers: { ...req.headers, 'Content-Length': Buffer.byteLength(req.body) },
+      },
+      (res) => {
+        const chunks: Buffer[] = [];
+        res.on('data', (c: Buffer) => chunks.push(c));
+        res.on('end', () => resolve({ status: res.statusCode ?? 0, body: Buffer.concat(chunks).toString('utf8') }));
+      },
+    );
+
+    clientReq.on('error', reject);
+
+    if (req.timeoutMs > 0) {
+      clientReq.setTimeout(req.timeoutMs, () => {
+        const e = new Error(`Request timed out after ${req.timeoutMs}ms`) as NodeJS.ErrnoException;
+        e.code = 'ETIMEDOUT';
+        clientReq.destroy(e);
+      });
+    }
+
+    if (req.signal) {
+      if (req.signal.aborted) {
+        clientReq.destroy(abortError());
+      } else {
+        req.signal.addEventListener('abort', () => clientReq.destroy(abortError()), { once: true });
+      }
+    }
+
+    clientReq.write(req.body);
+    clientReq.end();
+  });
+
 export class SoapTransport {
-  private readonly http: AxiosInstance;
-  private readonly endpoint: string;
+  private readonly url: string;
+  private readonly baseHeaders: Record<string, string>;
+  private readonly timeoutMs: number;
   private readonly maxRetries: number;
   private readonly retryDelay: number;
   private readonly signal?: AbortSignal;
+  private readonly httpClient: HttpClient;
 
-  constructor(options: TransportOptions) {
+  constructor(options: TransportOptions, httpClient: HttpClient = nodeHttpsClient) {
     if (options.timezone !== undefined) {
       setTimeZone(options.timezone);
     }
-    const scheme = 'https';
-    this.endpoint = `${scheme}://${options.host}:${options.port}/`;
+    // Auth travels as query params (?ident=…&secret=…), not SOAP headers.
+    const query = new URLSearchParams({ ident: options.ident, secret: options.secret });
+    this.url = `https://${options.host}:${options.port}/?${query.toString()}`;
+    this.baseHeaders = {
+      'Content-Type': 'text/xml; charset=utf-8',
+      'User-Agent': 'mplusqapi-node',
+    };
+    this.timeoutMs = (options.timeout ?? 30) * 1000;
     this.maxRetries = options.maxRetries ?? 3;
     this.retryDelay = options.retryDelay ?? 500;
     this.signal = options.signal;
-
-    this.http = axios.create({
-      baseURL: this.endpoint,
-      params: { ident: options.ident, secret: options.secret },
-      headers: {
-        'Content-Type': 'text/xml; charset=utf-8',
-        'User-Agent': 'mplusqapi-node/1.0.0',
-      },
-      httpsAgent: options.rejectUnauthorized === false
-        ? new Agent({ rejectUnauthorized: false })
-        : undefined,
-      timeout: (options.timeout ?? 30) * 1000,
-      // The body is always XML — never let axios JSON-parse it.
-      responseType: 'text',
-      signal: options.signal,
-    });
+    this.httpClient = httpClient;
   }
 
   async send(operationName: string, xmlRequest: string, requestId?: string, idempotent = false): Promise<string> {
@@ -102,64 +162,62 @@ export class SoapTransport {
   }
 
   private async sendOnce(operationName: string, xmlRequest: string, requestId: string): Promise<string> {
-    const headers: Record<string, string> = {
-      'SOAPAction': operationName,
-      'X-Request-Id': requestId,
-    };
-
-    let xmlResponse = '';
+    let response: HttpResponse;
     try {
-      const response = await this.http.post(
-        this.endpoint,
-        xmlRequest,
-        { headers },
-      );
-      xmlResponse = response.data as string;
-      return xmlResponse;
-    } catch (err: unknown) {
-      if (axios.isAxiosError(err)) {
-        xmlResponse = (err.response?.data as string) ?? '';
-
-        if (err.response) {
-          try {
-            const parsed = parseEnvelopeBody(xmlResponse);
-            if ('fault' in parsed) {
-              const { faultcode, faultstring } = parsed.fault;
-              const message = `[${faultcode}] ${operationName}: ${faultstring}`;
-              if (faultcode.startsWith('Client')) {
-                throw new MplusApiClientError(message, faultcode, xmlRequest, xmlResponse);
-              } else if (faultcode.startsWith('Server')) {
-                throw new MplusApiServerError(message, faultcode, xmlRequest, xmlResponse);
-              } else {
-                throw new MplusApiFaultError(message, faultcode, xmlRequest, xmlResponse);
-              }
-            }
-          } catch (parseErr) {
-            if (
-              parseErr instanceof MplusApiClientError ||
-              parseErr instanceof MplusApiServerError ||
-              parseErr instanceof MplusApiFaultError
-            ) {
-              throw parseErr;
-            }
-          }
-          throw new MplusApiCommunicationError(
-            `HTTP ${err.response.status}: ${err.message}`,
-            xmlRequest,
-            xmlResponse,
-            err.code,
-            err.response.status,
-          );
-        }
-
-        throw new MplusApiCommunicationError(err.message, xmlRequest, xmlResponse, err.code);
-      }
-
-      throw new MplusApiCommunicationError(
-        err instanceof Error ? err.message : String(err),
-        xmlRequest,
-        xmlResponse,
-      );
+      response = await this.httpClient({
+        url: this.url,
+        headers: {
+          ...this.baseHeaders,
+          'SOAPAction': operationName,
+          'X-Request-Id': requestId,
+        },
+        body: xmlRequest,
+        timeoutMs: this.timeoutMs,
+        signal: this.signal,
+      });
+    } catch (err) {
+      // Transport-level failure: no response was received.
+      const code = (err as NodeJS.ErrnoException).code;
+      const message = err instanceof Error ? err.message : String(err);
+      throw new MplusApiCommunicationError(message, xmlRequest, '', code);
     }
+
+    const xmlResponse = response.body;
+    if (response.status >= 200 && response.status < 300) {
+      return xmlResponse;
+    }
+
+    // Non-2xx: the server responded. Surface a SOAP fault if one is present,
+    // otherwise a generic communication error carrying the HTTP status.
+    try {
+      const parsed = parseEnvelopeBody(xmlResponse);
+      if ('fault' in parsed) {
+        const { faultcode, faultstring } = parsed.fault;
+        const message = `[${faultcode}] ${operationName}: ${faultstring}`;
+        if (faultcode.startsWith('Client')) {
+          throw new MplusApiClientError(message, faultcode, xmlRequest, xmlResponse);
+        } else if (faultcode.startsWith('Server')) {
+          throw new MplusApiServerError(message, faultcode, xmlRequest, xmlResponse);
+        } else {
+          throw new MplusApiFaultError(message, faultcode, xmlRequest, xmlResponse);
+        }
+      }
+    } catch (parseErr) {
+      if (
+        parseErr instanceof MplusApiClientError ||
+        parseErr instanceof MplusApiServerError ||
+        parseErr instanceof MplusApiFaultError
+      ) {
+        throw parseErr;
+      }
+    }
+
+    throw new MplusApiCommunicationError(
+      `HTTP ${response.status}`,
+      xmlRequest,
+      xmlResponse,
+      undefined,
+      response.status,
+    );
   }
 }

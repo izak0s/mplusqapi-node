@@ -29,8 +29,9 @@ npm install @izak0s/mplusqapi-node
 ```
 
 **Runtime dependencies:**
-- [`axios`](https://github.com/axios/axios) — HTTP transport
 - [`fast-xml-parser`](https://github.com/NaturalIntelligence/fast-xml-parser) — XML parsing
+
+HTTP uses the built-in `node:https` module — no HTTP client dependency.
 
 ---
 
@@ -84,7 +85,6 @@ const client = new MplusKassaClient({
   port: Number(process.env.MPLUS_PORT!),
   ident: process.env.MPLUS_IDENT!,
   secret: process.env.MPLUS_SECRET!,
-  rejectUnauthorized: false, // set to false for self-signed certs (e.g. local test servers)
 });
 ```
 
@@ -95,7 +95,6 @@ const client = new MplusKassaClient({
 | `timeout` | `30` | Request timeout in seconds |
 | `maxRetries` | `3` | Retry attempts on retryable transport errors (see below; SOAP faults are never retried) |
 | `retryDelay` | `500` | Base retry delay in ms, doubled per attempt (exponential backoff with jitter) |
-| `rejectUnauthorized` | `true` | Set `false` to accept self-signed TLS certificates |
 | `timezone` | `'Europe/Amsterdam'` | IANA zone used to interpret/emit the API's wall-clock date structs (see [Dates](#dates)) |
 | `signal` | — | `AbortSignal` to cancel all in-flight requests from this client (e.g. on shutdown) |
 
@@ -303,7 +302,7 @@ src/
   index.ts              Public exports
   errors.ts             Error hierarchy
   soap.ts               Envelope builder, response parser, serializers
-  transport.ts          HTTP client (axios)
+  transport.ts          HTTP client (node:https), retries, error mapping
   generated/            Auto-generated — do not edit manually
     types.ts            TypeScript interfaces and string union enums
     serializer.ts       TS objects → SOAP XML
