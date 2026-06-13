@@ -200,6 +200,19 @@ export class MplusKassaClient {
     );
   }
 
+  async getCardCategoriesV2(request: T.Input<T.GetCardCategoriesV2Request>, requestId?: string): Promise<T.GetCardCategoriesV2Response> {
+    const bodyXml = S.serializeGetCardCategoriesV2Body(request);
+    return this.call(
+      'getCardCategoriesV2',
+      'GetCardCategoriesV2Response',
+      'GetCardCategoriesV2Response',
+      bodyXml,
+      D.deserializeGetCardCategoriesV2Response,
+      false,
+      requestId,
+    );
+  }
+
   async adjustPoints(request: T.Input<T.AdjustPointsRequest>, requestId?: string): Promise<T.AdjustPointsResponse> {
     const bodyXml = S.serializeAdjustPointsBody(request);
     return this.call(
@@ -2650,6 +2663,20 @@ export class MplusKassaClient {
     )).ownerLabels;
   }
 
+  async saveOwnerLabels(request: T.Input<T.SaveOwnerLabelsRequest>, requestId?: string): Promise<T.SaveOwnerLabelsResponse> {
+    request = { idempotencyKey: randomUUID(), ...request };
+    const bodyXml = S.serializeSaveOwnerLabelsBody(request);
+    return this.call(
+      'saveOwnerLabels',
+      'SaveOwnerLabelsResponse',
+      'SaveOwnerLabelsResponse',
+      bodyXml,
+      D.deserializeSaveOwnerLabelsResponse,
+      true,
+      requestId,
+    );
+  }
+
   async getWordAliases(request: T.Input<T.GetWordAliasesRequest>, requestId?: string): Promise<T.WordAlias[]> {
     const bodyXml = S.serializeGetWordAliasesBody(request);
     return (await this.call(
@@ -3117,6 +3144,19 @@ export class MplusKassaClient {
       false,
       requestId,
     );
+  }
+
+  async getEmployeeWorkplaceLoginStates(request: T.Input<T.GetEmployeeWorkplaceLoginStatesRequest>, requestId?: string): Promise<T.WorkplaceLoginStateInfo[] | undefined> {
+    const bodyXml = S.serializeGetEmployeeWorkplaceLoginStatesBody(request);
+    return (await this.call(
+      'getEmployeeWorkplaceLoginStates',
+      'GetEmployeeWorkplaceLoginStatesResponse',
+      'GetEmployeeWorkplaceLoginStatesResponse',
+      bodyXml,
+      D.deserializeGetEmployeeWorkplaceLoginStatesResponse,
+      false,
+      requestId,
+    )).workplaceLoginStateInfo;
   }
 
   async createImage(request: T.Input<T.CreateImageRequest>, requestId?: string): Promise<T.CreateImageResponse> {
