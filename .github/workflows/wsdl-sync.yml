@@ -23,41 +23,75 @@ jobs:
       - name: Regenerate from live WSDL
         env:
           MPLUS_WSDL_URL: ${{ secrets.MPLUS_WSDL_URL }}
+          WSDL_SYNC_SUMMARY: ${{ runner.temp }}/wsdl-summary.json
         run: |
           if [ -z "$MPLUS_WSDL_URL" ]; then
             echo "::error::Repository secret MPLUS_WSDL_URL is not set (full WSDL URL incl. port)."
             exit 1
           fi
           npm run generate
+          npm run sync:readme
 
       - name: Detect changes
         id: diff
         run: |
-          if git diff --quiet -- src/generated; then
+          if git diff --quiet -- src/generated README.md; then
             echo "changed=false" >> "$GITHUB_OUTPUT"
             echo "WSDL unchanged — nothing to do."
           else
             echo "changed=true" >> "$GITHUB_OUTPUT"
-            git diff --stat -- src/generated
+            git diff --stat -- src/generated README.md
           fi
 
       - name: Validate regenerated code
         if: steps.diff.outputs.changed == 'true'
         run: npm run check
 
+      - name: Build PR body
+        if: steps.diff.outputs.changed == 'true'
+        id: prbody
+        env:
+          SUMMARY: ${{ runner.temp }}/wsdl-summary.json
+        run: |
+          skipped=$(jq -r '.skippedOperations | length' "$SUMMARY")
+          echo "skipped=$skipped" >> "$GITHUB_OUTPUT"
+          {
+            echo 'body<<PR_BODY_EOF'
+            echo 'Nightly WSDL sync detected upstream changes and regenerated `src/generated/` (and refreshed the README counts).'
+            echo ''
+            jq -r '"**Generated:** \(.counts.operations) operations · \(.counts.enums) enums · \(.counts.complexTypes) complex types"' "$SUMMARY"
+            echo ''
+            if [ "$skipped" -gt 0 ]; then
+              echo '> [!WARNING]'
+              echo "> **$skipped operation(s) could not be resolved and are MISSING from the generated client:**"
+              echo '>'
+              jq -r '.skippedOperations[] | "> - `\(.)`"' "$SUMMARY"
+              echo '>'
+              echo '> The generator skipped these because their output elements were unresolvable.'
+              echo '> Inspect `scripts/generate.ts` (e.g. inline-complexType response wrappers) before merging.'
+            else
+              echo '✅ All operations resolved cleanly — none skipped.'
+            fi
+            echo ''
+            echo 'Build, type-check, and tests passed in the sync run, but CI does not'
+            echo 'trigger automatically on bot-created PRs — close and reopen this PR'
+            echo '(or push to the branch) to run it.'
+            echo ''
+            echo '🤖 Generated with [Claude Code](https://claude.com/claude-code)'
+            echo 'PR_BODY_EOF'
+          } >> "$GITHUB_OUTPUT"
+          if [ "$skipped" -gt 0 ]; then
+            echo "::warning::WSDL sync skipped $skipped operation(s) — see PR body."
+          fi
+
       - name: Create or update PR
         if: steps.diff.outputs.changed == 'true'
         uses: peter-evans/create-pull-request@v8
         with:
           branch: auto/wsdl-update
-          add-paths: src/generated
+          add-paths: |
+            src/generated
+            README.md
           commit-message: ':sparkles: Regenerate from upstream WSDL'
           title: 'Regenerate from upstream WSDL'
-          body: |
-            Nightly WSDL sync detected upstream changes and regenerated `src/generated/`.
-
-            Build, type-check, and tests passed in the sync run, but CI does not
-            trigger automatically on bot-created PRs — close and reopen this PR
-            (or push to the branch) to run it.
-
-            🤖 Generated with [Claude Code](https://claude.com/claude-code)
+          body: ${{ steps.prbody.outputs.body }}

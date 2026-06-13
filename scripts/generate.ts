@@ -1226,6 +1226,16 @@ async function main(): Promise<void> {
   fs.writeFileSync(path.join(outDir, 'deserializer.ts'), result.deserializer);
   fs.writeFileSync(path.join(outDir, 'client.ts'), result.client);
 
+  // Machine-readable run summary for the WSDL-sync workflow (counts + any
+  // operations the generator could not resolve), so the PR can flag them.
+  const summaryPath = process.env.WSDL_SYNC_SUMMARY;
+  if (summaryPath) {
+    fs.writeFileSync(
+      summaryPath,
+      JSON.stringify({ counts: result.counts, skippedOperations: result.skippedOperations }, null, 2),
+    );
+  }
+
   console.log('Done.');
 }
 

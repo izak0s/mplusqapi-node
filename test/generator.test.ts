@@ -92,6 +92,23 @@ const FIXTURE = `<?xml version="1.0" encoding="UTF-8"?>
           </xsd:sequence>
         </xsd:complexType>
       </xsd:element>
+
+      <xsd:element name="pingThing">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="thingId" type="xsd:long" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <!-- Response wrapper declared with an inline complexType instead of a
+           type="tns:..." ref — must still resolve via a synthesized type. -->
+      <xsd:element name="pingThingResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="response" type="xsd:boolean" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
     </xsd:schema>
   </types>
 
@@ -100,6 +117,8 @@ const FIXTURE = `<?xml version="1.0" encoding="UTF-8"?>
   <message name="getThings"><part name="Body" element="tns:getThings" /></message>
   <message name="GetThingsResponse"><part name="Body" element="tns:GetThingsResponse" /></message>
   <message name="moveThing"><part name="Body" element="tns:moveThing" /></message>
+  <message name="pingThing"><part name="Body" element="tns:pingThing" /></message>
+  <message name="pingThingResponse"><part name="Body" element="tns:pingThingResponse" /></message>
   <message name="brokenOp"><part name="Body" element="tns:brokenOp" /></message>
 
   <portType name="MplusQapiServicePortType">
@@ -114,6 +133,10 @@ const FIXTURE = `<?xml version="1.0" encoding="UTF-8"?>
     <operation name="moveThing">
       <input message="tns:moveThing" />
       <output message="tns:CreateThingResponse" />
+    </operation>
+    <operation name="pingThing">
+      <input message="tns:pingThing" />
+      <output message="tns:pingThingResponse" />
     </operation>
     <operation name="brokenOp">
       <input message="tns:brokenOp" />
@@ -195,5 +218,14 @@ test('nested types do not get the response-only throw', () => {
 
 test('operations with unresolvable output elements are reported, not silently dropped', () => {
   assert.deepEqual(out.skippedOperations, ['brokenOp']);
-  assert.equal(out.counts.operations, 3);
+  assert.equal(out.counts.operations, 4);
+});
+
+test('inline-complexType response wrappers resolve via a synthesized output type', () => {
+  assert.ok(!out.skippedOperations.includes('pingThing'), 'pingThing must not be skipped');
+  // single boolean field unwraps to a plain boolean return
+  assert.ok(out.client.includes('async pingThing(thingId: number, requestId?: string): Promise<boolean>'));
+  // a named output type + matching deserializer were synthesized from the inline fields
+  assert.ok(out.types.includes('export interface pingThingResponse'));
+  assert.ok(out.deserializer.includes('export function deserializepingThingResponse('));
 });
