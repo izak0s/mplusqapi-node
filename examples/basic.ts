@@ -1,6 +1,6 @@
 /**
  * Example usage — run with:
- *   npx ts-node --project scripts/tsconfig.json example.ts
+ *   npx ts-node --project scripts/tsconfig.json examples/basic.ts
  *
  * Set env vars before running:
  *   MPLUS_HOST=api.mpluskassa.nl
@@ -14,7 +14,7 @@ import {
     MplusApiClientError,
     MplusApiServerError,
     MplusApiCommunicationError,
-} from './src';
+} from '../src';
 
 const client = new MplusKassaClient({
     host: process.env.MPLUS_HOST ?? '',

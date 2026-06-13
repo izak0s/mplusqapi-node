@@ -476,10 +476,9 @@ function generateSerializer(
     `  serializeString,`,
     `  serializeNumber,`,
     `  serializeBoolean,`,
-    `  serializeDateTime,`,
-    `  serializeDate,`,
     `  NS_PREFIX,`,
     `} from '../soap';`,
+    `import { serializeDateTime, serializeDate } from '../datetime';`,
     `import type * as T from './types';`,
     '',
   ];
@@ -726,11 +725,8 @@ function generateDeserializer(
 ): string {
   const lines: string[] = [
     HEADER,
-    `import {`,
-    `  toArray,`,
-    `  deserializeDateTime,`,
-    `  deserializeDate,`,
-    `} from '../soap';`,
+    `import { toArray } from '../soap';`,
+    `import { deserializeDateTime, deserializeDate } from '../datetime';`,
     `import type * as T from './types';`,
     '',
   ];

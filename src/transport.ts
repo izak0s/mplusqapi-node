@@ -5,7 +5,8 @@ import {
   MplusApiServerError,
   MplusApiFaultError,
 } from './errors';
-import { parseEnvelopeBody, setTimeZone } from './soap';
+import { parseEnvelopeBody } from './soap';
+import { setTimeZone } from './datetime';
 
 /** Errors where the connection was never established — the request cannot have been processed. */
 const SAFE_RETRY_CODES = new Set(['ECONNREFUSED', 'ENOTFOUND', 'EAI_AGAIN', 'EHOSTUNREACH', 'ENETUNREACH']);
@@ -23,7 +24,7 @@ export interface TransportOptions {
   retryDelay?: number;
   /**
    * IANA time zone used to interpret/emit the API's wall-clock date structs.
-   * Default: 'Europe/Amsterdam'. Process-wide — see setTimeZone in soap.ts.
+   * Default: 'Europe/Amsterdam'. Process-wide — see setTimeZone in datetime.ts.
    */
   timezone?: string;
   /** Abort all in-flight requests from this client (e.g. on shutdown). */

@@ -4,10 +4,9 @@ import {
   serializeString,
   serializeNumber,
   serializeBoolean,
-  serializeDateTime,
-  serializeDate,
   NS_PREFIX,
 } from '../soap';
+import { serializeDateTime, serializeDate } from '../datetime';
 import type * as T from './types';
 
 export function serializeNumberList(obj: T.Input<T.NumberList>, elemName: string): string {

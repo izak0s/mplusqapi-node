@@ -290,7 +290,7 @@ The tag triggers `.github/workflows/publish.yml`: it first runs the full CI work
 
 ```bash
 cp .env.example .env  # fill in your credentials
-source .env && npx ts-node --project scripts/tsconfig.json example.ts
+source .env && npx ts-node --project scripts/tsconfig.json examples/basic.ts
 ```
 
 ---
