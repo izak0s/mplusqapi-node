@@ -68,37 +68,48 @@ test('serializeDateTime emits wall-clock components in the active zone', () => {
   assert.ok(xml.includes('<ns1:timezone>120</ns1:timezone>'));
 });
 
-test('serializeDate winter date uses standard offset (no DST)', () => {
-  setTimeZone('Europe/Amsterdam');
-  // 23:00 UTC on Dec 30 == 00:00 Dec 31 in Amsterdam winter time (+01:00).
-  const d = new Date('1999-12-30T23:00:00.000Z');
+test('serializeDate emits the UTC calendar date (no zone shift)', () => {
+  // Date-only fields are calendar dates: UTC midnight in, UTC components out.
+  const d = new Date('1999-12-31T00:00:00.000Z');
   const xml = serializeDate('financialDate', d);
   assert.ok(xml.includes('<ns1:day>31</ns1:day>'));
   assert.ok(xml.includes('<ns1:mon>12</ns1:mon>'));
   assert.ok(xml.includes('<ns1:year>1999</ns1:year>'));
 });
 
-test('deserializeDateTime interprets wall clock in the active zone (summer DST)', () => {
+test('deserializeDateTime honors the payload timezone offset (exact)', () => {
+  // timezone is minutes east of UTC: 13:45:30 at +120 == 11:45:30 UTC.
+  // Active zone is intentionally UTC to prove the payload offset wins.
+  setTimeZone('UTC');
+  const d = deserializeDateTime({
+    year: '2026', mon: '6', day: '12', hour: '13', min: '45', sec: '30',
+    isdst: 'true', timezone: '120',
+  });
+  assert.equal(d.toISOString(), '2026-06-12T11:45:30.000Z');
+  setTimeZone(DEFAULT_TIME_ZONE);
+});
+
+test('deserializeDateTime falls back to the active zone when timezone is absent', () => {
   setTimeZone('Europe/Amsterdam');
   const d = deserializeDateTime({ year: '2026', mon: '6', day: '12', hour: '13', min: '45', sec: '30' });
   assert.equal(d.toISOString(), '2026-06-12T11:45:30.000Z');
 });
 
-test('deserializeDate anchors to midnight in the active zone (winter)', () => {
-  setTimeZone('Europe/Amsterdam');
-  const d = deserializeDate({ year: '1999', mon: '12', day: '31' });
-  // Midnight Dec 31 Amsterdam (+01:00) == 23:00 UTC on Dec 30.
-  assert.equal(d.toISOString(), '1999-12-30T23:00:00.000Z');
+test('deserializeDate returns a UTC-midnight calendar date', () => {
+  const d = deserializeDate({ year: '2018', mon: '6', day: '18' });
+  assert.equal(d.toISOString(), '2018-06-18T00:00:00.000Z');
+  assert.equal(d.toISOString().slice(0, 10), '2018-06-18');
 });
 
-test('deserializeDateTime honors a configured non-default zone', () => {
-  setTimeZone('UTC');
-  const d = deserializeDateTime({ year: '2026', mon: '6', day: '12', hour: '13', min: '45', sec: '30' });
-  assert.equal(d.toISOString(), '2026-06-12T13:45:30.000Z');
-  setTimeZone(DEFAULT_TIME_ZONE);
+test('date-only round-trips with no off-by-one', () => {
+  const original = deserializeDate({ year: '2018', mon: '6', day: '18' });
+  const xml = serializeDate('financialDate', original);
+  assert.ok(xml.includes('<ns1:day>18</ns1:day>'));
+  assert.ok(xml.includes('<ns1:mon>6</ns1:mon>'));
+  assert.ok(xml.includes('<ns1:year>2018</ns1:year>'));
 });
 
-test('date round-trips through the active zone', () => {
+test('datetime round-trips exactly via the emitted offset', () => {
   setTimeZone('Europe/Amsterdam');
   const original = new Date('2026-06-12T11:45:30.000Z');
   const xml = serializeDateTime('ts', original);

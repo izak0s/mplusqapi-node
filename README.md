@@ -177,22 +177,28 @@ The same field name (e.g. `priceIncl`) can be a `string` on one type and a `numb
 
 ### Dates
 
-`SoapMplusDateTime` response fields are deserialized to `Date` objects. Pass `Date` objects for request fields that accept dates.
+The API has two date structs, handled differently:
 
-The API sends/expects **wall-clock** date structs (year/mon/day/hour/min/sec) with no embedded offset on date-only fields. These are interpreted in the client's configured `timezone` (default `Europe/Amsterdam`) when converting to/from JS `Date` (which is an absolute UTC instant):
+**`SoapMplusDateTime`** (full timestamp) — carries its own UTC offset (`timezone`, in minutes). Deserialized to an exact `Date` using that offset, independent of host or config:
 
 ```typescript
-const client = new MplusKassaClient({ /* ...host/port/auth... */, timezone: 'Europe/Amsterdam' });
-
-// financialDate "2018-06-18" deserializes to midnight Amsterdam time,
-// i.e. the instant 2018-06-17T22:00:00.000Z (summer, +02:00).
-// Print it in the configured zone to see the intended calendar date:
-console.log(order.financialDate?.toLocaleDateString('nl-NL', { timeZone: 'Europe/Amsterdam' }));
+// struct { year:2026, mon:6, day:12, hour:13, min:45, sec:30, timezone:120 }
+// -> 2026-06-12T11:45:30.000Z   (exact instant; +120 min == +02:00)
 ```
 
-A `Date` logged directly prints in UTC, so a local midnight shows as `...T22:00:00.000Z` the previous day — that's correct, just rendered in UTC. Format with the matching `timeZone` to avoid confusion.
+If a `SoapMplusDateTime` ever omits its offset, the client's configured `timezone` (default `Europe/Amsterdam`) is used as a fallback to interpret the wall-clock. The configured zone is also used when **serializing** outbound timestamps (to fill `timezone`/`isdst`).
 
-> **Note:** the timezone is process-wide — constructing multiple clients with different `timezone` values in one process is not supported. `setTimeZone(tz)` / `getTimeZone()` are also exported for direct control.
+**`SoapMplusDate`** (calendar date, e.g. `financialDate`) — has only day/mon/year, no time and no offset. Deserialized to **UTC midnight**, so it reads as the intended calendar date with no off-by-one:
+
+```typescript
+// struct { year:2018, mon:6, day:18 }  ->  2018-06-18T00:00:00.000Z
+order.financialDate?.toISOString().slice(0, 10);   // '2018-06-18'
+order.financialDate?.getUTCDate();                 // 18
+```
+
+> Read date-only fields with the **UTC** accessors (`getUTCFullYear/Month/Date`) or `.toISOString().slice(0, 10)` — not `getDate()`/`toLocaleDateString()`, which shift by your host's zone. When **sending** a date-only field, build a UTC-midnight `Date`: `new Date('2018-06-18')` or `new Date(Date.UTC(y, m - 1, d))`.
+
+> **Note:** the configured `timezone` is process-wide — constructing multiple clients with different `timezone` values in one process is not supported. `setTimeZone(tz)` / `getTimeZone()` are also exported for direct control.
 
 ### List fields
 

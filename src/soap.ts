@@ -182,30 +182,45 @@ export function serializeDateTime(elemName: string, value: Date): string {
 }
 
 export function serializeDate(elemName: string, value: Date): string {
-  const p = zonedPartsOf(value, activeTimeZone);
+  // Date-only fields are calendar dates with no time/zone. We read the UTC
+  // components so values round-trip with deserializeDate (which builds a
+  // UTC-midnight Date). Construct outbound date-only values accordingly,
+  // e.g. `new Date('2018-06-18')` or `new Date(Date.UTC(y, m - 1, d))`.
   return (
     `<${NS_PREFIX}:${elemName}>` +
-    `<${NS_PREFIX}:day>${p.day}</${NS_PREFIX}:day>` +
-    `<${NS_PREFIX}:mon>${p.mon}</${NS_PREFIX}:mon>` +
-    `<${NS_PREFIX}:year>${p.year}</${NS_PREFIX}:year>` +
+    `<${NS_PREFIX}:day>${value.getUTCDate()}</${NS_PREFIX}:day>` +
+    `<${NS_PREFIX}:mon>${value.getUTCMonth() + 1}</${NS_PREFIX}:mon>` +
+    `<${NS_PREFIX}:year>${value.getUTCFullYear()}</${NS_PREFIX}:year>` +
     `</${NS_PREFIX}:${elemName}>`
   );
 }
 
 export function deserializeDateTime(obj: Record<string, unknown>): Date {
-  return zonedToUtc(
-    Number(obj['year']), Number(obj['mon']), Number(obj['day']),
-    Number(obj['hour']), Number(obj['min']), Number(obj['sec']),
-    activeTimeZone,
-  );
+  const year = Number(obj['year']);
+  const mon = Number(obj['mon']);
+  const day = Number(obj['day']);
+  const hour = Number(obj['hour']);
+  const min = Number(obj['min']);
+  const sec = Number(obj['sec']);
+
+  // SoapMplusDateTime carries its own UTC offset (minutes, east-positive).
+  // Prefer it — exact and independent of host/config. Fall back to the
+  // configured zone only when the struct omits it.
+  const tzRaw = obj['timezone'];
+  if (tzRaw !== undefined && tzRaw !== null && tzRaw !== '') {
+    const offsetMin = Number(tzRaw);
+    if (!Number.isNaN(offsetMin)) {
+      return new Date(Date.UTC(year, mon - 1, day, hour, min, sec) - offsetMin * 60000);
+    }
+  }
+  return zonedToUtc(year, mon, day, hour, min, sec, activeTimeZone);
 }
 
 export function deserializeDate(obj: Record<string, unknown>): Date {
-  // Date-only struct carries no time — anchor to midnight in the active zone.
-  return zonedToUtc(
-    Number(obj['year']), Number(obj['mon']), Number(obj['day']),
-    0, 0, 0, activeTimeZone,
-  );
+  // SoapMplusDate is a calendar date — no time, no offset. Anchor to UTC
+  // midnight so it renders as the intended date with no local/UTC off-by-one.
+  // Read it with the UTC accessors or `.toISOString().slice(0, 10)`.
+  return new Date(Date.UTC(Number(obj['year']), Number(obj['mon']) - 1, Number(obj['day'])));
 }
 
 export function toArray<T>(val: T | T[] | undefined | null): T[] {
