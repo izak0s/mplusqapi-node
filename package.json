@@ -17,7 +17,7 @@
     "typescript",
     "api-client"
   ],
-  "license": "GPL-3.0-only",
+  "license": "MIT",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",

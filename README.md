@@ -2,7 +2,7 @@
 
 [![CI](https://github.com/izak0s/mplusqapi-node/actions/workflows/ci.yml/badge.svg)](https://github.com/izak0s/mplusqapi-node/actions/workflows/ci.yml)
 [![npm](https://img.shields.io/npm/v/%40izak0s%2Fmplusqapi-node)](https://www.npmjs.com/package/@izak0s/mplusqapi-node)
-[![license](https://img.shields.io/badge/license-GPL--3.0--only-blue)](LICENSE)
+[![license](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
 
 A fully-typed TypeScript client for the [MplusKASSA](https://www.mpluskassa.nl) SOAP API (`urn:mplusqapi`), auto-generated from the official WSDL.
 
@@ -327,4 +327,4 @@ See [CONTRIBUTING.md](CONTRIBUTING.md). Vulnerabilities: report privately via [S
 
 ## License
 
-[GPL-3.0-only](LICENSE)
+[MIT](LICENSE)
