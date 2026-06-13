@@ -1,6 +1,6 @@
 {
   "name": "@izak0s/mplusqapi-node",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "TypeScript client for the MplusKASSA SOAP API",
   "homepage": "https://github.com/izak0s/mplusqapi-node#readme",
   "bugs": {
