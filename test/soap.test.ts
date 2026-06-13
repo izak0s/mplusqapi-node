@@ -7,8 +7,12 @@ import {
   serializeString,
   serializeBoolean,
   serializeDateTime,
+  serializeDate,
   deserializeDateTime,
   deserializeDate,
+  setTimeZone,
+  getTimeZone,
+  DEFAULT_TIME_ZONE,
   toArray,
   NS_PREFIX,
 } from '../src/soap';
@@ -39,8 +43,20 @@ test('serializeBoolean emits true/false text', () => {
   assert.equal(serializeBoolean('active', false), '<ns1:active>false</ns1:active>');
 });
 
-test('serializeDateTime emits the SoapMplusDateTime struct', () => {
-  const d = new Date(2026, 5, 12, 13, 45, 30);
+test('default time zone is Europe/Amsterdam', () => {
+  setTimeZone(DEFAULT_TIME_ZONE);
+  assert.equal(getTimeZone(), 'Europe/Amsterdam');
+});
+
+test('setTimeZone rejects an invalid zone', () => {
+  assert.throws(() => setTimeZone('Not/AZone'), RangeError);
+  setTimeZone(DEFAULT_TIME_ZONE);
+});
+
+test('serializeDateTime emits wall-clock components in the active zone', () => {
+  setTimeZone('Europe/Amsterdam');
+  // 11:45:30 UTC == 13:45:30 in Amsterdam summer time (DST, +02:00).
+  const d = new Date('2026-06-12T11:45:30.000Z');
   const xml = serializeDateTime('timestamp', d);
   assert.ok(xml.includes('<ns1:sec>30</ns1:sec>'));
   assert.ok(xml.includes('<ns1:min>45</ns1:min>'));
@@ -48,24 +64,50 @@ test('serializeDateTime emits the SoapMplusDateTime struct', () => {
   assert.ok(xml.includes('<ns1:day>12</ns1:day>'));
   assert.ok(xml.includes('<ns1:mon>6</ns1:mon>'));
   assert.ok(xml.includes('<ns1:year>2026</ns1:year>'));
-  assert.ok(xml.includes(`<ns1:timezone>${-d.getTimezoneOffset()}</ns1:timezone>`));
+  assert.ok(xml.includes('<ns1:isdst>true</ns1:isdst>'));
+  assert.ok(xml.includes('<ns1:timezone>120</ns1:timezone>'));
 });
 
-test('deserializeDateTime reads struct fields (string values)', () => {
+test('serializeDate winter date uses standard offset (no DST)', () => {
+  setTimeZone('Europe/Amsterdam');
+  // 23:00 UTC on Dec 30 == 00:00 Dec 31 in Amsterdam winter time (+01:00).
+  const d = new Date('1999-12-30T23:00:00.000Z');
+  const xml = serializeDate('financialDate', d);
+  assert.ok(xml.includes('<ns1:day>31</ns1:day>'));
+  assert.ok(xml.includes('<ns1:mon>12</ns1:mon>'));
+  assert.ok(xml.includes('<ns1:year>1999</ns1:year>'));
+});
+
+test('deserializeDateTime interprets wall clock in the active zone (summer DST)', () => {
+  setTimeZone('Europe/Amsterdam');
   const d = deserializeDateTime({ year: '2026', mon: '6', day: '12', hour: '13', min: '45', sec: '30' });
-  assert.equal(d.getFullYear(), 2026);
-  assert.equal(d.getMonth(), 5);
-  assert.equal(d.getDate(), 12);
-  assert.equal(d.getHours(), 13);
-  assert.equal(d.getMinutes(), 45);
-  assert.equal(d.getSeconds(), 30);
+  assert.equal(d.toISOString(), '2026-06-12T11:45:30.000Z');
 });
 
-test('deserializeDate reads day/mon/year struct', () => {
+test('deserializeDate anchors to midnight in the active zone (winter)', () => {
+  setTimeZone('Europe/Amsterdam');
   const d = deserializeDate({ year: '1999', mon: '12', day: '31' });
-  assert.equal(d.getFullYear(), 1999);
-  assert.equal(d.getMonth(), 11);
-  assert.equal(d.getDate(), 31);
+  // Midnight Dec 31 Amsterdam (+01:00) == 23:00 UTC on Dec 30.
+  assert.equal(d.toISOString(), '1999-12-30T23:00:00.000Z');
+});
+
+test('deserializeDateTime honors a configured non-default zone', () => {
+  setTimeZone('UTC');
+  const d = deserializeDateTime({ year: '2026', mon: '6', day: '12', hour: '13', min: '45', sec: '30' });
+  assert.equal(d.toISOString(), '2026-06-12T13:45:30.000Z');
+  setTimeZone(DEFAULT_TIME_ZONE);
+});
+
+test('date round-trips through the active zone', () => {
+  setTimeZone('Europe/Amsterdam');
+  const original = new Date('2026-06-12T11:45:30.000Z');
+  const xml = serializeDateTime('ts', original);
+  const obj: Record<string, string> = {};
+  for (const m of xml.matchAll(/<ns1:(\w+)>([^<]+)<\/ns1:\w+>/g)) {
+    obj[m[1]] = m[2];
+  }
+  const round = deserializeDateTime(obj);
+  assert.equal(round.toISOString(), original.toISOString());
 });
 
 test('toArray normalizes undefined, single value, and array', () => {

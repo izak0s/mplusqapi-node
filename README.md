@@ -96,6 +96,7 @@ const client = new MplusKassaClient({
 | `maxRetries` | `3` | Retry attempts on retryable transport errors (see below; SOAP faults are never retried) |
 | `retryDelay` | `500` | Base retry delay in ms, doubled per attempt (exponential backoff with jitter) |
 | `rejectUnauthorized` | `true` | Set `false` to accept self-signed TLS certificates |
+| `timezone` | `'Europe/Amsterdam'` | IANA zone used to interpret/emit the API's wall-clock date structs (see [Dates](#dates)) |
 | `signal` | — | `AbortSignal` to cancel all in-flight requests from this client (e.g. on shutdown) |
 
 ### Retries and idempotency
@@ -177,6 +178,21 @@ The same field name (e.g. `priceIncl`) can be a `string` on one type and a `numb
 ### Dates
 
 `SoapMplusDateTime` response fields are deserialized to `Date` objects. Pass `Date` objects for request fields that accept dates.
+
+The API sends/expects **wall-clock** date structs (year/mon/day/hour/min/sec) with no embedded offset on date-only fields. These are interpreted in the client's configured `timezone` (default `Europe/Amsterdam`) when converting to/from JS `Date` (which is an absolute UTC instant):
+
+```typescript
+const client = new MplusKassaClient({ /* ...host/port/auth... */, timezone: 'Europe/Amsterdam' });
+
+// financialDate "2018-06-18" deserializes to midnight Amsterdam time,
+// i.e. the instant 2018-06-17T22:00:00.000Z (summer, +02:00).
+// Print it in the configured zone to see the intended calendar date:
+console.log(order.financialDate?.toLocaleDateString('nl-NL', { timeZone: 'Europe/Amsterdam' }));
+```
+
+A `Date` logged directly prints in UTC, so a local midnight shows as `...T22:00:00.000Z` the previous day — that's correct, just rendered in UTC. Format with the matching `timeZone` to avoid confusion.
+
+> **Note:** the timezone is process-wide — constructing multiple clients with different `timezone` values in one process is not supported. `setTimeZone(tz)` / `getTimeZone()` are also exported for direct control.
 
 ### List fields
 

@@ -9,7 +9,7 @@ import {
   MplusApiServerError,
   MplusApiFaultError,
 } from './errors';
-import { parseEnvelopeBody } from './soap';
+import { parseEnvelopeBody, setTimeZone } from './soap';
 
 export interface TransportOptions {
   host: string;
@@ -24,6 +24,11 @@ export interface TransportOptions {
   retryDelay?: number;
   /** Disable TLS certificate validation (not recommended in production). */
   rejectUnauthorized?: boolean;
+  /**
+   * IANA time zone used to interpret/emit the API's wall-clock date structs.
+   * Default: 'Europe/Amsterdam'. Process-wide — see setTimeZone in soap.ts.
+   */
+  timezone?: string;
   /** Abort all in-flight requests from this client (e.g. on shutdown). */
   signal?: AbortSignal;
 }
@@ -36,6 +41,9 @@ export class SoapTransport {
   private readonly signal?: AbortSignal;
 
   constructor(options: TransportOptions) {
+    if (options.timezone !== undefined) {
+      setTimeZone(options.timezone);
+    }
     const scheme = 'https';
     this.endpoint = `${scheme}://${options.host}:${options.port}/`;
     this.maxRetries = options.maxRetries ?? 3;
