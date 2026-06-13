@@ -51,21 +51,25 @@ const client = new MplusKassaClient({
   secret: process.env.MPLUS_SECRET!,
 });
 
-// Fetch API version
-const version = await client.getApiVersion();
-console.log(`API: ${version.majorNumber}.${version.minorNumber}.${version.revisionNumber}`);
+async function main() {
+  // Fetch API version
+  const version = await client.getApiVersion();
+  console.log(`API: ${version.majorNumber}.${version.minorNumber}.${version.revisionNumber}`);
 
-// Fetch orders (returns Order[] directly — list wrappers are unwrapped)
-const orders = await client.getOrders({ syncMarker: 0, syncMarkerLimit: 10 });
-for (const order of orders) {
-  console.log(order.orderId, order.financialDate);
+  // Fetch orders (returns Order[] directly — list wrappers are unwrapped)
+  const orders = await client.getOrders({ syncMarker: 0, syncMarkerLimit: 10 });
+  for (const order of orders) {
+    console.log(order.orderId, order.financialDate);
+  }
+
+  // Fetch a single relation — `relation` is undefined when result is NOT-FOUND
+  const { result, relation } = await client.getRelation(42);
+  if (result === 'GET-RELATION-RESULT-OK') {
+    console.log(relation?.name, relation?.email);
+  }
 }
 
-// Fetch a single relation — `relation` is undefined when result is NOT-FOUND
-const { result, relation } = await client.getRelation(42);
-if (result === 'GET-RELATION-RESULT-OK') {
-  console.log(relation?.name, relation?.email);
-}
+main().catch(console.error);
 ```
 
 ---
