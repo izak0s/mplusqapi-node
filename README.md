@@ -19,6 +19,7 @@ A fully-typed TypeScript client for the [MplusKASSA](https://www.mpluskassa.nl) 
 - **Decimal-safe** — `xsd:decimal` fields typed as `string` to avoid floating-point precision loss
 - **Date handling** — `SoapMplusDateTime` structs and ISO date fields both map to `Date`
 - **Rich error types** — errors carry the raw `xmlRequest` / `xmlResponse` (where available) for easy debugging
+- **Dual module** — ships both ESM and CommonJS builds with type declarations for each
 
 ---
 
@@ -258,15 +259,14 @@ npm run generate:local
 ### Build
 
 ```bash
-npm run build   # tsc → dist/
+npm run build   # tsup → dist/ (bundled CJS + ESM + declarations)
 ```
 
-Output (CommonJS + declarations):
+Output:
 ```
 dist/
-  index.js / index.d.ts          entry point
-  errors.js, soap.js, transport.js (+ .d.ts)
-  generated/                     client, types, serializer, deserializer
+  index.js    / index.d.ts     CommonJS entry + declarations
+  index.mjs   / index.d.mts    ESM entry + declarations
 ```
 
 ### Test
