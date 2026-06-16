@@ -129,7 +129,9 @@ export class SoapTransport {
   }
 
   async send(operationName: string, xmlRequest: string, requestId?: string, idempotent = false): Promise<string> {
-    // One ID for all attempts so the server can correlate/dedupe retries.
+    // One ID across all retry attempts so a single logical call traces as one
+    // entry if the server logs the header. Correlation only — dedup of retried
+    // mutations is handled by idempotencyKey, not this header.
     const rid = requestId ?? `mpac_${Date.now()}_${Math.random().toString(36).slice(2)}`;
     let lastError: unknown;
     for (let attempt = 0; attempt <= this.maxRetries; attempt++) {
