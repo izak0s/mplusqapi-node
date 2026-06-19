@@ -20,7 +20,12 @@ import { XMLParser } from 'fast-xml-parser';
 
 interface EnumType {
   name: string;
-  values: string[];
+  values: EnumValue[];
+  doc?: string;
+}
+
+interface EnumValue {
+  value: string;
   doc?: string;
 }
 
@@ -65,6 +70,7 @@ interface OperationDef {
   inputElement: InputElementDef;
   outputElement: OutputElementDef;
   outputTsType: string;
+  doc?: string;
 }
 
 // ---------------------------------------------------------------------------
@@ -197,7 +203,7 @@ export function parseWsdl(xml: string): {
     if (!restriction) continue;
     const enumerations = asArray(restriction['enumeration']);
     if (enumerations.length === 0) continue;
-    const values = enumerations.map((e) => String(attr(e, 'value') ?? ''));
+    const values = enumerations.map((e) => ({ value: String(attr(e, 'value') ?? ''), doc: extractDoc(e) }));
     enums.push({ name, values, doc: extractDoc(st) });
     enumNames.add(name);
   }
@@ -312,6 +318,7 @@ export function parseWsdl(xml: string): {
       inputElement: inputEl,
       outputElement: outputEl,
       outputTsType,
+      doc: extractDoc(op as Record<string, unknown>),
     });
   }
 
@@ -378,9 +385,10 @@ function extractSequenceFields(ct: Record<string, unknown>): FieldDef[] {
 }
 
 function extractDoc(node: Record<string, unknown>): string | undefined {
+  // Schema nodes wrap docs in <annotation><documentation>; WSDL portType
+  // operations carry a bare <documentation> child instead.
   const annotation = node['annotation'] as Record<string, unknown> | undefined;
-  if (!annotation) return undefined;
-  const documentation = annotation['documentation'];
+  const documentation = annotation ? annotation['documentation'] : node['documentation'];
   if (!documentation) return undefined;
   const text = typeof documentation === 'string'
     ? documentation
@@ -412,8 +420,15 @@ function generateTypes(enums: EnumType[], complexTypes: ComplexTypeDef[], listWr
   const lines: string[] = [HEADER, ''];
 
   for (const e of enums) {
-    if (e.doc) lines.push(`/** ${e.doc} */`);
-    const values = e.values.map((v) => `'${v}'`).join(' | ');
+    const valueDocs = e.values.filter((v) => v.doc);
+    if (e.doc || valueDocs.length > 0) {
+      const docLines: string[] = [];
+      if (e.doc) docLines.push(` * ${e.doc}`);
+      if (e.doc && valueDocs.length > 0) docLines.push(' *');
+      for (const v of valueDocs) docLines.push(` * - \`${v.value}\`: ${v.doc}`);
+      lines.push('/**', ...docLines, ' */');
+    }
+    const values = e.values.map((v) => `'${v.value}'`).join(' | ');
     lines.push(`export type ${e.name} = ${values};`, '');
   }
 
@@ -985,6 +1000,7 @@ function emitClientMethod(op: OperationDef, enumNames: Set<string>, listWrapperM
     }
   }
 
+  if (op.doc) lines.push(`  /** ${op.doc} */`);
   lines.push(`  async ${name}(${allParams}): Promise<${returnType}> {`);
   if (idempotent) {
     lines.push(`    request = { idempotencyKey: randomUUID(), ...request };`);
