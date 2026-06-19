@@ -72,12 +72,6 @@ jobs:
             else
               echo '✅ All operations resolved cleanly — none skipped.'
             fi
-            echo ''
-            echo 'Build, type-check, and tests passed in the sync run, but CI does not'
-            echo 'trigger automatically on bot-created PRs — close and reopen this PR'
-            echo '(or push to the branch) to run it.'
-            echo ''
-            echo '🤖 Generated with [Claude Code](https://claude.com/claude-code)'
             echo 'PR_BODY_EOF'
           } >> "$GITHUB_OUTPUT"
           if [ "$skipped" -gt 0 ]; then

@@ -34,5 +34,5 @@ jobs:
 
       - name: Bump minor version and push tag
         run: |
-          npm version minor -m 'chore: release %s'
+          npm version minor -m ':rocket: Publish WSDL update (%s)'
           git push --follow-tags origin master
