@@ -799,32 +799,6 @@ export class MplusKassaClient {
     );
   }
 
-  async getPackingSlips(request: T.Input<T.GetPackingSlipsRequest>, requestId?: string): Promise<T.PackingSlip[]> {
-    const bodyXml = S.serializeGetPackingSlipsBody(request);
-    return (await this.call(
-      'getPackingSlips',
-      'GetPackingSlipsResponse',
-      'GetPackingSlipsResponse',
-      bodyXml,
-      D.deserializeGetPackingSlipsResponse,
-      false,
-      requestId,
-    )).packingSlipList;
-  }
-
-  async getPackingSlipsByOrder(request: T.Input<T.GetPackingSlipsByOrderRequest>, requestId?: string): Promise<T.PackingSlip[]> {
-    const bodyXml = S.serializeGetPackingSlipsByOrderBody(request);
-    return (await this.call(
-      'getPackingSlipsByOrder',
-      'GetPackingSlipsByOrderResponse',
-      'GetPackingSlipsByOrderResponse',
-      bodyXml,
-      D.deserializeGetPackingSlipsByOrderResponse,
-      false,
-      requestId,
-    )).packingSlipList;
-  }
-
   async getOrderChanges(request: T.Input<T.GetOrderChangesRequest>, requestId?: string): Promise<T.OrderChange[]> {
     const bodyXml = S.serializeGetOrderChangesBody(request);
     return (await this.call(
@@ -1083,71 +1057,6 @@ export class MplusKassaClient {
       bodyXml,
       D.deserializePrintTableReceiptV3Response,
       true,
-      requestId,
-    );
-  }
-
-  async getInvoices(request: T.Input<T.GetInvoicesRequest>, requestId?: string): Promise<T.Invoice[]> {
-    const bodyXml = S.serializeGetInvoicesBody(request);
-    return (await this.call(
-      'getInvoices',
-      'GetInvoicesResponse',
-      'GetInvoicesResponse',
-      bodyXml,
-      D.deserializeGetInvoicesResponse,
-      false,
-      requestId,
-    )).invoiceList;
-  }
-
-  async saveInvoice(invoice: T.Input<T.Invoice>, requestId?: string): Promise<T.SaveInvoiceResponse> {
-    const bodyXml = S.serializeSaveInvoiceBody(invoice);
-    return this.call(
-      'saveInvoice',
-      'SaveInvoiceResponse',
-      'SaveInvoiceResponse',
-      bodyXml,
-      D.deserializeSaveInvoiceResponse,
-      false,
-      requestId,
-    );
-  }
-
-  async getInvoice(invoiceId: string, requestId?: string): Promise<T.GetInvoiceResponse> {
-    const bodyXml = S.serializeGetInvoiceBody(invoiceId);
-    return this.call(
-      'getInvoice',
-      'GetInvoiceResponse',
-      'GetInvoiceResponse',
-      bodyXml,
-      D.deserializeGetInvoiceResponse,
-      false,
-      requestId,
-    );
-  }
-
-  async findInvoice(extInvoiceId: string, requestId?: string): Promise<T.GetInvoiceResponse> {
-    const bodyXml = S.serializeFindInvoiceBody(extInvoiceId);
-    return this.call(
-      'findInvoice',
-      'GetInvoiceResponse',
-      'GetInvoiceResponse',
-      bodyXml,
-      D.deserializeGetInvoiceResponse,
-      false,
-      requestId,
-    );
-  }
-
-  async creditInvoice(invoiceId: string, requestId?: string): Promise<T.CreditInvoiceResponse> {
-    const bodyXml = S.serializeCreditInvoiceBody(invoiceId);
-    return this.call(
-      'creditInvoice',
-      'CreditInvoiceResponse',
-      'CreditInvoiceResponse',
-      bodyXml,
-      D.deserializeCreditInvoiceResponse,
-      false,
       requestId,
     );
   }
@@ -2220,6 +2129,19 @@ export class MplusKassaClient {
     );
   }
 
+  async updateArticleContractLines(request: T.Input<T.UpdateArticleContractLinesRequest>, requestId?: string): Promise<T.UpdateArticleContractLinesResponse> {
+    const bodyXml = S.serializeUpdateArticleContractLinesBody(request);
+    return this.call(
+      'updateArticleContractLines',
+      'UpdateArticleContractLinesResponse',
+      'UpdateArticleContractLinesResponse',
+      bodyXml,
+      D.deserializeUpdateArticleContractLinesResponse,
+      false,
+      requestId,
+    );
+  }
+
   async updateArticleDynamicMinMaxStock(request: T.Input<T.UpdateArticleDynamicMinMaxStockRequest>, requestId?: string): Promise<T.ArticleDynamicMinMaxStock[]> {
     const bodyXml = S.serializeUpdateArticleDynamicMinMaxStockBody(request);
     return (await this.call(
@@ -2272,9 +2194,9 @@ export class MplusKassaClient {
     )).plannedCycleCounts;
   }
 
-  async getActiveCycleCount(request: T.Input<T.GetActiveCycleCountRequest>, requestId?: string): Promise<T.ActiveCycleCount | undefined> {
+  async getActiveCycleCount(request: T.Input<T.GetActiveCycleCountRequest>, requestId?: string): Promise<T.GetActiveCycleCountResponse> {
     const bodyXml = S.serializeGetActiveCycleCountBody(request);
-    return (await this.call(
+    return this.call(
       'getActiveCycleCount',
       'GetActiveCycleCountResponse',
       'GetActiveCycleCountResponse',
@@ -2282,7 +2204,7 @@ export class MplusKassaClient {
       D.deserializeGetActiveCycleCountResponse,
       false,
       requestId,
-    )).activeCycleCount;
+    );
   }
 
   async setArticleRecalled(request: T.Input<T.SetArticleRecalledRequest>, requestId?: string): Promise<T.SetArticleRecalledResponse> {
@@ -3237,6 +3159,97 @@ export class MplusKassaClient {
     )).workplaceLoginStateInfo;
   }
 
+  async getEmailTemplates(request: T.Input<T.GetEmailTemplatesRequest>, requestId?: string): Promise<T.EmailTemplate[]> {
+    const bodyXml = S.serializeGetEmailTemplatesBody(request);
+    return (await this.call(
+      'getEmailTemplates',
+      'GetEmailTemplatesResponse',
+      'GetEmailTemplatesResponse',
+      bodyXml,
+      D.deserializeGetEmailTemplatesResponse,
+      false,
+      requestId,
+    )).emailTemplates;
+  }
+
+  async getAppConfiguration(request: T.Input<T.GetAppConfigurationRequest>, requestId?: string): Promise<string> {
+    const bodyXml = S.serializeGetAppConfigurationBody(request);
+    return (await this.call(
+      'getAppConfiguration',
+      'GetAppConfigurationResponse',
+      'GetAppConfigurationResponse',
+      bodyXml,
+      D.deserializeGetAppConfigurationResponse,
+      false,
+      requestId,
+    )).appConfiguration;
+  }
+
+  async setWorkplaceActiveActivity(request: T.Input<T.SetWorkplaceActiveActivityRequest>, requestId?: string): Promise<T.SetWorkplaceActiveActivityResult> {
+    const bodyXml = S.serializeSetWorkplaceActiveActivityBody(request);
+    return (await this.call(
+      'setWorkplaceActiveActivity',
+      'SetWorkplaceActiveActivityResponse',
+      'SetWorkplaceActiveActivityResponse',
+      bodyXml,
+      D.deserializeSetWorkplaceActiveActivityResponse,
+      false,
+      requestId,
+    )).result;
+  }
+
+  async getCostCenters(request: T.Input<T.GetCostCentersRequest>, requestId?: string): Promise<T.CostCenter[]> {
+    const bodyXml = S.serializeGetCostCentersBody(request);
+    return (await this.call(
+      'getCostCenters',
+      'GetCostCentersResponse',
+      'GetCostCentersResponse',
+      bodyXml,
+      D.deserializeGetCostCentersResponse,
+      false,
+      requestId,
+    )).costCenterList;
+  }
+
+  async saveCostCenters(request: T.Input<T.SaveCostCentersRequest>, requestId?: string): Promise<T.SaveCostCentersResponse> {
+    const bodyXml = S.serializeSaveCostCentersBody(request);
+    return this.call(
+      'saveCostCenters',
+      'SaveCostCentersResponse',
+      'SaveCostCentersResponse',
+      bodyXml,
+      D.deserializeSaveCostCentersResponse,
+      false,
+      requestId,
+    );
+  }
+
+  async getBpeBudgets(request: T.Input<T.GetBpeBudgetsRequest>, requestId?: string): Promise<T.BpeEmployeeBudget[]> {
+    const bodyXml = S.serializeGetBpeBudgetsBody(request);
+    return (await this.call(
+      'getBpeBudgets',
+      'GetBpeBudgetsResponse',
+      'GetBpeBudgetsResponse',
+      bodyXml,
+      D.deserializeGetBpeBudgetsResponse,
+      false,
+      requestId,
+    )).bpeEmployeeBudgetList;
+  }
+
+  async saveBpeBudgets(request: T.Input<T.SaveBpeBudgetsRequest>, requestId?: string): Promise<T.SaveBpeBudgetsResponse> {
+    const bodyXml = S.serializeSaveBpeBudgetsBody(request);
+    return this.call(
+      'saveBpeBudgets',
+      'SaveBpeBudgetsResponse',
+      'SaveBpeBudgetsResponse',
+      bodyXml,
+      D.deserializeSaveBpeBudgetsResponse,
+      false,
+      requestId,
+    );
+  }
+
   async createImage(request: T.Input<T.CreateImageRequest>, requestId?: string): Promise<T.CreateImageResponse> {
     const bodyXml = S.serializeCreateImageBody(request);
     return this.call(
@@ -3313,6 +3326,84 @@ export class MplusKassaClient {
       false,
       requestId,
     )).imageList;
+  }
+
+  async getPrintLayouts(request: T.Input<T.GetPrintLayoutsRequest>, requestId?: string): Promise<T.GetPrintLayoutsResponse> {
+    const bodyXml = S.serializeGetPrintLayoutsBody(request);
+    return this.call(
+      'getPrintLayouts',
+      'GetPrintLayoutsResponse',
+      'GetPrintLayoutsResponse',
+      bodyXml,
+      D.deserializeGetPrintLayoutsResponse,
+      false,
+      requestId,
+    );
+  }
+
+  async getPrintLayoutAssignments(request: T.Input<T.GetPrintLayoutAssignmentsRequest>, requestId?: string): Promise<T.PrintLayoutAssignment[] | undefined> {
+    const bodyXml = S.serializeGetPrintLayoutAssignmentsBody(request);
+    return (await this.call(
+      'getPrintLayoutAssignments',
+      'GetPrintLayoutAssignmentsResponse',
+      'GetPrintLayoutAssignmentsResponse',
+      bodyXml,
+      D.deserializeGetPrintLayoutAssignmentsResponse,
+      false,
+      requestId,
+    )).printLayoutAssignments;
+  }
+
+  async getRenderedPrintLayout(request: T.Input<T.GetRenderedPrintLayoutRequest>, requestId?: string): Promise<T.GetRenderedPrintLayoutResponse> {
+    const bodyXml = S.serializeGetRenderedPrintLayoutBody(request);
+    return this.call(
+      'getRenderedPrintLayout',
+      'GetRenderedPrintLayoutResponse',
+      'GetRenderedPrintLayoutResponse',
+      bodyXml,
+      D.deserializeGetRenderedPrintLayoutResponse,
+      false,
+      requestId,
+    );
+  }
+
+  async getPrintLayoutMarkup(request: T.Input<T.GetPrintLayoutMarkupRequest>, requestId?: string): Promise<T.GetPrintLayoutMarkupResponse> {
+    const bodyXml = S.serializeGetPrintLayoutMarkupBody(request);
+    return this.call(
+      'getPrintLayoutMarkup',
+      'GetPrintLayoutMarkupResponse',
+      'GetPrintLayoutMarkupResponse',
+      bodyXml,
+      D.deserializeGetPrintLayoutMarkupResponse,
+      false,
+      requestId,
+    );
+  }
+
+  async printPrintLayout(request: T.Input<T.PrintPrintLayoutRequest>, requestId?: string): Promise<T.PrintPrintLayoutResponse> {
+    const bodyXml = S.serializePrintPrintLayoutBody(request);
+    return this.call(
+      'printPrintLayout',
+      'PrintPrintLayoutResponse',
+      'PrintPrintLayoutResponse',
+      bodyXml,
+      D.deserializePrintPrintLayoutResponse,
+      false,
+      requestId,
+    );
+  }
+
+  async getResolvedPrintTemplates(request: T.Input<T.GetResolvedPrintTemplatesRequest>, requestId?: string): Promise<T.GetResolvedPrintTemplatesResponse> {
+    const bodyXml = S.serializeGetResolvedPrintTemplatesBody(request);
+    return this.call(
+      'getResolvedPrintTemplates',
+      'GetResolvedPrintTemplatesResponse',
+      'GetResolvedPrintTemplatesResponse',
+      bodyXml,
+      D.deserializeGetResolvedPrintTemplatesResponse,
+      false,
+      requestId,
+    );
   }
 
   async checkGiftcardPayment(request: T.Input<T.CheckGiftcardPaymentRequest>, requestId?: string): Promise<T.CheckGiftcardPaymentResponse> {
@@ -3828,6 +3919,33 @@ export class MplusKassaClient {
     )).articlePerformanceList;
   }
 
+  async registerTimelineEvents(request: T.Input<T.RegisterTimelineEventsRequest>, requestId?: string): Promise<T.RegisterTimelineEventsResponse> {
+    request = { idempotencyKey: randomUUID(), ...request };
+    const bodyXml = S.serializeRegisterTimelineEventsBody(request);
+    return this.call(
+      'registerTimelineEvents',
+      'RegisterTimelineEventsResponse',
+      'RegisterTimelineEventsResponse',
+      bodyXml,
+      D.deserializeRegisterTimelineEventsResponse,
+      true,
+      requestId,
+    );
+  }
+
+  async getTimelineEvents(request: T.Input<T.GetTimelineEventsRequest>, requestId?: string): Promise<T.TimelineEvent[]> {
+    const bodyXml = S.serializeGetTimelineEventsBody(request);
+    return (await this.call(
+      'getTimelineEvents',
+      'GetTimelineEventsResponse',
+      'GetTimelineEventsResponse',
+      bodyXml,
+      D.deserializeGetTimelineEventsResponse,
+      false,
+      requestId,
+    )).events;
+  }
+
   async getSalesRepeatTemplates(request: T.Input<T.GetSalesRepeatTemplatesRequest>, requestId?: string): Promise<T.SalesRepeatTemplate[]> {
     const bodyXml = S.serializeGetSalesRepeatTemplatesBody(request);
     return (await this.call(
@@ -3853,6 +3971,74 @@ export class MplusKassaClient {
       true,
       requestId,
     );
+  }
+
+  async pauseSalesRepeatTemplates(request: T.Input<T.PauseSalesRepeatTemplatesRequest>, requestId?: string): Promise<T.PauseSalesRepeatTemplatesResponse> {
+    request = { idempotencyKey: randomUUID(), ...request };
+    const bodyXml = S.serializePauseSalesRepeatTemplatesBody(request);
+    return this.call(
+      'pauseSalesRepeatTemplates',
+      'PauseSalesRepeatTemplatesResponse',
+      'PauseSalesRepeatTemplatesResponse',
+      bodyXml,
+      D.deserializePauseSalesRepeatTemplatesResponse,
+      true,
+      requestId,
+    );
+  }
+
+  async restartSalesRepeatTemplates(request: T.Input<T.RestartSalesRepeatTemplatesRequest>, requestId?: string): Promise<T.RestartSalesRepeatTemplatesResponse> {
+    request = { idempotencyKey: randomUUID(), ...request };
+    const bodyXml = S.serializeRestartSalesRepeatTemplatesBody(request);
+    return this.call(
+      'restartSalesRepeatTemplates',
+      'RestartSalesRepeatTemplatesResponse',
+      'RestartSalesRepeatTemplatesResponse',
+      bodyXml,
+      D.deserializeRestartSalesRepeatTemplatesResponse,
+      true,
+      requestId,
+    );
+  }
+
+  async stopSalesRepeatTemplates(request: T.Input<T.StopSalesRepeatTemplatesRequest>, requestId?: string): Promise<T.StopSalesRepeatTemplatesResponse> {
+    request = { idempotencyKey: randomUUID(), ...request };
+    const bodyXml = S.serializeStopSalesRepeatTemplatesBody(request);
+    return this.call(
+      'stopSalesRepeatTemplates',
+      'StopSalesRepeatTemplatesResponse',
+      'StopSalesRepeatTemplatesResponse',
+      bodyXml,
+      D.deserializeStopSalesRepeatTemplatesResponse,
+      true,
+      requestId,
+    );
+  }
+
+  async getSalesObjectsBySalesRepeatTemplates(request: T.Input<T.GetSalesObjectsBySalesRepeatTemplatesRequest>, requestId?: string): Promise<T.RepeatTemplateSalesObject[]> {
+    const bodyXml = S.serializeGetSalesObjectsBySalesRepeatTemplatesBody(request);
+    return (await this.call(
+      'getSalesObjectsBySalesRepeatTemplates',
+      'GetSalesObjectsBySalesRepeatTemplatesResponse',
+      'GetSalesObjectsBySalesRepeatTemplatesResponse',
+      bodyXml,
+      D.deserializeGetSalesObjectsBySalesRepeatTemplatesResponse,
+      false,
+      requestId,
+    )).repeatTemplateList;
+  }
+
+  async createSalesObjectsBySalesRepeatTemplate(request: T.Input<T.CreateSalesObjectsBySalesRepeatTemplateRequest>, requestId?: string): Promise<T.GeneratedSalesObject[]> {
+    const bodyXml = S.serializeCreateSalesObjectsBySalesRepeatTemplateBody(request);
+    return (await this.call(
+      'createSalesObjectsBySalesRepeatTemplate',
+      'CreateSalesObjectsBySalesRepeatTemplateResponse',
+      'CreateSalesObjectsBySalesRepeatTemplateResponse',
+      bodyXml,
+      D.deserializeCreateSalesObjectsBySalesRepeatTemplateResponse,
+      false,
+      requestId,
+    )).salesObjects;
   }
 
   async performBpeBudgetChecks(request: T.Input<T.PerformBpeBudgetChecksRequest>, requestId?: string): Promise<T.PerformBpeBudgetChecksResponse> {
@@ -4291,6 +4477,164 @@ export class MplusKassaClient {
     );
   }
 
+  async createInvoiceReminders(request: T.Input<T.CreateInvoiceRemindersRequest>, requestId?: string): Promise<T.CreateInvoiceRemindersResponse> {
+    const bodyXml = S.serializeCreateInvoiceRemindersBody(request);
+    return this.call(
+      'createInvoiceReminders',
+      'CreateInvoiceRemindersResponse',
+      'CreateInvoiceRemindersResponse',
+      bodyXml,
+      D.deserializeCreateInvoiceRemindersResponse,
+      false,
+      requestId,
+    );
+  }
+
+  async getInvoices(request: T.Input<T.GetInvoicesRequest>, requestId?: string): Promise<T.Invoice[]> {
+    const bodyXml = S.serializeGetInvoicesBody(request);
+    return (await this.call(
+      'getInvoices',
+      'GetInvoicesResponse',
+      'GetInvoicesResponse',
+      bodyXml,
+      D.deserializeGetInvoicesResponse,
+      false,
+      requestId,
+    )).invoiceList;
+  }
+
+  async creditInvoiceV2(request: T.Input<T.CreditInvoiceV2Request>, requestId?: string): Promise<T.CreditInvoiceV2Result | undefined> {
+    const bodyXml = S.serializeCreditInvoiceV2Body(request);
+    return (await this.call(
+      'creditInvoiceV2',
+      'CreditInvoiceV2Response',
+      'CreditInvoiceV2Response',
+      bodyXml,
+      D.deserializeCreditInvoiceV2Response,
+      false,
+      requestId,
+    )).result;
+  }
+
+  async saveInvoice(invoice: T.Input<T.Invoice>, requestId?: string): Promise<T.SaveInvoiceResponse> {
+    const bodyXml = S.serializeSaveInvoiceBody(invoice);
+    return this.call(
+      'saveInvoice',
+      'SaveInvoiceResponse',
+      'SaveInvoiceResponse',
+      bodyXml,
+      D.deserializeSaveInvoiceResponse,
+      false,
+      requestId,
+    );
+  }
+
+  async getInvoice(invoiceId: string, requestId?: string): Promise<T.GetInvoiceResponse> {
+    const bodyXml = S.serializeGetInvoiceBody(invoiceId);
+    return this.call(
+      'getInvoice',
+      'GetInvoiceResponse',
+      'GetInvoiceResponse',
+      bodyXml,
+      D.deserializeGetInvoiceResponse,
+      false,
+      requestId,
+    );
+  }
+
+  async findInvoice(extInvoiceId: string, requestId?: string): Promise<T.GetInvoiceResponse> {
+    const bodyXml = S.serializeFindInvoiceBody(extInvoiceId);
+    return this.call(
+      'findInvoice',
+      'GetInvoiceResponse',
+      'GetInvoiceResponse',
+      bodyXml,
+      D.deserializeGetInvoiceResponse,
+      false,
+      requestId,
+    );
+  }
+
+  async creditInvoice(invoiceId: string, requestId?: string): Promise<T.CreditInvoiceResponse> {
+    const bodyXml = S.serializeCreditInvoiceBody(invoiceId);
+    return this.call(
+      'creditInvoice',
+      'CreditInvoiceResponse',
+      'CreditInvoiceResponse',
+      bodyXml,
+      D.deserializeCreditInvoiceResponse,
+      false,
+      requestId,
+    );
+  }
+
+  async getPackingSlips(request: T.Input<T.GetPackingSlipsRequest>, requestId?: string): Promise<T.PackingSlip[]> {
+    const bodyXml = S.serializeGetPackingSlipsBody(request);
+    return (await this.call(
+      'getPackingSlips',
+      'GetPackingSlipsResponse',
+      'GetPackingSlipsResponse',
+      bodyXml,
+      D.deserializeGetPackingSlipsResponse,
+      false,
+      requestId,
+    )).packingSlipList;
+  }
+
+  async getPackingSlipsByOrder(request: T.Input<T.GetPackingSlipsByOrderRequest>, requestId?: string): Promise<T.PackingSlip[]> {
+    const bodyXml = S.serializeGetPackingSlipsByOrderBody(request);
+    return (await this.call(
+      'getPackingSlipsByOrder',
+      'GetPackingSlipsByOrderResponse',
+      'GetPackingSlipsByOrderResponse',
+      bodyXml,
+      D.deserializeGetPackingSlipsByOrderResponse,
+      false,
+      requestId,
+    )).packingSlipList;
+  }
+
+  async processPackingSlip(request: T.Input<T.ProcessPackingSlipRequest>, requestId?: string): Promise<T.ProcessPackingSlipResponse> {
+    request = { idempotencyKey: randomUUID(), ...request };
+    const bodyXml = S.serializeProcessPackingSlipBody(request);
+    return this.call(
+      'processPackingSlip',
+      'ProcessPackingSlipResponse',
+      'ProcessPackingSlipResponse',
+      bodyXml,
+      D.deserializeProcessPackingSlipResponse,
+      true,
+      requestId,
+    );
+  }
+
+  async cancelPackingSlip(request: T.Input<T.CancelPackingSlipRequest>, requestId?: string): Promise<T.CancelPackingSlipResponse> {
+    request = { idempotencyKey: randomUUID(), ...request };
+    const bodyXml = S.serializeCancelPackingSlipBody(request);
+    return this.call(
+      'cancelPackingSlip',
+      'CancelPackingSlipResponse',
+      'CancelPackingSlipResponse',
+      bodyXml,
+      D.deserializeCancelPackingSlipResponse,
+      true,
+      requestId,
+    );
+  }
+
+  async getPackingSlipQueue(request: T.Input<T.GetPackingSlipQueueRequest>, requestId?: string): Promise<T.GetPackingSlipQueueResponse> {
+    const bodyXml = S.serializeGetPackingSlipQueueBody(request);
+    return this.call(
+      'getPackingSlipQueue',
+      'GetPackingSlipQueueResponse',
+      'GetPackingSlipQueueResponse',
+      bodyXml,
+      D.deserializeGetPackingSlipQueueResponse,
+      false,
+      requestId,
+    );
+  }
+
   async getWebhookConsumers(request: T.Input<T.GetWebhookConsumersRequest>, requestId?: string): Promise<T.WebhookConsumer[]> {
     const bodyXml = S.serializeGetWebhookConsumersBody(request);
     return (await this.call(
@@ -4422,71 +4766,6 @@ export class MplusKassaClient {
       bodyXml,
       D.deserializeWebhookResp,
       true,
-      requestId,
-    );
-  }
-
-  async getPrintLayouts(request: T.Input<T.GetPrintLayoutsRequest>, requestId?: string): Promise<T.GetPrintLayoutsResponse> {
-    const bodyXml = S.serializeGetPrintLayoutsBody(request);
-    return this.call(
-      'getPrintLayouts',
-      'GetPrintLayoutsResponse',
-      'GetPrintLayoutsResponse',
-      bodyXml,
-      D.deserializeGetPrintLayoutsResponse,
-      false,
-      requestId,
-    );
-  }
-
-  async getPrintLayoutAssignments(request: T.Input<T.GetPrintLayoutAssignmentsRequest>, requestId?: string): Promise<T.PrintLayoutAssignment[] | undefined> {
-    const bodyXml = S.serializeGetPrintLayoutAssignmentsBody(request);
-    return (await this.call(
-      'getPrintLayoutAssignments',
-      'GetPrintLayoutAssignmentsResponse',
-      'GetPrintLayoutAssignmentsResponse',
-      bodyXml,
-      D.deserializeGetPrintLayoutAssignmentsResponse,
-      false,
-      requestId,
-    )).printLayoutAssignments;
-  }
-
-  async getRenderedPrintLayout(request: T.Input<T.GetRenderedPrintLayoutRequest>, requestId?: string): Promise<T.GetRenderedPrintLayoutResponse> {
-    const bodyXml = S.serializeGetRenderedPrintLayoutBody(request);
-    return this.call(
-      'getRenderedPrintLayout',
-      'GetRenderedPrintLayoutResponse',
-      'GetRenderedPrintLayoutResponse',
-      bodyXml,
-      D.deserializeGetRenderedPrintLayoutResponse,
-      false,
-      requestId,
-    );
-  }
-
-  async getPrintLayoutMarkup(request: T.Input<T.GetPrintLayoutMarkupRequest>, requestId?: string): Promise<T.GetPrintLayoutMarkupResponse> {
-    const bodyXml = S.serializeGetPrintLayoutMarkupBody(request);
-    return this.call(
-      'getPrintLayoutMarkup',
-      'GetPrintLayoutMarkupResponse',
-      'GetPrintLayoutMarkupResponse',
-      bodyXml,
-      D.deserializeGetPrintLayoutMarkupResponse,
-      false,
-      requestId,
-    );
-  }
-
-  async printPrintLayout(request: T.Input<T.PrintPrintLayoutRequest>, requestId?: string): Promise<T.PrintPrintLayoutResponse> {
-    const bodyXml = S.serializePrintPrintLayoutBody(request);
-    return this.call(
-      'printPrintLayout',
-      'PrintPrintLayoutResponse',
-      'PrintPrintLayoutResponse',
-      bodyXml,
-      D.deserializePrintPrintLayoutResponse,
-      false,
       requestId,
     );
   }
