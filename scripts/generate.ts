@@ -3,9 +3,10 @@
  * Reads a WSDL URL or local WSDL file and writes src/generated/{types,serializer,deserializer,client}.ts
  *
  * Run:
- *   npm run generate -- https://api.mpluskassa.nl:PORT/?wsdl
- *   MPLUS_WSDL_URL=https://api.mpluskassa.nl:PORT/?wsdl npm run generate
- *   npm run generate -- wsdl.xml
+ *   npm run generate                 # default: latest public WSDL from MplusKASSA's GitHub release
+ *   npm run generate -- wsdl.xml     # local file
+ *   npm run generate -- <url>        # explicit URL
+ *   MPLUS_WSDL_URL=<url> npm run generate
  */
 
 import * as fs from 'fs';
@@ -13,6 +14,10 @@ import * as http from 'http';
 import * as https from 'https';
 import * as path from 'path';
 import { XMLParser } from 'fast-xml-parser';
+
+/** Canonical, always-latest WSDL — used when no arg or MPLUS_WSDL_URL is given. */
+const PUBLIC_WSDL_URL =
+  'https://github.com/MplusKASSA/mplusqapi-php/releases/latest/download/mplusqapi.wsdl';
 
 // ---------------------------------------------------------------------------
 // Types for our intermediate representation
@@ -1208,12 +1213,7 @@ export function generateAll(xml: string): GenerateResult {
 
 async function main(): Promise<void> {
   const projectRoot = path.resolve(__dirname, '..');
-  const wsdlSourceArg = process.argv[2] ?? process.env.MPLUS_WSDL_URL;
-  if (!wsdlSourceArg) {
-    throw new Error(
-      'Missing WSDL source. Run `npm run generate -- <wsdl-url-or-path>` or set MPLUS_WSDL_URL.',
-    );
-  }
+  const wsdlSourceArg = process.argv[2] ?? process.env.MPLUS_WSDL_URL ?? PUBLIC_WSDL_URL;
   const wsdlSource = isUrl(wsdlSourceArg)
     ? wsdlSourceArg
     : path.resolve(projectRoot, wsdlSourceArg);

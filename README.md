@@ -246,11 +246,15 @@ The ID is sent as the `X-Request-Id` header.
 ### Regenerate from WSDL
 
 ```bash
-# Regenerate src/generated/ from a WSDL URL
-npm run generate -- 'https://api.mpluskassa.nl:PORT/?wsdl'
+# Regenerate src/generated/ from the latest public WSDL
+# (MplusKASSA's GitHub release — the default source, no arguments needed)
+npm run generate
 
-# Or keep the URL out of shell history by using an environment variable
-MPLUS_WSDL_URL='https://api.mpluskassa.nl:PORT/?wsdl' npm run generate
+# Or from an explicit WSDL URL
+npm run generate -- 'https://example/path/to/mplusqapi.wsdl'
+
+# Or keep a URL out of shell history with an environment variable
+MPLUS_WSDL_URL='https://example/path/to/mplusqapi.wsdl' npm run generate
 
 # Or regenerate from the cached local WSDL
 npm run generate:local
@@ -312,8 +316,8 @@ src/
 scripts/
   generate.ts           WSDL parser + code generator
 wsdl.xml                Cached WSDL for offline/local regeneration
-                        (gitignored — fetch once via `npm run generate -- <url>`
-                        before `npm run generate:local` works)
+                        (gitignored — save the WSDL here to use `generate:local`;
+                        otherwise `npm run generate` needs no local cache)
 ```
 
 ---

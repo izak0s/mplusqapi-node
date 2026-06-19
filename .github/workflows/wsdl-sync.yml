@@ -20,15 +20,10 @@ jobs:
           cache: npm
       - run: npm ci
 
-      - name: Regenerate from live WSDL
+      - name: Regenerate from latest public WSDL
         env:
-          MPLUS_WSDL_URL: ${{ secrets.MPLUS_WSDL_URL }}
           WSDL_SYNC_SUMMARY: ${{ runner.temp }}/wsdl-summary.json
         run: |
-          if [ -z "$MPLUS_WSDL_URL" ]; then
-            echo "::error::Repository secret MPLUS_WSDL_URL is not set (full WSDL URL incl. port)."
-            exit 1
-          fi
           npm run generate
           npm run sync:readme
 
