@@ -281,17 +281,6 @@ npm run test:types  # tsc --noEmit over src + test
 npm run check       # build + both of the above (what CI runs)
 ```
 
-### Release
-
-```bash
-npm version patch   # or minor / major — bumps package.json, commits, tags
-git push --follow-tags
-```
-
-The tag triggers `.github/workflows/publish.yml`: it first runs the full CI workflow (build, type-check, tests across the Node matrix, pack check) as a gate, then — only if CI passes — publishes to npm via [trusted publishing](https://docs.npmjs.com/trusted-publishers) (OIDC, no token) and creates a GitHub release with generated notes. The workflow refuses to publish if the tag doesn't match `package.json`.
-
-**Automated releases:** when the nightly WSDL-sync PR (branch `auto/wsdl-update`) is merged, `.github/workflows/auto-release.yml` bumps the minor version and pushes the tag, which triggers the publish flow above. No other merged PR triggers a release. The tag is pushed with a `RELEASE_TOKEN` PAT (Contents: R/W) — the default `GITHUB_TOKEN` can't, because tags it pushes don't trigger other workflows.
-
 ### Run the example
 
 ```bash
