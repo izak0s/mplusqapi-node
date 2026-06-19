@@ -176,6 +176,22 @@ export function deserializeVatGroupList(obj: Record<string, unknown>): T.VatGrou
   return r as T.VatGroupList;
 }
 
+export function deserializeIdList(obj: Record<string, unknown>): T.IdList {
+  const r: Partial<T.IdList> = {};
+  if (obj['id'] !== undefined) {
+    r.id = toArray(obj['id']).map(String);
+  }
+  return r as T.IdList;
+}
+
+export function deserializeIdSet(obj: Record<string, unknown>): T.IdSet {
+  const r: Partial<T.IdSet> = {};
+  if (obj['id'] !== undefined) {
+    r.id = toArray(obj['id']).map(String);
+  }
+  return r as T.IdSet;
+}
+
 export function deserializeRelationList(obj: Record<string, unknown>): T.RelationList {
   const r: Partial<T.RelationList> = {};
   if (obj['relation'] !== undefined) {
@@ -290,6 +306,22 @@ export function deserializeRelation(obj: Record<string, unknown>): T.Relation {
   }
   if (obj['invoiceCredit'] !== undefined) r.invoiceCredit = String(obj['invoiceCredit']) as string;
   if (obj['accountBalance'] !== undefined) r.accountBalance = String(obj['accountBalance']) as string;
+  if (obj['salePromotionIds'] !== undefined) {
+    const _w = obj['salePromotionIds'] as Record<string, unknown>;
+    const _iv = (_w)['id'];
+    if (_iv !== undefined) {
+      r.salePromotionIds = toArray(_iv).map(String);
+    } else {
+      r.salePromotionIds = [];
+    }
+  } else {
+    r.salePromotionIds = [];
+  }
+  if (obj['directDebit'] !== undefined) r.directDebit = obj['directDebit'] === 'true' || obj['directDebit'] === true;
+  if (obj['reminderEmail'] !== undefined) r.reminderEmail = String(obj['reminderEmail']) as string;
+  if (obj['canEarnPoints'] !== undefined) r.canEarnPoints = obj['canEarnPoints'] === 'true' || obj['canEarnPoints'] === true;
+  if (obj['canRedeemPoints'] !== undefined) r.canRedeemPoints = obj['canRedeemPoints'] === 'true' || obj['canRedeemPoints'] === true;
+  if (obj['cantRedeemPointsReason'] !== undefined) r.cantRedeemPointsReason = String(obj['cantRedeemPointsReason']) as string;
   return r as T.Relation;
 }
 
@@ -334,6 +366,14 @@ export function deserializeWorkplaceIdentifierSet(obj: Record<string, unknown>):
     r.workplaceIdentifier = toArray(obj['workplaceIdentifier']).map((v) => deserializeWorkplaceIdentifier(v as Record<string, unknown>));
   }
   return r as T.WorkplaceIdentifierSet;
+}
+
+export function deserializeWorkplaceIdentifierList(obj: Record<string, unknown>): T.WorkplaceIdentifierList {
+  const r: Partial<T.WorkplaceIdentifierList> = {};
+  if (obj['workplaceIdentifier'] !== undefined) {
+    r.workplaceIdentifier = toArray(obj['workplaceIdentifier']).map((v) => deserializeWorkplaceIdentifier(v as Record<string, unknown>));
+  }
+  return r as T.WorkplaceIdentifierList;
 }
 
 export function deserializeBranchAccountNumber(obj: Record<string, unknown>): T.BranchAccountNumber {
@@ -539,6 +579,7 @@ export function deserializePayment(obj: Record<string, unknown>): T.Payment {
   if (obj['giftcardNumber'] !== undefined) r.giftcardNumber = String(obj['giftcardNumber']) as string;
   if (obj['externalPaymentId'] !== undefined) r.externalPaymentId = String(obj['externalPaymentId']) as string;
   if (obj['externalPaymentTransactionDetails'] !== undefined) r.externalPaymentTransactionDetails = deserializeExternalPaymentTransactionDetails(obj['externalPaymentTransactionDetails'] as Record<string, unknown>);
+  if (obj['externalReference'] !== undefined) r.externalReference = String(obj['externalReference']) as string;
   return r as T.Payment;
 }
 
@@ -636,49 +677,12 @@ export function deserializeIdempotentResp(obj: Record<string, unknown>): T.Idemp
   return r as T.IdempotentResp;
 }
 
-export function deserializeWebhookExternalDiscount(obj: Record<string, unknown>): T.WebhookExternalDiscount {
-  const r: Partial<T.WebhookExternalDiscount> = {};
-  r.discountId = String(obj['discountId'] ?? '') as string;
-  r.discountDescription = String(obj['discountDescription'] ?? '') as string;
-  r.webhookConsumerId = String(obj['webhookConsumerId'] ?? '') as string;
-  if (obj['discountPercentage'] !== undefined) r.discountPercentage = Number(obj['discountPercentage']);
-  if (obj['discountAmount'] !== undefined) r.discountAmount = Number(obj['discountAmount']);
-  if (obj['discountType'] !== undefined) r.discountType = String(obj['discountType']) as string;
-  return r as T.WebhookExternalDiscount;
-}
-
 export function deserializeBranchFilter(obj: Record<string, unknown>): T.BranchFilter {
   const r: Partial<T.BranchFilter> = {};
   if (obj['branchNumbers'] !== undefined) {
     r.branchNumbers = toArray(obj['branchNumbers']).map(Number);
   }
   return r as T.BranchFilter;
-}
-
-export function deserializeAuthorizationsList(obj: Record<string, unknown>): T.AuthorizationsList {
-  const r: Partial<T.AuthorizationsList> = {};
-  if (obj['authorizations'] !== undefined) {
-    r.authorizations = toArray(obj['authorizations']).map((v) => deserializeAuthorization(v as Record<string, unknown>));
-  }
-  return r as T.AuthorizationsList;
-}
-
-export function deserializeAuthorization(obj: Record<string, unknown>): T.Authorization {
-  const r: Partial<T.Authorization> = {};
-  r.authorization = String(obj['authorization'] ?? '') as string;
-  r.id = String(obj['id'] ?? '') as string;
-  if (obj['subAuthorizations'] !== undefined) {
-    const _w = obj['subAuthorizations'] as Record<string, unknown>;
-    const _iv = (_w)['authorizations'];
-    if (_iv !== undefined) {
-      r.subAuthorizations = toArray(_iv).map((v) => deserializeAuthorization(v as Record<string, unknown>));
-    } else {
-      r.subAuthorizations = [];
-    }
-  } else {
-    r.subAuthorizations = [];
-  }
-  return r as T.Authorization;
 }
 
 export function deserializeBranchGroupFilter(obj: Record<string, unknown>): T.BranchGroupFilter {
@@ -697,20 +701,105 @@ export function deserializeOwnerLabelFilter(obj: Record<string, unknown>): T.Own
   return r as T.OwnerLabelFilter;
 }
 
-export function deserializeIdList(obj: Record<string, unknown>): T.IdList {
-  const r: Partial<T.IdList> = {};
-  if (obj['id'] !== undefined) {
-    r.id = toArray(obj['id']).map(String);
-  }
-  return r as T.IdList;
+export function deserializeTimelineEventEntity(obj: Record<string, unknown>): T.TimelineEventEntity {
+  const r: Partial<T.TimelineEventEntity> = {};
+  r.type = String(obj['type'] ?? '') as T.TimelineEventEntityType;
+  if (obj['uuid'] !== undefined) r.uuid = String(obj['uuid']) as string;
+  if (obj['version'] !== undefined) r.version = Number(obj['version']);
+  if (obj['yearNumber'] !== undefined) r.yearNumber = deserializeYearNumber(obj['yearNumber'] as Record<string, unknown>);
+  if (obj['yearSubNumber'] !== undefined) r.yearSubNumber = deserializeYearNumberPart(obj['yearSubNumber'] as Record<string, unknown>);
+  if (obj['reference'] !== undefined) r.reference = String(obj['reference']) as string;
+  return r as T.TimelineEventEntity;
 }
 
-export function deserializeIdSet(obj: Record<string, unknown>): T.IdSet {
-  const r: Partial<T.IdSet> = {};
-  if (obj['id'] !== undefined) {
-    r.id = toArray(obj['id']).map(String);
+export function deserializeTimelineEventEntityList(obj: Record<string, unknown>): T.TimelineEventEntityList {
+  const r: Partial<T.TimelineEventEntityList> = {};
+  if (obj['entity'] !== undefined) {
+    r.entity = toArray(obj['entity']).map((v) => deserializeTimelineEventEntity(v as Record<string, unknown>));
   }
-  return r as T.IdSet;
+  return r as T.TimelineEventEntityList;
+}
+
+export function deserializeTimelineEventCategoryList(obj: Record<string, unknown>): T.TimelineEventCategoryList {
+  const r: Partial<T.TimelineEventCategoryList> = {};
+  if (obj['category'] !== undefined) {
+    r.category = toArray(obj['category']).map(String) as T.TimelineEventCategory[];
+  }
+  return r as T.TimelineEventCategoryList;
+}
+
+export function deserializeTimelineEventTypeList(obj: Record<string, unknown>): T.TimelineEventTypeList {
+  const r: Partial<T.TimelineEventTypeList> = {};
+  if (obj['type'] !== undefined) {
+    r.type = toArray(obj['type']).map(String) as T.TimelineEventType[];
+  }
+  return r as T.TimelineEventTypeList;
+}
+
+export function deserializeTimelineEvent(obj: Record<string, unknown>): T.TimelineEvent {
+  const r: Partial<T.TimelineEvent> = {};
+  if (obj['id'] !== undefined) r.id = String(obj['id']) as string;
+  r.entity = deserializeTimelineEventEntity(obj['entity'] as Record<string, unknown> ?? {});
+  if (obj['employeeNumber'] !== undefined) r.employeeNumber = Number(obj['employeeNumber']);
+  if (obj['workplaceKey'] !== undefined) r.workplaceKey = deserializeWorkplaceIdentifier(obj['workplaceKey'] as Record<string, unknown>);
+  if (obj['branchGroupId'] !== undefined) r.branchGroupId = Number(obj['branchGroupId']);
+  if (obj['ownerId'] !== undefined) r.ownerId = String(obj['ownerId']) as string;
+  if (obj['activityId'] !== undefined) r.activityId = String(obj['activityId']) as string;
+  if (obj['apiIdent'] !== undefined) r.apiIdent = String(obj['apiIdent']) as string;
+  r.category = String(obj['category'] ?? '') as T.TimelineEventCategory;
+  r.type = String(obj['type'] ?? '') as T.TimelineEventType;
+  if (obj['data'] !== undefined) r.data = String(obj['data']) as string;
+  r.eventTs = new Date(String(obj['eventTs'] ?? ''));
+  if (obj['createdTs'] !== undefined) r.createdTs = new Date(String(obj['createdTs']));
+  return r as T.TimelineEvent;
+}
+
+export function deserializeTimelineEventList(obj: Record<string, unknown>): T.TimelineEventList {
+  const r: Partial<T.TimelineEventList> = {};
+  if (obj['event'] !== undefined) {
+    r.event = toArray(obj['event']).map((v) => deserializeTimelineEvent(v as Record<string, unknown>));
+  }
+  return r as T.TimelineEventList;
+}
+
+export function deserializeContractPeriod(obj: Record<string, unknown>): T.ContractPeriod {
+  const r: Partial<T.ContractPeriod> = {};
+  if (obj['startDate'] !== undefined) r.startDate = new Date(String(obj['startDate']));
+  if (obj['endDate'] !== undefined) r.endDate = new Date(String(obj['endDate']));
+  r.frequency = String(obj['frequency'] ?? '') as T.ContractFrequency;
+  r.contractPeriodCalculationMethod = String(obj['contractPeriodCalculationMethod'] ?? '') as T.ContractPeriodCalculationMethod;
+  if (obj['description'] !== undefined) r.description = String(obj['description']) as string;
+  return r as T.ContractPeriod;
+}
+
+export function deserializeContractFrequencyList(obj: Record<string, unknown>): T.ContractFrequencyList {
+  const r: Partial<T.ContractFrequencyList> = {};
+  if (obj['contractFrequency'] !== undefined) {
+    r.contractFrequency = toArray(obj['contractFrequency']).map(String) as T.ContractFrequency[];
+  }
+  return r as T.ContractFrequencyList;
+}
+
+export function deserializeSalesLineContractLine(obj: Record<string, unknown>): T.SalesLineContractLine {
+  const r: Partial<T.SalesLineContractLine> = {};
+  r.lineNumber = Number(obj['lineNumber']);
+  r.articleNumber = Number(obj['articleNumber']);
+  r.quantity = String(obj['quantity'] ?? '') as string;
+  r.priceIncl = String(obj['priceIncl'] ?? '') as string;
+  r.priceExcl = String(obj['priceExcl'] ?? '') as string;
+  r.amountIncl = String(obj['amountIncl'] ?? '') as string;
+  r.amountExcl = String(obj['amountExcl'] ?? '') as string;
+  r.frequency = String(obj['frequency'] ?? '') as T.ContractFrequency;
+  if (obj['startDate'] !== undefined) r.startDate = new Date(String(obj['startDate']));
+  return r as T.SalesLineContractLine;
+}
+
+export function deserializeSalesLineContractLineList(obj: Record<string, unknown>): T.SalesLineContractLineList {
+  const r: Partial<T.SalesLineContractLineList> = {};
+  if (obj['contractLine'] !== undefined) {
+    r.contractLine = toArray(obj['contractLine']).map((v) => deserializeSalesLineContractLine(v as Record<string, unknown>));
+  }
+  return r as T.SalesLineContractLineList;
 }
 
 export function deserializeOrder(obj: Record<string, unknown>): T.Order {
@@ -862,6 +951,29 @@ export function deserializeOrder(obj: Record<string, unknown>): T.Order {
   if (obj['proposalNumber'] !== undefined) r.proposalNumber = deserializeYearNumber(obj['proposalNumber'] as Record<string, unknown>);
   if (obj['branchGroupNumber'] !== undefined) r.branchGroupNumber = Number(obj['branchGroupNumber']);
   if (obj['ownerId'] !== undefined) r.ownerId = String(obj['ownerId']) as string;
+  if (obj['branchInvoiceNumbers'] !== undefined) {
+    const _w = obj['branchInvoiceNumbers'] as Record<string, unknown>;
+    const _iv = (_w)['transactionNumber'];
+    if (_iv !== undefined) {
+      r.branchInvoiceNumbers = toArray(_iv).map((v) => deserializeTransactionNumber(v as Record<string, unknown>));
+    } else {
+      r.branchInvoiceNumbers = [];
+    }
+  } else {
+    r.branchInvoiceNumbers = [];
+  }
+  if (obj['timelineEvents'] !== undefined) {
+    const _w = obj['timelineEvents'] as Record<string, unknown>;
+    const _iv = (_w)['event'];
+    if (_iv !== undefined) {
+      r.timelineEvents = toArray(_iv).map((v) => deserializeTimelineEvent(v as Record<string, unknown>));
+    } else {
+      r.timelineEvents = [];
+    }
+  } else {
+    r.timelineEvents = [];
+  }
+  if (obj['contractPeriod'] !== undefined) r.contractPeriod = deserializeContractPeriod(obj['contractPeriod'] as Record<string, unknown>);
   return r as T.Order;
 }
 
@@ -922,6 +1034,21 @@ export function deserializeOrderTypeList(obj: Record<string, unknown>): T.OrderT
   return r as T.OrderTypeList;
 }
 
+export function deserializeAddress(obj: Record<string, unknown>): T.Address {
+  const r: Partial<T.Address> = {};
+  if (obj['addressId'] !== undefined) r.addressId = String(obj['addressId']) as string;
+  if (obj['name'] !== undefined) r.name = String(obj['name']) as string;
+  if (obj['contact'] !== undefined) r.contact = String(obj['contact']) as string;
+  if (obj['address'] !== undefined) r.address = String(obj['address']) as string;
+  if (obj['zipcode'] !== undefined) r.zipcode = String(obj['zipcode']) as string;
+  if (obj['city'] !== undefined) r.city = String(obj['city']) as string;
+  if (obj['country'] !== undefined) r.country = String(obj['country']) as string;
+  if (obj['label'] !== undefined) r.label = String(obj['label']) as string;
+  if (obj['companyName'] !== undefined) r.companyName = String(obj['companyName']) as string;
+  if (obj['supplierInformation'] !== undefined) r.supplierInformation = String(obj['supplierInformation']) as string;
+  return r as T.Address;
+}
+
 export function deserializeYearNumber(obj: Record<string, unknown>): T.YearNumber {
   const r: Partial<T.YearNumber> = {};
   r.year = Number(obj['year']);
@@ -945,49 +1072,15 @@ export function deserializeYearNumberPart(obj: Record<string, unknown>): T.YearN
   return r as T.YearNumberPart;
 }
 
-export function deserializeAddress(obj: Record<string, unknown>): T.Address {
-  const r: Partial<T.Address> = {};
-  if (obj['addressId'] !== undefined) r.addressId = String(obj['addressId']) as string;
-  if (obj['name'] !== undefined) r.name = String(obj['name']) as string;
-  if (obj['contact'] !== undefined) r.contact = String(obj['contact']) as string;
-  if (obj['address'] !== undefined) r.address = String(obj['address']) as string;
-  if (obj['zipcode'] !== undefined) r.zipcode = String(obj['zipcode']) as string;
-  if (obj['city'] !== undefined) r.city = String(obj['city']) as string;
-  if (obj['country'] !== undefined) r.country = String(obj['country']) as string;
-  if (obj['label'] !== undefined) r.label = String(obj['label']) as string;
-  if (obj['companyName'] !== undefined) r.companyName = String(obj['companyName']) as string;
-  if (obj['supplierInformation'] !== undefined) r.supplierInformation = String(obj['supplierInformation']) as string;
-  return r as T.Address;
-}
-
-export function deserializeContractFrequencyList(obj: Record<string, unknown>): T.ContractFrequencyList {
-  const r: Partial<T.ContractFrequencyList> = {};
-  if (obj['contractFrequency'] !== undefined) {
-    r.contractFrequency = toArray(obj['contractFrequency']).map(String) as T.ContractFrequency[];
-  }
-  return r as T.ContractFrequencyList;
-}
-
-export function deserializeSalesLineContractLine(obj: Record<string, unknown>): T.SalesLineContractLine {
-  const r: Partial<T.SalesLineContractLine> = {};
-  r.lineNumber = Number(obj['lineNumber']);
-  r.articleNumber = Number(obj['articleNumber']);
-  r.quantity = String(obj['quantity'] ?? '') as string;
-  r.priceIncl = String(obj['priceIncl'] ?? '') as string;
-  r.priceExcl = String(obj['priceExcl'] ?? '') as string;
-  r.amountIncl = String(obj['amountIncl'] ?? '') as string;
-  r.amountExcl = String(obj['amountExcl'] ?? '') as string;
-  r.frequency = String(obj['frequency'] ?? '') as T.ContractFrequency;
-  if (obj['startDate'] !== undefined) r.startDate = new Date(String(obj['startDate']));
-  return r as T.SalesLineContractLine;
-}
-
-export function deserializeSalesLineContractLineList(obj: Record<string, unknown>): T.SalesLineContractLineList {
-  const r: Partial<T.SalesLineContractLineList> = {};
-  if (obj['contractLine'] !== undefined) {
-    r.contractLine = toArray(obj['contractLine']).map((v) => deserializeSalesLineContractLine(v as Record<string, unknown>));
-  }
-  return r as T.SalesLineContractLineList;
+export function deserializeWebhookExternalDiscount(obj: Record<string, unknown>): T.WebhookExternalDiscount {
+  const r: Partial<T.WebhookExternalDiscount> = {};
+  r.discountId = String(obj['discountId'] ?? '') as string;
+  r.discountDescription = String(obj['discountDescription'] ?? '') as string;
+  r.webhookConsumerId = String(obj['webhookConsumerId'] ?? '') as string;
+  if (obj['discountPercentage'] !== undefined) r.discountPercentage = Number(obj['discountPercentage']);
+  if (obj['discountAmount'] !== undefined) r.discountAmount = Number(obj['discountAmount']);
+  if (obj['discountType'] !== undefined) r.discountType = String(obj['discountType']) as string;
+  return r as T.WebhookExternalDiscount;
 }
 
 export function deserializeWebhookLineData(obj: Record<string, unknown>): T.WebhookLineData {
@@ -1113,6 +1206,8 @@ export function deserializeLine(obj: Record<string, unknown>): T.Line {
   if (obj['tempLineId'] !== undefined) r.tempLineId = String(obj['tempLineId']) as string;
   if (obj['subLineType'] !== undefined) r.subLineType = String(obj['subLineType']) as T.SubLineTypeV2;
   if (obj['articleAlterationId'] !== undefined) r.articleAlterationId = Number(obj['articleAlterationId']);
+  if (obj['lineKind'] !== undefined) r.lineKind = String(obj['lineKind']) as T.LineKind;
+  if (obj['salesOrderLineId'] !== undefined) r.salesOrderLineId = String(obj['salesOrderLineId']) as string;
   return r as T.Line;
 }
 
@@ -1179,247 +1274,8 @@ export function deserializeLineInput(obj: Record<string, unknown>): T.LineInput 
   if (obj['suppressDisposableComponent'] !== undefined) r.suppressDisposableComponent = obj['suppressDisposableComponent'] === 'true' || obj['suppressDisposableComponent'] === true;
   if (obj['salePromotionData'] !== undefined) r.salePromotionData = deserializeSalePromotionLineDataInput(obj['salePromotionData'] as Record<string, unknown>);
   if (obj['articleAlterationId'] !== undefined) r.articleAlterationId = Number(obj['articleAlterationId']);
+  if (obj['lineKind'] !== undefined) r.lineKind = String(obj['lineKind']) as T.LineKind;
   return r as T.LineInput;
-}
-
-export function deserializeAnswer(obj: Record<string, unknown>): T.Answer {
-  const r: Partial<T.Answer> = {};
-  if (obj['questionId'] !== undefined) r.questionId = Number(obj['questionId']);
-  if (obj['questionText'] !== undefined) r.questionText = String(obj['questionText']) as string;
-  if (obj['answerText'] !== undefined) r.answerText = String(obj['answerText']) as string;
-  return r as T.Answer;
-}
-
-export function deserializeAnswerList(obj: Record<string, unknown>): T.AnswerList {
-  const r: Partial<T.AnswerList> = {};
-  if (obj['answer'] !== undefined) {
-    r.answer = toArray(obj['answer']).map((v) => deserializeAnswer(v as Record<string, unknown>));
-  }
-  return r as T.AnswerList;
-}
-
-export function deserializeInvoice(obj: Record<string, unknown>): T.Invoice {
-  const r: Partial<T.Invoice> = {};
-  if (obj['invoiceId'] !== undefined) r.invoiceId = String(obj['invoiceId']) as string;
-  if (obj['extInvoiceId'] !== undefined) r.extInvoiceId = String(obj['extInvoiceId']) as string;
-  if (obj['orderIds'] !== undefined) {
-    const _w = obj['orderIds'] as Record<string, unknown>;
-    const _iv = (_w)['id'];
-    if (_iv !== undefined) {
-      r.orderIds = toArray(_iv).map(String);
-    } else {
-      r.orderIds = [];
-    }
-  } else {
-    r.orderIds = [];
-  }
-  if (obj['extOrderIds'] !== undefined) {
-    const _w = obj['extOrderIds'] as Record<string, unknown>;
-    const _iv = (_w)['id'];
-    if (_iv !== undefined) {
-      r.extOrderIds = toArray(_iv).map(String);
-    } else {
-      r.extOrderIds = [];
-    }
-  } else {
-    r.extOrderIds = [];
-  }
-  if (obj['transactionString'] !== undefined) r.transactionString = String(obj['transactionString']) as string;
-  if (obj['syncMarker'] !== undefined) r.syncMarker = Number(obj['syncMarker']);
-  if (obj['invoiceNumber'] !== undefined) r.invoiceNumber = deserializeYearNumber(obj['invoiceNumber'] as Record<string, unknown>);
-  if (obj['invoiceBarcode'] !== undefined) r.invoiceBarcode = String(obj['invoiceBarcode']) as string;
-  if (obj['invoiceType'] !== undefined) r.invoiceType = String(obj['invoiceType']) as T.InvoiceType;
-  if (obj['employeeNumber'] !== undefined) r.employeeNumber = Number(obj['employeeNumber']);
-  if (obj['employeeName'] !== undefined) r.employeeName = String(obj['employeeName']) as string;
-  if (obj['entryTimestamp'] !== undefined) r.entryTimestamp = deserializeDateTime(obj['entryTimestamp'] as Record<string, unknown>);
-  if (obj['relationNumber'] !== undefined) r.relationNumber = Number(obj['relationNumber']);
-  if (obj['relationName'] !== undefined) r.relationName = String(obj['relationName']) as string;
-  if (obj['relationCategoryId'] !== undefined) r.relationCategoryId = Number(obj['relationCategoryId']);
-  if (obj['relationBankAccountNumber'] !== undefined) r.relationBankAccountNumber = String(obj['relationBankAccountNumber']) as string;
-  if (obj['relationVatNumber'] !== undefined) r.relationVatNumber = String(obj['relationVatNumber']) as string;
-  if (obj['deliveryAddress'] !== undefined) r.deliveryAddress = deserializeAddress(obj['deliveryAddress'] as Record<string, unknown>);
-  if (obj['invoiceAddress'] !== undefined) r.invoiceAddress = deserializeAddress(obj['invoiceAddress'] as Record<string, unknown>);
-  if (obj['financialDate'] !== undefined) r.financialDate = deserializeDate(obj['financialDate'] as Record<string, unknown>);
-  if (obj['financialBranchNumber'] !== undefined) r.financialBranchNumber = Number(obj['financialBranchNumber']);
-  if (obj['financialExtBranchId'] !== undefined) r.financialExtBranchId = String(obj['financialExtBranchId']) as string;
-  if (obj['workplaceNumber'] !== undefined) r.workplaceNumber = Number(obj['workplaceNumber']);
-  if (obj['entryBranchNumber'] !== undefined) r.entryBranchNumber = Number(obj['entryBranchNumber']);
-  if (obj['entryExtBranchId'] !== undefined) r.entryExtBranchId = String(obj['entryExtBranchId']) as string;
-  if (obj['reference'] !== undefined) r.reference = String(obj['reference']) as string;
-  if (obj['activityId'] !== undefined) r.activityId = String(obj['activityId']) as string;
-  if (obj['dueDate'] !== undefined) r.dueDate = deserializeDate(obj['dueDate'] as Record<string, unknown>);
-  if (obj['totalInclAmount'] !== undefined) r.totalInclAmount = Number(obj['totalInclAmount']);
-  if (obj['totalExclAmount'] !== undefined) r.totalExclAmount = Number(obj['totalExclAmount']);
-  if (obj['vatMethod'] !== undefined) r.vatMethod = String(obj['vatMethod']) as T.VatMethod;
-  if (obj['vatGroupList'] !== undefined) {
-    const _w = obj['vatGroupList'] as Record<string, unknown>;
-    const _iv = (_w)['vatGroup'];
-    if (_iv !== undefined) {
-      r.vatGroupList = toArray(_iv).map((v) => deserializeVatGroup(v as Record<string, unknown>));
-    } else {
-      r.vatGroupList = [];
-    }
-  } else {
-    r.vatGroupList = [];
-  }
-  if (obj['changeCounter'] !== undefined) r.changeCounter = Number(obj['changeCounter']);
-  if (obj['versionNumber'] !== undefined) r.versionNumber = Number(obj['versionNumber']);
-  if (obj['paidAmount'] !== undefined) r.paidAmount = Number(obj['paidAmount']);
-  if (obj['state'] !== undefined) r.state = String(obj['state']) as T.InvoiceState;
-  if (obj['finalized'] !== undefined) r.finalized = obj['finalized'] === 'true' || obj['finalized'] === true;
-  if (obj['finalizedTimestamp'] !== undefined) r.finalizedTimestamp = deserializeDateTime(obj['finalizedTimestamp'] as Record<string, unknown>);
-  if (obj['lineList'] !== undefined) {
-    const _w = obj['lineList'] as Record<string, unknown>;
-    const _iv = (_w)['line'];
-    if (_iv !== undefined) {
-      r.lineList = toArray(_iv).map((v) => deserializeLine(v as Record<string, unknown>));
-    } else {
-      r.lineList = [];
-    }
-  } else {
-    r.lineList = [];
-  }
-  if (obj['paymentList'] !== undefined) {
-    const _w = obj['paymentList'] as Record<string, unknown>;
-    const _iv = (_w)['payment'];
-    if (_iv !== undefined) {
-      r.paymentList = toArray(_iv).map((v) => deserializePayment(v as Record<string, unknown>));
-    } else {
-      r.paymentList = [];
-    }
-  } else {
-    r.paymentList = [];
-  }
-  if (obj['answerList'] !== undefined) {
-    const _w = obj['answerList'] as Record<string, unknown>;
-    const _iv = (_w)['answer'];
-    if (_iv !== undefined) {
-      r.answerList = toArray(_iv).map((v) => deserializeAnswer(v as Record<string, unknown>));
-    } else {
-      r.answerList = [];
-    }
-  } else {
-    r.answerList = [];
-  }
-  if (obj['vatChange'] !== undefined) r.vatChange = String(obj['vatChange']) as T.VatChange;
-  if (obj['vatCountryCode'] !== undefined) r.vatCountryCode = Number(obj['vatCountryCode']);
-  if (obj['vatCountryIso3'] !== undefined) r.vatCountryIso3 = String(obj['vatCountryIso3']) as string;
-  if (obj['costCenter'] !== undefined) r.costCenter = String(obj['costCenter']) as string;
-  if (obj['creditedInvoiceId'] !== undefined) r.creditedInvoiceId = String(obj['creditedInvoiceId']) as string;
-  if (obj['creditedReason'] !== undefined) r.creditedReason = String(obj['creditedReason']) as string;
-  if (obj['orderCategoryNumber'] !== undefined) r.orderCategoryNumber = Number(obj['orderCategoryNumber']);
-  if (obj['sessionId'] !== undefined) r.sessionId = String(obj['sessionId']) as string;
-  if (obj['orderNumbers'] !== undefined) {
-    const _w = obj['orderNumbers'] as Record<string, unknown>;
-    const _iv = (_w)['yearNumber'];
-    if (_iv !== undefined) {
-      r.orderNumbers = toArray(_iv).map((v) => deserializeYearNumber(v as Record<string, unknown>));
-    } else {
-      r.orderNumbers = [];
-    }
-  } else {
-    r.orderNumbers = [];
-  }
-  if (obj['packingSlipIds'] !== undefined) {
-    const _w = obj['packingSlipIds'] as Record<string, unknown>;
-    const _iv = (_w)['id'];
-    if (_iv !== undefined) {
-      r.packingSlipIds = toArray(_iv).map(String);
-    } else {
-      r.packingSlipIds = [];
-    }
-  } else {
-    r.packingSlipIds = [];
-  }
-  if (obj['packingSlipNumbers'] !== undefined) {
-    const _w = obj['packingSlipNumbers'] as Record<string, unknown>;
-    const _iv = (_w)['yearNumber'];
-    if (_iv !== undefined) {
-      r.packingSlipNumbers = toArray(_iv).map((v) => deserializeYearNumber(v as Record<string, unknown>));
-    } else {
-      r.packingSlipNumbers = [];
-    }
-  } else {
-    r.packingSlipNumbers = [];
-  }
-  if (obj['proposalIds'] !== undefined) {
-    const _w = obj['proposalIds'] as Record<string, unknown>;
-    const _iv = (_w)['id'];
-    if (_iv !== undefined) {
-      r.proposalIds = toArray(_iv).map(String);
-    } else {
-      r.proposalIds = [];
-    }
-  } else {
-    r.proposalIds = [];
-  }
-  if (obj['extProposalIds'] !== undefined) {
-    const _w = obj['extProposalIds'] as Record<string, unknown>;
-    const _iv = (_w)['id'];
-    if (_iv !== undefined) {
-      r.extProposalIds = toArray(_iv).map(String);
-    } else {
-      r.extProposalIds = [];
-    }
-  } else {
-    r.extProposalIds = [];
-  }
-  if (obj['proposalNumbers'] !== undefined) {
-    const _w = obj['proposalNumbers'] as Record<string, unknown>;
-    const _iv = (_w)['yearNumber'];
-    if (_iv !== undefined) {
-      r.proposalNumbers = toArray(_iv).map((v) => deserializeYearNumber(v as Record<string, unknown>));
-    } else {
-      r.proposalNumbers = [];
-    }
-  } else {
-    r.proposalNumbers = [];
-  }
-  if (obj['salesCategoryNumber'] !== undefined) r.salesCategoryNumber = Number(obj['salesCategoryNumber']);
-  if (obj['salesCategoryDescription'] !== undefined) r.salesCategoryDescription = String(obj['salesCategoryDescription']) as string;
-  if (obj['branchGroupNumber'] !== undefined) r.branchGroupNumber = Number(obj['branchGroupNumber']);
-  if (obj['ownerId'] !== undefined) r.ownerId = String(obj['ownerId']) as string;
-  return r as T.Invoice;
-}
-
-export function deserializeInvoiceList(obj: Record<string, unknown>): T.InvoiceList {
-  const r: Partial<T.InvoiceList> = {};
-  if (obj['invoice'] !== undefined) {
-    r.invoice = toArray(obj['invoice']).map((v) => deserializeInvoice(v as Record<string, unknown>));
-  }
-  return r as T.InvoiceList;
-}
-
-export function deserializeInvoiceInput(obj: Record<string, unknown>): T.InvoiceInput {
-  const r: Partial<T.InvoiceInput> = {};
-  if (obj['invoiceId'] !== undefined) r.invoiceId = String(obj['invoiceId']) as string;
-  if (obj['extInvoiceId'] !== undefined) r.extInvoiceId = String(obj['extInvoiceId']) as string;
-  r.employeeNumber = Number(obj['employeeNumber']);
-  r.relationNumber = Number(obj['relationNumber']);
-  if (obj['financialDate'] !== undefined) r.financialDate = new Date(String(obj['financialDate']));
-  r.financialBranchNumber = Number(obj['financialBranchNumber']);
-  r.entryBranchNumber = Number(obj['entryBranchNumber']);
-  if (obj['workplaceNumber'] !== undefined) r.workplaceNumber = Number(obj['workplaceNumber']);
-  if (obj['reference'] !== undefined) r.reference = String(obj['reference']) as string;
-  if (obj['dueDate'] !== undefined) r.dueDate = new Date(String(obj['dueDate']));
-  if (obj['vatMethod'] !== undefined) r.vatMethod = String(obj['vatMethod']) as T.VatMethod;
-  if (obj['changeCounter'] !== undefined) r.changeCounter = Number(obj['changeCounter']);
-  if (obj['versionNumber'] !== undefined) r.versionNumber = Number(obj['versionNumber']);
-  if (obj['vatChange'] !== undefined) r.vatChange = String(obj['vatChange']) as T.VatChange;
-  if (obj['vatCountryCode'] !== undefined) r.vatCountryCode = Number(obj['vatCountryCode']);
-  if (obj['vatCountryIso3'] !== undefined) r.vatCountryIso3 = String(obj['vatCountryIso3']) as string;
-  if (obj['lineList'] !== undefined) {
-    const _w = obj['lineList'] as Record<string, unknown>;
-    const _iv = (_w)['line'];
-    if (_iv !== undefined) {
-      r.lineList = toArray(_iv).map((v) => deserializeLineInput(v as Record<string, unknown>));
-    } else {
-      r.lineList = [];
-    }
-  } else {
-    r.lineList = [];
-  }
-  return r as T.InvoiceInput;
 }
 
 export function deserializeText(obj: Record<string, unknown>): T.Text {
@@ -1708,6 +1564,7 @@ export function deserializeVoucherCanApplyResult(obj: Record<string, unknown>): 
   if (obj['recentlyRedeemed'] !== undefined) r.recentlyRedeemed = obj['recentlyRedeemed'] === 'true' || obj['recentlyRedeemed'] === true;
   if (obj['upcoming'] !== undefined) r.upcoming = obj['upcoming'] === 'true' || obj['upcoming'] === true;
   if (obj['upcomingTs'] !== undefined) r.upcomingTs = new Date(String(obj['upcomingTs']));
+  if (obj['articleNotInButtonLayout'] !== undefined) r.articleNotInButtonLayout = obj['articleNotInButtonLayout'] === 'true' || obj['articleNotInButtonLayout'] === true;
   return r as T.VoucherCanApplyResult;
 }
 
@@ -1764,28 +1621,229 @@ export function deserializeVoucherIssuanceRedeemableList(obj: Record<string, unk
   return r as T.VoucherIssuanceRedeemableList;
 }
 
-export function deserializeRequestSalesRepeatTemplateTypeFilter(obj: Record<string, unknown>): T.RequestSalesRepeatTemplateTypeFilter {
-  const r: Partial<T.RequestSalesRepeatTemplateTypeFilter> = {};
-  if (obj['salesRepeatTemplateTypes'] !== undefined) {
-    r.salesRepeatTemplateTypes = toArray(obj['salesRepeatTemplateTypes']).map(String) as T.SalesRepeatTemplateType[];
-  }
-  return r as T.RequestSalesRepeatTemplateTypeFilter;
+export function deserializeAnswer(obj: Record<string, unknown>): T.Answer {
+  const r: Partial<T.Answer> = {};
+  if (obj['questionId'] !== undefined) r.questionId = Number(obj['questionId']);
+  if (obj['questionText'] !== undefined) r.questionText = String(obj['questionText']) as string;
+  if (obj['answerText'] !== undefined) r.answerText = String(obj['answerText']) as string;
+  return r as T.Answer;
 }
 
-export function deserializeRequestSalesRepeatTemplateIdsFilter(obj: Record<string, unknown>): T.RequestSalesRepeatTemplateIdsFilter {
-  const r: Partial<T.RequestSalesRepeatTemplateIdsFilter> = {};
-  if (obj['templateIds'] !== undefined) {
-    const _w = obj['templateIds'] as Record<string, unknown>;
+export function deserializeAnswerList(obj: Record<string, unknown>): T.AnswerList {
+  const r: Partial<T.AnswerList> = {};
+  if (obj['answer'] !== undefined) {
+    r.answer = toArray(obj['answer']).map((v) => deserializeAnswer(v as Record<string, unknown>));
+  }
+  return r as T.AnswerList;
+}
+
+export function deserializeTransactionNumber(obj: Record<string, unknown>): T.TransactionNumber {
+  const r: Partial<T.TransactionNumber> = {};
+  if (obj['displayString'] !== undefined) r.displayString = String(obj['displayString']) as string;
+  r.branch = Number(obj['branch']);
+  if (obj['workplace'] !== undefined) r.workplace = Number(obj['workplace']);
+  r.number = deserializeYearNumber(obj['number'] as Record<string, unknown> ?? {});
+  return r as T.TransactionNumber;
+}
+
+export function deserializeTransactionNumberList(obj: Record<string, unknown>): T.TransactionNumberList {
+  const r: Partial<T.TransactionNumberList> = {};
+  if (obj['transactionNumber'] !== undefined) {
+    r.transactionNumber = toArray(obj['transactionNumber']).map((v) => deserializeTransactionNumber(v as Record<string, unknown>));
+  }
+  return r as T.TransactionNumberList;
+}
+
+export function deserializeEmployeeNumberList(obj: Record<string, unknown>): T.EmployeeNumberList {
+  const r: Partial<T.EmployeeNumberList> = {};
+  if (obj['employeeNumber'] !== undefined) {
+    r.employeeNumber = toArray(obj['employeeNumber']).map(Number);
+  }
+  return r as T.EmployeeNumberList;
+}
+
+export function deserializeApiIdentList(obj: Record<string, unknown>): T.ApiIdentList {
+  const r: Partial<T.ApiIdentList> = {};
+  if (obj['apiIdent'] !== undefined) {
+    r.apiIdent = toArray(obj['apiIdent']).map(String);
+  }
+  return r as T.ApiIdentList;
+}
+
+export function deserializeJsonValueList(obj: Record<string, unknown>): T.JsonValueList {
+  const r: Partial<T.JsonValueList> = {};
+  if (obj['data'] !== undefined) {
+    r.data = toArray(obj['data']).map(String);
+  }
+  return r as T.JsonValueList;
+}
+
+export function deserializeTimelineEventSubFilter(obj: Record<string, unknown>): T.TimelineEventSubFilter {
+  const r: Partial<T.TimelineEventSubFilter> = {};
+  if (obj['ids'] !== undefined) {
+    const _w = obj['ids'] as Record<string, unknown>;
     const _iv = (_w)['id'];
     if (_iv !== undefined) {
-      r.templateIds = toArray(_iv).map(String);
+      r.ids = toArray(_iv).map(String);
     } else {
-      r.templateIds = [];
+      r.ids = [];
     }
   } else {
-    r.templateIds = [];
+    r.ids = [];
   }
-  return r as T.RequestSalesRepeatTemplateIdsFilter;
+  if (obj['employeeNumbers'] !== undefined) {
+    const _w = obj['employeeNumbers'] as Record<string, unknown>;
+    const _iv = (_w)['employeeNumber'];
+    if (_iv !== undefined) {
+      r.employeeNumbers = toArray(_iv).map(Number);
+    } else {
+      r.employeeNumbers = [];
+    }
+  } else {
+    r.employeeNumbers = [];
+  }
+  if (obj['workplaceKeys'] !== undefined) {
+    const _w = obj['workplaceKeys'] as Record<string, unknown>;
+    const _iv = (_w)['workplaceIdentifier'];
+    if (_iv !== undefined) {
+      r.workplaceKeys = toArray(_iv).map((v) => deserializeWorkplaceIdentifier(v as Record<string, unknown>));
+    } else {
+      r.workplaceKeys = [];
+    }
+  } else {
+    r.workplaceKeys = [];
+  }
+  if (obj['apiIdents'] !== undefined) {
+    const _w = obj['apiIdents'] as Record<string, unknown>;
+    const _iv = (_w)['apiIdent'];
+    if (_iv !== undefined) {
+      r.apiIdents = toArray(_iv).map(String);
+    } else {
+      r.apiIdents = [];
+    }
+  } else {
+    r.apiIdents = [];
+  }
+  if (obj['types'] !== undefined) {
+    const _w = obj['types'] as Record<string, unknown>;
+    const _iv = (_w)['type'];
+    if (_iv !== undefined) {
+      r.types = toArray(_iv).map(String) as T.TimelineEventType[];
+    } else {
+      r.types = [];
+    }
+  } else {
+    r.types = [];
+  }
+  if (obj['data'] !== undefined) {
+    const _w = obj['data'] as Record<string, unknown>;
+    const _iv = (_w)['data'];
+    if (_iv !== undefined) {
+      r.data = toArray(_iv).map(String);
+    } else {
+      r.data = [];
+    }
+  } else {
+    r.data = [];
+  }
+  if (obj['from'] !== undefined) r.from = new Date(String(obj['from']));
+  if (obj['through'] !== undefined) r.through = new Date(String(obj['through']));
+  return r as T.TimelineEventSubFilter;
+}
+
+export function deserializeTimelineEventFilter(obj: Record<string, unknown>): T.TimelineEventFilter {
+  const r: Partial<T.TimelineEventFilter> = {};
+  if (obj['ids'] !== undefined) {
+    const _w = obj['ids'] as Record<string, unknown>;
+    const _iv = (_w)['id'];
+    if (_iv !== undefined) {
+      r.ids = toArray(_iv).map(String);
+    } else {
+      r.ids = [];
+    }
+  } else {
+    r.ids = [];
+  }
+  if (obj['employeeNumbers'] !== undefined) {
+    const _w = obj['employeeNumbers'] as Record<string, unknown>;
+    const _iv = (_w)['employeeNumber'];
+    if (_iv !== undefined) {
+      r.employeeNumbers = toArray(_iv).map(Number);
+    } else {
+      r.employeeNumbers = [];
+    }
+  } else {
+    r.employeeNumbers = [];
+  }
+  if (obj['workplaceKeys'] !== undefined) {
+    const _w = obj['workplaceKeys'] as Record<string, unknown>;
+    const _iv = (_w)['workplaceIdentifier'];
+    if (_iv !== undefined) {
+      r.workplaceKeys = toArray(_iv).map((v) => deserializeWorkplaceIdentifier(v as Record<string, unknown>));
+    } else {
+      r.workplaceKeys = [];
+    }
+  } else {
+    r.workplaceKeys = [];
+  }
+  if (obj['apiIdents'] !== undefined) {
+    const _w = obj['apiIdents'] as Record<string, unknown>;
+    const _iv = (_w)['apiIdent'];
+    if (_iv !== undefined) {
+      r.apiIdents = toArray(_iv).map(String);
+    } else {
+      r.apiIdents = [];
+    }
+  } else {
+    r.apiIdents = [];
+  }
+  if (obj['types'] !== undefined) {
+    const _w = obj['types'] as Record<string, unknown>;
+    const _iv = (_w)['type'];
+    if (_iv !== undefined) {
+      r.types = toArray(_iv).map(String) as T.TimelineEventType[];
+    } else {
+      r.types = [];
+    }
+  } else {
+    r.types = [];
+  }
+  if (obj['data'] !== undefined) {
+    const _w = obj['data'] as Record<string, unknown>;
+    const _iv = (_w)['data'];
+    if (_iv !== undefined) {
+      r.data = toArray(_iv).map(String);
+    } else {
+      r.data = [];
+    }
+  } else {
+    r.data = [];
+  }
+  if (obj['from'] !== undefined) r.from = new Date(String(obj['from']));
+  if (obj['through'] !== undefined) r.through = new Date(String(obj['through']));
+  if (obj['entities'] !== undefined) {
+    const _w = obj['entities'] as Record<string, unknown>;
+    const _iv = (_w)['entity'];
+    if (_iv !== undefined) {
+      r.entities = toArray(_iv).map((v) => deserializeTimelineEventEntity(v as Record<string, unknown>));
+    } else {
+      r.entities = [];
+    }
+  } else {
+    r.entities = [];
+  }
+  if (obj['categories'] !== undefined) {
+    const _w = obj['categories'] as Record<string, unknown>;
+    const _iv = (_w)['category'];
+    if (_iv !== undefined) {
+      r.categories = toArray(_iv).map(String) as T.TimelineEventCategory[];
+    } else {
+      r.categories = [];
+    }
+  } else {
+    r.categories = [];
+  }
+  return r as T.TimelineEventFilter;
 }
 
 export function deserializeYearNumberVersion(obj: Record<string, unknown>): T.YearNumberVersion {
@@ -2353,164 +2411,6 @@ export function deserializeSaveOrderInfo(obj: Record<string, unknown>): T.SaveOr
   return r as T.SaveOrderInfo;
 }
 
-export function deserializePackingSlip(obj: Record<string, unknown>): T.PackingSlip {
-  const r: Partial<T.PackingSlip> = {};
-  r.packingSlipId = String(obj['packingSlipId'] ?? '') as string;
-  if (obj['packingSlipNumber'] !== undefined) r.packingSlipNumber = deserializeYearNumber(obj['packingSlipNumber'] as Record<string, unknown>);
-  if (obj['packingSlipBarcode'] !== undefined) r.packingSlipBarcode = String(obj['packingSlipBarcode']) as string;
-  if (obj['orderId'] !== undefined) r.orderId = String(obj['orderId']) as string;
-  if (obj['extOrderId'] !== undefined) r.extOrderId = String(obj['extOrderId']) as string;
-  if (obj['orderNumber'] !== undefined) r.orderNumber = deserializeYearNumber(obj['orderNumber'] as Record<string, unknown>);
-  if (obj['orderBarcode'] !== undefined) r.orderBarcode = String(obj['orderBarcode']) as string;
-  if (obj['invoiceId'] !== undefined) r.invoiceId = String(obj['invoiceId']) as string;
-  if (obj['extInvoiceId'] !== undefined) r.extInvoiceId = String(obj['extInvoiceId']) as string;
-  if (obj['invoiceNumber'] !== undefined) r.invoiceNumber = deserializeYearNumber(obj['invoiceNumber'] as Record<string, unknown>);
-  if (obj['invoiceBarcode'] !== undefined) r.invoiceBarcode = String(obj['invoiceBarcode']) as string;
-  if (obj['transactionString'] !== undefined) r.transactionString = String(obj['transactionString']) as string;
-  if (obj['syncMarker'] !== undefined) r.syncMarker = Number(obj['syncMarker']);
-  if (obj['employeeNumber'] !== undefined) r.employeeNumber = Number(obj['employeeNumber']);
-  if (obj['employeeName'] !== undefined) r.employeeName = String(obj['employeeName']) as string;
-  if (obj['entryTimestamp'] !== undefined) r.entryTimestamp = deserializeDateTime(obj['entryTimestamp'] as Record<string, unknown>);
-  if (obj['relationNumber'] !== undefined) r.relationNumber = Number(obj['relationNumber']);
-  if (obj['relationName'] !== undefined) r.relationName = String(obj['relationName']) as string;
-  if (obj['relationCategoryId'] !== undefined) r.relationCategoryId = Number(obj['relationCategoryId']);
-  if (obj['relationBankAccountNumber'] !== undefined) r.relationBankAccountNumber = String(obj['relationBankAccountNumber']) as string;
-  if (obj['relationVatNumber'] !== undefined) r.relationVatNumber = String(obj['relationVatNumber']) as string;
-  if (obj['deliveryAddress'] !== undefined) r.deliveryAddress = deserializeAddress(obj['deliveryAddress'] as Record<string, unknown>);
-  if (obj['invoiceAddress'] !== undefined) r.invoiceAddress = deserializeAddress(obj['invoiceAddress'] as Record<string, unknown>);
-  if (obj['financialDate'] !== undefined) r.financialDate = deserializeDate(obj['financialDate'] as Record<string, unknown>);
-  if (obj['financialBranchNumber'] !== undefined) r.financialBranchNumber = Number(obj['financialBranchNumber']);
-  if (obj['financialExtBranchId'] !== undefined) r.financialExtBranchId = String(obj['financialExtBranchId']) as string;
-  if (obj['workplaceNumber'] !== undefined) r.workplaceNumber = Number(obj['workplaceNumber']);
-  if (obj['entryBranchNumber'] !== undefined) r.entryBranchNumber = Number(obj['entryBranchNumber']);
-  if (obj['entryExtBranchId'] !== undefined) r.entryExtBranchId = String(obj['entryExtBranchId']) as string;
-  if (obj['reference'] !== undefined) r.reference = String(obj['reference']) as string;
-  if (obj['activityId'] !== undefined) r.activityId = String(obj['activityId']) as string;
-  if (obj['totalInclAmount'] !== undefined) r.totalInclAmount = Number(obj['totalInclAmount']);
-  if (obj['totalExclAmount'] !== undefined) r.totalExclAmount = Number(obj['totalExclAmount']);
-  if (obj['changeCounter'] !== undefined) r.changeCounter = Number(obj['changeCounter']);
-  if (obj['state'] !== undefined) r.state = String(obj['state']) as T.PackingSlipState;
-  if (obj['onInvoiceUrl'] !== undefined) r.onInvoiceUrl = String(obj['onInvoiceUrl']) as string;
-  if (obj['lineList'] !== undefined) {
-    const _w = obj['lineList'] as Record<string, unknown>;
-    const _iv = (_w)['line'];
-    if (_iv !== undefined) {
-      r.lineList = toArray(_iv).map((v) => deserializeLine(v as Record<string, unknown>));
-    } else {
-      r.lineList = [];
-    }
-  } else {
-    r.lineList = [];
-  }
-  if (obj['costCenter'] !== undefined) r.costCenter = String(obj['costCenter']) as string;
-  if (obj['orderCategoryNumber'] !== undefined) r.orderCategoryNumber = Number(obj['orderCategoryNumber']);
-  if (obj['packingSlipType'] !== undefined) r.packingSlipType = String(obj['packingSlipType']) as T.PackingSlipType;
-  if (obj['vatMethod'] !== undefined) r.vatMethod = String(obj['vatMethod']) as T.VatMethod;
-  if (obj['sessionId'] !== undefined) r.sessionId = String(obj['sessionId']) as string;
-  if (obj['proposalId'] !== undefined) r.proposalId = String(obj['proposalId']) as string;
-  if (obj['extProposalId'] !== undefined) r.extProposalId = String(obj['extProposalId']) as string;
-  if (obj['proposalNumber'] !== undefined) r.proposalNumber = deserializeYearNumber(obj['proposalNumber'] as Record<string, unknown>);
-  if (obj['branchGroupNumber'] !== undefined) r.branchGroupNumber = Number(obj['branchGroupNumber']);
-  if (obj['ownerId'] !== undefined) r.ownerId = String(obj['ownerId']) as string;
-  return r as T.PackingSlip;
-}
-
-export function deserializePackingSlipList(obj: Record<string, unknown>): T.PackingSlipList {
-  const r: Partial<T.PackingSlipList> = {};
-  if (obj['packingSlip'] !== undefined) {
-    r.packingSlip = toArray(obj['packingSlip']).map((v) => deserializePackingSlip(v as Record<string, unknown>));
-  }
-  return r as T.PackingSlipList;
-}
-
-export function deserializeGetPackingSlipsRequest(obj: Record<string, unknown>): T.GetPackingSlipsRequest {
-  const r: Partial<T.GetPackingSlipsRequest> = {};
-  if (obj['syncMarker'] !== undefined) r.syncMarker = Number(obj['syncMarker']);
-  if (obj['syncMarkerLimit'] !== undefined) r.syncMarkerLimit = Number(obj['syncMarkerLimit']);
-  if (obj['fromFinancialDate'] !== undefined) r.fromFinancialDate = deserializeDate(obj['fromFinancialDate'] as Record<string, unknown>);
-  if (obj['throughFinancialDate'] !== undefined) r.throughFinancialDate = deserializeDate(obj['throughFinancialDate'] as Record<string, unknown>);
-  if (obj['branchNumbers'] !== undefined) {
-    r.branchNumbers = toArray(obj['branchNumbers']).map(Number);
-  }
-  if (obj['employeeNumbers'] !== undefined) {
-    r.employeeNumbers = toArray(obj['employeeNumbers']).map(Number);
-  }
-  if (obj['relationNumbers'] !== undefined) {
-    r.relationNumbers = toArray(obj['relationNumbers']).map(Number);
-  }
-  if (obj['supplierRelationNumbers'] !== undefined) {
-    r.supplierRelationNumbers = toArray(obj['supplierRelationNumbers']).map(Number);
-  }
-  if (obj['articleNumbers'] !== undefined) {
-    r.articleNumbers = toArray(obj['articleNumbers']).map(Number);
-  }
-  if (obj['articleTurnoverGroups'] !== undefined) {
-    r.articleTurnoverGroups = toArray(obj['articleTurnoverGroups']).map(Number);
-  }
-  if (obj['articlePluNumbers'] !== undefined) {
-    const _w = obj['articlePluNumbers'] as Record<string, unknown>;
-    const _iv = (_w)['text'];
-    if (_iv !== undefined) {
-      r.articlePluNumbers = toArray(_iv).map((v) => String((v as Record<string, unknown>)['text'] ?? v));
-    } else {
-      r.articlePluNumbers = [];
-    }
-  } else {
-    r.articlePluNumbers = [];
-  }
-  if (obj['articleBarcodes'] !== undefined) {
-    const _w = obj['articleBarcodes'] as Record<string, unknown>;
-    const _iv = (_w)['text'];
-    if (_iv !== undefined) {
-      r.articleBarcodes = toArray(_iv).map((v) => String((v as Record<string, unknown>)['text'] ?? v));
-    } else {
-      r.articleBarcodes = [];
-    }
-  } else {
-    r.articleBarcodes = [];
-  }
-  if (obj['activityId'] !== undefined) r.activityId = String(obj['activityId']) as string;
-  if (obj['packingSlipIds'] !== undefined) {
-    r.packingSlipIds = toArray(obj['packingSlipIds']).map(String);
-  }
-  if (obj['packingSlipNumbers'] !== undefined) {
-    r.packingSlipNumbers = toArray(obj['packingSlipNumbers']).map((v) => deserializeYearNumber(v as Record<string, unknown>));
-  }
-  if (obj['ownerFilter'] !== undefined) {
-    const _w = obj['ownerFilter'] as Record<string, unknown>;
-    const _iv = (_w)['ownerLabels'];
-    if (_iv !== undefined) {
-      r.ownerFilter = toArray(_iv).map(String);
-    } else {
-      r.ownerFilter = [];
-    }
-  } else {
-    r.ownerFilter = [];
-  }
-  if (obj['branchGroupFilter'] !== undefined) {
-    const _w = obj['branchGroupFilter'] as Record<string, unknown>;
-    const _iv = (_w)['branchGroups'];
-    if (_iv !== undefined) {
-      r.branchGroupFilter = toArray(_iv).map(Number);
-    } else {
-      r.branchGroupFilter = [];
-    }
-  } else {
-    r.branchGroupFilter = [];
-  }
-  if (obj['includeLineList'] !== undefined) r.includeLineList = obj['includeLineList'] === 'true' || obj['includeLineList'] === true;
-  if (obj['typeFilter'] !== undefined) {
-    r.typeFilter = toArray(obj['typeFilter']).map(String) as T.PackingSlipType[];
-  }
-  return r as T.GetPackingSlipsRequest;
-}
-
-export function deserializeGetPackingSlipsByOrderRequest(obj: Record<string, unknown>): T.GetPackingSlipsByOrderRequest {
-  const r: Partial<T.GetPackingSlipsByOrderRequest> = {};
-  r.orderId = String(obj['orderId'] ?? '') as string;
-  return r as T.GetPackingSlipsByOrderRequest;
-}
-
 export function deserializeLineChangeList(obj: Record<string, unknown>): T.LineChangeList {
   const r: Partial<T.LineChangeList> = {};
   if (obj['lineChange'] !== undefined) {
@@ -2995,6 +2895,7 @@ export function deserializeOrderPayment(obj: Record<string, unknown>): T.OrderPa
   if (obj['valuePerCredit'] !== undefined) r.valuePerCredit = String(obj['valuePerCredit']) as string;
   if (obj['employeeNumber'] !== undefined) r.employeeNumber = Number(obj['employeeNumber']);
   if (obj['employeeName'] !== undefined) r.employeeName = String(obj['employeeName']) as string;
+  if (obj['externalReference'] !== undefined) r.externalReference = String(obj['externalReference']) as string;
   return r as T.OrderPayment;
 }
 
@@ -3260,6 +3161,8 @@ export function deserializeOrderCategory(obj: Record<string, unknown>): T.OrderC
   if (obj['orderCategoryDependencyNumbers'] !== undefined) {
     r.orderCategoryDependencyNumbers = toArray(obj['orderCategoryDependencyNumbers']).map(Number);
   }
+  r.allowCancel = obj['allowCancel'] === 'true' || obj['allowCancel'] === true;
+  r.allowProcess = obj['allowProcess'] === 'true' || obj['allowProcess'] === true;
   return r as T.OrderCategory;
 }
 
@@ -3369,6 +3272,17 @@ export function deserializeReceipt(obj: Record<string, unknown>): T.Receipt {
   if (obj['salesCategoryDescription'] !== undefined) r.salesCategoryDescription = String(obj['salesCategoryDescription']) as string;
   if (obj['branchGroupNumber'] !== undefined) r.branchGroupNumber = Number(obj['branchGroupNumber']);
   if (obj['ownerId'] !== undefined) r.ownerId = String(obj['ownerId']) as string;
+  if (obj['timelineEvents'] !== undefined) {
+    const _w = obj['timelineEvents'] as Record<string, unknown>;
+    const _iv = (_w)['event'];
+    if (_iv !== undefined) {
+      r.timelineEvents = toArray(_iv).map((v) => deserializeTimelineEvent(v as Record<string, unknown>));
+    } else {
+      r.timelineEvents = [];
+    }
+  } else {
+    r.timelineEvents = [];
+  }
   return r as T.Receipt;
 }
 
@@ -3454,6 +3368,12 @@ export function deserializeGetReceiptsRequest(obj: Record<string, unknown>): T.G
     r.receiptIds = toArray(obj['receiptIds']).map(String);
   }
   if (obj['includeLineList'] !== undefined) r.includeLineList = obj['includeLineList'] === 'true' || obj['includeLineList'] === true;
+  if (obj['includeLastMailTimelineEvents'] !== undefined) r.includeLastMailTimelineEvents = obj['includeLastMailTimelineEvents'] === 'true' || obj['includeLastMailTimelineEvents'] === true;
+  if (obj['lastMailTimelineEventsFilter'] !== undefined) r.lastMailTimelineEventsFilter = deserializeTimelineEventSubFilter(obj['lastMailTimelineEventsFilter'] as Record<string, unknown>);
+  if (obj['includeSigningTimelineEvents'] !== undefined) r.includeSigningTimelineEvents = obj['includeSigningTimelineEvents'] === 'true' || obj['includeSigningTimelineEvents'] === true;
+  if (obj['signingTimelineEventsFilter'] !== undefined) r.signingTimelineEventsFilter = deserializeTimelineEventSubFilter(obj['signingTimelineEventsFilter'] as Record<string, unknown>);
+  if (obj['includeOtherTimelineEvents'] !== undefined) r.includeOtherTimelineEvents = obj['includeOtherTimelineEvents'] === 'true' || obj['includeOtherTimelineEvents'] === true;
+  if (obj['otherTimelineEventsFilter'] !== undefined) r.otherTimelineEventsFilter = deserializeTimelineEventSubFilter(obj['otherTimelineEventsFilter'] as Record<string, unknown>);
   return r as T.GetReceiptsRequest;
 }
 
@@ -3486,95 +3406,6 @@ export function deserializePrintTableReceiptV3Request(obj: Record<string, unknow
   r.workplaceIdentifier = deserializeWorkplaceIdentifier(obj['workplaceIdentifier'] as Record<string, unknown> ?? {});
   r.tableIdentifier = deserializeTableIdentifier(obj['tableIdentifier'] as Record<string, unknown> ?? {});
   return r as T.PrintTableReceiptV3Request;
-}
-
-export function deserializeGetInvoicesRequest(obj: Record<string, unknown>): T.GetInvoicesRequest {
-  const r: Partial<T.GetInvoicesRequest> = {};
-  if (obj['syncMarker'] !== undefined) r.syncMarker = Number(obj['syncMarker']);
-  if (obj['syncMarkerLimit'] !== undefined) r.syncMarkerLimit = Number(obj['syncMarkerLimit']);
-  if (obj['fromFinancialDate'] !== undefined) r.fromFinancialDate = deserializeDate(obj['fromFinancialDate'] as Record<string, unknown>);
-  if (obj['throughFinancialDate'] !== undefined) r.throughFinancialDate = deserializeDate(obj['throughFinancialDate'] as Record<string, unknown>);
-  if (obj['branchNumbers'] !== undefined) {
-    r.branchNumbers = toArray(obj['branchNumbers']).map(Number);
-  }
-  if (obj['employeeNumbers'] !== undefined) {
-    r.employeeNumbers = toArray(obj['employeeNumbers']).map(Number);
-  }
-  if (obj['relationNumbers'] !== undefined) {
-    r.relationNumbers = toArray(obj['relationNumbers']).map(Number);
-  }
-  if (obj['supplierRelationNumbers'] !== undefined) {
-    r.supplierRelationNumbers = toArray(obj['supplierRelationNumbers']).map(Number);
-  }
-  if (obj['articleNumbers'] !== undefined) {
-    r.articleNumbers = toArray(obj['articleNumbers']).map(Number);
-  }
-  if (obj['articleTurnoverGroups'] !== undefined) {
-    r.articleTurnoverGroups = toArray(obj['articleTurnoverGroups']).map(Number);
-  }
-  if (obj['articlePluNumbers'] !== undefined) {
-    const _w = obj['articlePluNumbers'] as Record<string, unknown>;
-    const _iv = (_w)['text'];
-    if (_iv !== undefined) {
-      r.articlePluNumbers = toArray(_iv).map((v) => String((v as Record<string, unknown>)['text'] ?? v));
-    } else {
-      r.articlePluNumbers = [];
-    }
-  } else {
-    r.articlePluNumbers = [];
-  }
-  if (obj['articleBarcodes'] !== undefined) {
-    const _w = obj['articleBarcodes'] as Record<string, unknown>;
-    const _iv = (_w)['text'];
-    if (_iv !== undefined) {
-      r.articleBarcodes = toArray(_iv).map((v) => String((v as Record<string, unknown>)['text'] ?? v));
-    } else {
-      r.articleBarcodes = [];
-    }
-  } else {
-    r.articleBarcodes = [];
-  }
-  if (obj['activityId'] !== undefined) r.activityId = String(obj['activityId']) as string;
-  if (obj['finalizeInvoices'] !== undefined) r.finalizeInvoices = obj['finalizeInvoices'] === 'true' || obj['finalizeInvoices'] === true;
-  if (obj['invoiceIds'] !== undefined) {
-    r.invoiceIds = toArray(obj['invoiceIds']).map(String);
-  }
-  if (obj['invoiceNumbers'] !== undefined) {
-    r.invoiceNumbers = toArray(obj['invoiceNumbers']).map((v) => deserializeYearNumber(v as Record<string, unknown>));
-  }
-  if (obj['ownerFilter'] !== undefined) {
-    const _w = obj['ownerFilter'] as Record<string, unknown>;
-    const _iv = (_w)['ownerLabels'];
-    if (_iv !== undefined) {
-      r.ownerFilter = toArray(_iv).map(String);
-    } else {
-      r.ownerFilter = [];
-    }
-  } else {
-    r.ownerFilter = [];
-  }
-  if (obj['branchGroupFilter'] !== undefined) {
-    const _w = obj['branchGroupFilter'] as Record<string, unknown>;
-    const _iv = (_w)['branchGroups'];
-    if (_iv !== undefined) {
-      r.branchGroupFilter = toArray(_iv).map(Number);
-    } else {
-      r.branchGroupFilter = [];
-    }
-  } else {
-    r.branchGroupFilter = [];
-  }
-  if (obj['includeLineList'] !== undefined) r.includeLineList = obj['includeLineList'] === 'true' || obj['includeLineList'] === true;
-  return r as T.GetInvoicesRequest;
-}
-
-export function deserializeSaveInvoiceInfo(obj: Record<string, unknown>): T.SaveInvoiceInfo {
-  const r: Partial<T.SaveInvoiceInfo> = {};
-  r.invoiceId = String(obj['invoiceId'] ?? '') as string;
-  r.invoiceString = String(obj['invoiceString'] ?? '') as string;
-  if (obj['invoiceNumber'] !== undefined) r.invoiceNumber = deserializeYearNumber(obj['invoiceNumber'] as Record<string, unknown>);
-  if (obj['invoiceBarcode'] !== undefined) r.invoiceBarcode = String(obj['invoiceBarcode']) as string;
-  return r as T.SaveInvoiceInfo;
 }
 
 export function deserializeJournalFilterList(obj: Record<string, unknown>): T.JournalFilterList {
@@ -3630,6 +3461,8 @@ export function deserializeTurnoverGroup(obj: Record<string, unknown>): T.Turnov
   if (obj['purchaseCostCenterNumber'] !== undefined) r.purchaseCostCenterNumber = String(obj['purchaseCostCenterNumber']) as string;
   if (obj['defaultStockCostCenterNumber'] !== undefined) r.defaultStockCostCenterNumber = String(obj['defaultStockCostCenterNumber']) as string;
   if (obj['stockCostCenterNumber'] !== undefined) r.stockCostCenterNumber = String(obj['stockCostCenterNumber']) as string;
+  if (obj['topupPaymentId'] !== undefined) r.topupPaymentId = String(obj['topupPaymentId']) as string;
+  if (obj['quantityPerLabel'] !== undefined) r.quantityPerLabel = Number(obj['quantityPerLabel']);
   return r as T.TurnoverGroup;
 }
 
@@ -4396,6 +4229,9 @@ export function deserializeArticle(obj: Record<string, unknown>): T.Article {
   if (obj['oldestBestBeforeDate'] !== undefined) r.oldestBestBeforeDate = new Date(String(obj['oldestBestBeforeDate']));
   if (obj['shelfLifeInDays'] !== undefined) r.shelfLifeInDays = Number(obj['shelfLifeInDays']);
   if (obj['shelfLifeInHours'] !== undefined) r.shelfLifeInHours = Number(obj['shelfLifeInHours']);
+  if (obj['priceDeviationMin'] !== undefined) r.priceDeviationMin = String(obj['priceDeviationMin']) as string;
+  if (obj['priceDeviationMax'] !== undefined) r.priceDeviationMax = String(obj['priceDeviationMax']) as string;
+  if (obj['availableForInterbranchOrdering'] !== undefined) r.availableForInterbranchOrdering = obj['availableForInterbranchOrdering'] === 'true' || obj['availableForInterbranchOrdering'] === true;
   return r as T.Article;
 }
 
@@ -4730,6 +4566,7 @@ export function deserializeArticleStockHistory(obj: Record<string, unknown>): T.
   if (obj['deliveryNumber'] !== undefined) r.deliveryNumber = deserializeYearNumber(obj['deliveryNumber'] as Record<string, unknown>);
   if (obj['internalShipmentNumber'] !== undefined) r.internalShipmentNumber = deserializeYearNumber(obj['internalShipmentNumber'] as Record<string, unknown>);
   if (obj['internalDeliveryNumber'] !== undefined) r.internalDeliveryNumber = deserializeYearNumberPart(obj['internalDeliveryNumber'] as Record<string, unknown>);
+  if (obj['branchInvoiceNumber'] !== undefined) r.branchInvoiceNumber = deserializeTransactionNumber(obj['branchInvoiceNumber'] as Record<string, unknown>);
   return r as T.ArticleStockHistory;
 }
 
@@ -6748,6 +6585,7 @@ export function deserializePlaceTableOrderLineDataElem(obj: Record<string, unkno
   if (obj['priceType'] !== undefined) r.priceType = String(obj['priceType']) as T.PriceType;
   if (obj['redeemedVoucherIssuanceId'] !== undefined) r.redeemedVoucherIssuanceId = String(obj['redeemedVoucherIssuanceId']) as string;
   if (obj['pendingVoucherIssuanceStartTs'] !== undefined) r.pendingVoucherIssuanceStartTs = new Date(String(obj['pendingVoucherIssuanceStartTs']));
+  if (obj['discountType'] !== undefined) r.discountType = String(obj['discountType']) as T.DiscountType;
   return r as T.PlaceTableOrderLineDataElem;
 }
 
@@ -6764,6 +6602,7 @@ export function deserializePlaceTableOrderLineElem(obj: Record<string, unknown>)
   if (obj['lineType'] !== undefined) r.lineType = String(obj['lineType']) as T.LineType;
   if (obj['tempId'] !== undefined) r.tempId = String(obj['tempId']) as string;
   if (obj['articleAlterationId'] !== undefined) r.articleAlterationId = Number(obj['articleAlterationId']);
+  if (obj['salePromotionData'] !== undefined) r.salePromotionData = deserializeSalePromotionLineData(obj['salePromotionData'] as Record<string, unknown>);
   return r as T.PlaceTableOrderLineElem;
 }
 
@@ -6874,6 +6713,7 @@ export function deserializeTodoListEntry(obj: Record<string, unknown>): T.TodoLi
   r.articleNumber = Number(obj['articleNumber']);
   r.variantId = Number(obj['variantId']);
   r.quantity = String(obj['quantity'] ?? '') as string;
+  if (obj['sequenceNumber'] !== undefined) r.sequenceNumber = Number(obj['sequenceNumber']);
   return r as T.TodoListEntry;
 }
 
@@ -7072,6 +6912,10 @@ export function deserializeDeterminePricingResponseLine(obj: Record<string, unkn
   r.discountAmountExcl = String(obj['discountAmountExcl'] ?? '') as string;
   r.amountExcl = String(obj['amountExcl'] ?? '') as string;
   if (obj['articleAlterationId'] !== undefined) r.articleAlterationId = Number(obj['articleAlterationId']);
+  if (obj['menuHash'] !== undefined) r.menuHash = String(obj['menuHash']) as string;
+  if (obj['menuDescription'] !== undefined) r.menuDescription = String(obj['menuDescription']) as string;
+  if (obj['menuAmount'] !== undefined) r.menuAmount = Number(obj['menuAmount']);
+  if (obj['discountType'] !== undefined) r.discountType = String(obj['discountType']) as T.DiscountType;
   return r as T.DeterminePricingResponseLine;
 }
 
@@ -7157,6 +7001,41 @@ export function deserializeUpdateArticleNutrientsRequest(obj: Record<string, unk
     r.nutrients = toArray(obj['nutrients']).map((v) => deserializeArticleNutrient(v as Record<string, unknown>));
   }
   return r as T.UpdateArticleNutrientsRequest;
+}
+
+export function deserializeArticleContractLineInput(obj: Record<string, unknown>): T.ArticleContractLineInput {
+  const r: Partial<T.ArticleContractLineInput> = {};
+  if (obj['id'] !== undefined) r.id = String(obj['id']) as string;
+  if (obj['contractArticleNumber'] !== undefined) r.contractArticleNumber = Number(obj['contractArticleNumber']);
+  if (obj['quantity'] !== undefined) r.quantity = String(obj['quantity']) as string;
+  if (obj['frequency'] !== undefined) r.frequency = String(obj['frequency']) as T.ContractFrequency;
+  if (obj['type'] !== undefined) r.type = String(obj['type']) as T.ArticleContractLineType;
+  return r as T.ArticleContractLineInput;
+}
+
+export function deserializeArticleContractLineInputList(obj: Record<string, unknown>): T.ArticleContractLineInputList {
+  const r: Partial<T.ArticleContractLineInputList> = {};
+  if (obj['line'] !== undefined) {
+    r.line = toArray(obj['line']).map((v) => deserializeArticleContractLineInput(v as Record<string, unknown>));
+  }
+  return r as T.ArticleContractLineInputList;
+}
+
+export function deserializeUpdateArticleContractLinesRequest(obj: Record<string, unknown>): T.UpdateArticleContractLinesRequest {
+  const r: Partial<T.UpdateArticleContractLinesRequest> = {};
+  if (obj['sourceArticleNumber'] !== undefined) r.sourceArticleNumber = Number(obj['sourceArticleNumber']);
+  if (obj['lines'] !== undefined) {
+    const _w = obj['lines'] as Record<string, unknown>;
+    const _iv = (_w)['line'];
+    if (_iv !== undefined) {
+      r.lines = toArray(_iv).map((v) => deserializeArticleContractLineInput(v as Record<string, unknown>));
+    } else {
+      r.lines = [];
+    }
+  } else {
+    r.lines = [];
+  }
+  return r as T.UpdateArticleContractLinesRequest;
 }
 
 export function deserializeArticleDynamicMinMaxStock(obj: Record<string, unknown>): T.ArticleDynamicMinMaxStock {
@@ -7306,6 +7185,9 @@ export function deserializeGetPlannedCycleCountsRequest(obj: Record<string, unkn
   r.fromDate = new Date(String(obj['fromDate'] ?? ''));
   r.throughDate = new Date(String(obj['throughDate'] ?? ''));
   r.branchNumber = Number(obj['branchNumber']);
+  if (obj['branchNumbers'] !== undefined) {
+    r.branchNumbers = toArray(obj['branchNumbers']).map(Number);
+  }
   return r as T.GetPlannedCycleCountsRequest;
 }
 
@@ -7973,38 +7855,6 @@ export function deserializeGetOrderResponse(obj: Record<string, unknown>): T.Get
   return r as T.GetOrderResponse;
 }
 
-export function deserializeGetPackingSlipsResponse(obj: Record<string, unknown>): T.GetPackingSlipsResponse {
-  const r: Partial<T.GetPackingSlipsResponse> = {};
-  if (obj['packingSlipList'] !== undefined) {
-    const _w = obj['packingSlipList'] as Record<string, unknown>;
-    const _iv = (_w)['packingSlip'];
-    if (_iv !== undefined) {
-      r.packingSlipList = toArray(_iv).map((v) => deserializePackingSlip(v as Record<string, unknown>));
-    } else {
-      r.packingSlipList = [];
-    }
-  } else {
-    r.packingSlipList = [];
-  }
-  return r as T.GetPackingSlipsResponse;
-}
-
-export function deserializeGetPackingSlipsByOrderResponse(obj: Record<string, unknown>): T.GetPackingSlipsByOrderResponse {
-  const r: Partial<T.GetPackingSlipsByOrderResponse> = {};
-  if (obj['packingSlipList'] !== undefined) {
-    const _w = obj['packingSlipList'] as Record<string, unknown>;
-    const _iv = (_w)['packingSlip'];
-    if (_iv !== undefined) {
-      r.packingSlipList = toArray(_iv).map((v) => deserializePackingSlip(v as Record<string, unknown>));
-    } else {
-      r.packingSlipList = [];
-    }
-  } else {
-    r.packingSlipList = [];
-  }
-  return r as T.GetPackingSlipsByOrderResponse;
-}
-
 export function deserializeGetOrderChangesResponse(obj: Record<string, unknown>): T.GetOrderChangesResponse {
   const r: Partial<T.GetOrderChangesResponse> = {};
   if (obj['orderChangeList'] !== undefined) {
@@ -8216,71 +8066,6 @@ export function deserializePrintTableReceiptV3Response(obj: Record<string, unkno
   if (obj['errorMessage'] === undefined) throw new Error("Missing required field 'errorMessage' in PrintTableReceiptV3Response");
   r.errorMessage = String(obj['errorMessage'] ?? '') as string;
   return r as T.PrintTableReceiptV3Response;
-}
-
-export function deserializeGetInvoicesResponse(obj: Record<string, unknown>): T.GetInvoicesResponse {
-  const r: Partial<T.GetInvoicesResponse> = {};
-  if (obj['invoiceList'] !== undefined) {
-    const _w = obj['invoiceList'] as Record<string, unknown>;
-    const _iv = (_w)['invoice'];
-    if (_iv !== undefined) {
-      r.invoiceList = toArray(_iv).map((v) => deserializeInvoice(v as Record<string, unknown>));
-    } else {
-      r.invoiceList = [];
-    }
-  } else {
-    r.invoiceList = [];
-  }
-  return r as T.GetInvoicesResponse;
-}
-
-export function deserializeSaveInvoiceResponse(obj: Record<string, unknown>): T.SaveInvoiceResponse {
-  const r: Partial<T.SaveInvoiceResponse> = {};
-  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in SaveInvoiceResponse");
-  r.result = String(obj['result'] ?? '') as T.SaveInvoiceResult;
-  if (obj['info'] !== undefined) r.info = deserializeSaveInvoiceInfo(obj['info'] as Record<string, unknown>);
-  if (obj['errorMessage'] === undefined) throw new Error("Missing required field 'errorMessage' in SaveInvoiceResponse");
-  r.errorMessage = String(obj['errorMessage'] ?? '') as string;
-  if (obj['voucherIssuances'] !== undefined) {
-    const _w = obj['voucherIssuances'] as Record<string, unknown>;
-    const _iv = (_w)['voucherIssuance'];
-    if (_iv !== undefined) {
-      r.voucherIssuances = toArray(_iv).map((v) => deserializeVoucherIssuance(v as Record<string, unknown>));
-    } else {
-      r.voucherIssuances = [];
-    }
-  } else {
-    r.voucherIssuances = [];
-  }
-  if (obj['unappliedVoucherIssuances'] !== undefined) {
-    const _w = obj['unappliedVoucherIssuances'] as Record<string, unknown>;
-    const _iv = (_w)['unappliedVoucherIssuance'];
-    if (_iv !== undefined) {
-      r.unappliedVoucherIssuances = toArray(_iv).map((v) => deserializeUnappliedVoucherIssuance(v as Record<string, unknown>));
-    } else {
-      r.unappliedVoucherIssuances = [];
-    }
-  } else {
-    r.unappliedVoucherIssuances = [];
-  }
-  return r as T.SaveInvoiceResponse;
-}
-
-export function deserializeGetInvoiceResponse(obj: Record<string, unknown>): T.GetInvoiceResponse {
-  const r: Partial<T.GetInvoiceResponse> = {};
-  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in GetInvoiceResponse");
-  r.result = String(obj['result'] ?? '') as T.GetInvoiceResult;
-  if (obj['invoice'] !== undefined) r.invoice = deserializeInvoice(obj['invoice'] as Record<string, unknown>);
-  return r as T.GetInvoiceResponse;
-}
-
-export function deserializeCreditInvoiceResponse(obj: Record<string, unknown>): T.CreditInvoiceResponse {
-  const r: Partial<T.CreditInvoiceResponse> = {};
-  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in CreditInvoiceResponse");
-  r.result = String(obj['result'] ?? '') as T.CreditInvoiceResult;
-  if (obj['message'] === undefined) throw new Error("Missing required field 'message' in CreditInvoiceResponse");
-  r.message = String(obj['message'] ?? '') as string;
-  return r as T.CreditInvoiceResponse;
 }
 
 export function deserializeGetJournalsResponse(obj: Record<string, unknown>): T.GetJournalsResponse {
@@ -9093,6 +8878,9 @@ export function deserializeTodoList(obj: Record<string, unknown>): T.TodoList {
   if (obj['entries'] !== undefined) {
     r.entries = toArray(obj['entries']).map((v) => deserializeTodoListEntry(v as Record<string, unknown>));
   }
+  if (obj['sortedOnColumnName'] !== undefined) r.sortedOnColumnName = String(obj['sortedOnColumnName']) as string;
+  if (obj['sortedOnColumnLabel'] !== undefined) r.sortedOnColumnLabel = String(obj['sortedOnColumnLabel']) as string;
+  if (obj['sortOrder'] !== undefined) r.sortOrder = String(obj['sortOrder']) as T.SortOrder;
   return r as T.TodoList;
 }
 
@@ -9109,6 +8897,9 @@ export function deserializeSaveTodoListV2Response(obj: Record<string, unknown>):
   r.idempotencyResult = String(obj['idempotencyResult'] ?? '') as T.IdempotencyResult;
   if (obj['id'] === undefined) throw new Error("Missing required field 'id' in SaveTodoListV2Response");
   r.id = Number(obj['id']);
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in SaveTodoListV2Response");
+  r.result = String(obj['result'] ?? '') as T.SaveTodoListResult;
+  if (obj['message'] !== undefined) r.message = String(obj['message']) as string;
   return r as T.SaveTodoListV2Response;
 }
 
@@ -9235,6 +9026,14 @@ export function deserializeUpdateArticleNutrientsResponse(obj: Record<string, un
   return r as T.UpdateArticleNutrientsResponse;
 }
 
+export function deserializeUpdateArticleContractLinesResponse(obj: Record<string, unknown>): T.UpdateArticleContractLinesResponse {
+  const r: Partial<T.UpdateArticleContractLinesResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in UpdateArticleContractLinesResponse");
+  r.result = String(obj['result'] ?? '') as T.UpdateArticleContractLinesResponseResult;
+  if (obj['error'] !== undefined) r.error = String(obj['error']) as string;
+  return r as T.UpdateArticleContractLinesResponse;
+}
+
 export function deserializeUpdateArticleDynamicMinMaxStockResponse(obj: Record<string, unknown>): T.UpdateArticleDynamicMinMaxStockResponse {
   const r: Partial<T.UpdateArticleDynamicMinMaxStockResponse> = {};
   if (obj['articleDynamicMinMaxStocks'] !== undefined) {
@@ -9313,6 +9112,7 @@ export function deserializeGetPlannedCycleCountsResponse(obj: Record<string, unk
 export function deserializeGetActiveCycleCountResponse(obj: Record<string, unknown>): T.GetActiveCycleCountResponse {
   const r: Partial<T.GetActiveCycleCountResponse> = {};
   if (obj['activeCycleCount'] !== undefined) r.activeCycleCount = deserializeActiveCycleCount(obj['activeCycleCount'] as Record<string, unknown>);
+  if (obj['errorMessage'] !== undefined) r.errorMessage = String(obj['errorMessage']) as string;
   return r as T.GetActiveCycleCountResponse;
 }
 
@@ -9428,6 +9228,156 @@ export function deserializeRequestSyncMarkerFilter(obj: Record<string, unknown>)
   if (obj['syncMarker'] !== undefined) r.syncMarker = Number(obj['syncMarker']);
   if (obj['syncMarkerLimit'] !== undefined) r.syncMarkerLimit = Number(obj['syncMarkerLimit']);
   return r as T.RequestSyncMarkerFilter;
+}
+
+export function deserializeAuthorizationsList(obj: Record<string, unknown>): T.AuthorizationsList {
+  const r: Partial<T.AuthorizationsList> = {};
+  if (obj['authorizations'] !== undefined) {
+    r.authorizations = toArray(obj['authorizations']).map((v) => deserializeAuthorization(v as Record<string, unknown>));
+  }
+  return r as T.AuthorizationsList;
+}
+
+export function deserializeAuthorization(obj: Record<string, unknown>): T.Authorization {
+  const r: Partial<T.Authorization> = {};
+  r.authorization = String(obj['authorization'] ?? '') as string;
+  r.id = String(obj['id'] ?? '') as string;
+  if (obj['subAuthorizations'] !== undefined) {
+    const _w = obj['subAuthorizations'] as Record<string, unknown>;
+    const _iv = (_w)['authorizations'];
+    if (_iv !== undefined) {
+      r.subAuthorizations = toArray(_iv).map((v) => deserializeAuthorization(v as Record<string, unknown>));
+    } else {
+      r.subAuthorizations = [];
+    }
+  } else {
+    r.subAuthorizations = [];
+  }
+  if (obj['modules'] !== undefined) r.modules = String(obj['modules']) as string;
+  return r as T.Authorization;
+}
+
+export function deserializeEmailTemplateContentLayout(obj: Record<string, unknown>): T.EmailTemplateContentLayout {
+  const r: Partial<T.EmailTemplateContentLayout> = {};
+  r.layoutId = String(obj['layoutId'] ?? '') as string;
+  r.layoutRenderType = String(obj['layoutRenderType'] ?? '') as T.LayoutRenderType;
+  return r as T.EmailTemplateContentLayout;
+}
+
+export function deserializeEmailTemplateContentLayoutList(obj: Record<string, unknown>): T.EmailTemplateContentLayoutList {
+  const r: Partial<T.EmailTemplateContentLayoutList> = {};
+  if (obj['emailTemplateContentLayout'] !== undefined) {
+    r.emailTemplateContentLayout = toArray(obj['emailTemplateContentLayout']).map((v) => deserializeEmailTemplateContentLayout(v as Record<string, unknown>));
+  }
+  return r as T.EmailTemplateContentLayoutList;
+}
+
+export function deserializeEmailTemplateContentAttachment(obj: Record<string, unknown>): T.EmailTemplateContentAttachment {
+  const r: Partial<T.EmailTemplateContentAttachment> = {};
+  if (obj['mediaFileId'] !== undefined) r.mediaFileId = Number(obj['mediaFileId']);
+  r.fileName = String(obj['fileName'] ?? '') as string;
+  r.originalFileName = String(obj['originalFileName'] ?? '') as string;
+  r.sizeBytes = Number(obj['sizeBytes']);
+  return r as T.EmailTemplateContentAttachment;
+}
+
+export function deserializeEmailTemplateContentAttachmentList(obj: Record<string, unknown>): T.EmailTemplateContentAttachmentList {
+  const r: Partial<T.EmailTemplateContentAttachmentList> = {};
+  if (obj['emailTemplateContentAttachment'] !== undefined) {
+    r.emailTemplateContentAttachment = toArray(obj['emailTemplateContentAttachment']).map((v) => deserializeEmailTemplateContentAttachment(v as Record<string, unknown>));
+  }
+  return r as T.EmailTemplateContentAttachmentList;
+}
+
+export function deserializeEmailTemplateContent(obj: Record<string, unknown>): T.EmailTemplateContent {
+  const r: Partial<T.EmailTemplateContent> = {};
+  r.countryCode = Number(obj['countryCode']);
+  r.sender = String(obj['sender'] ?? '') as string;
+  r.type = String(obj['type'] ?? '') as T.EmailTemplateContentType;
+  r.subject = String(obj['subject'] ?? '') as string;
+  r.body = String(obj['body'] ?? '') as string;
+  if (obj['layouts'] !== undefined) {
+    const _w = obj['layouts'] as Record<string, unknown>;
+    const _iv = (_w)['emailTemplateContentLayout'];
+    if (_iv !== undefined) {
+      r.layouts = toArray(_iv).map((v) => deserializeEmailTemplateContentLayout(v as Record<string, unknown>));
+    } else {
+      r.layouts = [];
+    }
+  } else {
+    r.layouts = [];
+  }
+  if (obj['attachments'] !== undefined) {
+    const _w = obj['attachments'] as Record<string, unknown>;
+    const _iv = (_w)['emailTemplateContentAttachment'];
+    if (_iv !== undefined) {
+      r.attachments = toArray(_iv).map((v) => deserializeEmailTemplateContentAttachment(v as Record<string, unknown>));
+    } else {
+      r.attachments = [];
+    }
+  } else {
+    r.attachments = [];
+  }
+  return r as T.EmailTemplateContent;
+}
+
+export function deserializeEmailTemplateContentList(obj: Record<string, unknown>): T.EmailTemplateContentList {
+  const r: Partial<T.EmailTemplateContentList> = {};
+  if (obj['emailTemplateContent'] !== undefined) {
+    r.emailTemplateContent = toArray(obj['emailTemplateContent']).map((v) => deserializeEmailTemplateContent(v as Record<string, unknown>));
+  }
+  return r as T.EmailTemplateContentList;
+}
+
+export function deserializeEmailTemplateOrderCategoryNumberList(obj: Record<string, unknown>): T.EmailTemplateOrderCategoryNumberList {
+  const r: Partial<T.EmailTemplateOrderCategoryNumberList> = {};
+  if (obj['orderCategoryNumber'] !== undefined) {
+    r.orderCategoryNumber = toArray(obj['orderCategoryNumber']).map(Number);
+  }
+  return r as T.EmailTemplateOrderCategoryNumberList;
+}
+
+export function deserializeEmailTemplate(obj: Record<string, unknown>): T.EmailTemplate {
+  const r: Partial<T.EmailTemplate> = {};
+  r.id = String(obj['id'] ?? '') as string;
+  r.description = String(obj['description'] ?? '') as string;
+  r.layoutCode = String(obj['layoutCode'] ?? '') as string;
+  if (obj['orderCategoryNumbers'] !== undefined) {
+    const _w = obj['orderCategoryNumbers'] as Record<string, unknown>;
+    const _iv = (_w)['orderCategoryNumber'];
+    if (_iv !== undefined) {
+      r.orderCategoryNumbers = toArray(_iv).map(Number);
+    } else {
+      r.orderCategoryNumbers = [];
+    }
+  } else {
+    r.orderCategoryNumbers = [];
+  }
+  if (obj['invoiceReminder'] !== undefined) r.invoiceReminder = Number(obj['invoiceReminder']);
+  if (obj['contents'] !== undefined) {
+    const _w = obj['contents'] as Record<string, unknown>;
+    const _iv = (_w)['emailTemplateContent'];
+    if (_iv !== undefined) {
+      r.contents = toArray(_iv).map((v) => deserializeEmailTemplateContent(v as Record<string, unknown>));
+    } else {
+      r.contents = [];
+    }
+  } else {
+    r.contents = [];
+  }
+  r.createdTs = new Date(String(obj['createdTs'] ?? ''));
+  r.updatedTs = new Date(String(obj['updatedTs'] ?? ''));
+  if (obj['deletedTs'] !== undefined) r.deletedTs = new Date(String(obj['deletedTs']));
+  if (obj['ownerId'] !== undefined) r.ownerId = String(obj['ownerId']) as string;
+  return r as T.EmailTemplate;
+}
+
+export function deserializeEmailTemplateList(obj: Record<string, unknown>): T.EmailTemplateList {
+  const r: Partial<T.EmailTemplateList> = {};
+  if (obj['emailTemplate'] !== undefined) {
+    r.emailTemplate = toArray(obj['emailTemplate']).map((v) => deserializeEmailTemplate(v as Record<string, unknown>));
+  }
+  return r as T.EmailTemplateList;
 }
 
 export function deserializeConfigurationList(obj: Record<string, unknown>): T.ConfigurationList {
@@ -9593,6 +9543,8 @@ export function deserializeButtonLayoutButton(obj: Record<string, unknown>): T.B
   if (obj['showAvailableStock'] !== undefined) r.showAvailableStock = obj['showAvailableStock'] === 'true' || obj['showAvailableStock'] === true;
   if (obj['isDayStockArticle'] !== undefined) r.isDayStockArticle = obj['isDayStockArticle'] === 'true' || obj['isDayStockArticle'] === true;
   if (obj['showSalesPrice'] !== undefined) r.showSalesPrice = obj['showSalesPrice'] === 'true' || obj['showSalesPrice'] === true;
+  if (obj['isKitchenTicketPrioButton'] !== undefined) r.isKitchenTicketPrioButton = obj['isKitchenTicketPrioButton'] === 'true' || obj['isKitchenTicketPrioButton'] === true;
+  if (obj['isTitleButton'] !== undefined) r.isTitleButton = obj['isTitleButton'] === 'true' || obj['isTitleButton'] === true;
   return r as T.ButtonLayoutButton;
 }
 
@@ -9622,6 +9574,7 @@ export function deserializeButtonLayoutSubGroup(obj: Record<string, unknown>): T
   } else {
     r.buttonList = [];
   }
+  if (obj['isManagedPerBranch'] !== undefined) r.isManagedPerBranch = obj['isManagedPerBranch'] === 'true' || obj['isManagedPerBranch'] === true;
   return r as T.ButtonLayoutSubGroup;
 }
 
@@ -9718,6 +9671,7 @@ export function deserializeButtonLayoutTab(obj: Record<string, unknown>): T.Butt
   if (obj['branches'] !== undefined) {
     r.branches = toArray(obj['branches']).map((v) => deserializeButtonLayoutTabBranchLayout(v as Record<string, unknown>));
   }
+  if (obj['sequenceNumber'] !== undefined) r.sequenceNumber = Number(obj['sequenceNumber']);
   if (obj['effectiveLayout'] !== undefined) r.effectiveLayout = deserializeButtonLayout(obj['effectiveLayout'] as Record<string, unknown>);
   return r as T.ButtonLayoutTab;
 }
@@ -9730,6 +9684,7 @@ export function deserializeButtonLayoutGroup(obj: Record<string, unknown>): T.Bu
     r.tabs = toArray(obj['tabs']).map((v) => deserializeButtonLayoutTab(v as Record<string, unknown>));
   }
   if (obj['ownerId'] !== undefined) r.ownerId = String(obj['ownerId']) as string;
+  if (obj['targetsAllBranches'] !== undefined) r.targetsAllBranches = obj['targetsAllBranches'] === 'true' || obj['targetsAllBranches'] === true;
   return r as T.ButtonLayoutGroup;
 }
 
@@ -10248,6 +10203,7 @@ export function deserializeArticleAlterationsGroup(obj: Record<string, unknown>)
   r.groupType = String(obj['groupType'] ?? '') as T.ArticleAlterationsGroupType;
   if (obj['selectionRangeMin'] !== undefined) r.selectionRangeMin = Number(obj['selectionRangeMin']);
   if (obj['selectionRangeMax'] !== undefined) r.selectionRangeMax = Number(obj['selectionRangeMax']);
+  r.deferUntilCheckout = obj['deferUntilCheckout'] === 'true' || obj['deferUntilCheckout'] === true;
   return r as T.ArticleAlterationsGroup;
 }
 
@@ -10302,6 +10258,7 @@ export function deserializeSaveArticleAlterationsGroupRequest(obj: Record<string
   r.groupType = String(obj['groupType'] ?? '') as T.ArticleAlterationsGroupType;
   if (obj['selectionRangeMin'] !== undefined) r.selectionRangeMin = Number(obj['selectionRangeMin']);
   if (obj['selectionRangeMax'] !== undefined) r.selectionRangeMax = Number(obj['selectionRangeMax']);
+  if (obj['deferUntilCheckout'] !== undefined) r.deferUntilCheckout = obj['deferUntilCheckout'] === 'true' || obj['deferUntilCheckout'] === true;
   return r as T.SaveArticleAlterationsGroupRequest;
 }
 
@@ -11112,6 +11069,120 @@ export function deserializeGetEmployeeWorkplaceLoginStatesRequest(obj: Record<st
   return r as T.GetEmployeeWorkplaceLoginStatesRequest;
 }
 
+export function deserializeEmailTemplateIdsFilter(obj: Record<string, unknown>): T.EmailTemplateIdsFilter {
+  const r: Partial<T.EmailTemplateIdsFilter> = {};
+  if (obj['id'] !== undefined) {
+    r.id = toArray(obj['id']).map(String);
+  }
+  return r as T.EmailTemplateIdsFilter;
+}
+
+export function deserializeEmailTemplateLayoutCodesFilter(obj: Record<string, unknown>): T.EmailTemplateLayoutCodesFilter {
+  const r: Partial<T.EmailTemplateLayoutCodesFilter> = {};
+  if (obj['layoutCode'] !== undefined) {
+    r.layoutCode = toArray(obj['layoutCode']).map(String);
+  }
+  return r as T.EmailTemplateLayoutCodesFilter;
+}
+
+export function deserializeGetEmailTemplatesRequest(obj: Record<string, unknown>): T.GetEmailTemplatesRequest {
+  const r: Partial<T.GetEmailTemplatesRequest> = {};
+  if (obj['idsFilter'] !== undefined) {
+    const _w = obj['idsFilter'] as Record<string, unknown>;
+    const _iv = (_w)['id'];
+    if (_iv !== undefined) {
+      r.idsFilter = toArray(_iv).map(String);
+    } else {
+      r.idsFilter = [];
+    }
+  } else {
+    r.idsFilter = [];
+  }
+  if (obj['layoutCodesFilter'] !== undefined) {
+    const _w = obj['layoutCodesFilter'] as Record<string, unknown>;
+    const _iv = (_w)['layoutCode'];
+    if (_iv !== undefined) {
+      r.layoutCodesFilter = toArray(_iv).map(String);
+    } else {
+      r.layoutCodesFilter = [];
+    }
+  } else {
+    r.layoutCodesFilter = [];
+  }
+  return r as T.GetEmailTemplatesRequest;
+}
+
+export function deserializeGetAppConfigurationRequest(obj: Record<string, unknown>): T.GetAppConfigurationRequest {
+  const r: Partial<T.GetAppConfigurationRequest> = {};
+  return r as T.GetAppConfigurationRequest;
+}
+
+export function deserializeSetWorkplaceActiveActivityRequest(obj: Record<string, unknown>): T.SetWorkplaceActiveActivityRequest {
+  const r: Partial<T.SetWorkplaceActiveActivityRequest> = {};
+  r.workplaceIdentifier = deserializeWorkplaceIdentifier(obj['workplaceIdentifier'] as Record<string, unknown> ?? {});
+  if (obj['activityId'] !== undefined) r.activityId = String(obj['activityId']) as string;
+  return r as T.SetWorkplaceActiveActivityRequest;
+}
+
+export function deserializeCostCenter(obj: Record<string, unknown>): T.CostCenter {
+  const r: Partial<T.CostCenter> = {};
+  r.costCenterNumber = String(obj['costCenterNumber'] ?? '') as string;
+  if (obj['description'] !== undefined) r.description = String(obj['description']) as string;
+  return r as T.CostCenter;
+}
+
+export function deserializeCostCenterList(obj: Record<string, unknown>): T.CostCenterList {
+  const r: Partial<T.CostCenterList> = {};
+  if (obj['costCenter'] !== undefined) {
+    r.costCenter = toArray(obj['costCenter']).map((v) => deserializeCostCenter(v as Record<string, unknown>));
+  }
+  return r as T.CostCenterList;
+}
+
+export function deserializeGetCostCentersRequest(obj: Record<string, unknown>): T.GetCostCentersRequest {
+  const r: Partial<T.GetCostCentersRequest> = {};
+  return r as T.GetCostCentersRequest;
+}
+
+export function deserializeSaveCostCentersRequest(obj: Record<string, unknown>): T.SaveCostCentersRequest {
+  const r: Partial<T.SaveCostCentersRequest> = {};
+  if (obj['costCenters'] !== undefined) {
+    r.costCenters = toArray(obj['costCenters']).map((v) => deserializeCostCenter(v as Record<string, unknown>));
+  }
+  return r as T.SaveCostCentersRequest;
+}
+
+export function deserializeBpeEmployeeBudget(obj: Record<string, unknown>): T.BpeEmployeeBudget {
+  const r: Partial<T.BpeEmployeeBudget> = {};
+  r.employeeNumber = Number(obj['employeeNumber']);
+  r.bpePaymentMethodId = String(obj['bpePaymentMethodId'] ?? '') as string;
+  if (obj['budget'] !== undefined) r.budget = String(obj['budget']) as string;
+  return r as T.BpeEmployeeBudget;
+}
+
+export function deserializeBpeEmployeeBudgetList(obj: Record<string, unknown>): T.BpeEmployeeBudgetList {
+  const r: Partial<T.BpeEmployeeBudgetList> = {};
+  if (obj['bpeEmployeeBudget'] !== undefined) {
+    r.bpeEmployeeBudget = toArray(obj['bpeEmployeeBudget']).map((v) => deserializeBpeEmployeeBudget(v as Record<string, unknown>));
+  }
+  return r as T.BpeEmployeeBudgetList;
+}
+
+export function deserializeGetBpeBudgetsRequest(obj: Record<string, unknown>): T.GetBpeBudgetsRequest {
+  const r: Partial<T.GetBpeBudgetsRequest> = {};
+  if (obj['employeeNumber'] !== undefined) r.employeeNumber = Number(obj['employeeNumber']);
+  if (obj['bpePaymentMethodId'] !== undefined) r.bpePaymentMethodId = String(obj['bpePaymentMethodId']) as string;
+  return r as T.GetBpeBudgetsRequest;
+}
+
+export function deserializeSaveBpeBudgetsRequest(obj: Record<string, unknown>): T.SaveBpeBudgetsRequest {
+  const r: Partial<T.SaveBpeBudgetsRequest> = {};
+  if (obj['bpeEmployeeBudget'] !== undefined) {
+    r.bpeEmployeeBudget = toArray(obj['bpeEmployeeBudget']).map((v) => deserializeBpeEmployeeBudget(v as Record<string, unknown>));
+  }
+  return r as T.SaveBpeBudgetsRequest;
+}
+
 export function deserializeGetConfigurationResponse(obj: Record<string, unknown>): T.GetConfigurationResponse {
   const r: Partial<T.GetConfigurationResponse> = {};
   if (obj['configurationList'] !== undefined) {
@@ -11475,6 +11546,7 @@ export function deserializegetApiVersionResponse(obj: Record<string, unknown>): 
   if (obj['slaveApiType'] !== undefined) r.slaveApiType = String(obj['slaveApiType']) as T.SlaveApiType;
   if (obj['slaveBranchNumber'] !== undefined) r.slaveBranchNumber = Number(obj['slaveBranchNumber']);
   if (obj['slaveWorkplaceNumber'] !== undefined) r.slaveWorkplaceNumber = Number(obj['slaveWorkplaceNumber']);
+  if (obj['serviceVersionDisplayString'] !== undefined) r.serviceVersionDisplayString = String(obj['serviceVersionDisplayString']) as string;
   return r as T.getApiVersionResponse;
 }
 
@@ -12021,6 +12093,78 @@ export function deserializeGetEmployeeWorkplaceLoginStatesResponse(obj: Record<s
   return r as T.GetEmployeeWorkplaceLoginStatesResponse;
 }
 
+export function deserializeGetEmailTemplatesResponse(obj: Record<string, unknown>): T.GetEmailTemplatesResponse {
+  const r: Partial<T.GetEmailTemplatesResponse> = {};
+  if (obj['emailTemplates'] !== undefined) {
+    const _w = obj['emailTemplates'] as Record<string, unknown>;
+    const _iv = (_w)['emailTemplate'];
+    if (_iv !== undefined) {
+      r.emailTemplates = toArray(_iv).map((v) => deserializeEmailTemplate(v as Record<string, unknown>));
+    } else {
+      r.emailTemplates = [];
+    }
+  } else {
+    r.emailTemplates = [];
+  }
+  return r as T.GetEmailTemplatesResponse;
+}
+
+export function deserializeGetAppConfigurationResponse(obj: Record<string, unknown>): T.GetAppConfigurationResponse {
+  const r: Partial<T.GetAppConfigurationResponse> = {};
+  if (obj['appConfiguration'] === undefined) throw new Error("Missing required field 'appConfiguration' in GetAppConfigurationResponse");
+  r.appConfiguration = String(obj['appConfiguration'] ?? '') as string;
+  return r as T.GetAppConfigurationResponse;
+}
+
+export function deserializeSetWorkplaceActiveActivityResponse(obj: Record<string, unknown>): T.SetWorkplaceActiveActivityResponse {
+  const r: Partial<T.SetWorkplaceActiveActivityResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in SetWorkplaceActiveActivityResponse");
+  r.result = String(obj['result'] ?? '') as T.SetWorkplaceActiveActivityResult;
+  return r as T.SetWorkplaceActiveActivityResponse;
+}
+
+export function deserializeGetCostCentersResponse(obj: Record<string, unknown>): T.GetCostCentersResponse {
+  const r: Partial<T.GetCostCentersResponse> = {};
+  if (obj['costCenterList'] !== undefined) {
+    const _w = obj['costCenterList'] as Record<string, unknown>;
+    const _iv = (_w)['costCenter'];
+    if (_iv !== undefined) {
+      r.costCenterList = toArray(_iv).map((v) => deserializeCostCenter(v as Record<string, unknown>));
+    } else {
+      r.costCenterList = [];
+    }
+  } else {
+    r.costCenterList = [];
+  }
+  return r as T.GetCostCentersResponse;
+}
+
+export function deserializeSaveCostCentersResponse(obj: Record<string, unknown>): T.SaveCostCentersResponse {
+  const r: Partial<T.SaveCostCentersResponse> = {};
+  return r as T.SaveCostCentersResponse;
+}
+
+export function deserializeGetBpeBudgetsResponse(obj: Record<string, unknown>): T.GetBpeBudgetsResponse {
+  const r: Partial<T.GetBpeBudgetsResponse> = {};
+  if (obj['bpeEmployeeBudgetList'] !== undefined) {
+    const _w = obj['bpeEmployeeBudgetList'] as Record<string, unknown>;
+    const _iv = (_w)['bpeEmployeeBudget'];
+    if (_iv !== undefined) {
+      r.bpeEmployeeBudgetList = toArray(_iv).map((v) => deserializeBpeEmployeeBudget(v as Record<string, unknown>));
+    } else {
+      r.bpeEmployeeBudgetList = [];
+    }
+  } else {
+    r.bpeEmployeeBudgetList = [];
+  }
+  return r as T.GetBpeBudgetsResponse;
+}
+
+export function deserializeSaveBpeBudgetsResponse(obj: Record<string, unknown>): T.SaveBpeBudgetsResponse {
+  const r: Partial<T.SaveBpeBudgetsResponse> = {};
+  return r as T.SaveBpeBudgetsResponse;
+}
+
 export function deserializeImageLabel(obj: Record<string, unknown>): T.ImageLabel {
   const r: Partial<T.ImageLabel> = {};
   r.id = Number(obj['id']);
@@ -12220,6 +12364,204 @@ export function deserializeGetImagesResponse(obj: Record<string, unknown>): T.Ge
   return r as T.GetImagesResponse;
 }
 
+export function deserializeGetPrintLayoutsRequest(obj: Record<string, unknown>): T.GetPrintLayoutsRequest {
+  const r: Partial<T.GetPrintLayoutsRequest> = {};
+  if (obj['type'] !== undefined) r.type = String(obj['type']) as T.PrintLayoutType;
+  if (obj['kind'] !== undefined) r.kind = String(obj['kind']) as T.PrintLayoutKind;
+  if (obj['fieldType'] !== undefined) r.fieldType = String(obj['fieldType']) as T.PrintLayoutFieldType;
+  return r as T.GetPrintLayoutsRequest;
+}
+
+export function deserializePrintLayoutView(obj: Record<string, unknown>): T.PrintLayoutView {
+  const r: Partial<T.PrintLayoutView> = {};
+  r.id = String(obj['id'] ?? '') as string;
+  r.name = String(obj['name'] ?? '') as string;
+  r.type = String(obj['type'] ?? '') as T.PrintLayoutType;
+  r.kind = String(obj['kind'] ?? '') as T.PrintLayoutKind;
+  r.createdTimestamp = new Date(String(obj['createdTimestamp'] ?? ''));
+  r.updatedTimestamp = new Date(String(obj['updatedTimestamp'] ?? ''));
+  r.hasDigitalSignatureField = obj['hasDigitalSignatureField'] === 'true' || obj['hasDigitalSignatureField'] === true;
+  return r as T.PrintLayoutView;
+}
+
+export function deserializeGetPrintLayoutAssignmentsRequest(obj: Record<string, unknown>): T.GetPrintLayoutAssignmentsRequest {
+  const r: Partial<T.GetPrintLayoutAssignmentsRequest> = {};
+  if (obj['type'] !== undefined) r.type = String(obj['type']) as T.PrintLayoutType;
+  if (obj['kind'] !== undefined) r.kind = String(obj['kind']) as T.PrintLayoutKind;
+  if (obj['branchNumber'] !== undefined) r.branchNumber = Number(obj['branchNumber']);
+  if (obj['workplaceNumber'] !== undefined) r.workplaceNumber = Number(obj['workplaceNumber']);
+  if (obj['useOnlinePrinter'] !== undefined) r.useOnlinePrinter = obj['useOnlinePrinter'] === 'true' || obj['useOnlinePrinter'] === true;
+  return r as T.GetPrintLayoutAssignmentsRequest;
+}
+
+export function deserializePrintLayoutAssignmentPrintLayoutView(obj: Record<string, unknown>): T.PrintLayoutAssignmentPrintLayoutView {
+  const r: Partial<T.PrintLayoutAssignmentPrintLayoutView> = {};
+  r.id = String(obj['id'] ?? '') as string;
+  r.name = String(obj['name'] ?? '') as string;
+  r.type = String(obj['type'] ?? '') as T.PrintLayoutType;
+  r.kind = String(obj['kind'] ?? '') as T.PrintLayoutKind;
+  return r as T.PrintLayoutAssignmentPrintLayoutView;
+}
+
+export function deserializePrintLayoutAssignment(obj: Record<string, unknown>): T.PrintLayoutAssignment {
+  const r: Partial<T.PrintLayoutAssignment> = {};
+  r.workplace = deserializeWorkplaceIdentifier(obj['workplace'] as Record<string, unknown> ?? {});
+  r.printLayout = deserializePrintLayoutAssignmentPrintLayoutView(obj['printLayout'] as Record<string, unknown> ?? {});
+  r.useOnlinePrinter = obj['useOnlinePrinter'] === 'true' || obj['useOnlinePrinter'] === true;
+  return r as T.PrintLayoutAssignment;
+}
+
+export function deserializePrintParam(obj: Record<string, unknown>): T.PrintParam {
+  const r: Partial<T.PrintParam> = {};
+  r.key = String(obj['key'] ?? '') as string;
+  r.value = String(obj['value'] ?? '') as string;
+  return r as T.PrintParam;
+}
+
+export function deserializePrintParams(obj: Record<string, unknown>): T.PrintParams {
+  const r: Partial<T.PrintParams> = {};
+  if (obj['uuid'] !== undefined) r.uuid = String(obj['uuid']) as string;
+  if (obj['yearNumber'] !== undefined) r.yearNumber = deserializeYearNumber(obj['yearNumber'] as Record<string, unknown>);
+  if (obj['params'] !== undefined) {
+    r.params = toArray(obj['params']).map((v) => deserializePrintParam(v as Record<string, unknown>));
+  }
+  return r as T.PrintParams;
+}
+
+export function deserializePrintInfo(obj: Record<string, unknown>): T.PrintInfo {
+  const r: Partial<T.PrintInfo> = {};
+  if (obj['paramsList'] !== undefined) {
+    r.paramsList = toArray(obj['paramsList']).map((v) => deserializePrintParams(v as Record<string, unknown>));
+  }
+  if (obj['globalParams'] !== undefined) r.globalParams = deserializePrintParams(obj['globalParams'] as Record<string, unknown>);
+  return r as T.PrintInfo;
+}
+
+export function deserializeGetRenderedPrintLayoutRequest(obj: Record<string, unknown>): T.GetRenderedPrintLayoutRequest {
+  const r: Partial<T.GetRenderedPrintLayoutRequest> = {};
+  r.printLayoutUuid = String(obj['printLayoutUuid'] ?? '') as string;
+  r.renderType = String(obj['renderType'] ?? '') as T.RenderedPrintLayoutType;
+  if (obj['printInfo'] !== undefined) r.printInfo = deserializePrintInfo(obj['printInfo'] as Record<string, unknown>);
+  if (obj['dpi'] !== undefined) r.dpi = Number(obj['dpi']);
+  return r as T.GetRenderedPrintLayoutRequest;
+}
+
+export function deserializeGetPrintLayoutMarkupRequest(obj: Record<string, unknown>): T.GetPrintLayoutMarkupRequest {
+  const r: Partial<T.GetPrintLayoutMarkupRequest> = {};
+  r.printLayoutUuid = String(obj['printLayoutUuid'] ?? '') as string;
+  r.markupType = String(obj['markupType'] ?? '') as T.PrintLayoutMarkupType;
+  if (obj['printInfo'] !== undefined) r.printInfo = deserializePrintInfo(obj['printInfo'] as Record<string, unknown>);
+  if (obj['responseAsBase64'] !== undefined) r.responseAsBase64 = obj['responseAsBase64'] === 'true' || obj['responseAsBase64'] === true;
+  if (obj['normalWidthInCharacters'] !== undefined) r.normalWidthInCharacters = Number(obj['normalWidthInCharacters']);
+  if (obj['smallWidthInCharacters'] !== undefined) r.smallWidthInCharacters = Number(obj['smallWidthInCharacters']);
+  return r as T.GetPrintLayoutMarkupRequest;
+}
+
+export function deserializePrintPrintLayoutRequest(obj: Record<string, unknown>): T.PrintPrintLayoutRequest {
+  const r: Partial<T.PrintPrintLayoutRequest> = {};
+  if (obj['type'] !== undefined) r.type = String(obj['type']) as T.PrintLayoutType;
+  r.kind = String(obj['kind'] ?? '') as T.PrintLayoutKind;
+  r.printInfo = deserializePrintInfo(obj['printInfo'] as Record<string, unknown> ?? {});
+  r.workplaceIdentifier = deserializeWorkplaceIdentifier(obj['workplaceIdentifier'] as Record<string, unknown> ?? {});
+  return r as T.PrintPrintLayoutRequest;
+}
+
+export function deserializePrintTemplateList(obj: Record<string, unknown>): T.PrintTemplateList {
+  const r: Partial<T.PrintTemplateList> = {};
+  if (obj['printTemplate'] !== undefined) {
+    r.printTemplate = toArray(obj['printTemplate']).map(String);
+  }
+  return r as T.PrintTemplateList;
+}
+
+export function deserializeGetResolvedPrintTemplatesRequest(obj: Record<string, unknown>): T.GetResolvedPrintTemplatesRequest {
+  const r: Partial<T.GetResolvedPrintTemplatesRequest> = {};
+  r.kind = String(obj['kind'] ?? '') as T.PrintLayoutKind;
+  if (obj['printInfo'] !== undefined) r.printInfo = deserializePrintInfo(obj['printInfo'] as Record<string, unknown>);
+  if (obj['printTemplates'] !== undefined) {
+    const _w = obj['printTemplates'] as Record<string, unknown>;
+    const _iv = (_w)['printTemplate'];
+    if (_iv !== undefined) {
+      r.printTemplates = toArray(_iv).map(String);
+    } else {
+      r.printTemplates = [];
+    }
+  } else {
+    r.printTemplates = [];
+  }
+  return r as T.GetResolvedPrintTemplatesRequest;
+}
+
+export function deserializeGetPrintLayoutsResponse(obj: Record<string, unknown>): T.GetPrintLayoutsResponse {
+  const r: Partial<T.GetPrintLayoutsResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in GetPrintLayoutsResponse");
+  r.result = String(obj['result'] ?? '') as T.GetPrintLayoutsResponseResult;
+  if (obj['printLayouts'] !== undefined) {
+    r.printLayouts = toArray(obj['printLayouts']).map((v) => deserializePrintLayoutView(v as Record<string, unknown>));
+  }
+  return r as T.GetPrintLayoutsResponse;
+}
+
+export function deserializeGetPrintLayoutAssignmentsResponse(obj: Record<string, unknown>): T.GetPrintLayoutAssignmentsResponse {
+  const r: Partial<T.GetPrintLayoutAssignmentsResponse> = {};
+  if (obj['printLayoutAssignments'] !== undefined) {
+    r.printLayoutAssignments = toArray(obj['printLayoutAssignments']).map((v) => deserializePrintLayoutAssignment(v as Record<string, unknown>));
+  }
+  return r as T.GetPrintLayoutAssignmentsResponse;
+}
+
+export function deserializeGetRenderedPrintLayoutResponse(obj: Record<string, unknown>): T.GetRenderedPrintLayoutResponse {
+  const r: Partial<T.GetRenderedPrintLayoutResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in GetRenderedPrintLayoutResponse");
+  r.result = String(obj['result'] ?? '') as T.GetRenderedPrintLayoutResponseResult;
+  if (obj['errorMessage'] === undefined) throw new Error("Missing required field 'errorMessage' in GetRenderedPrintLayoutResponse");
+  r.errorMessage = String(obj['errorMessage'] ?? '') as string;
+  if (obj['renderedPrintLayouts'] !== undefined) {
+    r.renderedPrintLayouts = toArray(obj['renderedPrintLayouts']).map(String);
+  }
+  if (obj['hasDigitalSignatureField'] === undefined) throw new Error("Missing required field 'hasDigitalSignatureField' in GetRenderedPrintLayoutResponse");
+  r.hasDigitalSignatureField = obj['hasDigitalSignatureField'] === 'true' || obj['hasDigitalSignatureField'] === true;
+  return r as T.GetRenderedPrintLayoutResponse;
+}
+
+export function deserializeGetPrintLayoutMarkupResponse(obj: Record<string, unknown>): T.GetPrintLayoutMarkupResponse {
+  const r: Partial<T.GetPrintLayoutMarkupResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in GetPrintLayoutMarkupResponse");
+  r.result = String(obj['result'] ?? '') as T.GetPrintLayoutMarkupResult;
+  if (obj['errorMessage'] === undefined) throw new Error("Missing required field 'errorMessage' in GetPrintLayoutMarkupResponse");
+  r.errorMessage = String(obj['errorMessage'] ?? '') as string;
+  if (obj['printLayoutMarkup'] === undefined) throw new Error("Missing required field 'printLayoutMarkup' in GetPrintLayoutMarkupResponse");
+  r.printLayoutMarkup = String(obj['printLayoutMarkup'] ?? '') as string;
+  return r as T.GetPrintLayoutMarkupResponse;
+}
+
+export function deserializePrintPrintLayoutResponse(obj: Record<string, unknown>): T.PrintPrintLayoutResponse {
+  const r: Partial<T.PrintPrintLayoutResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in PrintPrintLayoutResponse");
+  r.result = String(obj['result'] ?? '') as T.PrintPrintLayoutResponseResult;
+  if (obj['errorMessage'] !== undefined) r.errorMessage = String(obj['errorMessage']) as string;
+  return r as T.PrintPrintLayoutResponse;
+}
+
+export function deserializeGetResolvedPrintTemplatesResponse(obj: Record<string, unknown>): T.GetResolvedPrintTemplatesResponse {
+  const r: Partial<T.GetResolvedPrintTemplatesResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in GetResolvedPrintTemplatesResponse");
+  r.result = String(obj['result'] ?? '') as T.GetResolvedPrintTemplatesResponseResult;
+  if (obj['errorMessage'] !== undefined) r.errorMessage = String(obj['errorMessage']) as string;
+  if (obj['resolvedPrintTemplates'] !== undefined) {
+    const _w = obj['resolvedPrintTemplates'] as Record<string, unknown>;
+    const _iv = (_w)['printTemplate'];
+    if (_iv !== undefined) {
+      r.resolvedPrintTemplates = toArray(_iv).map(String);
+    } else {
+      r.resolvedPrintTemplates = [];
+    }
+  } else {
+    r.resolvedPrintTemplates = [];
+  }
+  return r as T.GetResolvedPrintTemplatesResponse;
+}
+
 export function deserializeVoucherSettingsV1(obj: Record<string, unknown>): T.VoucherSettingsV1 {
   const r: Partial<T.VoucherSettingsV1> = {};
   if (obj['requestedVoucherId'] !== undefined) r.requestedVoucherId = deserializeVoucherId(obj['requestedVoucherId'] as Record<string, unknown>);
@@ -12268,6 +12610,7 @@ export function deserializeVoucherLine(obj: Record<string, unknown>): T.VoucherL
   r.type = String(obj['type'] ?? '') as T.VoucherLineType;
   if (obj['articleNumber'] !== undefined) r.articleNumber = Number(obj['articleNumber']);
   if (obj['turnoverGroupId'] !== undefined) r.turnoverGroupId = Number(obj['turnoverGroupId']);
+  if (obj['salesPromotionId'] !== undefined) r.salesPromotionId = String(obj['salesPromotionId']) as string;
   return r as T.VoucherLine;
 }
 
@@ -12734,9 +13077,10 @@ export function deserializeGetVoucherCategoriesRequest(obj: Record<string, unkno
 
 export function deserializeGetVoucherIssuancesRequest(obj: Record<string, unknown>): T.GetVoucherIssuancesRequest {
   const r: Partial<T.GetVoucherIssuancesRequest> = {};
-  r.relationNumber = Number(obj['relationNumber']);
+  if (obj['relationNumber'] !== undefined) r.relationNumber = Number(obj['relationNumber']);
   if (obj['fromDate'] !== undefined) r.fromDate = new Date(String(obj['fromDate']));
   if (obj['throughDate'] !== undefined) r.throughDate = new Date(String(obj['throughDate']));
+  if (obj['extRelationId'] !== undefined) r.extRelationId = String(obj['extRelationId']) as string;
   return r as T.GetVoucherIssuancesRequest;
 }
 
@@ -14358,6 +14702,8 @@ export function deserializeReportArticlePerformanceBranch(obj: Record<string, un
   r.bpeCount = String(obj['bpeCount'] ?? '') as string;
   if (obj['profit'] !== undefined) r.profit = String(obj['profit']) as string;
   if (obj['margin'] !== undefined) r.margin = String(obj['margin']) as string;
+  if (obj['regularProfit'] !== undefined) r.regularProfit = String(obj['regularProfit']) as string;
+  if (obj['regularMargin'] !== undefined) r.regularMargin = String(obj['regularMargin']) as string;
   return r as T.ReportArticlePerformanceBranch;
 }
 
@@ -14398,6 +14744,12 @@ export function deserializeReportArticlePerformance(obj: Record<string, unknown>
   } else {
     r.branchList = [];
   }
+  if (obj['bpeVoucherTotalPurchasePrice'] !== undefined) r.bpeVoucherTotalPurchasePrice = String(obj['bpeVoucherTotalPurchasePrice']) as string;
+  if (obj['regularPurchasePrice'] !== undefined) r.regularPurchasePrice = String(obj['regularPurchasePrice']) as string;
+  if (obj['totalRegularPurchasePrice'] !== undefined) r.totalRegularPurchasePrice = String(obj['totalRegularPurchasePrice']) as string;
+  if (obj['bpeRegularTotalPurchasePrice'] !== undefined) r.bpeRegularTotalPurchasePrice = String(obj['bpeRegularTotalPurchasePrice']) as string;
+  if (obj['regularProfit'] !== undefined) r.regularProfit = String(obj['regularProfit']) as string;
+  if (obj['regularMargin'] !== undefined) r.regularMargin = String(obj['regularMargin']) as string;
   return r as T.ReportArticlePerformance;
 }
 
@@ -14407,6 +14759,30 @@ export function deserializeReportArticlePerformanceList(obj: Record<string, unkn
     r.articlePerformance = toArray(obj['articlePerformance']).map((v) => deserializeReportArticlePerformance(v as Record<string, unknown>));
   }
   return r as T.ReportArticlePerformanceList;
+}
+
+export function deserializeRegisterTimelineEventsRequest(obj: Record<string, unknown>): T.RegisterTimelineEventsRequest {
+  const r: Partial<T.RegisterTimelineEventsRequest> = {};
+  r.idempotencyKey = String(obj['idempotencyKey'] ?? '') as string;
+  if (obj['events'] !== undefined) {
+    const _w = obj['events'] as Record<string, unknown>;
+    const _iv = (_w)['event'];
+    if (_iv !== undefined) {
+      r.events = toArray(_iv).map((v) => deserializeTimelineEvent(v as Record<string, unknown>));
+    } else {
+      r.events = [];
+    }
+  } else {
+    r.events = [];
+  }
+  if (obj['saveMode'] !== undefined) r.saveMode = String(obj['saveMode']) as T.RegisterTimelineEventsSaveMode;
+  return r as T.RegisterTimelineEventsRequest;
+}
+
+export function deserializeGetTimelineEventsRequest(obj: Record<string, unknown>): T.GetTimelineEventsRequest {
+  const r: Partial<T.GetTimelineEventsRequest> = {};
+  r.filter = deserializeTimelineEventFilter(obj['filter'] as Record<string, unknown> ?? {});
+  return r as T.GetTimelineEventsRequest;
 }
 
 export function deserializeReportTurnoverByBranchResponse(obj: Record<string, unknown>): T.ReportTurnoverByBranchResponse {
@@ -14657,6 +15033,317 @@ export function deserializeReportArticlePerformanceResponse(obj: Record<string, 
   return r as T.ReportArticlePerformanceResponse;
 }
 
+export function deserializeRegisterTimelineEventsResponse(obj: Record<string, unknown>): T.RegisterTimelineEventsResponse {
+  const r: Partial<T.RegisterTimelineEventsResponse> = {};
+  if (obj['idempotencyResult'] === undefined) throw new Error("Missing required field 'idempotencyResult' in RegisterTimelineEventsResponse");
+  r.idempotencyResult = String(obj['idempotencyResult'] ?? '') as T.IdempotencyResult;
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in RegisterTimelineEventsResponse");
+  r.result = String(obj['result'] ?? '') as T.RegisterTimelineEventsResult;
+  if (obj['events'] !== undefined) {
+    const _w = obj['events'] as Record<string, unknown>;
+    const _iv = (_w)['event'];
+    if (_iv !== undefined) {
+      r.events = toArray(_iv).map((v) => deserializeTimelineEvent(v as Record<string, unknown>));
+    } else {
+      r.events = [];
+    }
+  } else {
+    r.events = [];
+  }
+  return r as T.RegisterTimelineEventsResponse;
+}
+
+export function deserializeGetTimelineEventsResponse(obj: Record<string, unknown>): T.GetTimelineEventsResponse {
+  const r: Partial<T.GetTimelineEventsResponse> = {};
+  if (obj['events'] !== undefined) {
+    const _w = obj['events'] as Record<string, unknown>;
+    const _iv = (_w)['event'];
+    if (_iv !== undefined) {
+      r.events = toArray(_iv).map((v) => deserializeTimelineEvent(v as Record<string, unknown>));
+    } else {
+      r.events = [];
+    }
+  } else {
+    r.events = [];
+  }
+  return r as T.GetTimelineEventsResponse;
+}
+
+export function deserializeArticleNumberFilter(obj: Record<string, unknown>): T.ArticleNumberFilter {
+  const r: Partial<T.ArticleNumberFilter> = {};
+  if (obj['articleNumber'] !== undefined) {
+    r.articleNumber = toArray(obj['articleNumber']).map(Number);
+  }
+  return r as T.ArticleNumberFilter;
+}
+
+export function deserializeInvoice(obj: Record<string, unknown>): T.Invoice {
+  const r: Partial<T.Invoice> = {};
+  if (obj['invoiceId'] !== undefined) r.invoiceId = String(obj['invoiceId']) as string;
+  if (obj['extInvoiceId'] !== undefined) r.extInvoiceId = String(obj['extInvoiceId']) as string;
+  if (obj['orderIds'] !== undefined) {
+    const _w = obj['orderIds'] as Record<string, unknown>;
+    const _iv = (_w)['id'];
+    if (_iv !== undefined) {
+      r.orderIds = toArray(_iv).map(String);
+    } else {
+      r.orderIds = [];
+    }
+  } else {
+    r.orderIds = [];
+  }
+  if (obj['extOrderIds'] !== undefined) {
+    const _w = obj['extOrderIds'] as Record<string, unknown>;
+    const _iv = (_w)['id'];
+    if (_iv !== undefined) {
+      r.extOrderIds = toArray(_iv).map(String);
+    } else {
+      r.extOrderIds = [];
+    }
+  } else {
+    r.extOrderIds = [];
+  }
+  if (obj['transactionString'] !== undefined) r.transactionString = String(obj['transactionString']) as string;
+  if (obj['syncMarker'] !== undefined) r.syncMarker = Number(obj['syncMarker']);
+  if (obj['invoiceNumber'] !== undefined) r.invoiceNumber = deserializeYearNumber(obj['invoiceNumber'] as Record<string, unknown>);
+  if (obj['invoiceBarcode'] !== undefined) r.invoiceBarcode = String(obj['invoiceBarcode']) as string;
+  if (obj['invoiceType'] !== undefined) r.invoiceType = String(obj['invoiceType']) as T.InvoiceType;
+  if (obj['employeeNumber'] !== undefined) r.employeeNumber = Number(obj['employeeNumber']);
+  if (obj['employeeName'] !== undefined) r.employeeName = String(obj['employeeName']) as string;
+  if (obj['entryTimestamp'] !== undefined) r.entryTimestamp = deserializeDateTime(obj['entryTimestamp'] as Record<string, unknown>);
+  if (obj['relationNumber'] !== undefined) r.relationNumber = Number(obj['relationNumber']);
+  if (obj['relationName'] !== undefined) r.relationName = String(obj['relationName']) as string;
+  if (obj['relationCategoryId'] !== undefined) r.relationCategoryId = Number(obj['relationCategoryId']);
+  if (obj['relationBankAccountNumber'] !== undefined) r.relationBankAccountNumber = String(obj['relationBankAccountNumber']) as string;
+  if (obj['relationVatNumber'] !== undefined) r.relationVatNumber = String(obj['relationVatNumber']) as string;
+  if (obj['deliveryAddress'] !== undefined) r.deliveryAddress = deserializeAddress(obj['deliveryAddress'] as Record<string, unknown>);
+  if (obj['invoiceAddress'] !== undefined) r.invoiceAddress = deserializeAddress(obj['invoiceAddress'] as Record<string, unknown>);
+  if (obj['financialDate'] !== undefined) r.financialDate = deserializeDate(obj['financialDate'] as Record<string, unknown>);
+  if (obj['financialBranchNumber'] !== undefined) r.financialBranchNumber = Number(obj['financialBranchNumber']);
+  if (obj['financialExtBranchId'] !== undefined) r.financialExtBranchId = String(obj['financialExtBranchId']) as string;
+  if (obj['workplaceNumber'] !== undefined) r.workplaceNumber = Number(obj['workplaceNumber']);
+  if (obj['entryBranchNumber'] !== undefined) r.entryBranchNumber = Number(obj['entryBranchNumber']);
+  if (obj['entryExtBranchId'] !== undefined) r.entryExtBranchId = String(obj['entryExtBranchId']) as string;
+  if (obj['reference'] !== undefined) r.reference = String(obj['reference']) as string;
+  if (obj['activityId'] !== undefined) r.activityId = String(obj['activityId']) as string;
+  if (obj['dueDate'] !== undefined) r.dueDate = deserializeDate(obj['dueDate'] as Record<string, unknown>);
+  if (obj['totalInclAmount'] !== undefined) r.totalInclAmount = Number(obj['totalInclAmount']);
+  if (obj['totalExclAmount'] !== undefined) r.totalExclAmount = Number(obj['totalExclAmount']);
+  if (obj['vatMethod'] !== undefined) r.vatMethod = String(obj['vatMethod']) as T.VatMethod;
+  if (obj['vatGroupList'] !== undefined) {
+    const _w = obj['vatGroupList'] as Record<string, unknown>;
+    const _iv = (_w)['vatGroup'];
+    if (_iv !== undefined) {
+      r.vatGroupList = toArray(_iv).map((v) => deserializeVatGroup(v as Record<string, unknown>));
+    } else {
+      r.vatGroupList = [];
+    }
+  } else {
+    r.vatGroupList = [];
+  }
+  if (obj['changeCounter'] !== undefined) r.changeCounter = Number(obj['changeCounter']);
+  if (obj['versionNumber'] !== undefined) r.versionNumber = Number(obj['versionNumber']);
+  if (obj['paidAmount'] !== undefined) r.paidAmount = Number(obj['paidAmount']);
+  if (obj['state'] !== undefined) r.state = String(obj['state']) as T.InvoiceState;
+  if (obj['finalized'] !== undefined) r.finalized = obj['finalized'] === 'true' || obj['finalized'] === true;
+  if (obj['finalizedTimestamp'] !== undefined) r.finalizedTimestamp = deserializeDateTime(obj['finalizedTimestamp'] as Record<string, unknown>);
+  if (obj['lineList'] !== undefined) {
+    const _w = obj['lineList'] as Record<string, unknown>;
+    const _iv = (_w)['line'];
+    if (_iv !== undefined) {
+      r.lineList = toArray(_iv).map((v) => deserializeLine(v as Record<string, unknown>));
+    } else {
+      r.lineList = [];
+    }
+  } else {
+    r.lineList = [];
+  }
+  if (obj['paymentList'] !== undefined) {
+    const _w = obj['paymentList'] as Record<string, unknown>;
+    const _iv = (_w)['payment'];
+    if (_iv !== undefined) {
+      r.paymentList = toArray(_iv).map((v) => deserializePayment(v as Record<string, unknown>));
+    } else {
+      r.paymentList = [];
+    }
+  } else {
+    r.paymentList = [];
+  }
+  if (obj['answerList'] !== undefined) {
+    const _w = obj['answerList'] as Record<string, unknown>;
+    const _iv = (_w)['answer'];
+    if (_iv !== undefined) {
+      r.answerList = toArray(_iv).map((v) => deserializeAnswer(v as Record<string, unknown>));
+    } else {
+      r.answerList = [];
+    }
+  } else {
+    r.answerList = [];
+  }
+  if (obj['vatChange'] !== undefined) r.vatChange = String(obj['vatChange']) as T.VatChange;
+  if (obj['vatCountryCode'] !== undefined) r.vatCountryCode = Number(obj['vatCountryCode']);
+  if (obj['vatCountryIso3'] !== undefined) r.vatCountryIso3 = String(obj['vatCountryIso3']) as string;
+  if (obj['costCenter'] !== undefined) r.costCenter = String(obj['costCenter']) as string;
+  if (obj['creditedInvoiceId'] !== undefined) r.creditedInvoiceId = String(obj['creditedInvoiceId']) as string;
+  if (obj['creditedReason'] !== undefined) r.creditedReason = String(obj['creditedReason']) as string;
+  if (obj['orderCategoryNumber'] !== undefined) r.orderCategoryNumber = Number(obj['orderCategoryNumber']);
+  if (obj['sessionId'] !== undefined) r.sessionId = String(obj['sessionId']) as string;
+  if (obj['orderNumbers'] !== undefined) {
+    const _w = obj['orderNumbers'] as Record<string, unknown>;
+    const _iv = (_w)['yearNumber'];
+    if (_iv !== undefined) {
+      r.orderNumbers = toArray(_iv).map((v) => deserializeYearNumber(v as Record<string, unknown>));
+    } else {
+      r.orderNumbers = [];
+    }
+  } else {
+    r.orderNumbers = [];
+  }
+  if (obj['packingSlipIds'] !== undefined) {
+    const _w = obj['packingSlipIds'] as Record<string, unknown>;
+    const _iv = (_w)['id'];
+    if (_iv !== undefined) {
+      r.packingSlipIds = toArray(_iv).map(String);
+    } else {
+      r.packingSlipIds = [];
+    }
+  } else {
+    r.packingSlipIds = [];
+  }
+  if (obj['packingSlipNumbers'] !== undefined) {
+    const _w = obj['packingSlipNumbers'] as Record<string, unknown>;
+    const _iv = (_w)['yearNumber'];
+    if (_iv !== undefined) {
+      r.packingSlipNumbers = toArray(_iv).map((v) => deserializeYearNumber(v as Record<string, unknown>));
+    } else {
+      r.packingSlipNumbers = [];
+    }
+  } else {
+    r.packingSlipNumbers = [];
+  }
+  if (obj['proposalIds'] !== undefined) {
+    const _w = obj['proposalIds'] as Record<string, unknown>;
+    const _iv = (_w)['id'];
+    if (_iv !== undefined) {
+      r.proposalIds = toArray(_iv).map(String);
+    } else {
+      r.proposalIds = [];
+    }
+  } else {
+    r.proposalIds = [];
+  }
+  if (obj['extProposalIds'] !== undefined) {
+    const _w = obj['extProposalIds'] as Record<string, unknown>;
+    const _iv = (_w)['id'];
+    if (_iv !== undefined) {
+      r.extProposalIds = toArray(_iv).map(String);
+    } else {
+      r.extProposalIds = [];
+    }
+  } else {
+    r.extProposalIds = [];
+  }
+  if (obj['proposalNumbers'] !== undefined) {
+    const _w = obj['proposalNumbers'] as Record<string, unknown>;
+    const _iv = (_w)['yearNumber'];
+    if (_iv !== undefined) {
+      r.proposalNumbers = toArray(_iv).map((v) => deserializeYearNumber(v as Record<string, unknown>));
+    } else {
+      r.proposalNumbers = [];
+    }
+  } else {
+    r.proposalNumbers = [];
+  }
+  if (obj['salesCategoryNumber'] !== undefined) r.salesCategoryNumber = Number(obj['salesCategoryNumber']);
+  if (obj['salesCategoryDescription'] !== undefined) r.salesCategoryDescription = String(obj['salesCategoryDescription']) as string;
+  if (obj['branchGroupNumber'] !== undefined) r.branchGroupNumber = Number(obj['branchGroupNumber']);
+  if (obj['ownerId'] !== undefined) r.ownerId = String(obj['ownerId']) as string;
+  if (obj['branchInvoiceNumber'] !== undefined) r.branchInvoiceNumber = deserializeTransactionNumber(obj['branchInvoiceNumber'] as Record<string, unknown>);
+  if (obj['invoiceReminder'] !== undefined) r.invoiceReminder = Number(obj['invoiceReminder']);
+  if (obj['targetInvoiceReminder'] !== undefined) r.targetInvoiceReminder = Number(obj['targetInvoiceReminder']);
+  if (obj['directDebit'] !== undefined) r.directDebit = obj['directDebit'] === 'true' || obj['directDebit'] === true;
+  if (obj['mailedTimestamp'] !== undefined) r.mailedTimestamp = deserializeDateTime(obj['mailedTimestamp'] as Record<string, unknown>);
+  if (obj['timelineEvents'] !== undefined) {
+    const _w = obj['timelineEvents'] as Record<string, unknown>;
+    const _iv = (_w)['event'];
+    if (_iv !== undefined) {
+      r.timelineEvents = toArray(_iv).map((v) => deserializeTimelineEvent(v as Record<string, unknown>));
+    } else {
+      r.timelineEvents = [];
+    }
+  } else {
+    r.timelineEvents = [];
+  }
+  if (obj['contractPeriod'] !== undefined) r.contractPeriod = deserializeContractPeriod(obj['contractPeriod'] as Record<string, unknown>);
+  return r as T.Invoice;
+}
+
+export function deserializeInvoiceList(obj: Record<string, unknown>): T.InvoiceList {
+  const r: Partial<T.InvoiceList> = {};
+  if (obj['invoice'] !== undefined) {
+    r.invoice = toArray(obj['invoice']).map((v) => deserializeInvoice(v as Record<string, unknown>));
+  }
+  return r as T.InvoiceList;
+}
+
+export function deserializeInvoiceInput(obj: Record<string, unknown>): T.InvoiceInput {
+  const r: Partial<T.InvoiceInput> = {};
+  if (obj['invoiceId'] !== undefined) r.invoiceId = String(obj['invoiceId']) as string;
+  if (obj['extInvoiceId'] !== undefined) r.extInvoiceId = String(obj['extInvoiceId']) as string;
+  r.employeeNumber = Number(obj['employeeNumber']);
+  r.relationNumber = Number(obj['relationNumber']);
+  if (obj['financialDate'] !== undefined) r.financialDate = new Date(String(obj['financialDate']));
+  r.financialBranchNumber = Number(obj['financialBranchNumber']);
+  r.entryBranchNumber = Number(obj['entryBranchNumber']);
+  if (obj['workplaceNumber'] !== undefined) r.workplaceNumber = Number(obj['workplaceNumber']);
+  if (obj['reference'] !== undefined) r.reference = String(obj['reference']) as string;
+  if (obj['dueDate'] !== undefined) r.dueDate = new Date(String(obj['dueDate']));
+  if (obj['vatMethod'] !== undefined) r.vatMethod = String(obj['vatMethod']) as T.VatMethod;
+  if (obj['changeCounter'] !== undefined) r.changeCounter = Number(obj['changeCounter']);
+  if (obj['versionNumber'] !== undefined) r.versionNumber = Number(obj['versionNumber']);
+  if (obj['vatChange'] !== undefined) r.vatChange = String(obj['vatChange']) as T.VatChange;
+  if (obj['vatCountryCode'] !== undefined) r.vatCountryCode = Number(obj['vatCountryCode']);
+  if (obj['vatCountryIso3'] !== undefined) r.vatCountryIso3 = String(obj['vatCountryIso3']) as string;
+  if (obj['lineList'] !== undefined) {
+    const _w = obj['lineList'] as Record<string, unknown>;
+    const _iv = (_w)['line'];
+    if (_iv !== undefined) {
+      r.lineList = toArray(_iv).map((v) => deserializeLineInput(v as Record<string, unknown>));
+    } else {
+      r.lineList = [];
+    }
+  } else {
+    r.lineList = [];
+  }
+  if (obj['directDebit'] !== undefined) r.directDebit = obj['directDebit'] === 'true' || obj['directDebit'] === true;
+  if (obj['orderCategoryNumber'] !== undefined) r.orderCategoryNumber = Number(obj['orderCategoryNumber']);
+  return r as T.InvoiceInput;
+}
+
+export function deserializeRequestSalesRepeatTemplateTypeFilter(obj: Record<string, unknown>): T.RequestSalesRepeatTemplateTypeFilter {
+  const r: Partial<T.RequestSalesRepeatTemplateTypeFilter> = {};
+  if (obj['salesRepeatTemplateTypes'] !== undefined) {
+    r.salesRepeatTemplateTypes = toArray(obj['salesRepeatTemplateTypes']).map(String) as T.SalesRepeatTemplateType[];
+  }
+  return r as T.RequestSalesRepeatTemplateTypeFilter;
+}
+
+export function deserializeRequestSalesRepeatTemplateIdsFilter(obj: Record<string, unknown>): T.RequestSalesRepeatTemplateIdsFilter {
+  const r: Partial<T.RequestSalesRepeatTemplateIdsFilter> = {};
+  if (obj['templateIds'] !== undefined) {
+    const _w = obj['templateIds'] as Record<string, unknown>;
+    const _iv = (_w)['id'];
+    if (_iv !== undefined) {
+      r.templateIds = toArray(_iv).map(String);
+    } else {
+      r.templateIds = [];
+    }
+  } else {
+    r.templateIds = [];
+  }
+  return r as T.RequestSalesRepeatTemplateIdsFilter;
+}
+
 export function deserializeGetSalesRepeatTemplatesRequest(obj: Record<string, unknown>): T.GetSalesRepeatTemplatesRequest {
   const r: Partial<T.GetSalesRepeatTemplatesRequest> = {};
   if (obj['dateFilter'] !== undefined) r.dateFilter = deserializeRequestDateFilter(obj['dateFilter'] as Record<string, unknown>);
@@ -14766,6 +15453,7 @@ export function deserializeSalesRepeatTemplateLine(obj: Record<string, unknown>)
   if (obj['discountAmountIncl'] !== undefined) r.discountAmountIncl = String(obj['discountAmountIncl']) as string;
   if (obj['discountAmountExcl'] !== undefined) r.discountAmountExcl = String(obj['discountAmountExcl']) as string;
   if (obj['discountType'] !== undefined) r.discountType = String(obj['discountType']) as T.DiscountType;
+  if (obj['lineKind'] !== undefined) r.lineKind = String(obj['lineKind']) as T.LineKind;
   return r as T.SalesRepeatTemplateLine;
 }
 
@@ -14804,6 +15492,7 @@ export function deserializeSalesRepeatTemplateSchedule(obj: Record<string, unkno
   if (obj['weeklySchedule'] !== undefined) r.weeklySchedule = deserializeSalesRepeatTemplateWeeklySchedule(obj['weeklySchedule'] as Record<string, unknown>);
   if (obj['yearlyDateMonth'] !== undefined) r.yearlyDateMonth = Number(obj['yearlyDateMonth']);
   if (obj['yearlyDateDay'] !== undefined) r.yearlyDateDay = Number(obj['yearlyDateDay']);
+  if (obj['monthlyDay'] !== undefined) r.monthlyDay = Number(obj['monthlyDay']);
   return r as T.SalesRepeatTemplateSchedule;
 }
 
@@ -14850,6 +15539,10 @@ export function deserializeSalesRepeatTemplate(obj: Record<string, unknown>): T.
   if (obj['contractFrequency'] !== undefined) r.contractFrequency = String(obj['contractFrequency']) as T.ContractFrequency;
   if (obj['branchGroupNumber'] !== undefined) r.branchGroupNumber = Number(obj['branchGroupNumber']);
   if (obj['ownerId'] !== undefined) r.ownerId = String(obj['ownerId']) as string;
+  if (obj['branchNumber'] !== undefined) r.branchNumber = Number(obj['branchNumber']);
+  if (obj['staticPrices'] !== undefined) r.staticPrices = obj['staticPrices'] === 'true' || obj['staticPrices'] === true;
+  if (obj['restartAfterDate'] !== undefined) r.restartAfterDate = new Date(String(obj['restartAfterDate']));
+  if (obj['orderCategoryNumber'] !== undefined) r.orderCategoryNumber = Number(obj['orderCategoryNumber']);
   return r as T.SalesRepeatTemplate;
 }
 
@@ -14899,6 +15592,7 @@ export function deserializeSaveSalesRepeatTemplateLine(obj: Record<string, unkno
   if (obj['discountAmountExcl'] !== undefined) r.discountAmountExcl = String(obj['discountAmountExcl']) as string;
   if (obj['discountType'] !== undefined) r.discountType = String(obj['discountType']) as T.DiscountType;
   if (obj['salesRepeatTemplateLineId'] !== undefined) r.salesRepeatTemplateLineId = String(obj['salesRepeatTemplateLineId']) as string;
+  if (obj['lineKind'] !== undefined) r.lineKind = String(obj['lineKind']) as T.LineKind;
   return r as T.SaveSalesRepeatTemplateLine;
 }
 
@@ -14936,6 +15630,9 @@ export function deserializeSaveSalesRepeatTemplate(obj: Record<string, unknown>)
   } else {
     r.lineList = [];
   }
+  if (obj['branchNumber'] !== undefined) r.branchNumber = Number(obj['branchNumber']);
+  if (obj['staticPrices'] !== undefined) r.staticPrices = obj['staticPrices'] === 'true' || obj['staticPrices'] === true;
+  if (obj['orderCategoryNumber'] !== undefined) r.orderCategoryNumber = Number(obj['orderCategoryNumber']);
   return r as T.SaveSalesRepeatTemplate;
 }
 
@@ -14945,6 +15642,223 @@ export function deserializeSaveSalesRepeatTemplateRequest(obj: Record<string, un
   r.workplaceIdentifier = deserializeWorkplaceIdentifier(obj['workplaceIdentifier'] as Record<string, unknown> ?? {});
   r.salesRepeatTemplate = deserializeSaveSalesRepeatTemplate(obj['salesRepeatTemplate'] as Record<string, unknown> ?? {});
   return r as T.SaveSalesRepeatTemplateRequest;
+}
+
+export function deserializePauseSalesRepeatTemplatesRequest(obj: Record<string, unknown>): T.PauseSalesRepeatTemplatesRequest {
+  const r: Partial<T.PauseSalesRepeatTemplatesRequest> = {};
+  r.idempotencyKey = String(obj['idempotencyKey'] ?? '') as string;
+  if (obj['templateIds'] !== undefined) {
+    const _w = obj['templateIds'] as Record<string, unknown>;
+    const _iv = (_w)['id'];
+    if (_iv !== undefined) {
+      r.templateIds = toArray(_iv).map(String);
+    } else {
+      r.templateIds = [];
+    }
+  } else {
+    r.templateIds = [];
+  }
+  if (obj['restartAfterDate'] !== undefined) r.restartAfterDate = new Date(String(obj['restartAfterDate']));
+  return r as T.PauseSalesRepeatTemplatesRequest;
+}
+
+export function deserializeRestartSalesRepeatTemplatesRequest(obj: Record<string, unknown>): T.RestartSalesRepeatTemplatesRequest {
+  const r: Partial<T.RestartSalesRepeatTemplatesRequest> = {};
+  r.idempotencyKey = String(obj['idempotencyKey'] ?? '') as string;
+  if (obj['templateIds'] !== undefined) {
+    const _w = obj['templateIds'] as Record<string, unknown>;
+    const _iv = (_w)['id'];
+    if (_iv !== undefined) {
+      r.templateIds = toArray(_iv).map(String);
+    } else {
+      r.templateIds = [];
+    }
+  } else {
+    r.templateIds = [];
+  }
+  return r as T.RestartSalesRepeatTemplatesRequest;
+}
+
+export function deserializeStopSalesRepeatTemplatesRequest(obj: Record<string, unknown>): T.StopSalesRepeatTemplatesRequest {
+  const r: Partial<T.StopSalesRepeatTemplatesRequest> = {};
+  r.idempotencyKey = String(obj['idempotencyKey'] ?? '') as string;
+  if (obj['templateIds'] !== undefined) {
+    const _w = obj['templateIds'] as Record<string, unknown>;
+    const _iv = (_w)['id'];
+    if (_iv !== undefined) {
+      r.templateIds = toArray(_iv).map(String);
+    } else {
+      r.templateIds = [];
+    }
+  } else {
+    r.templateIds = [];
+  }
+  return r as T.StopSalesRepeatTemplatesRequest;
+}
+
+export function deserializeGetSalesObjectsBySalesRepeatTemplatesRequest(obj: Record<string, unknown>): T.GetSalesObjectsBySalesRepeatTemplatesRequest {
+  const r: Partial<T.GetSalesObjectsBySalesRepeatTemplatesRequest> = {};
+  if (obj['templateIds'] !== undefined) {
+    const _w = obj['templateIds'] as Record<string, unknown>;
+    const _iv = (_w)['id'];
+    if (_iv !== undefined) {
+      r.templateIds = toArray(_iv).map(String);
+    } else {
+      r.templateIds = [];
+    }
+  } else {
+    r.templateIds = [];
+  }
+  if (obj['beginDate'] !== undefined) r.beginDate = new Date(String(obj['beginDate']));
+  if (obj['endDate'] !== undefined) r.endDate = new Date(String(obj['endDate']));
+  if (obj['includeGenerated'] !== undefined) r.includeGenerated = obj['includeGenerated'] === 'true' || obj['includeGenerated'] === true;
+  if (obj['includePlanned'] !== undefined) r.includePlanned = obj['includePlanned'] === 'true' || obj['includePlanned'] === true;
+  return r as T.GetSalesObjectsBySalesRepeatTemplatesRequest;
+}
+
+export function deserializeGeneratedOrder(obj: Record<string, unknown>): T.GeneratedOrder {
+  const r: Partial<T.GeneratedOrder> = {};
+  if (obj['id'] !== undefined) r.id = String(obj['id']) as string;
+  if (obj['date'] !== undefined) r.date = new Date(String(obj['date']));
+  if (obj['totalIncl'] !== undefined) r.totalIncl = String(obj['totalIncl']) as string;
+  if (obj['totalExcl'] !== undefined) r.totalExcl = String(obj['totalExcl']) as string;
+  if (obj['saleYearNr'] !== undefined) r.saleYearNr = deserializeYearNumber(obj['saleYearNr'] as Record<string, unknown>);
+  if (obj['orderYearNr'] !== undefined) r.orderYearNr = deserializeYearNumber(obj['orderYearNr'] as Record<string, unknown>);
+  if (obj['branchNr'] !== undefined) r.branchNr = Number(obj['branchNr']);
+  return r as T.GeneratedOrder;
+}
+
+export function deserializeGeneratedInvoice(obj: Record<string, unknown>): T.GeneratedInvoice {
+  const r: Partial<T.GeneratedInvoice> = {};
+  if (obj['id'] !== undefined) r.id = String(obj['id']) as string;
+  if (obj['date'] !== undefined) r.date = new Date(String(obj['date']));
+  if (obj['totalIncl'] !== undefined) r.totalIncl = String(obj['totalIncl']) as string;
+  if (obj['totalExcl'] !== undefined) r.totalExcl = String(obj['totalExcl']) as string;
+  if (obj['saleYearNr'] !== undefined) r.saleYearNr = deserializeYearNumber(obj['saleYearNr'] as Record<string, unknown>);
+  if (obj['transactionNumber'] !== undefined) r.transactionNumber = deserializeTransactionNumber(obj['transactionNumber'] as Record<string, unknown>);
+  return r as T.GeneratedInvoice;
+}
+
+export function deserializeSalesRepeatTemplateGeneratedSalesObject(obj: Record<string, unknown>): T.SalesRepeatTemplateGeneratedSalesObject {
+  const r: Partial<T.SalesRepeatTemplateGeneratedSalesObject> = {};
+  if (obj['period'] !== undefined) r.period = deserializeContractPeriod(obj['period'] as Record<string, unknown>);
+  if (obj['order'] !== undefined) r.order = deserializeGeneratedOrder(obj['order'] as Record<string, unknown>);
+  if (obj['invoice'] !== undefined) r.invoice = deserializeGeneratedInvoice(obj['invoice'] as Record<string, unknown>);
+  return r as T.SalesRepeatTemplateGeneratedSalesObject;
+}
+
+export function deserializeSalesRepeatTemplateGeneratedSalesObjectList(obj: Record<string, unknown>): T.SalesRepeatTemplateGeneratedSalesObjectList {
+  const r: Partial<T.SalesRepeatTemplateGeneratedSalesObjectList> = {};
+  if (obj['generatedSalesObject'] !== undefined) {
+    r.generatedSalesObject = toArray(obj['generatedSalesObject']).map((v) => deserializeSalesRepeatTemplateGeneratedSalesObject(v as Record<string, unknown>));
+  }
+  return r as T.SalesRepeatTemplateGeneratedSalesObjectList;
+}
+
+export function deserializeSalesRepeatTemplatePlannedSalesObject(obj: Record<string, unknown>): T.SalesRepeatTemplatePlannedSalesObject {
+  const r: Partial<T.SalesRepeatTemplatePlannedSalesObject> = {};
+  if (obj['period'] !== undefined) r.period = deserializeContractPeriod(obj['period'] as Record<string, unknown>);
+  if (obj['plannedDate'] !== undefined) r.plannedDate = new Date(String(obj['plannedDate']));
+  if (obj['totalIncl'] !== undefined) r.totalIncl = String(obj['totalIncl']) as string;
+  if (obj['totalExcl'] !== undefined) r.totalExcl = String(obj['totalExcl']) as string;
+  if (obj['numLines'] !== undefined) r.numLines = Number(obj['numLines']);
+  if (obj['totalLines'] !== undefined) r.totalLines = Number(obj['totalLines']);
+  return r as T.SalesRepeatTemplatePlannedSalesObject;
+}
+
+export function deserializeSalesRepeatTemplatePlannedSalesObjectList(obj: Record<string, unknown>): T.SalesRepeatTemplatePlannedSalesObjectList {
+  const r: Partial<T.SalesRepeatTemplatePlannedSalesObjectList> = {};
+  if (obj['plannedSalesObject'] !== undefined) {
+    r.plannedSalesObject = toArray(obj['plannedSalesObject']).map((v) => deserializeSalesRepeatTemplatePlannedSalesObject(v as Record<string, unknown>));
+  }
+  return r as T.SalesRepeatTemplatePlannedSalesObjectList;
+}
+
+export function deserializeRepeatTemplateSalesObject(obj: Record<string, unknown>): T.RepeatTemplateSalesObject {
+  const r: Partial<T.RepeatTemplateSalesObject> = {};
+  if (obj['templateId'] !== undefined) r.templateId = String(obj['templateId']) as string;
+  if (obj['generated'] !== undefined) {
+    const _w = obj['generated'] as Record<string, unknown>;
+    const _iv = (_w)['generatedSalesObject'];
+    if (_iv !== undefined) {
+      r.generated = toArray(_iv).map((v) => deserializeSalesRepeatTemplateGeneratedSalesObject(v as Record<string, unknown>));
+    } else {
+      r.generated = [];
+    }
+  } else {
+    r.generated = [];
+  }
+  if (obj['planned'] !== undefined) {
+    const _w = obj['planned'] as Record<string, unknown>;
+    const _iv = (_w)['plannedSalesObject'];
+    if (_iv !== undefined) {
+      r.planned = toArray(_iv).map((v) => deserializeSalesRepeatTemplatePlannedSalesObject(v as Record<string, unknown>));
+    } else {
+      r.planned = [];
+    }
+  } else {
+    r.planned = [];
+  }
+  return r as T.RepeatTemplateSalesObject;
+}
+
+export function deserializeRepeatTemplateSalesObjectList(obj: Record<string, unknown>): T.RepeatTemplateSalesObjectList {
+  const r: Partial<T.RepeatTemplateSalesObjectList> = {};
+  if (obj['repeatTemplate'] !== undefined) {
+    r.repeatTemplate = toArray(obj['repeatTemplate']).map((v) => deserializeRepeatTemplateSalesObject(v as Record<string, unknown>));
+  }
+  return r as T.RepeatTemplateSalesObjectList;
+}
+
+export function deserializeSalesObjectPlan(obj: Record<string, unknown>): T.SalesObjectPlan {
+  const r: Partial<T.SalesObjectPlan> = {};
+  if (obj['templateId'] !== undefined) r.templateId = String(obj['templateId']) as string;
+  if (obj['date'] !== undefined) r.date = new Date(String(obj['date']));
+  return r as T.SalesObjectPlan;
+}
+
+export function deserializeSalesObjectPlanList(obj: Record<string, unknown>): T.SalesObjectPlanList {
+  const r: Partial<T.SalesObjectPlanList> = {};
+  if (obj['salesObject'] !== undefined) {
+    r.salesObject = toArray(obj['salesObject']).map((v) => deserializeSalesObjectPlan(v as Record<string, unknown>));
+  }
+  return r as T.SalesObjectPlanList;
+}
+
+export function deserializeCreateSalesObjectsBySalesRepeatTemplateRequest(obj: Record<string, unknown>): T.CreateSalesObjectsBySalesRepeatTemplateRequest {
+  const r: Partial<T.CreateSalesObjectsBySalesRepeatTemplateRequest> = {};
+  if (obj['salesObjects'] !== undefined) {
+    const _w = obj['salesObjects'] as Record<string, unknown>;
+    const _iv = (_w)['salesObject'];
+    if (_iv !== undefined) {
+      r.salesObjects = toArray(_iv).map((v) => deserializeSalesObjectPlan(v as Record<string, unknown>));
+    } else {
+      r.salesObjects = [];
+    }
+  } else {
+    r.salesObjects = [];
+  }
+  return r as T.CreateSalesObjectsBySalesRepeatTemplateRequest;
+}
+
+export function deserializeGeneratedSalesObject(obj: Record<string, unknown>): T.GeneratedSalesObject {
+  const r: Partial<T.GeneratedSalesObject> = {};
+  if (obj['templateId'] !== undefined) r.templateId = String(obj['templateId']) as string;
+  if (obj['date'] !== undefined) r.date = new Date(String(obj['date']));
+  if (obj['errorMessage'] !== undefined) r.errorMessage = String(obj['errorMessage']) as string;
+  if (obj['created'] !== undefined) r.created = obj['created'] === 'true' || obj['created'] === true;
+  if (obj['period'] !== undefined) r.period = deserializeContractPeriod(obj['period'] as Record<string, unknown>);
+  if (obj['order'] !== undefined) r.order = deserializeGeneratedOrder(obj['order'] as Record<string, unknown>);
+  if (obj['invoice'] !== undefined) r.invoice = deserializeGeneratedInvoice(obj['invoice'] as Record<string, unknown>);
+  return r as T.GeneratedSalesObject;
+}
+
+export function deserializeGeneratedSalesObjectList(obj: Record<string, unknown>): T.GeneratedSalesObjectList {
+  const r: Partial<T.GeneratedSalesObjectList> = {};
+  if (obj['salesObject'] !== undefined) {
+    r.salesObject = toArray(obj['salesObject']).map((v) => deserializeGeneratedSalesObject(v as Record<string, unknown>));
+  }
+  return r as T.GeneratedSalesObjectList;
 }
 
 export function deserializeBpeBudgetCheck(obj: Record<string, unknown>): T.BpeBudgetCheck {
@@ -15040,6 +15954,17 @@ export function deserializeGetSalePromotionsRequest(obj: Record<string, unknown>
   } else {
     r.branchFilter = [];
   }
+  if (obj['articleNumberFilter'] !== undefined) {
+    const _w = obj['articleNumberFilter'] as Record<string, unknown>;
+    const _iv = (_w)['articleNumber'];
+    if (_iv !== undefined) {
+      r.articleNumberFilter = toArray(_iv).map(Number);
+    } else {
+      r.articleNumberFilter = [];
+    }
+  } else {
+    r.articleNumberFilter = [];
+  }
   return r as T.GetSalePromotionsRequest;
 }
 
@@ -15070,6 +15995,81 @@ export function deserializeSalePromotionLineFreeArticleData(obj: Record<string, 
   r.freeArticleQuantity = String(obj['freeArticleQuantity'] ?? '') as string;
   if (obj['maxFreeArticleQuantity'] !== undefined) r.maxFreeArticleQuantity = String(obj['maxFreeArticleQuantity']) as string;
   return r as T.SalePromotionLineFreeArticleData;
+}
+
+export function deserializeSalePromotionArticleLine(obj: Record<string, unknown>): T.SalePromotionArticleLine {
+  const r: Partial<T.SalePromotionArticleLine> = {};
+  r.articleNumber = Number(obj['articleNumber']);
+  if (obj['groupNumber'] !== undefined) r.groupNumber = Number(obj['groupNumber']);
+  return r as T.SalePromotionArticleLine;
+}
+
+export function deserializeSalePromotionArticleLineList(obj: Record<string, unknown>): T.SalePromotionArticleLineList {
+  const r: Partial<T.SalePromotionArticleLineList> = {};
+  if (obj['articleLine'] !== undefined) {
+    r.articleLine = toArray(obj['articleLine']).map((v) => deserializeSalePromotionArticleLine(v as Record<string, unknown>));
+  }
+  return r as T.SalePromotionArticleLineList;
+}
+
+export function deserializeSalePromotionRelationLine(obj: Record<string, unknown>): T.SalePromotionRelationLine {
+  const r: Partial<T.SalePromotionRelationLine> = {};
+  r.relationNumber = Number(obj['relationNumber']);
+  if (obj['groupNumber'] !== undefined) r.groupNumber = Number(obj['groupNumber']);
+  return r as T.SalePromotionRelationLine;
+}
+
+export function deserializeSalePromotionRelationLineList(obj: Record<string, unknown>): T.SalePromotionRelationLineList {
+  const r: Partial<T.SalePromotionRelationLineList> = {};
+  if (obj['relationLine'] !== undefined) {
+    r.relationLine = toArray(obj['relationLine']).map((v) => deserializeSalePromotionRelationLine(v as Record<string, unknown>));
+  }
+  return r as T.SalePromotionRelationLineList;
+}
+
+export function deserializeSalePromotionTurnoverGroupLine(obj: Record<string, unknown>): T.SalePromotionTurnoverGroupLine {
+  const r: Partial<T.SalePromotionTurnoverGroupLine> = {};
+  r.turnoverGroup = Number(obj['turnoverGroup']);
+  if (obj['groupNumber'] !== undefined) r.groupNumber = Number(obj['groupNumber']);
+  return r as T.SalePromotionTurnoverGroupLine;
+}
+
+export function deserializeSalePromotionTurnoverGroupLineList(obj: Record<string, unknown>): T.SalePromotionTurnoverGroupLineList {
+  const r: Partial<T.SalePromotionTurnoverGroupLineList> = {};
+  if (obj['TurnoverGroupLine'] !== undefined) {
+    r.TurnoverGroupLine = toArray(obj['TurnoverGroupLine']).map((v) => deserializeSalePromotionTurnoverGroupLine(v as Record<string, unknown>));
+  }
+  return r as T.SalePromotionTurnoverGroupLineList;
+}
+
+export function deserializeSalePromotionSeasonCodeLine(obj: Record<string, unknown>): T.SalePromotionSeasonCodeLine {
+  const r: Partial<T.SalePromotionSeasonCodeLine> = {};
+  r.seasonCode = Number(obj['seasonCode']);
+  if (obj['groupNumber'] !== undefined) r.groupNumber = Number(obj['groupNumber']);
+  return r as T.SalePromotionSeasonCodeLine;
+}
+
+export function deserializeSalePromotionSeasonCodeLineList(obj: Record<string, unknown>): T.SalePromotionSeasonCodeLineList {
+  const r: Partial<T.SalePromotionSeasonCodeLineList> = {};
+  if (obj['seasonCodeLine'] !== undefined) {
+    r.seasonCodeLine = toArray(obj['seasonCodeLine']).map((v) => deserializeSalePromotionSeasonCodeLine(v as Record<string, unknown>));
+  }
+  return r as T.SalePromotionSeasonCodeLineList;
+}
+
+export function deserializeSalePromotionDiscountGroupLine(obj: Record<string, unknown>): T.SalePromotionDiscountGroupLine {
+  const r: Partial<T.SalePromotionDiscountGroupLine> = {};
+  r.discountGroup = Number(obj['discountGroup']);
+  if (obj['groupNumber'] !== undefined) r.groupNumber = Number(obj['groupNumber']);
+  return r as T.SalePromotionDiscountGroupLine;
+}
+
+export function deserializeSalePromotionDiscountGroupLineList(obj: Record<string, unknown>): T.SalePromotionDiscountGroupLineList {
+  const r: Partial<T.SalePromotionDiscountGroupLineList> = {};
+  if (obj['discountGroupLine'] !== undefined) {
+    r.discountGroupLine = toArray(obj['discountGroupLine']).map((v) => deserializeSalePromotionDiscountGroupLine(v as Record<string, unknown>));
+  }
+  return r as T.SalePromotionDiscountGroupLineList;
 }
 
 export function deserializeSalePromotionLine(obj: Record<string, unknown>): T.SalePromotionLine {
@@ -15117,6 +16117,61 @@ export function deserializeSalePromotionLine(obj: Record<string, unknown>): T.Sa
     r.salePromotionLineDiscountList = [];
   }
   if (obj['freeArticleData'] !== undefined) r.freeArticleData = deserializeSalePromotionLineFreeArticleData(obj['freeArticleData'] as Record<string, unknown>);
+  if (obj['articleLines'] !== undefined) {
+    const _w = obj['articleLines'] as Record<string, unknown>;
+    const _iv = (_w)['articleLine'];
+    if (_iv !== undefined) {
+      r.articleLines = toArray(_iv).map((v) => deserializeSalePromotionArticleLine(v as Record<string, unknown>));
+    } else {
+      r.articleLines = [];
+    }
+  } else {
+    r.articleLines = [];
+  }
+  if (obj['relationLines'] !== undefined) {
+    const _w = obj['relationLines'] as Record<string, unknown>;
+    const _iv = (_w)['relationLine'];
+    if (_iv !== undefined) {
+      r.relationLines = toArray(_iv).map((v) => deserializeSalePromotionRelationLine(v as Record<string, unknown>));
+    } else {
+      r.relationLines = [];
+    }
+  } else {
+    r.relationLines = [];
+  }
+  if (obj['turnoverGroupLines'] !== undefined) {
+    const _w = obj['turnoverGroupLines'] as Record<string, unknown>;
+    const _iv = (_w)['TurnoverGroupLine'];
+    if (_iv !== undefined) {
+      r.turnoverGroupLines = toArray(_iv).map((v) => deserializeSalePromotionTurnoverGroupLine(v as Record<string, unknown>));
+    } else {
+      r.turnoverGroupLines = [];
+    }
+  } else {
+    r.turnoverGroupLines = [];
+  }
+  if (obj['seasonCodeLines'] !== undefined) {
+    const _w = obj['seasonCodeLines'] as Record<string, unknown>;
+    const _iv = (_w)['seasonCodeLine'];
+    if (_iv !== undefined) {
+      r.seasonCodeLines = toArray(_iv).map((v) => deserializeSalePromotionSeasonCodeLine(v as Record<string, unknown>));
+    } else {
+      r.seasonCodeLines = [];
+    }
+  } else {
+    r.seasonCodeLines = [];
+  }
+  if (obj['discountGroupLines'] !== undefined) {
+    const _w = obj['discountGroupLines'] as Record<string, unknown>;
+    const _iv = (_w)['discountGroupLine'];
+    if (_iv !== undefined) {
+      r.discountGroupLines = toArray(_iv).map((v) => deserializeSalePromotionDiscountGroupLine(v as Record<string, unknown>));
+    } else {
+      r.discountGroupLines = [];
+    }
+  } else {
+    r.discountGroupLines = [];
+  }
   return r as T.SalePromotionLine;
 }
 
@@ -15146,6 +16201,7 @@ export function deserializeSalePromotions(obj: Record<string, unknown>): T.SaleP
   } else {
     r.salePromotionLineList = [];
   }
+  r.type = String(obj['type'] ?? '') as T.SalePromotionType;
   r.hasEndDate = obj['hasEndDate'] === 'true' || obj['hasEndDate'] === true;
   return r as T.SalePromotions;
 }
@@ -15431,6 +16487,28 @@ export function deserializeProposal(obj: Record<string, unknown>): T.Proposal {
   }
   if (obj['branchGroupNumber'] !== undefined) r.branchGroupNumber = Number(obj['branchGroupNumber']);
   if (obj['ownerId'] !== undefined) r.ownerId = String(obj['ownerId']) as string;
+  if (obj['branchInvoiceNumbers'] !== undefined) {
+    const _w = obj['branchInvoiceNumbers'] as Record<string, unknown>;
+    const _iv = (_w)['transactionNumber'];
+    if (_iv !== undefined) {
+      r.branchInvoiceNumbers = toArray(_iv).map((v) => deserializeTransactionNumber(v as Record<string, unknown>));
+    } else {
+      r.branchInvoiceNumbers = [];
+    }
+  } else {
+    r.branchInvoiceNumbers = [];
+  }
+  if (obj['timelineEvents'] !== undefined) {
+    const _w = obj['timelineEvents'] as Record<string, unknown>;
+    const _iv = (_w)['event'];
+    if (_iv !== undefined) {
+      r.timelineEvents = toArray(_iv).map((v) => deserializeTimelineEvent(v as Record<string, unknown>));
+    } else {
+      r.timelineEvents = [];
+    }
+  } else {
+    r.timelineEvents = [];
+  }
   return r as T.Proposal;
 }
 
@@ -15518,6 +16596,12 @@ export function deserializeGetProposalsRequest(obj: Record<string, unknown>): T.
     r.branchGroupFilter = [];
   }
   if (obj['includeLineList'] !== undefined) r.includeLineList = obj['includeLineList'] === 'true' || obj['includeLineList'] === true;
+  if (obj['includeLastMailTimelineEvents'] !== undefined) r.includeLastMailTimelineEvents = obj['includeLastMailTimelineEvents'] === 'true' || obj['includeLastMailTimelineEvents'] === true;
+  if (obj['lastMailTimelineEventsFilter'] !== undefined) r.lastMailTimelineEventsFilter = deserializeTimelineEventSubFilter(obj['lastMailTimelineEventsFilter'] as Record<string, unknown>);
+  if (obj['includeSigningTimelineEvents'] !== undefined) r.includeSigningTimelineEvents = obj['includeSigningTimelineEvents'] === 'true' || obj['includeSigningTimelineEvents'] === true;
+  if (obj['signingTimelineEventsFilter'] !== undefined) r.signingTimelineEventsFilter = deserializeTimelineEventSubFilter(obj['signingTimelineEventsFilter'] as Record<string, unknown>);
+  if (obj['includeOtherTimelineEvents'] !== undefined) r.includeOtherTimelineEvents = obj['includeOtherTimelineEvents'] === 'true' || obj['includeOtherTimelineEvents'] === true;
+  if (obj['otherTimelineEventsFilter'] !== undefined) r.otherTimelineEventsFilter = deserializeTimelineEventSubFilter(obj['otherTimelineEventsFilter'] as Record<string, unknown>);
   return r as T.GetProposalsRequest;
 }
 
@@ -15658,6 +16742,23 @@ export function deserializeGetOrdersRequest(obj: Record<string, unknown>): T.Get
     r.branchGroupFilter = [];
   }
   if (obj['includeLineList'] !== undefined) r.includeLineList = obj['includeLineList'] === 'true' || obj['includeLineList'] === true;
+  if (obj['contractFrequencyFilter'] !== undefined) {
+    const _w = obj['contractFrequencyFilter'] as Record<string, unknown>;
+    const _iv = (_w)['contractFrequency'];
+    if (_iv !== undefined) {
+      r.contractFrequencyFilter = toArray(_iv).map(String) as T.ContractFrequency[];
+    } else {
+      r.contractFrequencyFilter = [];
+    }
+  } else {
+    r.contractFrequencyFilter = [];
+  }
+  if (obj['includeLastMailTimelineEvents'] !== undefined) r.includeLastMailTimelineEvents = obj['includeLastMailTimelineEvents'] === 'true' || obj['includeLastMailTimelineEvents'] === true;
+  if (obj['lastMailTimelineEventsFilter'] !== undefined) r.lastMailTimelineEventsFilter = deserializeTimelineEventSubFilter(obj['lastMailTimelineEventsFilter'] as Record<string, unknown>);
+  if (obj['includeSigningTimelineEvents'] !== undefined) r.includeSigningTimelineEvents = obj['includeSigningTimelineEvents'] === 'true' || obj['includeSigningTimelineEvents'] === true;
+  if (obj['signingTimelineEventsFilter'] !== undefined) r.signingTimelineEventsFilter = deserializeTimelineEventSubFilter(obj['signingTimelineEventsFilter'] as Record<string, unknown>);
+  if (obj['includeOtherTimelineEvents'] !== undefined) r.includeOtherTimelineEvents = obj['includeOtherTimelineEvents'] === 'true' || obj['includeOtherTimelineEvents'] === true;
+  if (obj['otherTimelineEventsFilter'] !== undefined) r.otherTimelineEventsFilter = deserializeTimelineEventSubFilter(obj['otherTimelineEventsFilter'] as Record<string, unknown>);
   return r as T.GetOrdersRequest;
 }
 
@@ -15863,6 +16964,42 @@ export function deserializeSalesProcessorContext(obj: Record<string, unknown>): 
   return r as T.SalesProcessorContext;
 }
 
+export function deserializeSalesQueueTypeList(obj: Record<string, unknown>): T.SalesQueueTypeList {
+  const r: Partial<T.SalesQueueTypeList> = {};
+  if (obj['type'] !== undefined) {
+    r.type = toArray(obj['type']).map(String) as T.SalesQueueType[];
+  }
+  return r as T.SalesQueueTypeList;
+}
+
+export function deserializeSalesQueueEntry(obj: Record<string, unknown>): T.SalesQueueEntry {
+  const r: Partial<T.SalesQueueEntry> = {};
+  r.id = String(obj['id'] ?? '') as string;
+  r.salesObjectId = String(obj['salesObjectId'] ?? '') as string;
+  r.type = String(obj['type'] ?? '') as T.SalesQueueType;
+  r.createdTs = new Date(String(obj['createdTs'] ?? ''));
+  if (obj['processedTs'] !== undefined) r.processedTs = new Date(String(obj['processedTs']));
+  if (obj['cancelledTs'] !== undefined) r.cancelledTs = new Date(String(obj['cancelledTs']));
+  if (obj['failedTs'] !== undefined) r.failedTs = new Date(String(obj['failedTs']));
+  if (obj['failureReason'] !== undefined) r.failureReason = String(obj['failureReason']) as string;
+  return r as T.SalesQueueEntry;
+}
+
+export function deserializeSalesQueueEntryList(obj: Record<string, unknown>): T.SalesQueueEntryList {
+  const r: Partial<T.SalesQueueEntryList> = {};
+  if (obj['entry'] !== undefined) {
+    r.entry = toArray(obj['entry']).map((v) => deserializeSalesQueueEntry(v as Record<string, unknown>));
+  }
+  return r as T.SalesQueueEntryList;
+}
+
+export function deserializeSalesQueueResult(obj: Record<string, unknown>): T.SalesQueueResult {
+  const r: Partial<T.SalesQueueResult> = {};
+  if (obj['entry'] !== undefined) r.entry = deserializeSalesQueueEntry(obj['entry'] as Record<string, unknown>);
+  r.type = String(obj['type'] ?? '') as T.SalesQueueResultType;
+  return r as T.SalesQueueResult;
+}
+
 export function deserializeSalesProcessorResult(obj: Record<string, unknown>): T.SalesProcessorResult {
   const r: Partial<T.SalesProcessorResult> = {};
   if (obj['voucherIssuances'] !== undefined) {
@@ -15923,6 +17060,7 @@ export function deserializeSalesProcessorResult(obj: Record<string, unknown>): T
   if (obj['errorMessages'] !== undefined) {
     r.errorMessages = toArray(obj['errorMessages']).map(String);
   }
+  if (obj['queueResult'] !== undefined) r.queueResult = deserializeSalesQueueResult(obj['queueResult'] as Record<string, unknown>);
   return r as T.SalesProcessorResult;
 }
 
@@ -15959,6 +17097,7 @@ export function deserializeProposalInput(obj: Record<string, unknown>): T.Propos
     r.lineList = [];
   }
   if (obj['vatChange'] !== undefined) r.vatChange = String(obj['vatChange']) as T.VatChange;
+  if (obj['orderCategoryNumber'] !== undefined) r.orderCategoryNumber = Number(obj['orderCategoryNumber']);
   return r as T.ProposalInput;
 }
 
@@ -15976,6 +17115,417 @@ export function deserializeProcessOrderRequest(obj: Record<string, unknown>): T.
   r.order = deserializeOrderInput(obj['order'] as Record<string, unknown> ?? {});
   r.processorContext = deserializeSalesProcessorContext(obj['processorContext'] as Record<string, unknown> ?? {});
   return r as T.ProcessOrderRequest;
+}
+
+export function deserializeCreateInvoiceRemindersRequest(obj: Record<string, unknown>): T.CreateInvoiceRemindersRequest {
+  const r: Partial<T.CreateInvoiceRemindersRequest> = {};
+  if (obj['invoiceIds'] !== undefined) {
+    const _w = obj['invoiceIds'] as Record<string, unknown>;
+    const _iv = (_w)['id'];
+    if (_iv !== undefined) {
+      r.invoiceIds = toArray(_iv).map(String);
+    } else {
+      r.invoiceIds = [];
+    }
+  } else {
+    r.invoiceIds = [];
+  }
+  return r as T.CreateInvoiceRemindersRequest;
+}
+
+export function deserializeCreatedInvoiceReminder(obj: Record<string, unknown>): T.CreatedInvoiceReminder {
+  const r: Partial<T.CreatedInvoiceReminder> = {};
+  r.invoiceId = String(obj['invoiceId'] ?? '') as string;
+  r.invoiceReminder = Number(obj['invoiceReminder']);
+  return r as T.CreatedInvoiceReminder;
+}
+
+export function deserializeCreatedInvoiceReminderList(obj: Record<string, unknown>): T.CreatedInvoiceReminderList {
+  const r: Partial<T.CreatedInvoiceReminderList> = {};
+  if (obj['createdInvoiceReminder'] !== undefined) {
+    r.createdInvoiceReminder = toArray(obj['createdInvoiceReminder']).map((v) => deserializeCreatedInvoiceReminder(v as Record<string, unknown>));
+  }
+  return r as T.CreatedInvoiceReminderList;
+}
+
+export function deserializeGetInvoicesRequest(obj: Record<string, unknown>): T.GetInvoicesRequest {
+  const r: Partial<T.GetInvoicesRequest> = {};
+  if (obj['syncMarker'] !== undefined) r.syncMarker = Number(obj['syncMarker']);
+  if (obj['syncMarkerLimit'] !== undefined) r.syncMarkerLimit = Number(obj['syncMarkerLimit']);
+  if (obj['fromFinancialDate'] !== undefined) r.fromFinancialDate = deserializeDate(obj['fromFinancialDate'] as Record<string, unknown>);
+  if (obj['throughFinancialDate'] !== undefined) r.throughFinancialDate = deserializeDate(obj['throughFinancialDate'] as Record<string, unknown>);
+  if (obj['branchNumbers'] !== undefined) {
+    r.branchNumbers = toArray(obj['branchNumbers']).map(Number);
+  }
+  if (obj['employeeNumbers'] !== undefined) {
+    r.employeeNumbers = toArray(obj['employeeNumbers']).map(Number);
+  }
+  if (obj['relationNumbers'] !== undefined) {
+    r.relationNumbers = toArray(obj['relationNumbers']).map(Number);
+  }
+  if (obj['supplierRelationNumbers'] !== undefined) {
+    r.supplierRelationNumbers = toArray(obj['supplierRelationNumbers']).map(Number);
+  }
+  if (obj['articleNumbers'] !== undefined) {
+    r.articleNumbers = toArray(obj['articleNumbers']).map(Number);
+  }
+  if (obj['articleTurnoverGroups'] !== undefined) {
+    r.articleTurnoverGroups = toArray(obj['articleTurnoverGroups']).map(Number);
+  }
+  if (obj['articlePluNumbers'] !== undefined) {
+    const _w = obj['articlePluNumbers'] as Record<string, unknown>;
+    const _iv = (_w)['text'];
+    if (_iv !== undefined) {
+      r.articlePluNumbers = toArray(_iv).map((v) => String((v as Record<string, unknown>)['text'] ?? v));
+    } else {
+      r.articlePluNumbers = [];
+    }
+  } else {
+    r.articlePluNumbers = [];
+  }
+  if (obj['articleBarcodes'] !== undefined) {
+    const _w = obj['articleBarcodes'] as Record<string, unknown>;
+    const _iv = (_w)['text'];
+    if (_iv !== undefined) {
+      r.articleBarcodes = toArray(_iv).map((v) => String((v as Record<string, unknown>)['text'] ?? v));
+    } else {
+      r.articleBarcodes = [];
+    }
+  } else {
+    r.articleBarcodes = [];
+  }
+  if (obj['activityId'] !== undefined) r.activityId = String(obj['activityId']) as string;
+  if (obj['finalizeInvoices'] !== undefined) r.finalizeInvoices = obj['finalizeInvoices'] === 'true' || obj['finalizeInvoices'] === true;
+  if (obj['invoiceIds'] !== undefined) {
+    r.invoiceIds = toArray(obj['invoiceIds']).map(String);
+  }
+  if (obj['invoiceNumbers'] !== undefined) {
+    r.invoiceNumbers = toArray(obj['invoiceNumbers']).map((v) => deserializeYearNumber(v as Record<string, unknown>));
+  }
+  if (obj['ownerFilter'] !== undefined) {
+    const _w = obj['ownerFilter'] as Record<string, unknown>;
+    const _iv = (_w)['ownerLabels'];
+    if (_iv !== undefined) {
+      r.ownerFilter = toArray(_iv).map(String);
+    } else {
+      r.ownerFilter = [];
+    }
+  } else {
+    r.ownerFilter = [];
+  }
+  if (obj['branchGroupFilter'] !== undefined) {
+    const _w = obj['branchGroupFilter'] as Record<string, unknown>;
+    const _iv = (_w)['branchGroups'];
+    if (_iv !== undefined) {
+      r.branchGroupFilter = toArray(_iv).map(Number);
+    } else {
+      r.branchGroupFilter = [];
+    }
+  } else {
+    r.branchGroupFilter = [];
+  }
+  if (obj['includeLineList'] !== undefined) r.includeLineList = obj['includeLineList'] === 'true' || obj['includeLineList'] === true;
+  if (obj['branchInvoiceNumbers'] !== undefined) {
+    const _w = obj['branchInvoiceNumbers'] as Record<string, unknown>;
+    const _iv = (_w)['transactionNumber'];
+    if (_iv !== undefined) {
+      r.branchInvoiceNumbers = toArray(_iv).map((v) => deserializeTransactionNumber(v as Record<string, unknown>));
+    } else {
+      r.branchInvoiceNumbers = [];
+    }
+  } else {
+    r.branchInvoiceNumbers = [];
+  }
+  if (obj['contractFrequencyFilter'] !== undefined) {
+    const _w = obj['contractFrequencyFilter'] as Record<string, unknown>;
+    const _iv = (_w)['contractFrequency'];
+    if (_iv !== undefined) {
+      r.contractFrequencyFilter = toArray(_iv).map(String) as T.ContractFrequency[];
+    } else {
+      r.contractFrequencyFilter = [];
+    }
+  } else {
+    r.contractFrequencyFilter = [];
+  }
+  if (obj['directDebit'] !== undefined) r.directDebit = obj['directDebit'] === 'true' || obj['directDebit'] === true;
+  if (obj['includeLastMailTimelineEvents'] !== undefined) r.includeLastMailTimelineEvents = obj['includeLastMailTimelineEvents'] === 'true' || obj['includeLastMailTimelineEvents'] === true;
+  if (obj['lastMailTimelineEventsFilter'] !== undefined) r.lastMailTimelineEventsFilter = deserializeTimelineEventSubFilter(obj['lastMailTimelineEventsFilter'] as Record<string, unknown>);
+  if (obj['includeSigningTimelineEvents'] !== undefined) r.includeSigningTimelineEvents = obj['includeSigningTimelineEvents'] === 'true' || obj['includeSigningTimelineEvents'] === true;
+  if (obj['signingTimelineEventsFilter'] !== undefined) r.signingTimelineEventsFilter = deserializeTimelineEventSubFilter(obj['signingTimelineEventsFilter'] as Record<string, unknown>);
+  if (obj['includeDirectDebitTimelineEvents'] !== undefined) r.includeDirectDebitTimelineEvents = obj['includeDirectDebitTimelineEvents'] === 'true' || obj['includeDirectDebitTimelineEvents'] === true;
+  if (obj['directDebitTimelineEventsFilter'] !== undefined) r.directDebitTimelineEventsFilter = deserializeTimelineEventSubFilter(obj['directDebitTimelineEventsFilter'] as Record<string, unknown>);
+  if (obj['includeOtherTimelineEvents'] !== undefined) r.includeOtherTimelineEvents = obj['includeOtherTimelineEvents'] === 'true' || obj['includeOtherTimelineEvents'] === true;
+  if (obj['otherTimelineEventsFilter'] !== undefined) r.otherTimelineEventsFilter = deserializeTimelineEventSubFilter(obj['otherTimelineEventsFilter'] as Record<string, unknown>);
+  return r as T.GetInvoicesRequest;
+}
+
+export function deserializeCreditInvoiceV2Request(obj: Record<string, unknown>): T.CreditInvoiceV2Request {
+  const r: Partial<T.CreditInvoiceV2Request> = {};
+  if (obj['invoiceId'] !== undefined) r.invoiceId = String(obj['invoiceId']) as string;
+  if (obj['financialDate'] !== undefined) r.financialDate = deserializeDate(obj['financialDate'] as Record<string, unknown>);
+  if (obj['explanation'] !== undefined) r.explanation = String(obj['explanation']) as string;
+  return r as T.CreditInvoiceV2Request;
+}
+
+export function deserializeSaveInvoiceInfo(obj: Record<string, unknown>): T.SaveInvoiceInfo {
+  const r: Partial<T.SaveInvoiceInfo> = {};
+  r.invoiceId = String(obj['invoiceId'] ?? '') as string;
+  r.invoiceString = String(obj['invoiceString'] ?? '') as string;
+  if (obj['invoiceNumber'] !== undefined) r.invoiceNumber = deserializeYearNumber(obj['invoiceNumber'] as Record<string, unknown>);
+  if (obj['invoiceBarcode'] !== undefined) r.invoiceBarcode = String(obj['invoiceBarcode']) as string;
+  return r as T.SaveInvoiceInfo;
+}
+
+export function deserializePackingSlip(obj: Record<string, unknown>): T.PackingSlip {
+  const r: Partial<T.PackingSlip> = {};
+  r.packingSlipId = String(obj['packingSlipId'] ?? '') as string;
+  if (obj['packingSlipNumber'] !== undefined) r.packingSlipNumber = deserializeYearNumber(obj['packingSlipNumber'] as Record<string, unknown>);
+  if (obj['packingSlipBarcode'] !== undefined) r.packingSlipBarcode = String(obj['packingSlipBarcode']) as string;
+  if (obj['orderId'] !== undefined) r.orderId = String(obj['orderId']) as string;
+  if (obj['extOrderId'] !== undefined) r.extOrderId = String(obj['extOrderId']) as string;
+  if (obj['orderNumber'] !== undefined) r.orderNumber = deserializeYearNumber(obj['orderNumber'] as Record<string, unknown>);
+  if (obj['orderBarcode'] !== undefined) r.orderBarcode = String(obj['orderBarcode']) as string;
+  if (obj['invoiceId'] !== undefined) r.invoiceId = String(obj['invoiceId']) as string;
+  if (obj['extInvoiceId'] !== undefined) r.extInvoiceId = String(obj['extInvoiceId']) as string;
+  if (obj['invoiceNumber'] !== undefined) r.invoiceNumber = deserializeYearNumber(obj['invoiceNumber'] as Record<string, unknown>);
+  if (obj['invoiceBarcode'] !== undefined) r.invoiceBarcode = String(obj['invoiceBarcode']) as string;
+  if (obj['transactionString'] !== undefined) r.transactionString = String(obj['transactionString']) as string;
+  if (obj['syncMarker'] !== undefined) r.syncMarker = Number(obj['syncMarker']);
+  if (obj['employeeNumber'] !== undefined) r.employeeNumber = Number(obj['employeeNumber']);
+  if (obj['employeeName'] !== undefined) r.employeeName = String(obj['employeeName']) as string;
+  if (obj['entryTimestamp'] !== undefined) r.entryTimestamp = deserializeDateTime(obj['entryTimestamp'] as Record<string, unknown>);
+  if (obj['relationNumber'] !== undefined) r.relationNumber = Number(obj['relationNumber']);
+  if (obj['relationName'] !== undefined) r.relationName = String(obj['relationName']) as string;
+  if (obj['relationCategoryId'] !== undefined) r.relationCategoryId = Number(obj['relationCategoryId']);
+  if (obj['relationBankAccountNumber'] !== undefined) r.relationBankAccountNumber = String(obj['relationBankAccountNumber']) as string;
+  if (obj['relationVatNumber'] !== undefined) r.relationVatNumber = String(obj['relationVatNumber']) as string;
+  if (obj['deliveryAddress'] !== undefined) r.deliveryAddress = deserializeAddress(obj['deliveryAddress'] as Record<string, unknown>);
+  if (obj['invoiceAddress'] !== undefined) r.invoiceAddress = deserializeAddress(obj['invoiceAddress'] as Record<string, unknown>);
+  if (obj['financialDate'] !== undefined) r.financialDate = deserializeDate(obj['financialDate'] as Record<string, unknown>);
+  if (obj['financialBranchNumber'] !== undefined) r.financialBranchNumber = Number(obj['financialBranchNumber']);
+  if (obj['financialExtBranchId'] !== undefined) r.financialExtBranchId = String(obj['financialExtBranchId']) as string;
+  if (obj['workplaceNumber'] !== undefined) r.workplaceNumber = Number(obj['workplaceNumber']);
+  if (obj['entryBranchNumber'] !== undefined) r.entryBranchNumber = Number(obj['entryBranchNumber']);
+  if (obj['entryExtBranchId'] !== undefined) r.entryExtBranchId = String(obj['entryExtBranchId']) as string;
+  if (obj['reference'] !== undefined) r.reference = String(obj['reference']) as string;
+  if (obj['activityId'] !== undefined) r.activityId = String(obj['activityId']) as string;
+  if (obj['totalInclAmount'] !== undefined) r.totalInclAmount = Number(obj['totalInclAmount']);
+  if (obj['totalExclAmount'] !== undefined) r.totalExclAmount = Number(obj['totalExclAmount']);
+  if (obj['changeCounter'] !== undefined) r.changeCounter = Number(obj['changeCounter']);
+  if (obj['state'] !== undefined) r.state = String(obj['state']) as T.PackingSlipState;
+  if (obj['onInvoiceUrl'] !== undefined) r.onInvoiceUrl = String(obj['onInvoiceUrl']) as string;
+  if (obj['lineList'] !== undefined) {
+    const _w = obj['lineList'] as Record<string, unknown>;
+    const _iv = (_w)['line'];
+    if (_iv !== undefined) {
+      r.lineList = toArray(_iv).map((v) => deserializeLine(v as Record<string, unknown>));
+    } else {
+      r.lineList = [];
+    }
+  } else {
+    r.lineList = [];
+  }
+  if (obj['costCenter'] !== undefined) r.costCenter = String(obj['costCenter']) as string;
+  if (obj['orderCategoryNumber'] !== undefined) r.orderCategoryNumber = Number(obj['orderCategoryNumber']);
+  if (obj['packingSlipType'] !== undefined) r.packingSlipType = String(obj['packingSlipType']) as T.PackingSlipType;
+  if (obj['vatMethod'] !== undefined) r.vatMethod = String(obj['vatMethod']) as T.VatMethod;
+  if (obj['sessionId'] !== undefined) r.sessionId = String(obj['sessionId']) as string;
+  if (obj['proposalId'] !== undefined) r.proposalId = String(obj['proposalId']) as string;
+  if (obj['extProposalId'] !== undefined) r.extProposalId = String(obj['extProposalId']) as string;
+  if (obj['proposalNumber'] !== undefined) r.proposalNumber = deserializeYearNumber(obj['proposalNumber'] as Record<string, unknown>);
+  if (obj['branchGroupNumber'] !== undefined) r.branchGroupNumber = Number(obj['branchGroupNumber']);
+  if (obj['ownerId'] !== undefined) r.ownerId = String(obj['ownerId']) as string;
+  if (obj['branchInvoiceNumber'] !== undefined) r.branchInvoiceNumber = deserializeTransactionNumber(obj['branchInvoiceNumber'] as Record<string, unknown>);
+  return r as T.PackingSlip;
+}
+
+export function deserializePackingSlipInput(obj: Record<string, unknown>): T.PackingSlipInput {
+  const r: Partial<T.PackingSlipInput> = {};
+  if (obj['packingSlipId'] !== undefined) r.packingSlipId = String(obj['packingSlipId']) as string;
+  r.employeeNumber = Number(obj['employeeNumber']);
+  r.relationNumber = Number(obj['relationNumber']);
+  if (obj['financialDate'] !== undefined) r.financialDate = new Date(String(obj['financialDate']));
+  r.financialBranchNumber = Number(obj['financialBranchNumber']);
+  r.entryBranchNumber = Number(obj['entryBranchNumber']);
+  if (obj['workplaceNumber'] !== undefined) r.workplaceNumber = Number(obj['workplaceNumber']);
+  if (obj['reference'] !== undefined) r.reference = String(obj['reference']) as string;
+  if (obj['vatMethod'] !== undefined) r.vatMethod = String(obj['vatMethod']) as T.VatMethod;
+  if (obj['changeCounter'] !== undefined) r.changeCounter = Number(obj['changeCounter']);
+  if (obj['vatChange'] !== undefined) r.vatChange = String(obj['vatChange']) as T.VatChange;
+  if (obj['vatCountryCode'] !== undefined) r.vatCountryCode = Number(obj['vatCountryCode']);
+  if (obj['vatCountryIso3'] !== undefined) r.vatCountryIso3 = String(obj['vatCountryIso3']) as string;
+  if (obj['lineList'] !== undefined) {
+    const _w = obj['lineList'] as Record<string, unknown>;
+    const _iv = (_w)['line'];
+    if (_iv !== undefined) {
+      r.lineList = toArray(_iv).map((v) => deserializeLineInput(v as Record<string, unknown>));
+    } else {
+      r.lineList = [];
+    }
+  } else {
+    r.lineList = [];
+  }
+  if (obj['orderCategoryNumber'] !== undefined) r.orderCategoryNumber = Number(obj['orderCategoryNumber']);
+  return r as T.PackingSlipInput;
+}
+
+export function deserializePackingSlipList(obj: Record<string, unknown>): T.PackingSlipList {
+  const r: Partial<T.PackingSlipList> = {};
+  if (obj['packingSlip'] !== undefined) {
+    r.packingSlip = toArray(obj['packingSlip']).map((v) => deserializePackingSlip(v as Record<string, unknown>));
+  }
+  return r as T.PackingSlipList;
+}
+
+export function deserializeGetPackingSlipsRequest(obj: Record<string, unknown>): T.GetPackingSlipsRequest {
+  const r: Partial<T.GetPackingSlipsRequest> = {};
+  if (obj['syncMarker'] !== undefined) r.syncMarker = Number(obj['syncMarker']);
+  if (obj['syncMarkerLimit'] !== undefined) r.syncMarkerLimit = Number(obj['syncMarkerLimit']);
+  if (obj['fromFinancialDate'] !== undefined) r.fromFinancialDate = deserializeDate(obj['fromFinancialDate'] as Record<string, unknown>);
+  if (obj['throughFinancialDate'] !== undefined) r.throughFinancialDate = deserializeDate(obj['throughFinancialDate'] as Record<string, unknown>);
+  if (obj['branchNumbers'] !== undefined) {
+    r.branchNumbers = toArray(obj['branchNumbers']).map(Number);
+  }
+  if (obj['employeeNumbers'] !== undefined) {
+    r.employeeNumbers = toArray(obj['employeeNumbers']).map(Number);
+  }
+  if (obj['relationNumbers'] !== undefined) {
+    r.relationNumbers = toArray(obj['relationNumbers']).map(Number);
+  }
+  if (obj['supplierRelationNumbers'] !== undefined) {
+    r.supplierRelationNumbers = toArray(obj['supplierRelationNumbers']).map(Number);
+  }
+  if (obj['articleNumbers'] !== undefined) {
+    r.articleNumbers = toArray(obj['articleNumbers']).map(Number);
+  }
+  if (obj['articleTurnoverGroups'] !== undefined) {
+    r.articleTurnoverGroups = toArray(obj['articleTurnoverGroups']).map(Number);
+  }
+  if (obj['articlePluNumbers'] !== undefined) {
+    const _w = obj['articlePluNumbers'] as Record<string, unknown>;
+    const _iv = (_w)['text'];
+    if (_iv !== undefined) {
+      r.articlePluNumbers = toArray(_iv).map((v) => String((v as Record<string, unknown>)['text'] ?? v));
+    } else {
+      r.articlePluNumbers = [];
+    }
+  } else {
+    r.articlePluNumbers = [];
+  }
+  if (obj['articleBarcodes'] !== undefined) {
+    const _w = obj['articleBarcodes'] as Record<string, unknown>;
+    const _iv = (_w)['text'];
+    if (_iv !== undefined) {
+      r.articleBarcodes = toArray(_iv).map((v) => String((v as Record<string, unknown>)['text'] ?? v));
+    } else {
+      r.articleBarcodes = [];
+    }
+  } else {
+    r.articleBarcodes = [];
+  }
+  if (obj['activityId'] !== undefined) r.activityId = String(obj['activityId']) as string;
+  if (obj['packingSlipIds'] !== undefined) {
+    r.packingSlipIds = toArray(obj['packingSlipIds']).map(String);
+  }
+  if (obj['packingSlipNumbers'] !== undefined) {
+    r.packingSlipNumbers = toArray(obj['packingSlipNumbers']).map((v) => deserializeYearNumber(v as Record<string, unknown>));
+  }
+  if (obj['ownerFilter'] !== undefined) {
+    const _w = obj['ownerFilter'] as Record<string, unknown>;
+    const _iv = (_w)['ownerLabels'];
+    if (_iv !== undefined) {
+      r.ownerFilter = toArray(_iv).map(String);
+    } else {
+      r.ownerFilter = [];
+    }
+  } else {
+    r.ownerFilter = [];
+  }
+  if (obj['branchGroupFilter'] !== undefined) {
+    const _w = obj['branchGroupFilter'] as Record<string, unknown>;
+    const _iv = (_w)['branchGroups'];
+    if (_iv !== undefined) {
+      r.branchGroupFilter = toArray(_iv).map(Number);
+    } else {
+      r.branchGroupFilter = [];
+    }
+  } else {
+    r.branchGroupFilter = [];
+  }
+  if (obj['includeLineList'] !== undefined) r.includeLineList = obj['includeLineList'] === 'true' || obj['includeLineList'] === true;
+  if (obj['typeFilter'] !== undefined) {
+    r.typeFilter = toArray(obj['typeFilter']).map(String) as T.PackingSlipType[];
+  }
+  return r as T.GetPackingSlipsRequest;
+}
+
+export function deserializeGetPackingSlipsByOrderRequest(obj: Record<string, unknown>): T.GetPackingSlipsByOrderRequest {
+  const r: Partial<T.GetPackingSlipsByOrderRequest> = {};
+  r.orderId = String(obj['orderId'] ?? '') as string;
+  return r as T.GetPackingSlipsByOrderRequest;
+}
+
+export function deserializeProcessPackingSlipRequest(obj: Record<string, unknown>): T.ProcessPackingSlipRequest {
+  const r: Partial<T.ProcessPackingSlipRequest> = {};
+  r.idempotencyKey = String(obj['idempotencyKey'] ?? '') as string;
+  r.packingSlip = deserializePackingSlipInput(obj['packingSlip'] as Record<string, unknown> ?? {});
+  r.processorContext = deserializeSalesProcessorContext(obj['processorContext'] as Record<string, unknown> ?? {});
+  return r as T.ProcessPackingSlipRequest;
+}
+
+export function deserializeCancelPackingSlipRequest(obj: Record<string, unknown>): T.CancelPackingSlipRequest {
+  const r: Partial<T.CancelPackingSlipRequest> = {};
+  r.idempotencyKey = String(obj['idempotencyKey'] ?? '') as string;
+  r.packingSlipId = String(obj['packingSlipId'] ?? '') as string;
+  r.workplaceKey = deserializeWorkplaceIdentifier(obj['workplaceKey'] as Record<string, unknown> ?? {});
+  return r as T.CancelPackingSlipRequest;
+}
+
+export function deserializeSalesQueueFilter(obj: Record<string, unknown>): T.SalesQueueFilter {
+  const r: Partial<T.SalesQueueFilter> = {};
+  if (obj['ids'] !== undefined) {
+    const _w = obj['ids'] as Record<string, unknown>;
+    const _iv = (_w)['id'];
+    if (_iv !== undefined) {
+      r.ids = toArray(_iv).map(String);
+    } else {
+      r.ids = [];
+    }
+  } else {
+    r.ids = [];
+  }
+  if (obj['salesObjectIds'] !== undefined) {
+    const _w = obj['salesObjectIds'] as Record<string, unknown>;
+    const _iv = (_w)['id'];
+    if (_iv !== undefined) {
+      r.salesObjectIds = toArray(_iv).map(String);
+    } else {
+      r.salesObjectIds = [];
+    }
+  } else {
+    r.salesObjectIds = [];
+  }
+  if (obj['types'] !== undefined) {
+    const _w = obj['types'] as Record<string, unknown>;
+    const _iv = (_w)['type'];
+    if (_iv !== undefined) {
+      r.types = toArray(_iv).map(String) as T.SalesQueueType[];
+    } else {
+      r.types = [];
+    }
+  } else {
+    r.types = [];
+  }
+  if (obj['pendingOnly'] !== undefined) r.pendingOnly = obj['pendingOnly'] === 'true' || obj['pendingOnly'] === true;
+  return r as T.SalesQueueFilter;
+}
+
+export function deserializeGetPackingSlipQueueRequest(obj: Record<string, unknown>): T.GetPackingSlipQueueRequest {
+  const r: Partial<T.GetPackingSlipQueueRequest> = {};
+  r.filter = deserializeSalesQueueFilter(obj['filter'] as Record<string, unknown> ?? {});
+  if (obj['loadPackingSlip'] !== undefined) r.loadPackingSlip = obj['loadPackingSlip'] === 'true' || obj['loadPackingSlip'] === true;
+  if (obj['latestOnly'] !== undefined) r.latestOnly = obj['latestOnly'] === 'true' || obj['latestOnly'] === true;
+  return r as T.GetPackingSlipQueueRequest;
 }
 
 export function deserializeGetSalesRepeatTemplatesResponse(obj: Record<string, unknown>): T.GetSalesRepeatTemplatesResponse {
@@ -16003,6 +17553,65 @@ export function deserializeSaveSalesRepeatTemplateResponse(obj: Record<string, u
   if (obj['errorMessage'] !== undefined) r.errorMessage = String(obj['errorMessage']) as string;
   if (obj['salesRepeatTemplateId'] !== undefined) r.salesRepeatTemplateId = String(obj['salesRepeatTemplateId']) as string;
   return r as T.SaveSalesRepeatTemplateResponse;
+}
+
+export function deserializePauseSalesRepeatTemplatesResponse(obj: Record<string, unknown>): T.PauseSalesRepeatTemplatesResponse {
+  const r: Partial<T.PauseSalesRepeatTemplatesResponse> = {};
+  if (obj['idempotencyResult'] === undefined) throw new Error("Missing required field 'idempotencyResult' in PauseSalesRepeatTemplatesResponse");
+  r.idempotencyResult = String(obj['idempotencyResult'] ?? '') as T.IdempotencyResult;
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in PauseSalesRepeatTemplatesResponse");
+  r.result = String(obj['result'] ?? '') as T.PauseSalesRepeatTemplatesResult;
+  return r as T.PauseSalesRepeatTemplatesResponse;
+}
+
+export function deserializeRestartSalesRepeatTemplatesResponse(obj: Record<string, unknown>): T.RestartSalesRepeatTemplatesResponse {
+  const r: Partial<T.RestartSalesRepeatTemplatesResponse> = {};
+  if (obj['idempotencyResult'] === undefined) throw new Error("Missing required field 'idempotencyResult' in RestartSalesRepeatTemplatesResponse");
+  r.idempotencyResult = String(obj['idempotencyResult'] ?? '') as T.IdempotencyResult;
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in RestartSalesRepeatTemplatesResponse");
+  r.result = String(obj['result'] ?? '') as T.RestartSalesRepeatTemplatesResult;
+  return r as T.RestartSalesRepeatTemplatesResponse;
+}
+
+export function deserializeStopSalesRepeatTemplatesResponse(obj: Record<string, unknown>): T.StopSalesRepeatTemplatesResponse {
+  const r: Partial<T.StopSalesRepeatTemplatesResponse> = {};
+  if (obj['idempotencyResult'] === undefined) throw new Error("Missing required field 'idempotencyResult' in StopSalesRepeatTemplatesResponse");
+  r.idempotencyResult = String(obj['idempotencyResult'] ?? '') as T.IdempotencyResult;
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in StopSalesRepeatTemplatesResponse");
+  r.result = String(obj['result'] ?? '') as T.StopSalesRepeatTemplatesResult;
+  return r as T.StopSalesRepeatTemplatesResponse;
+}
+
+export function deserializeGetSalesObjectsBySalesRepeatTemplatesResponse(obj: Record<string, unknown>): T.GetSalesObjectsBySalesRepeatTemplatesResponse {
+  const r: Partial<T.GetSalesObjectsBySalesRepeatTemplatesResponse> = {};
+  if (obj['repeatTemplateList'] !== undefined) {
+    const _w = obj['repeatTemplateList'] as Record<string, unknown>;
+    const _iv = (_w)['repeatTemplate'];
+    if (_iv !== undefined) {
+      r.repeatTemplateList = toArray(_iv).map((v) => deserializeRepeatTemplateSalesObject(v as Record<string, unknown>));
+    } else {
+      r.repeatTemplateList = [];
+    }
+  } else {
+    r.repeatTemplateList = [];
+  }
+  return r as T.GetSalesObjectsBySalesRepeatTemplatesResponse;
+}
+
+export function deserializeCreateSalesObjectsBySalesRepeatTemplateResponse(obj: Record<string, unknown>): T.CreateSalesObjectsBySalesRepeatTemplateResponse {
+  const r: Partial<T.CreateSalesObjectsBySalesRepeatTemplateResponse> = {};
+  if (obj['salesObjects'] !== undefined) {
+    const _w = obj['salesObjects'] as Record<string, unknown>;
+    const _iv = (_w)['salesObject'];
+    if (_iv !== undefined) {
+      r.salesObjects = toArray(_iv).map((v) => deserializeGeneratedSalesObject(v as Record<string, unknown>));
+    } else {
+      r.salesObjects = [];
+    }
+  } else {
+    r.salesObjects = [];
+  }
+  return r as T.CreateSalesObjectsBySalesRepeatTemplateResponse;
 }
 
 export function deserializePerformBpeBudgetChecksResponse(obj: Record<string, unknown>): T.PerformBpeBudgetChecksResponse {
@@ -16529,6 +18138,164 @@ export function deserializeProcessOrderResponse(obj: Record<string, unknown>): T
   return r as T.ProcessOrderResponse;
 }
 
+export function deserializeCreateInvoiceRemindersResponse(obj: Record<string, unknown>): T.CreateInvoiceRemindersResponse {
+  const r: Partial<T.CreateInvoiceRemindersResponse> = {};
+  if (obj['resultCode'] === undefined) throw new Error("Missing required field 'resultCode' in CreateInvoiceRemindersResponse");
+  r.resultCode = String(obj['resultCode'] ?? '') as T.CreateInvoiceRemindersResultCode;
+  if (obj['createdInvoiceReminders'] !== undefined) {
+    const _w = obj['createdInvoiceReminders'] as Record<string, unknown>;
+    const _iv = (_w)['createdInvoiceReminder'];
+    if (_iv !== undefined) {
+      r.createdInvoiceReminders = toArray(_iv).map((v) => deserializeCreatedInvoiceReminder(v as Record<string, unknown>));
+    } else {
+      r.createdInvoiceReminders = [];
+    }
+  } else {
+    r.createdInvoiceReminders = [];
+  }
+  return r as T.CreateInvoiceRemindersResponse;
+}
+
+export function deserializeGetInvoicesResponse(obj: Record<string, unknown>): T.GetInvoicesResponse {
+  const r: Partial<T.GetInvoicesResponse> = {};
+  if (obj['invoiceList'] !== undefined) {
+    const _w = obj['invoiceList'] as Record<string, unknown>;
+    const _iv = (_w)['invoice'];
+    if (_iv !== undefined) {
+      r.invoiceList = toArray(_iv).map((v) => deserializeInvoice(v as Record<string, unknown>));
+    } else {
+      r.invoiceList = [];
+    }
+  } else {
+    r.invoiceList = [];
+  }
+  return r as T.GetInvoicesResponse;
+}
+
+export function deserializeCreditInvoiceV2Response(obj: Record<string, unknown>): T.CreditInvoiceV2Response {
+  const r: Partial<T.CreditInvoiceV2Response> = {};
+  if (obj['result'] !== undefined) r.result = String(obj['result']) as T.CreditInvoiceV2Result;
+  return r as T.CreditInvoiceV2Response;
+}
+
+export function deserializeSaveInvoiceResponse(obj: Record<string, unknown>): T.SaveInvoiceResponse {
+  const r: Partial<T.SaveInvoiceResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in SaveInvoiceResponse");
+  r.result = String(obj['result'] ?? '') as T.SaveInvoiceResult;
+  if (obj['info'] !== undefined) r.info = deserializeSaveInvoiceInfo(obj['info'] as Record<string, unknown>);
+  if (obj['errorMessage'] === undefined) throw new Error("Missing required field 'errorMessage' in SaveInvoiceResponse");
+  r.errorMessage = String(obj['errorMessage'] ?? '') as string;
+  if (obj['voucherIssuances'] !== undefined) {
+    const _w = obj['voucherIssuances'] as Record<string, unknown>;
+    const _iv = (_w)['voucherIssuance'];
+    if (_iv !== undefined) {
+      r.voucherIssuances = toArray(_iv).map((v) => deserializeVoucherIssuance(v as Record<string, unknown>));
+    } else {
+      r.voucherIssuances = [];
+    }
+  } else {
+    r.voucherIssuances = [];
+  }
+  if (obj['unappliedVoucherIssuances'] !== undefined) {
+    const _w = obj['unappliedVoucherIssuances'] as Record<string, unknown>;
+    const _iv = (_w)['unappliedVoucherIssuance'];
+    if (_iv !== undefined) {
+      r.unappliedVoucherIssuances = toArray(_iv).map((v) => deserializeUnappliedVoucherIssuance(v as Record<string, unknown>));
+    } else {
+      r.unappliedVoucherIssuances = [];
+    }
+  } else {
+    r.unappliedVoucherIssuances = [];
+  }
+  return r as T.SaveInvoiceResponse;
+}
+
+export function deserializeGetInvoiceResponse(obj: Record<string, unknown>): T.GetInvoiceResponse {
+  const r: Partial<T.GetInvoiceResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in GetInvoiceResponse");
+  r.result = String(obj['result'] ?? '') as T.GetInvoiceResult;
+  if (obj['invoice'] !== undefined) r.invoice = deserializeInvoice(obj['invoice'] as Record<string, unknown>);
+  return r as T.GetInvoiceResponse;
+}
+
+export function deserializeCreditInvoiceResponse(obj: Record<string, unknown>): T.CreditInvoiceResponse {
+  const r: Partial<T.CreditInvoiceResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in CreditInvoiceResponse");
+  r.result = String(obj['result'] ?? '') as T.CreditInvoiceResult;
+  if (obj['message'] === undefined) throw new Error("Missing required field 'message' in CreditInvoiceResponse");
+  r.message = String(obj['message'] ?? '') as string;
+  return r as T.CreditInvoiceResponse;
+}
+
+export function deserializeGetPackingSlipsResponse(obj: Record<string, unknown>): T.GetPackingSlipsResponse {
+  const r: Partial<T.GetPackingSlipsResponse> = {};
+  if (obj['packingSlipList'] !== undefined) {
+    const _w = obj['packingSlipList'] as Record<string, unknown>;
+    const _iv = (_w)['packingSlip'];
+    if (_iv !== undefined) {
+      r.packingSlipList = toArray(_iv).map((v) => deserializePackingSlip(v as Record<string, unknown>));
+    } else {
+      r.packingSlipList = [];
+    }
+  } else {
+    r.packingSlipList = [];
+  }
+  return r as T.GetPackingSlipsResponse;
+}
+
+export function deserializeGetPackingSlipsByOrderResponse(obj: Record<string, unknown>): T.GetPackingSlipsByOrderResponse {
+  const r: Partial<T.GetPackingSlipsByOrderResponse> = {};
+  if (obj['packingSlipList'] !== undefined) {
+    const _w = obj['packingSlipList'] as Record<string, unknown>;
+    const _iv = (_w)['packingSlip'];
+    if (_iv !== undefined) {
+      r.packingSlipList = toArray(_iv).map((v) => deserializePackingSlip(v as Record<string, unknown>));
+    } else {
+      r.packingSlipList = [];
+    }
+  } else {
+    r.packingSlipList = [];
+  }
+  return r as T.GetPackingSlipsByOrderResponse;
+}
+
+export function deserializeProcessPackingSlipResponse(obj: Record<string, unknown>): T.ProcessPackingSlipResponse {
+  const r: Partial<T.ProcessPackingSlipResponse> = {};
+  if (obj['idempotencyResult'] === undefined) throw new Error("Missing required field 'idempotencyResult' in ProcessPackingSlipResponse");
+  r.idempotencyResult = String(obj['idempotencyResult'] ?? '') as T.IdempotencyResult;
+  if (obj['packingSlip'] !== undefined) r.packingSlip = deserializePackingSlip(obj['packingSlip'] as Record<string, unknown>);
+  if (obj['processorResult'] !== undefined) r.processorResult = deserializeSalesProcessorResult(obj['processorResult'] as Record<string, unknown>);
+  if (obj['resultCode'] === undefined) throw new Error("Missing required field 'resultCode' in ProcessPackingSlipResponse");
+  r.resultCode = String(obj['resultCode'] ?? '') as T.ProcessPackingSlipResultCode;
+  return r as T.ProcessPackingSlipResponse;
+}
+
+export function deserializeCancelPackingSlipResponse(obj: Record<string, unknown>): T.CancelPackingSlipResponse {
+  const r: Partial<T.CancelPackingSlipResponse> = {};
+  if (obj['idempotencyResult'] === undefined) throw new Error("Missing required field 'idempotencyResult' in CancelPackingSlipResponse");
+  r.idempotencyResult = String(obj['idempotencyResult'] ?? '') as T.IdempotencyResult;
+  if (obj['resultCode'] === undefined) throw new Error("Missing required field 'resultCode' in CancelPackingSlipResponse");
+  r.resultCode = String(obj['resultCode'] ?? '') as T.CancelPackingSlipResult;
+  return r as T.CancelPackingSlipResponse;
+}
+
+export function deserializeGetPackingSlipQueueResponse(obj: Record<string, unknown>): T.GetPackingSlipQueueResponse {
+  const r: Partial<T.GetPackingSlipQueueResponse> = {};
+  if (obj['packingSlipQueueEntryList'] !== undefined) {
+    const _w = obj['packingSlipQueueEntryList'] as Record<string, unknown>;
+    const _iv = (_w)['entry'];
+    if (_iv !== undefined) {
+      r.packingSlipQueueEntryList = toArray(_iv).map((v) => deserializeSalesQueueEntry(v as Record<string, unknown>));
+    } else {
+      r.packingSlipQueueEntryList = [];
+    }
+  } else {
+    r.packingSlipQueueEntryList = [];
+  }
+  if (obj['lastPackingSlip'] !== undefined) r.lastPackingSlip = deserializePackingSlip(obj['lastPackingSlip'] as Record<string, unknown>);
+  return r as T.GetPackingSlipQueueResponse;
+}
+
 export function deserializeWebhookConsumerEvent(obj: Record<string, unknown>): T.WebhookConsumerEvent {
   const r: Partial<T.WebhookConsumerEvent> = {};
   r.eventName = String(obj['eventName'] ?? '') as string;
@@ -16845,9 +18612,6 @@ export function deserializeWebhookSessionInput(obj: Record<string, unknown>): T.
   if (obj['openAmount'] !== undefined) r.openAmount = String(obj['openAmount']) as string;
   if (obj['totalInclAmount'] !== undefined) r.totalInclAmount = String(obj['totalInclAmount']) as string;
   if (obj['totalExclAmount'] !== undefined) r.totalExclAmount = String(obj['totalExclAmount']) as string;
-  r.webhookConsumerId = String(obj['webhookConsumerId'] ?? '') as string;
-  r.salesBaseId = String(obj['salesBaseId'] ?? '') as string;
-  r.salesTypeId = String(obj['salesTypeId'] ?? '') as string;
   return r as T.WebhookSessionInput;
 }
 
@@ -17296,159 +19060,6 @@ export function deserializeWebhookResp(obj: Record<string, unknown>): T.WebhookR
   return r as T.WebhookResp;
 }
 
-export function deserializeGetPrintLayoutsRequest(obj: Record<string, unknown>): T.GetPrintLayoutsRequest {
-  const r: Partial<T.GetPrintLayoutsRequest> = {};
-  if (obj['type'] !== undefined) r.type = String(obj['type']) as T.PrintLayoutType;
-  if (obj['kind'] !== undefined) r.kind = String(obj['kind']) as T.PrintLayoutKind;
-  if (obj['fieldType'] !== undefined) r.fieldType = String(obj['fieldType']) as T.PrintLayoutFieldType;
-  return r as T.GetPrintLayoutsRequest;
-}
-
-export function deserializePrintLayoutView(obj: Record<string, unknown>): T.PrintLayoutView {
-  const r: Partial<T.PrintLayoutView> = {};
-  r.id = String(obj['id'] ?? '') as string;
-  r.name = String(obj['name'] ?? '') as string;
-  r.type = String(obj['type'] ?? '') as T.PrintLayoutType;
-  r.kind = String(obj['kind'] ?? '') as T.PrintLayoutKind;
-  r.createdTimestamp = new Date(String(obj['createdTimestamp'] ?? ''));
-  r.updatedTimestamp = new Date(String(obj['updatedTimestamp'] ?? ''));
-  r.hasDigitalSignatureField = obj['hasDigitalSignatureField'] === 'true' || obj['hasDigitalSignatureField'] === true;
-  return r as T.PrintLayoutView;
-}
-
-export function deserializeGetPrintLayoutAssignmentsRequest(obj: Record<string, unknown>): T.GetPrintLayoutAssignmentsRequest {
-  const r: Partial<T.GetPrintLayoutAssignmentsRequest> = {};
-  if (obj['type'] !== undefined) r.type = String(obj['type']) as T.PrintLayoutType;
-  if (obj['kind'] !== undefined) r.kind = String(obj['kind']) as T.PrintLayoutKind;
-  if (obj['branchNumber'] !== undefined) r.branchNumber = Number(obj['branchNumber']);
-  if (obj['workplaceNumber'] !== undefined) r.workplaceNumber = Number(obj['workplaceNumber']);
-  if (obj['useOnlinePrinter'] !== undefined) r.useOnlinePrinter = obj['useOnlinePrinter'] === 'true' || obj['useOnlinePrinter'] === true;
-  return r as T.GetPrintLayoutAssignmentsRequest;
-}
-
-export function deserializePrintLayoutAssignmentPrintLayoutView(obj: Record<string, unknown>): T.PrintLayoutAssignmentPrintLayoutView {
-  const r: Partial<T.PrintLayoutAssignmentPrintLayoutView> = {};
-  r.id = String(obj['id'] ?? '') as string;
-  r.name = String(obj['name'] ?? '') as string;
-  r.type = String(obj['type'] ?? '') as T.PrintLayoutType;
-  r.kind = String(obj['kind'] ?? '') as T.PrintLayoutKind;
-  return r as T.PrintLayoutAssignmentPrintLayoutView;
-}
-
-export function deserializePrintLayoutAssignment(obj: Record<string, unknown>): T.PrintLayoutAssignment {
-  const r: Partial<T.PrintLayoutAssignment> = {};
-  r.workplace = deserializeWorkplaceIdentifier(obj['workplace'] as Record<string, unknown> ?? {});
-  r.printLayout = deserializePrintLayoutAssignmentPrintLayoutView(obj['printLayout'] as Record<string, unknown> ?? {});
-  r.useOnlinePrinter = obj['useOnlinePrinter'] === 'true' || obj['useOnlinePrinter'] === true;
-  return r as T.PrintLayoutAssignment;
-}
-
-export function deserializePrintParam(obj: Record<string, unknown>): T.PrintParam {
-  const r: Partial<T.PrintParam> = {};
-  r.key = String(obj['key'] ?? '') as string;
-  r.value = String(obj['value'] ?? '') as string;
-  return r as T.PrintParam;
-}
-
-export function deserializePrintParams(obj: Record<string, unknown>): T.PrintParams {
-  const r: Partial<T.PrintParams> = {};
-  if (obj['uuid'] !== undefined) r.uuid = String(obj['uuid']) as string;
-  if (obj['yearNumber'] !== undefined) r.yearNumber = deserializeYearNumber(obj['yearNumber'] as Record<string, unknown>);
-  if (obj['params'] !== undefined) {
-    r.params = toArray(obj['params']).map((v) => deserializePrintParam(v as Record<string, unknown>));
-  }
-  return r as T.PrintParams;
-}
-
-export function deserializePrintInfo(obj: Record<string, unknown>): T.PrintInfo {
-  const r: Partial<T.PrintInfo> = {};
-  if (obj['paramsList'] !== undefined) {
-    r.paramsList = toArray(obj['paramsList']).map((v) => deserializePrintParams(v as Record<string, unknown>));
-  }
-  if (obj['globalParams'] !== undefined) r.globalParams = deserializePrintParams(obj['globalParams'] as Record<string, unknown>);
-  return r as T.PrintInfo;
-}
-
-export function deserializeGetRenderedPrintLayoutRequest(obj: Record<string, unknown>): T.GetRenderedPrintLayoutRequest {
-  const r: Partial<T.GetRenderedPrintLayoutRequest> = {};
-  r.printLayoutUuid = String(obj['printLayoutUuid'] ?? '') as string;
-  r.renderType = String(obj['renderType'] ?? '') as T.RenderedPrintLayoutType;
-  if (obj['printInfo'] !== undefined) r.printInfo = deserializePrintInfo(obj['printInfo'] as Record<string, unknown>);
-  if (obj['dpi'] !== undefined) r.dpi = Number(obj['dpi']);
-  return r as T.GetRenderedPrintLayoutRequest;
-}
-
-export function deserializeGetPrintLayoutMarkupRequest(obj: Record<string, unknown>): T.GetPrintLayoutMarkupRequest {
-  const r: Partial<T.GetPrintLayoutMarkupRequest> = {};
-  r.printLayoutUuid = String(obj['printLayoutUuid'] ?? '') as string;
-  r.markupType = String(obj['markupType'] ?? '') as T.PrintLayoutMarkupType;
-  if (obj['printInfo'] !== undefined) r.printInfo = deserializePrintInfo(obj['printInfo'] as Record<string, unknown>);
-  if (obj['responseAsBase64'] !== undefined) r.responseAsBase64 = obj['responseAsBase64'] === 'true' || obj['responseAsBase64'] === true;
-  if (obj['normalWidthInCharacters'] !== undefined) r.normalWidthInCharacters = Number(obj['normalWidthInCharacters']);
-  if (obj['smallWidthInCharacters'] !== undefined) r.smallWidthInCharacters = Number(obj['smallWidthInCharacters']);
-  return r as T.GetPrintLayoutMarkupRequest;
-}
-
-export function deserializePrintPrintLayoutRequest(obj: Record<string, unknown>): T.PrintPrintLayoutRequest {
-  const r: Partial<T.PrintPrintLayoutRequest> = {};
-  if (obj['type'] !== undefined) r.type = String(obj['type']) as T.PrintLayoutType;
-  r.kind = String(obj['kind'] ?? '') as T.PrintLayoutKind;
-  r.printInfo = deserializePrintInfo(obj['printInfo'] as Record<string, unknown> ?? {});
-  r.workplaceIdentifier = deserializeWorkplaceIdentifier(obj['workplaceIdentifier'] as Record<string, unknown> ?? {});
-  return r as T.PrintPrintLayoutRequest;
-}
-
-export function deserializeGetPrintLayoutsResponse(obj: Record<string, unknown>): T.GetPrintLayoutsResponse {
-  const r: Partial<T.GetPrintLayoutsResponse> = {};
-  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in GetPrintLayoutsResponse");
-  r.result = String(obj['result'] ?? '') as T.GetPrintLayoutsResponseResult;
-  if (obj['printLayouts'] !== undefined) {
-    r.printLayouts = toArray(obj['printLayouts']).map((v) => deserializePrintLayoutView(v as Record<string, unknown>));
-  }
-  return r as T.GetPrintLayoutsResponse;
-}
-
-export function deserializeGetPrintLayoutAssignmentsResponse(obj: Record<string, unknown>): T.GetPrintLayoutAssignmentsResponse {
-  const r: Partial<T.GetPrintLayoutAssignmentsResponse> = {};
-  if (obj['printLayoutAssignments'] !== undefined) {
-    r.printLayoutAssignments = toArray(obj['printLayoutAssignments']).map((v) => deserializePrintLayoutAssignment(v as Record<string, unknown>));
-  }
-  return r as T.GetPrintLayoutAssignmentsResponse;
-}
-
-export function deserializeGetRenderedPrintLayoutResponse(obj: Record<string, unknown>): T.GetRenderedPrintLayoutResponse {
-  const r: Partial<T.GetRenderedPrintLayoutResponse> = {};
-  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in GetRenderedPrintLayoutResponse");
-  r.result = String(obj['result'] ?? '') as T.GetRenderedPrintLayoutResponseResult;
-  if (obj['errorMessage'] === undefined) throw new Error("Missing required field 'errorMessage' in GetRenderedPrintLayoutResponse");
-  r.errorMessage = String(obj['errorMessage'] ?? '') as string;
-  if (obj['renderedPrintLayouts'] !== undefined) {
-    r.renderedPrintLayouts = toArray(obj['renderedPrintLayouts']).map(String);
-  }
-  if (obj['hasDigitalSignatureField'] === undefined) throw new Error("Missing required field 'hasDigitalSignatureField' in GetRenderedPrintLayoutResponse");
-  r.hasDigitalSignatureField = obj['hasDigitalSignatureField'] === 'true' || obj['hasDigitalSignatureField'] === true;
-  return r as T.GetRenderedPrintLayoutResponse;
-}
-
-export function deserializeGetPrintLayoutMarkupResponse(obj: Record<string, unknown>): T.GetPrintLayoutMarkupResponse {
-  const r: Partial<T.GetPrintLayoutMarkupResponse> = {};
-  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in GetPrintLayoutMarkupResponse");
-  r.result = String(obj['result'] ?? '') as T.GetPrintLayoutMarkupResult;
-  if (obj['errorMessage'] === undefined) throw new Error("Missing required field 'errorMessage' in GetPrintLayoutMarkupResponse");
-  r.errorMessage = String(obj['errorMessage'] ?? '') as string;
-  if (obj['printLayoutMarkup'] === undefined) throw new Error("Missing required field 'printLayoutMarkup' in GetPrintLayoutMarkupResponse");
-  r.printLayoutMarkup = String(obj['printLayoutMarkup'] ?? '') as string;
-  return r as T.GetPrintLayoutMarkupResponse;
-}
-
-export function deserializePrintPrintLayoutResponse(obj: Record<string, unknown>): T.PrintPrintLayoutResponse {
-  const r: Partial<T.PrintPrintLayoutResponse> = {};
-  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in PrintPrintLayoutResponse");
-  r.result = String(obj['result'] ?? '') as T.PrintPrintLayoutResponseResult;
-  if (obj['errorMessage'] !== undefined) r.errorMessage = String(obj['errorMessage']) as string;
-  return r as T.PrintPrintLayoutResponse;
-}
-
 export function deserializeInterbranchOrderLine(obj: Record<string, unknown>): T.InterbranchOrderLine {
   const r: Partial<T.InterbranchOrderLine> = {};
   r.articleNumber = Number(obj['articleNumber']);
@@ -17643,6 +19254,18 @@ export function deserializeGetInterbranchShipmentsRequest(obj: Record<string, un
   const r: Partial<T.GetInterbranchShipmentsRequest> = {};
   if (obj['syncMarker'] !== undefined) r.syncMarker = Number(obj['syncMarker']);
   if (obj['syncMarkerLimit'] !== undefined) r.syncMarkerLimit = Number(obj['syncMarkerLimit']);
+  if (obj['fromBranchNumbers'] !== undefined) {
+    r.fromBranchNumbers = toArray(obj['fromBranchNumbers']).map(Number);
+  }
+  if (obj['toBranchNumbers'] !== undefined) {
+    r.toBranchNumbers = toArray(obj['toBranchNumbers']).map(Number);
+  }
+  if (obj['scancode'] !== undefined) r.scancode = String(obj['scancode']) as string;
+  if (obj['interbranchShipmentState'] !== undefined) {
+    r.interbranchShipmentState = toArray(obj['interbranchShipmentState']).map(String) as T.InterbranchShipmentState[];
+  }
+  if (obj['interbranchShipmentNumber'] !== undefined) r.interbranchShipmentNumber = deserializeYearNumber(obj['interbranchShipmentNumber'] as Record<string, unknown>);
+  if (obj['interbranchOrderNumber'] !== undefined) r.interbranchOrderNumber = deserializeYearNumber(obj['interbranchOrderNumber'] as Record<string, unknown>);
   return r as T.GetInterbranchShipmentsRequest;
 }
 
