@@ -241,81 +241,11 @@ The ID is sent as the `X-Request-Id` header.
 
 ---
 
-## Development
-
-### Regenerate from WSDL
-
-```bash
-# Regenerate src/generated/ from the latest public WSDL
-# (MplusKASSA's GitHub release — the default source, no arguments needed)
-npm run generate
-
-# Or from an explicit WSDL URL
-npm run generate -- 'https://example/path/to/mplusqapi.wsdl'
-
-# Or keep a URL out of shell history with an environment variable
-MPLUS_WSDL_URL='https://example/path/to/mplusqapi.wsdl' npm run generate
-
-# Or regenerate from the cached local WSDL
-npm run generate:local
-```
-
-### Build
-
-```bash
-npm run build   # tsup → dist/ (bundled CJS + ESM + declarations)
-```
-
-Output:
-```
-dist/
-  index.js    / index.d.ts     CommonJS entry + declarations
-  index.mjs   / index.d.mts    ESM entry + declarations
-```
-
-### Test
-
-```bash
-npm test            # node:test suite (test/)
-npm run test:types  # tsc --noEmit over src + test
-npm run check       # build + both of the above (what CI runs)
-```
-
-### Run the example
-
-```bash
-cp examples/.env.example .env  # fill in your credentials
-source .env && npx ts-node --project scripts/tsconfig.json examples/basic.ts
-```
-
----
-
-## Architecture
-
-```
-src/
-  index.ts              Public exports
-  errors.ts             Error hierarchy
-  soap.ts               Envelope builder, response parser, serializers
-  transport.ts          HTTP client (node:https), retries, error mapping
-  generated/            Auto-generated — do not edit manually
-    types.ts            TypeScript interfaces and string union enums
-    serializer.ts       TS objects → SOAP XML
-    deserializer.ts     Response XML → typed TS objects
-    client.ts           MplusKassaClient with all 372 methods
-
-scripts/
-  generate.ts           WSDL parser + code generator
-wsdl.xml                Cached WSDL for offline/local regeneration
-                        (gitignored — save the WSDL here to use `generate:local`;
-                        otherwise `npm run generate` needs no local cache)
-```
-
----
-
 ## Contributing & security
 
-See [CONTRIBUTING.md](CONTRIBUTING.md). Vulnerabilities: report privately via [SECURITY.md](SECURITY.md), not public issues.
+Building from source, regenerating from the WSDL, the source layout, and the PR workflow are all in [CONTRIBUTING.md](CONTRIBUTING.md).
+
+Vulnerabilities: report privately via [SECURITY.md](SECURITY.md), not public issues.
 
 ---
 
