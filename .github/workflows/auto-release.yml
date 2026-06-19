@@ -1,0 +1,38 @@
+name: Auto release
+
+# When the nightly WSDL-sync PR is merged, bump the minor version and push the
+# tag. The tag push triggers publish.yml (on: push tags 'v*'), which runs CI and
+# publishes to npm. No other PRs trigger this — only the bot branch below.
+on:
+  pull_request:
+    types: [closed]
+
+permissions:
+  contents: write
+
+jobs:
+  bump:
+    if: >
+      github.event.pull_request.merged == true &&
+      github.event.pull_request.head.ref == 'auto/wsdl-update'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: master
+          fetch-depth: 0
+          token: ${{ secrets.RELEASE_TOKEN }}
+
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24.x
+
+      - name: Configure git
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+
+      - name: Bump minor version and push tag
+        run: |
+          npm version minor -m 'chore: release %s'
+          git push --follow-tags origin master
