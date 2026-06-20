@@ -23,6 +23,17 @@ export type BpeBudgetExceededAction = 'IGNORING' | 'WARNING' | 'BLOCKING';
 
 export type BpeBudgetNoValueDefaultLimit = 'ZERO' | 'UNLIMITED';
 
+/**
+ * - `EFT-TRANSACTION-STATE-UNKNOWN`: a transaction has been started but the result is unknown
+ * - `EFT-TRANSACTION-STATE-PAID`: the transaction has completed with a payment
+ * - `EFT-TRANSACTION-STATE-RECOVERED`: (obsolete)
+ * - `EFT-TRANSACTION-STATE-PAID-MANUALLY`: there was a failure merchant has specified customer has payed during manual recovery
+ * - `EFT-TRANSACTION-STATE-REPRINT`: this was a EFT ticket reprint action not an actual payment
+ * - `EFT-TRANSACTION-STATE-POS-AUTHORIZATION-STARTED`: terminal has delegated the payment authorization to the POS
+ * - `EFT-TRANSACTION-STATE-POS-AUTHORIZATION-PAID`: POS delegated payment was completed, with a successful payment
+ * - `EFT-TRANSACTION-STATE-POS-AUTHORIZATION-NOT-PAID`: POS delegated payment was completed, but payment was rejected
+ * - `EFT-TRANSACTION-STATE-PAID-OFFLINE`: payment terminal has processed the transaction in offline mode
+ */
 export type EftTransactionState = 'EFT-TRANSACTION-STATE-UNKNOWN' | 'EFT-TRANSACTION-STATE-PAID' | 'EFT-TRANSACTION-STATE-RECOVERED' | 'EFT-TRANSACTION-STATE-NOT-PAID' | 'EFT-TRANSACTION-STATE-PAID-MANUALLY' | 'EFT-TRANSACTION-STATE-REPRINT' | 'EFT-TRANSACTION-STATE-POS-AUTHORIZATION-STARTED' | 'EFT-TRANSACTION-STATE-POS-AUTHORIZATION-PAID' | 'EFT-TRANSACTION-STATE-POS-AUTHORIZATION-NOT-PAID' | 'EFT-TRANSACTION-STATE-PAID-OFFLINE';
 
 export type ExternalPaymentReceiptTextType = 'EXTERNAL-PAYMENT-RECEIPT-TEXT-TYPE-CARDHOLDER' | 'EXTERNAL-PAYMENT-RECEIPT-TEXT-TYPE-MERCHANT';
@@ -191,6 +202,9 @@ export type SetStockResult = 'SET-STOCK-RESULT-OK' | 'SET-STOCK-RESULT-BRANCH-NO
 
 export type UpdateArticleGroupResult = 'SAVE-ARTICLE-GROUP-RESULT-OK' | 'SAVE-ARTICLE-GROUP-RESULT-NOT-FOUND' | 'SAVE-ARTICLE-GROUP-RESULT-FAILED';
 
+/**
+ * - `NEW-ARTICLE-GROUP-RESULT-OK`: group created succesfully
+ */
 export type NewArticleGroupResult = 'NEW-ARTICLE-GROUP-RESULT-OK' | 'NEW-ARTICLE-GROUP-RESULT-PARENT-NOTFOUND' | 'NEW-ARTICLE-GROUP-RESULT-FAILED';
 
 export type DeleteArticleGroupResult = 'DELETE-ARTICLE-GROUP-RESULT-OK' | 'DELETE-ARTICLE-GROUP-RESULT-NOTFOUND' | 'DELETE-ARTICLE-GROUP-RESULT-FAILED';
@@ -217,7 +231,16 @@ export type nsEidType = 'EID-TYPE-MIFARE';
 
 export type nsEntityType = 'ENTITY-TYPE-UNKNOWN' | 'ENTITY-TYPE-EMPLOYEE' | 'ENTITY-TYPE-RELATION';
 
-/** definition of operators that can be used in overview filters, note some operators are type specific. */
+/**
+ * definition of operators that can be used in overview filters, note some operators are type specific.
+ *
+ * - `CONTAINS`: for multiselection fields, all filter values must be set for a card to match (card is allowed to have additional values selected)
+ * - `OVERLAP`: for multiselection fields, atleast one filter value must be set for a card to match (card is allowed to have additional values selected)
+ * - `IS`: for multiselection fields, the values selected on the card must exactly be the same set as the filter.
+ * - `EMPTY`: for stringable fields that are either NULL or have a length of 0
+ * - `NOT-EMPTY`: for stringable fields that are not NULL and do not have a length of 0
+ * - `NO-OVERLAP`: for multiselection fields, none of the filter value must be set for a card to match (card is allowed to have additional values selected)
+ */
 export type OverviewFilterOperator = 'EQUAL' | 'LIKE' | 'BIGGER' | 'SMALLER' | 'NOTEQUAL' | 'ISNULL' | 'ISNOTNULL' | 'CONTAINS' | 'OVERLAP' | 'IS' | 'OVERLAPORNONE' | 'INCOLLECTION' | 'BIGGER-OR-EQUAL' | 'SMALLER-OR-EQUAL' | 'EMPTY' | 'NOT-EMPTY' | 'NO-OVERLAP';
 
 export type SortOrderType = 'ASCENDING' | 'DESCENDING';
@@ -226,6 +249,9 @@ export type OverviewImageDetails = 'OVERVIEW-IMAGE-DETAILS-NONE' | 'OVERVIEW-IMA
 
 export type GetOverviewResult = 'GET-OVERVIEW-RESULT-OK' | 'GET-OVERVIEW-RESULT-FAILED';
 
+/**
+ * - `GET-OVERVIEW-ERROR-INVALID-FILTER-OPERATOR`: the specified operator cannot be used for the field specified
+ */
 export type GetOverviewErrorCode = 'GET-OVERVIEW-ERROR-INVALID-TYPE' | 'GET-OVERVIEW-ERROR-INVALID-CATEGORYID' | 'GET-OVERVIEW-ERROR-INVALID-SELECT-FIELD' | 'GET-OVERVIEW-ERROR-INVALID-FILTER-FIELD' | 'GET-OVERVIEW-ERROR-INVALID-FILTER-OPERATOR' | 'GET-OVERVIEW-ERROR-INVALID-ORDER-FIELD';
 
 export type GetOverviewFieldsResult = 'GET-OVERVIEW-FIELDS-RESULT-OK' | 'GET-OVERVIEW-FIELDS-RESULT-FAILED';
@@ -346,6 +372,11 @@ export type GetScheduledMealPlansResult = 'GET-SCHEDULED-MEALPLAN-RESULT-OK' | '
 
 export type ArticleAlterationsGroupType = 'ALL' | 'PREPARATION' | 'CROSS-SELL' | 'REPLACEMENT' | 'MENU';
 
+/**
+ * - `ALTERATION-ALREADY-EXISTS`: Cause by specifying alteration Id's when a group is new
+ * - `ALTERATION-MENUTYPE-ARTICLE-REQUIRED`: For a group of type menu all alterations must have an article
+ * - `ALTERATION-MENUTYPE-DUPLICATE-ARTICLE`: For a group of type menu the alterations must have unique articles
+ */
 export type SaveArticleAlterationsGroupResult = 'OK' | 'ALTERATION-ALREADY-EXISTS' | 'ALTERATION-MENUTYPE-ARTICLE-REQUIRED' | 'ALTERATION-MENUTYPE-DUPLICATE-ARTICLE';
 
 export type DeleteArticleAlterationsGroupResult = 'OK' | 'STILL-IN-USE';
@@ -448,6 +479,10 @@ export type PaymentSourceType = 'PAYMENT-SOURCE-TYPE-RECEIPT' | 'PAYMENT-SOURCE-
 
 export type ReportPrintableFinancialTotalsOption = 'REPORT-PRINTABLE-FINANCIAL-TOTALS-OPTION-ACCOUNT-NUMBERS' | 'REPORT-PRINTABLE-FINANCIAL-TOTALS-OPTION-RETURNS' | 'REPORT-PRINTABLE-FINANCIAL-TOTALS-OPTION-RETURNS-CONDENSED' | 'REPORT-PRINTABLE-FINANCIAL-TOTALS-OPTION-POINTS' | 'REPORT-PRINTABLE-FINANCIAL-TOTALS-OPTION-DRAWER-OPENINGS' | 'REPORT-PRINTABLE-FINANCIAL-TOTALS-OPTION-DRAWER-OPENINGS-CONDENSED' | 'REPORT-PRINTABLE-FINANCIAL-TOTALS-OPTION-CASH-INFLOW-OUTFLOW' | 'REPORT-PRINTABLE-FINANCIAL-TOTALS-OPTION-DISCOUNTS' | 'REPORT-PRINTABLE-FINANCIAL-TOTALS-OPTION-OPEN-TABLES' | 'REPORT-PRINTABLE-FINANCIAL-TOTALS-OPTION-CANCELLED-ORDERS' | 'REPORT-PRINTABLE-FINANCIAL-TOTALS-OPTION-CANCELLED-ORDERS-CONDENSED' | 'REPORT-PRINTABLE-FINANCIAL-TOTALS-OPTION-MISTAKES' | 'REPORT-PRINTABLE-FINANCIAL-TOTALS-OPTION-MISTAKES-CONDENSED' | 'REPORT-PRINTABLE-FINANCIAL-TOTALS-OPTION-POS-CLOSED' | 'REPORT-PRINTABLE-FINANCIAL-TOTALS-OPTION-POS-CLOSED-CONDENSED' | 'REPORT-PRINTABLE-FINANCIAL-TOTALS-OPTION-CASH-COUNTS-CONDENSED' | 'REPORT-PRINTABLE-FINANCIAL-TOTALS-OPTION-CONDENSE-EFT' | 'REPORT-PRINTABLE-FINANCIAL-TOTALS-OPTION-EFT-REFUNDS' | 'REPORT-PRINTABLE-FINANCIAL-TOTALS-OPTION-EMPLOYEES' | 'REPORT-PRINTABLE-FINANCIAL-TOTALS-OPTION-AVERAGE-SPENDING' | 'REPORT-PRINTABLE-FINANCIAL-TOTALS-OPTION-HIDE-TURNOVER-GROUPS';
 
+/**
+ * - `RAW`: Means that the timeline events are saved as is.
+ * - `ENRICH`: Means that the timeline events are enriched with the current employee number, workplace key, branch group id, owner id and activity id, if not provided by the caller.
+ */
 export type RegisterTimelineEventsSaveMode = 'RAW' | 'ENRICH';
 
 export type RegisterTimelineEventsResult = 'OK' | 'FAILED';
@@ -472,10 +507,14 @@ export type RestartSalesRepeatTemplatesResult = 'RESTART-SALES-REPEAT-TEMPLATES-
 
 export type StopSalesRepeatTemplatesResult = 'STOP-SALES-REPEAT-TEMPLATE-RESULT-UNKNOWN' | 'STOP-SALES-REPEAT-TEMPLATE-RESULT-OK' | 'STOP-SALES-REPEAT-TEMPLATE-RESULT-FAILED' | 'STOP-SALES-REPEAT-TEMPLATE-RESULT-NOT-FOUND' | 'STOP-SALES-REPEAT-TEMPLATE-RESULT-NOT-ALLOWED';
 
-/** result of the check for a single BPE */
+/**
+ * result of the check for a single BPE
+ */
 export type BpeBudgetCheckResult = 'PERFORM-BPE-BUDGET-CHECKS-RESULT-OK' | 'PERFORM-BPE-BUDGET-CHECKS-RESULT-WARN' | 'PERFORM-BPE-BUDGET-CHECKS-RESULT-BLOCK';
 
-/** overall result of the call */
+/**
+ * overall result of the call
+ */
 export type PerformBpeBudgetChecksResult = 'CHECK-BUDGETS-RESULT-OK' | 'CHECK-BUDGETS-RESULT-FAILED';
 
 export type SaleType = 'GROUP-DISCOUNT' | 'SLIDING-SCALE' | 'X-FOR-Y' | 'MIX-MATCH' | 'SET' | 'INDIVIDUAL' | 'CASH-DISCOUNT' | 'ARRANGEMENT' | 'FREE-ARTICLE';
@@ -504,6 +543,11 @@ export type CreateInvoiceFromProposalResult = 'CREATE-INVOICE-FROM-PROPOSAL-RESU
 
 export type CreateInvoiceFromPackingSlipsResponseResult = 'CREATE-INVOICE-FROM-PACKING-SLIPS-OK' | 'CREATE-INVOICE-FROM-PACKING-SLIPS-CANT-COMBINE-PACKING-SLIPS' | 'CREATE-INVOICE-FROM-PACKING-SLIPS-ISSUANCE-SETTLED-WITH-RELATION-POINTS' | 'CREATE-INVOICE-FROM-PACKING-SLIPS-RELATION-CREDIT-LIMIT-REACHED' | 'CREATE-INVOICE-FROM-PACKING-SLIPS-ALREADY-INVOICED' | 'CREATE-INVOICE-FROM-PACKING-SLIPS-PACKING-SLIPS-DIFFERENT-ACTIVITIES';
 
+/**
+ * - `CASH-COUNT-INFO-STATE-INCOMPATIBLE-DATABASE-CONNECTION`: The supplied database connection is not compatible with the supplied fromWorkplace.
+ * - `CASH-COUNT-INFO-STATE-MISSING-COUNT-EMPLOYEE-NUMBER`: No countEmployeeNumber was specified, but is required due to the settings.
+ * - `CASH-COUNT-INFO-STATE-FAILED`: Something else went wrong.
+ */
 export type CashCountInfoState = 'CASH-COUNT-INFO-STATE-OK' | 'CASH-COUNT-INFO-STATE-INCOMPATIBLE-DATABASE-CONNECTION' | 'CASH-COUNT-INFO-STATE-MISSING-CASH-DIFFERENCE-PAYMENT-METHOD' | 'CASH-COUNT-INFO-STATE-MISSING-COUNT-EMPLOYEE-NUMBER' | 'CASH-COUNT-INFO-STATE-FAILED';
 
 export type SaveCashCountResult = 'SAVE-CASH-COUNT-OK' | 'SAVE-CASH-COUNT-INFO-FAILED' | 'SAVE-CASH-COUNT-INVALID-WORKPLACE-DATA' | 'SAVE-CASH-COUNT-INVALID-EXTRA-WORKPLACE-DATA' | 'SAVE-CASH-COUNT-INVALID-PAYMENT-METHOD-AMOUNT' | 'SAVE-CASH-COUNT-MISSING-COUNTED-PAYMENT-METHOD-AMOUNTS' | 'SAVE-CASH-COUNT-EXTRA-COUNTED-PAYMENT-METHOD-AMOUNTS' | 'SAVE-CASH-COUNT-INVALID-AUTOMATIC-DEPOSIT-PAYMENT-METHOD' | 'SAVE-CASH-COUNT-FAILED-TO-BUILD-OR-SAVE-CASH-COUNT' | 'SAVE-CASH-COUNT-FAILED';

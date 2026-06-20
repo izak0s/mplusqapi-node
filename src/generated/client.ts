@@ -304,6 +304,7 @@ export class MplusKassaClient {
     );
   }
 
+  /** Returns a list of all active employees with their number name and loginname. */
   async getActiveEmployeeList(terminal: T.Input<T.Terminal>, requestId?: string): Promise<T.EmployeeName[] | undefined> {
     const bodyXml = S.serializeGetActiveEmployeeListBody(terminal);
     return (await this.call(
@@ -317,6 +318,7 @@ export class MplusKassaClient {
     )).return;
   }
 
+  /** Returns whether the password is correct */
   async verifyEmployeePassword(params: { terminal?: T.Input<T.Terminal>; employeeNumber?: number; password?: string }, requestId?: string): Promise<boolean> {
     const bodyXml = S.serializeVerifyEmployeePasswordBody(params);
     return (await this.call(
@@ -343,6 +345,7 @@ export class MplusKassaClient {
     )).maxTableNumber;
   }
 
+  /** (deprecated) does not support subtables */
   async getTableList(terminal: T.Input<T.Terminal>, requestId?: string): Promise<T.Table[] | undefined> {
     const bodyXml = S.serializeGetTableListBody(terminal);
     return (await this.call(
@@ -356,6 +359,7 @@ export class MplusKassaClient {
     )).table;
   }
 
+  /** Retrieve a list of (sub)table states */
   async getTableListV2(terminal: T.Input<T.Terminal>, requestId?: string): Promise<T.WholeTable[] | undefined> {
     const bodyXml = S.serializeGetTableListV2Body(terminal);
     return (await this.call(
@@ -369,6 +373,7 @@ export class MplusKassaClient {
     )).wholeTable;
   }
 
+  /** Retrieve a list of (sub)table states, without terminal requirement */
   async getTableListV3(request: T.Input<T.getTableListV3Request>, requestId?: string): Promise<T.WholeTable[] | undefined> {
     const bodyXml = S.serializeGetTableListV3Body(request);
     return (await this.call(
@@ -382,6 +387,7 @@ export class MplusKassaClient {
     )).wholeTable;
   }
 
+  /** Retrieve a list of main tables for the specified branch number. */
   async getMainTableList(request: T.Input<T.getMainTableListRequest>, requestId?: string): Promise<T.MainTable[] | undefined> {
     const bodyXml = S.serializeGetMainTableListBody(request);
     return (await this.call(
@@ -395,6 +401,7 @@ export class MplusKassaClient {
     )).mainTable;
   }
 
+  /** Retrieve a list of sub tables for the specified branch number. */
   async getSubTableList(request: T.Input<T.getSubTableListRequest>, requestId?: string): Promise<T.SubTableState[] | undefined> {
     const bodyXml = S.serializeGetSubTableListBody(request);
     return (await this.call(
@@ -434,6 +441,7 @@ export class MplusKassaClient {
     )).course;
   }
 
+  /** returns the current VAT rates of all branches. The exclAmount and vatAmount fields in the response type are not applicable to this call. */
   async getVatGroupList(requestId?: string): Promise<T.VatGroup[] | undefined> {
     const bodyXml = S.serializeGetVatGroupListBody();
     return (await this.call(
@@ -617,6 +625,7 @@ export class MplusKassaClient {
     )).ok;
   }
 
+  /** deprecated, does not support subtables use getTableOrderCourseListV2 instead */
   async getTableOrderCourseList(params: { terminal?: T.Input<T.Terminal>; branchNumber?: number; tableNumber?: number }, requestId?: string): Promise<T.GetTableOrderCourseListResponse> {
     const bodyXml = S.serializeGetTableOrderCourseListBody(params);
     return this.call(
@@ -630,6 +639,7 @@ export class MplusKassaClient {
     );
   }
 
+  /** returns the list of courses for the specified table */
   async getTableOrderCourseListV2(params: { terminal?: T.Input<T.Terminal>; request?: T.Input<T.GetTableOrderCourseListRequest> }, requestId?: string): Promise<T.GetTableOrderCourseListResponse> {
     const bodyXml = S.serializeGetTableOrderCourseListV2Body(params);
     return this.call(
@@ -643,6 +653,7 @@ export class MplusKassaClient {
     );
   }
 
+  /** returns the list of courses for the specified table */
   async getTableOrderCourseListV3(request: T.Input<T.GetTableOrderCourseListRequest>, requestId?: string): Promise<T.GetTableOrderCourseListResponse> {
     const bodyXml = S.serializeGetTableOrderCourseListV3Body(request);
     return this.call(
@@ -656,6 +667,7 @@ export class MplusKassaClient {
     );
   }
 
+  /** deprecated, does not support subtables use requestNextTableOrderCourseV2 instead */
   async requestTableOrderCourse(params: { terminal?: T.Input<T.Terminal>; branchNumber?: number; tableNumber?: number; employeeNumber?: number; courseNumber?: number }, requestId?: string): Promise<T.RequestTableOrderCourseResponse> {
     const bodyXml = S.serializeRequestTableOrderCourseBody(params);
     return this.call(
@@ -669,6 +681,7 @@ export class MplusKassaClient {
     );
   }
 
+  /** request serving of next course */
   async requestNextTableOrderCourseV2(params: { terminal?: T.Input<T.Terminal>; request?: T.Input<T.RequestNextTableOrderCourseRequest> }, requestId?: string): Promise<T.RequestTableOrderCourseResponse> {
     const bodyXml = S.serializeRequestNextTableOrderCourseV2Body(params);
     return this.call(
@@ -682,6 +695,7 @@ export class MplusKassaClient {
     );
   }
 
+  /** request serving of next course */
   async requestNextTableOrderCourseV3(request: T.Input<T.RequestNextTableOrderCourseV3Request>, requestId?: string): Promise<T.RequestTableOrderCourseResponse> {
     const bodyXml = S.serializeRequestNextTableOrderCourseV3Body(request);
     return this.call(
@@ -695,6 +709,7 @@ export class MplusKassaClient {
     );
   }
 
+  /** use this function to save EFT transactions that are not associated with a payment. */
   async storeSinglyEftTransaction(params: { terminal?: T.Input<T.TerminalId>; eftTransaction?: T.Input<T.EftTransactionDetails> }, requestId?: string): Promise<T.StoreSinglyEftTransactionResponse> {
     const bodyXml = S.serializeStoreSinglyEftTransactionBody(params);
     return this.call(
@@ -721,6 +736,7 @@ export class MplusKassaClient {
     );
   }
 
+  /** queues the supplied */
   async queueBranchOrderPayment(paymentRequest?: T.Input<T.QueueBranchOrderPaymentRequest>, requestId?: string): Promise<T.QueueBranchOrderPaymentResponse> {
     const bodyXml = S.serializeQueueBranchOrderPaymentBody(paymentRequest);
     return this.call(
@@ -734,6 +750,7 @@ export class MplusKassaClient {
     );
   }
 
+  /** retrieves the current state of a previously queued payment */
   async getQueueBranchOrderPaymentStatus(queuedPaymentId: string, requestId?: string): Promise<T.GetQueueBranchOrderPaymentStatusResponse> {
     const bodyXml = S.serializeGetQueueBranchOrderPaymentStatusBody(queuedPaymentId);
     return this.call(
@@ -851,6 +868,7 @@ export class MplusKassaClient {
     );
   }
 
+  /** Tries to cancel the specified order. If the order is already cancelled, the call will try to undo the cancel action (this behaviour does currently not work for branch orders). */
   async cancelOrderV2(request: T.Input<T.CancelOrderV2Request>, requestId?: string): Promise<T.CancelOrderResponse> {
     const bodyXml = S.serializeCancelOrderV2Body(request);
     return this.call(
@@ -929,6 +947,7 @@ export class MplusKassaClient {
     );
   }
 
+  /** Returns a list of all available order categories. */
   async getOrderCategories(requestId?: string): Promise<T.OrderCategory[] | undefined> {
     const bodyXml = S.serializeGetOrderCategoriesBody();
     return (await this.call(
@@ -1191,6 +1210,7 @@ export class MplusKassaClient {
     );
   }
 
+  /** retrieves all the variants of the specified article */
   async getArticleVariants(request: T.Input<T.GetArticleVariantsRequest>, requestId?: string): Promise<T.GetArticleVariantsResponse> {
     const bodyXml = S.serializeGetArticleVariantsBody(request);
     return this.call(
@@ -1204,6 +1224,7 @@ export class MplusKassaClient {
     );
   }
 
+  /** retrieves all the variants of the specified articles */
   async getArticlesVariants(request: T.Input<T.GetArticlesVariantsRequest>, requestId?: string): Promise<T.GetArticlesVariantsResponse> {
     const bodyXml = S.serializeGetArticlesVariantsBody(request);
     return this.call(
@@ -1217,6 +1238,7 @@ export class MplusKassaClient {
     );
   }
 
+  /** adds a new variant to an article */
   async newArticleVariant(request: T.Input<T.NewArticleVariantRequest>, requestId?: string): Promise<T.NewArticleVariantResponse> {
     const bodyXml = S.serializeNewArticleVariantBody(request);
     return this.call(
@@ -1230,6 +1252,7 @@ export class MplusKassaClient {
     );
   }
 
+  /** updates an existing variant */
   async updateArticleVariant(request: T.Input<T.UpdateArticleVariantRequest>, requestId?: string): Promise<T.UpdateArticleVariantResponse> {
     const bodyXml = S.serializeUpdateArticleVariantBody(request);
     return this.call(
@@ -1243,6 +1266,7 @@ export class MplusKassaClient {
     );
   }
 
+  /** removes the specified variants */
   async deleteArticleVariants(request: T.Input<T.DeleteArticleVariantsRequest>, requestId?: string): Promise<T.DeleteArticleVariantsResult> {
     const bodyXml = S.serializeDeleteArticleVariantsBody(request);
     return (await this.call(
@@ -1360,6 +1384,7 @@ export class MplusKassaClient {
     )).result;
   }
 
+  /** creates a new articlegroup aka webgroup */
   async newArticleGroup(request: T.Input<T.NewArticleGroupRequest>, requestId?: string): Promise<T.NewArticleGroupResponse> {
     const bodyXml = S.serializeNewArticleGroupBody(request);
     return this.call(
@@ -1373,6 +1398,7 @@ export class MplusKassaClient {
     );
   }
 
+  /** delete a group and all its subgroups */
   async deleteArticleGroup(request: T.Input<T.DeleteArticleGroupRequest>, requestId?: string): Promise<T.DeleteArticleGroupResult> {
     const bodyXml = S.serializeDeleteArticleGroupBody(request);
     return (await this.call(
@@ -1633,6 +1659,7 @@ export class MplusKassaClient {
     )).retailSpaceRentalList;
   }
 
+  /** searches in the database for an electronic id */
   async EidSearch(request: T.Input<T.EidSearchRequest>, requestId?: string): Promise<T.EidSearchResponse> {
     const bodyXml = S.serializeEidSearchBody(request);
     return this.call(
@@ -1646,6 +1673,7 @@ export class MplusKassaClient {
     );
   }
 
+  /** Special `selectFieldNameList` fields can be found here: https://mpluskassa.support/en/#/public/f841b556-49b5-40d1-b520-8dee66c33279 */
   async getOverview(request: T.Input<T.OverviewRequest>, requestId?: string): Promise<T.OverviewResponse> {
     const bodyXml = S.serializeGetOverviewBody(request);
     return this.call(
@@ -1659,6 +1687,7 @@ export class MplusKassaClient {
     );
   }
 
+  /** Special fields which this call doesn't return can be found here: https://mpluskassa.support/en/#/public/f841b556-49b5-40d1-b520-8dee66c33279 */
   async getOverviewFields(request: T.Input<T.GetOverviewFieldsRequest>, requestId?: string): Promise<T.GetOverviewFieldsResponse> {
     const bodyXml = S.serializeGetOverviewFieldsBody(request);
     return this.call(
@@ -1724,6 +1753,7 @@ export class MplusKassaClient {
     );
   }
 
+  /** returns the contents of the purchase book for the specified branch. The purchase book is a list of articles you wish to purchase. */
   async getPurchaseBook(request: T.Input<T.GetPurchaseBookRequest>, requestId?: string): Promise<T.GetPurchaseBookResponse> {
     const bodyXml = S.serializeGetPurchaseBookBody(request);
     return this.call(
@@ -1776,6 +1806,7 @@ export class MplusKassaClient {
     )).stockCorrectionList;
   }
 
+  /** DEPRECATED use getNutritionalCharacteristics with param nutritionalCharacteristicsType = NUTRITIONAL-TYPE-PRODUCT */
   async getArticlesNutritionalCharacteristics(request: T.Input<T.GetArticlesNutritionalCharacteristicsRequest>, requestId?: string): Promise<T.GetArticlesNutritionalCharacteristicsResponse> {
     const bodyXml = S.serializeGetArticlesNutritionalCharacteristicsBody(request);
     return this.call(
@@ -1789,6 +1820,7 @@ export class MplusKassaClient {
     );
   }
 
+  /** DEPRECATED use ns__updateNutritionalCharacteristics with param nutritionalCharacteristicsType = NUTRITIONAL-TYPE-PRODUCT */
   async updateArticleNutritionalCharacteristics(request: T.Input<T.UpdateArticleNutritionalCharacteristicsRequest>, requestId?: string): Promise<T.UpdateArticleNutritionalCharacteristicsResponse> {
     const bodyXml = S.serializeUpdateArticleNutritionalCharacteristicsBody(request);
     return this.call(
@@ -1802,6 +1834,7 @@ export class MplusKassaClient {
     );
   }
 
+  /** als er geen syncMarker gezet wordt in de request wordt alle aanwezige groepen geretourneerd. Met een syncMarker wordt er ingelezen op basis van syncMarker en limit en worden ook verwijdere groepen geretourneerd tbv syncs. */
   async getPreparationMethodGroups(request: T.Input<T.GetPreparationMethodGroupsRequest>, requestId?: string): Promise<T.GetPreparationMethodGroupsResponse> {
     const bodyXml = S.serializeGetPreparationMethodGroupsBody(request);
     return this.call(
@@ -1854,6 +1887,7 @@ export class MplusKassaClient {
     );
   }
 
+  /** Accepts a table and a combination of order lines and payments and processes them. When submitting lines, it creates or updates (i.e. appending the lines) the table order automatically. When submitting payments, it creates a receipt automatically or does a prepayment on the order if the payment amount does not match the remaining amount. Has idempotency support to ensure only-once execution. */
   async placeTableOrder(request: T.Input<T.PlaceTableOrderReq>, requestId?: string): Promise<T.PlaceTableOrderResp> {
     request = { idempotencyKey: randomUUID(), ...request };
     const bodyXml = S.serializePlaceTableOrderBody(request);
@@ -1868,6 +1902,7 @@ export class MplusKassaClient {
     );
   }
 
+  /** Retrieves the current tap totals */
   async getTapTickTotals(request: T.Input<T.TapTickTotalsRequest>, requestId?: string): Promise<T.BranchTapTickTotals[] | undefined> {
     const bodyXml = S.serializeGetTapTickTotalsBody(request);
     return (await this.call(
@@ -1907,6 +1942,7 @@ export class MplusKassaClient {
     );
   }
 
+  /** Returns the main records for the todolists matching the filters (note that entries won't be filled). */
   async getTodoLists(request: T.Input<T.GetTodoListsRequest>, requestId?: string): Promise<T.TodoList[] | undefined> {
     const bodyXml = S.serializeGetTodoListsBody(request);
     return (await this.call(
@@ -1920,6 +1956,7 @@ export class MplusKassaClient {
     )).todoLists;
   }
 
+  /** Retrieves the single todolist identified by id */
   async getTodoList(id: number, requestId?: string): Promise<T.TodoList> {
     const bodyXml = S.serializeGetTodoListBody(id);
     return this.call(
@@ -1933,6 +1970,7 @@ export class MplusKassaClient {
     );
   }
 
+  /** Creates a new todolist and return its id. */
   async createTodoList(request: T.Input<T.CreateTodoListRequest>, requestId?: string): Promise<number> {
     const bodyXml = S.serializeCreateTodoListBody(request);
     return (await this.call(
@@ -1946,6 +1984,7 @@ export class MplusKassaClient {
     )).id;
   }
 
+  /** Overwrites the existing todolist with the supplied data. Fields not set do not change. All errors are reported as soapfaults. */
   async saveTodoList(request: T.Input<T.SaveTodoListRequest>, requestId?: string): Promise<T.Struct1 | undefined> {
     const bodyXml = S.serializeSaveTodoListBody(request);
     return (await this.call(
@@ -1959,6 +1998,7 @@ export class MplusKassaClient {
     )).response;
   }
 
+  /** Idempotently creates or updates a todolist. Fields not set do not change. */
   async saveTodoListV2(request: T.Input<T.SaveTodoListV2Request>, requestId?: string): Promise<T.SaveTodoListV2Response> {
     request = { idempotencyKey: randomUUID(), ...request };
     const bodyXml = S.serializeSaveTodoListV2Body(request);
@@ -1973,6 +2013,7 @@ export class MplusKassaClient {
     );
   }
 
+  /** Add the records to the existing todolist. All errors are reported as soapfaults. */
   async addToTodoList(request: T.Input<T.AddToTodoListRequest>, requestId?: string): Promise<T.Struct2 | undefined> {
     const bodyXml = S.serializeAddToTodoListBody(request);
     return (await this.call(
@@ -1986,6 +2027,7 @@ export class MplusKassaClient {
     )).response;
   }
 
+  /** Removes the specified todolist. All errors are reported as soapfaults. */
   async removeTodoList(id: number, requestId?: string): Promise<T.Struct3 | undefined> {
     const bodyXml = S.serializeRemoveTodoListBody(id);
     return (await this.call(
@@ -1999,6 +2041,7 @@ export class MplusKassaClient {
     )).response;
   }
 
+  /** returns a list of available filterprofiles */
   async getFilterProfiles(request: T.Input<T.GetFilterProfilesRequest>, requestId?: string): Promise<T.FilterProfile[] | undefined> {
     const bodyXml = S.serializeGetFilterProfilesBody(request);
     return (await this.call(
@@ -2012,6 +2055,7 @@ export class MplusKassaClient {
     )).filterProfiles;
   }
 
+  /** use to save or update a preparation method group */
   async savePreparationMethodGroup(request: T.Input<T.SavePreparationMethodGroupRequest>, requestId?: string): Promise<T.SavePreparationMethodGroupResponse> {
     const bodyXml = S.serializeSavePreparationMethodGroupBody(request);
     return this.call(
@@ -2025,6 +2069,7 @@ export class MplusKassaClient {
     );
   }
 
+  /** haalt de voedingskenmerken op op basis van een lijst van kaartnummers of op basis van syncMarker. Bij gebruik van syncMarker wordt voor elke kaart de complete lijst geretourneerd. Deze kan minder elementen bevatten dan voorheen dus de gehele lijst van de kaart vervangen in een sync zodat er niet verwijderde elementen blijven staan. */
   async getNutritionalCharacteristics(request: T.Input<T.GetNutritionalCharacteristicsRequest>, requestId?: string): Promise<T.GetNutritionalCharacteristicsResponse> {
     const bodyXml = S.serializeGetNutritionalCharacteristicsBody(request);
     return this.call(
@@ -2051,6 +2096,7 @@ export class MplusKassaClient {
     );
   }
 
+  /** (beta details including input and output may change) Returns pricing including rebates and promotions bases on quantities. */
   async determinePricing(request: T.Input<T.DeterminePricingRequest>, requestId?: string): Promise<T.DeterminePricingResponse> {
     const bodyXml = S.serializeDeterminePricingBody(request);
     return this.call(
@@ -2247,6 +2293,7 @@ export class MplusKassaClient {
     );
   }
 
+  /** (deprecated) configuration heirarchy not clear, use getConfigurationTree and getConfigurationValues, updateConfigurationValues instead. */
   async getConfiguration(request: T.Input<T.GetConfigurationRequest>, requestId?: string): Promise<T.Configuration[]> {
     const bodyXml = S.serializeGetConfigurationBody(request);
     return (await this.call(
@@ -2260,6 +2307,7 @@ export class MplusKassaClient {
     )).configurationList;
   }
 
+  /** (deprecated) only useable in combination with getConfiguration, use getConfigurationTree and getConfigurationValues, updateConfigurationValues instead. */
   async updateConfiguration(request: T.Input<T.UpdateConfigurationRequest>, requestId?: string): Promise<T.UpdateConfigurationResult> {
     const bodyXml = S.serializeUpdateConfigurationBody(request);
     return (await this.call(
@@ -2273,6 +2321,7 @@ export class MplusKassaClient {
     )).result;
   }
 
+  /** use to retrieve availible configuration tree. */
   async getConfigurationTree(request: T.Input<T.GetConfigurationTreeRequest>, requestId?: string): Promise<T.ConfigurationGroup[] | undefined> {
     const bodyXml = S.serializeGetConfigurationTreeBody(request);
     return (await this.call(
@@ -2286,6 +2335,7 @@ export class MplusKassaClient {
     )).configurations;
   }
 
+  /** use to save or update a preparation method group */
   async getConfigurationValues(request: T.Input<T.GetConfigurationValuesRequest>, requestId?: string): Promise<T.ConfigurationKeyValues[] | undefined> {
     const bodyXml = S.serializeGetConfigurationValuesBody(request);
     return (await this.call(
@@ -2299,6 +2349,7 @@ export class MplusKassaClient {
     )).configurationKeyValues;
   }
 
+  /** use to update the configurations */
   async updateConfigurationValues(request: T.Input<T.UpdateConfigurationValuesRequest>, requestId?: string): Promise<T.UpdateConfigurationValuesResponse> {
     const bodyXml = S.serializeUpdateConfigurationValuesBody(request);
     return this.call(
@@ -2351,6 +2402,7 @@ export class MplusKassaClient {
     )).buttonLayoutGroups;
   }
 
+  /** use to retrieve the buttonLayoutGroup */
   async getButtonLayoutGroupDetails(request: T.Input<T.GetButtonLayoutGroupDetailsRequest>, requestId?: string): Promise<T.GetButtonLayoutGroupDetailsResponse> {
     const bodyXml = S.serializeGetButtonLayoutGroupDetailsBody(request);
     return this.call(
@@ -2364,6 +2416,7 @@ export class MplusKassaClient {
     );
   }
 
+  /** Used to update existing ButtonLayoutGroup or create a new ButtonLayoutGroup. When creating, use 0 as id. */
   async saveButtonLayoutGroupDetails(request: T.Input<T.SaveButtonLayoutGroupDetailsRequest>, requestId?: string): Promise<T.SaveButtonLayoutGroupDetailsResponse> {
     const bodyXml = S.serializeSaveButtonLayoutGroupDetailsBody(request);
     return this.call(
@@ -2377,6 +2430,7 @@ export class MplusKassaClient {
     );
   }
 
+  /** Use to delete a buttonLayoutGroup, only works if the layout is not assigned to workplaces. */
   async deleteButtonLayoutGroup(request: T.Input<T.DeleteButtonLayoutGroupRequest>, requestId?: string): Promise<T.DeleteButtonLayoutGroupResponse> {
     const bodyXml = S.serializeDeleteButtonLayoutGroupBody(request);
     return this.call(
@@ -2390,6 +2444,7 @@ export class MplusKassaClient {
     );
   }
 
+  /** Assign the given buttonLayoutGroup to workplaces. */
   async assignButtonLayoutGroupToWorkplaces(request: T.Input<T.AssignButtonLayoutGroupToWorkplacesRequest>, requestId?: string): Promise<T.AssignButtonLayoutGroupToWorkplacesResponse> {
     const bodyXml = S.serializeAssignButtonLayoutGroupToWorkplacesBody(request);
     return this.call(
@@ -2416,6 +2471,7 @@ export class MplusKassaClient {
     )).return;
   }
 
+  /** Retrieve information about stock configuration per branch. */
   async getDayStockConfiguration(request: T.Input<T.GetDayStockConfigurationRequest>, requestId?: string): Promise<T.DayStockConfiguration[]> {
     const bodyXml = S.serializeGetDayStockConfigurationBody(request);
     return (await this.call(
@@ -2429,6 +2485,7 @@ export class MplusKassaClient {
     )).dayStockConfigurationList;
   }
 
+  /** Store information about stock configuration per branch. */
   async saveDayStockConfiguration(request: T.Input<T.SaveDayStockConfigurationRequest>, requestId?: string): Promise<T.SaveDayStockConfigurationResult> {
     const bodyXml = S.serializeSaveDayStockConfigurationBody(request);
     return (await this.call(
@@ -2572,6 +2629,7 @@ export class MplusKassaClient {
     );
   }
 
+  /** als er geen syncMarker gezet wordt in de request wordt alle aanwezige groepen geretourneerd. Met een syncMarker wordt er ingelezen op basis van syncMarker en limit en worden ook verwijdere groepen geretourneerd tbv syncs. */
   async getArticleAlterationsGroups(request: T.Input<T.GetArticleAlterationsGroupsRequest>, requestId?: string): Promise<T.ArticleAlterationsGroup[]> {
     const bodyXml = S.serializeGetArticleAlterationsGroupsBody(request);
     return (await this.call(
@@ -2585,6 +2643,7 @@ export class MplusKassaClient {
     )).articleAlterationsGroupList;
   }
 
+  /** use to save or update an article alterations group */
   async saveArticleAlterationsGroup(request: T.Input<T.SaveArticleAlterationsGroupRequest>, requestId?: string): Promise<T.SaveArticleAlterationsGroupResponse> {
     const bodyXml = S.serializeSaveArticleAlterationsGroupBody(request);
     return this.call(
@@ -2611,6 +2670,7 @@ export class MplusKassaClient {
     )).result;
   }
 
+  /** use to update the article menu for the specified article. */
   async updateAttachedArticleAlterationsGroups(request: T.Input<T.UpdateAttachedArticleAlterationsGroupsRequest>, requestId?: string): Promise<T.UpdateAttachedArticleAlterationsGroupsResult> {
     const bodyXml = S.serializeUpdateAttachedArticleAlterationsGroupsBody(request);
     return (await this.call(
@@ -2637,6 +2697,7 @@ export class MplusKassaClient {
     );
   }
 
+  /** use to add autorisations to the online tree. */
   async updateOnlineAuthorizationTree(request: T.Input<T.UpdateOnlineAuthorizationTreeRequest>, requestId?: string): Promise<T.UpdateOnlineAuthorizationTreeResponse> {
     const bodyXml = S.serializeUpdateOnlineAuthorizationTreeBody(request);
     return this.call(
@@ -2650,6 +2711,7 @@ export class MplusKassaClient {
     );
   }
 
+  /** use to get all owner labels. */
   async getOwnerLabels(request: T.Input<T.GetOwnerLabelsRequest>, requestId?: string): Promise<T.OwnerLabel[] | undefined> {
     const bodyXml = S.serializeGetOwnerLabelsBody(request);
     return (await this.call(
@@ -2663,6 +2725,7 @@ export class MplusKassaClient {
     )).ownerLabels;
   }
 
+  /** use to create new owner labels when not specifying an id, or changing existing owner labels. */
   async saveOwnerLabels(request: T.Input<T.SaveOwnerLabelsRequest>, requestId?: string): Promise<T.SaveOwnerLabelsResponse> {
     request = { idempotencyKey: randomUUID(), ...request };
     const bodyXml = S.serializeSaveOwnerLabelsBody(request);
@@ -2690,6 +2753,7 @@ export class MplusKassaClient {
     )).wordAliasList;
   }
 
+  /** returns the API version */
   async getApiVersion(requestId?: string): Promise<T.getApiVersionResponse> {
     const bodyXml = S.serializeGetApiVersionBody();
     return this.call(
@@ -2729,6 +2793,7 @@ export class MplusKassaClient {
     );
   }
 
+  /** Returns a list of all available terminals with their branchNumber, branchName, terminalNumber, terminalName and terminalStatus. */
   async getAvailableTerminalList(requestId?: string): Promise<T.Terminal[] | undefined> {
     const bodyXml = S.serializeGetAvailableTerminalListBody();
     return (await this.call(
@@ -2963,6 +3028,7 @@ export class MplusKassaClient {
     )).floorplans;
   }
 
+  /** Changes one or more properties of a table. */
   async changeTableProperty(request: T.Input<T.ChangeTablePropertyReq>, requestId?: string): Promise<T.ChangeTablePropertyResp> {
     request = { idempotencyKey: randomUUID(), ...request };
     const bodyXml = S.serializeChangeTablePropertyBody(request);
@@ -3055,6 +3121,7 @@ export class MplusKassaClient {
     )).branchAuthorizationsList;
   }
 
+  /** use to update or create authorization groups */
   async saveAuthorizationGroup(request: T.Input<T.SaveAuthorizationGroupRequest>, requestId?: string): Promise<T.SaveAuthorizationGroupResponse> {
     const bodyXml = S.serializeSaveAuthorizationGroupBody(request);
     return this.call(
@@ -3068,6 +3135,7 @@ export class MplusKassaClient {
     );
   }
 
+  /** use to delete authorization group */
   async deleteAuthorizationGroup(request: T.Input<T.DeleteAuthorizationGroupRequest>, requestId?: string): Promise<T.DeleteAuthorizationGroupResponse> {
     const bodyXml = S.serializeDeleteAuthorizationGroupBody(request);
     return this.call(
@@ -3276,6 +3344,7 @@ export class MplusKassaClient {
     );
   }
 
+  /** returns the labels that are available for the cardType in the order in which the Qline will show them. */
   async getCardImageLabels(request: T.Input<T.GetCardImageLabelsRequest>, requestId?: string): Promise<T.ImageLabel[] | undefined> {
     const bodyXml = S.serializeGetCardImageLabelsBody(request);
     return (await this.call(
@@ -3289,6 +3358,7 @@ export class MplusKassaClient {
     )).labels;
   }
 
+  /** Returns an item for each cardnumber containing the images for that card in display order. */
   async getCardImages(request: T.Input<T.GetCardImagesRequest>, requestId?: string): Promise<T.CardImageData[] | undefined> {
     const bodyXml = S.serializeGetCardImagesBody(request);
     return (await this.call(
@@ -3302,6 +3372,7 @@ export class MplusKassaClient {
     )).items;
   }
 
+  /** Replaces the lists of associated images for each of the cards the order of the items is persisted. */
   async saveCardImages(request: T.Input<T.SaveCardImagesRequest>, requestId?: string): Promise<T.SaveCardImagesResponse> {
     const bodyXml = S.serializeSaveCardImagesBody(request);
     return this.call(
