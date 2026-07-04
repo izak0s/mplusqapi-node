@@ -12,7 +12,7 @@ A fully-typed TypeScript client for the [MplusKASSA](https://www.mpluskassa.nl) 
 
 ## Features
 
-- **372 typed async methods** covering the full MplusKASSA API surface
+- **372 typed async methods** covering the full MplusKASSA API surface — see [API.md](API.md) for the complete method index
 - **Auto-generated** from the official WSDL URL — regenerate anytime the WSDL changes
 - **Fully typed** — 286 enum types and 1341 interfaces, all derived from the WSDL
 - **List flattening** — `*List` wrapper types (e.g. `OrderList`) are transparently unwrapped to plain arrays (`Order[]`)

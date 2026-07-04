@@ -13,7 +13,13 @@
   "keywords": [
     "mpluskassa",
     "mplusqapi",
+    "mplus",
+    "kassa",
+    "pos",
+    "point-of-sale",
     "soap",
+    "soap-client",
+    "wsdl",
     "typescript",
     "api-client"
   ],

@@ -1,7 +1,8 @@
 /**
- * Rewrites the generated-code counts quoted in README.md so they never drift
- * from src/generated/. Counts are derived directly from the generated sources
- * (the source of truth), so this is safe to run after every regeneration.
+ * Rewrites the generated-code counts quoted in README.md and regenerates
+ * API.md (the full method index) so they never drift from src/generated/.
+ * Everything is derived directly from the generated sources (the source of
+ * truth), so this is safe to run after every regeneration.
  *
  *   npm run sync:readme
  */
@@ -34,4 +35,42 @@ if (readme === before) {
 } else {
   fs.writeFileSync(readmePath, readme);
   console.log(`README counts updated: ${methods} methods, ${enums} enums, ${interfaces} interfaces.`);
+}
+
+// --- API.md: full method index ---
+
+const clientSource = fs.readFileSync(path.join(generatedDir, 'client.ts'), 'utf8');
+const signatures = [...clientSource.matchAll(/^ {2}async (\w+)\((.*)\): (Promise<.*>) \{$/gm)]
+  .map(([, name, params, ret]) => ({ name, params: params.replace(/\bT\./g, ''), ret: ret.replace(/\bT\./g, '') }))
+  .sort((a, b) => a.name.localeCompare(b.name));
+
+const apiMd = `# MplusKASSA API — method index
+
+All ${signatures.length} SOAP operations of the MplusKASSA API (\`urn:mplusqapi\`), as exposed by
+[\`@izak0s/mplusqapi-node\`](https://www.npmjs.com/package/@izak0s/mplusqapi-node) as typed async
+methods on \`MplusKassaClient\`. See the [README](README.md) for installation and usage.
+
+Every method also accepts an optional trailing \`requestId?: string\` for debug tracing.
+\`Input<T>\` relaxes a response type for use as request input (e.g. \`Date\` fields, plain arrays).
+
+> Auto-generated from \`src/generated/client.ts\` by \`npm run sync:readme\` — do not edit manually.
+
+| Method | Returns |
+| --- | --- |
+${signatures
+  .map(({ name, params, ret }) => {
+    const cell = (s: string) => `\`${s}\``.replace(/\|/g, '\\|');
+    const paramList = params.replace(/, requestId\?: string$/, '').replace(/^requestId\?: string$/, '');
+    return `| ${cell(`${name}(${paramList})`)} | ${cell(ret.replace(/^Promise<(.*)>$/, '$1'))} |`;
+  })
+  .join('\n')}
+`;
+
+const apiMdPath = path.join(projectRoot, 'API.md');
+const apiBefore = fs.existsSync(apiMdPath) ? fs.readFileSync(apiMdPath, 'utf8') : '';
+if (apiMd === apiBefore) {
+  console.log(`API.md already current (${signatures.length} methods).`);
+} else {
+  fs.writeFileSync(apiMdPath, apiMd);
+  console.log(`API.md regenerated (${signatures.length} methods).`);
 }
