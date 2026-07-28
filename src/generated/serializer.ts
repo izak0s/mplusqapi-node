@@ -2464,6 +2464,12 @@ export function serializeVoucherIssuance(obj: T.Input<T.VoucherIssuance>, elemNa
   if (obj.groupScanCode !== undefined && obj.groupScanCode !== null) {
     xml += serializeString('groupScanCode', String(obj.groupScanCode));
   }
+  if (obj.resolvedScanCode !== undefined && obj.resolvedScanCode !== null) {
+    xml += serializeString('resolvedScanCode', String(obj.resolvedScanCode));
+  }
+  if (obj.resolvedGroupScanCode !== undefined && obj.resolvedGroupScanCode !== null) {
+    xml += serializeString('resolvedGroupScanCode', String(obj.resolvedGroupScanCode));
+  }
   xml += `</${NS_PREFIX}:${elemName}>`;
   return xml;
 }
@@ -2526,6 +2532,12 @@ export function serializeVoucherIssuanceCompact(obj: T.Input<T.VoucherIssuanceCo
   }
   if (obj.groupScanCode !== undefined && obj.groupScanCode !== null) {
     xml += serializeString('groupScanCode', String(obj.groupScanCode));
+  }
+  if (obj.resolvedScanCode !== undefined && obj.resolvedScanCode !== null) {
+    xml += serializeString('resolvedScanCode', String(obj.resolvedScanCode));
+  }
+  if (obj.resolvedGroupScanCode !== undefined && obj.resolvedGroupScanCode !== null) {
+    xml += serializeString('resolvedGroupScanCode', String(obj.resolvedGroupScanCode));
   }
   if (obj.quantity !== undefined && obj.quantity !== null) {
     xml += serializeNumber('quantity', obj.quantity);
@@ -2606,6 +2618,12 @@ export function serializeVoucherIssuanceCandidate(obj: T.Input<T.VoucherIssuance
   }
   if (obj.groupScanCode !== undefined && obj.groupScanCode !== null) {
     xml += serializeString('groupScanCode', String(obj.groupScanCode));
+  }
+  if (obj.resolvedScanCode !== undefined && obj.resolvedScanCode !== null) {
+    xml += serializeString('resolvedScanCode', String(obj.resolvedScanCode));
+  }
+  if (obj.resolvedGroupScanCode !== undefined && obj.resolvedGroupScanCode !== null) {
+    xml += serializeString('resolvedGroupScanCode', String(obj.resolvedGroupScanCode));
   }
   if (obj.quantity !== undefined && obj.quantity !== null) {
     xml += serializeNumber('quantity', obj.quantity);
@@ -10277,6 +10295,9 @@ export function serializeOverviewFieldsField(obj: T.Input<T.OverviewFieldsField>
   if (obj.containsPersonalData !== undefined && obj.containsPersonalData !== null) {
     xml += serializeBoolean('containsPersonalData', obj.containsPersonalData);
   }
+  if (obj.sortable !== undefined && obj.sortable !== null) {
+    xml += serializeBoolean('sortable', obj.sortable);
+  }
   xml += `</${NS_PREFIX}:${elemName}>`;
   return xml;
 }
@@ -12122,6 +12143,9 @@ export function serializeGetCardFilterOptionsRequest(obj: T.Input<T.GetCardFilte
       xml += serializeCardFieldInfo(item, 'field');
     }
     xml += `</${NS_PREFIX}:fields>`;
+  }
+  if (obj.search !== undefined && obj.search !== null) {
+    xml += serializeOverviewSearch(obj.search, 'search');
   }
   xml += `</${NS_PREFIX}:${elemName}>`;
   return xml;
@@ -15044,6 +15068,9 @@ export function serializeGetConfigurationValuesRequest(obj: T.Input<T.GetConfigu
       xml += serializeString('configurationKeys', String(item));
     }
   }
+  if (obj.changedSinceTimestamp !== undefined && obj.changedSinceTimestamp !== null) {
+    xml += serializeString('changedSinceTimestamp', obj.changedSinceTimestamp.toISOString());
+  }
   xml += `</${NS_PREFIX}:${elemName}>`;
   return xml;
 }
@@ -15072,6 +15099,12 @@ export function serializeConfigurationKeyValues(obj: T.Input<T.ConfigurationKeyV
     for (const item of obj.configurationValues) {
       xml += serializeConfigurationValue(item, 'configurationValues');
     }
+  }
+  if (obj.defaultValue !== undefined && obj.defaultValue !== null) {
+    xml += serializeString('defaultValue', String(obj.defaultValue));
+  }
+  if (obj.lastChangedTimestamp !== undefined && obj.lastChangedTimestamp !== null) {
+    xml += serializeString('lastChangedTimestamp', obj.lastChangedTimestamp.toISOString());
   }
   xml += `</${NS_PREFIX}:${elemName}>`;
   return xml;
@@ -16618,6 +16651,12 @@ export function serializeGetBranchInformationRequest(obj: T.Input<T.GetBranchInf
   if (obj.branchNumber !== undefined && obj.branchNumber !== null) {
     xml += serializeNumber('branchNumber', obj.branchNumber);
   }
+  if (obj.includeImageData !== undefined && obj.includeImageData !== null) {
+    xml += serializeBoolean('includeImageData', obj.includeImageData);
+  }
+  if (obj.includeThumbData !== undefined && obj.includeThumbData !== null) {
+    xml += serializeBoolean('includeThumbData', obj.includeThumbData);
+  }
   xml += `</${NS_PREFIX}:${elemName}>`;
   return xml;
 }
@@ -16681,6 +16720,88 @@ export function serializeDeliveryAddressList(obj: T.Input<T.DeliveryAddressList>
   return xml;
 }
 
+export function serializePrintLayoutLine(obj: T.Input<T.PrintLayoutLine>, elemName: string): string {
+  let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.sequenceNumber !== undefined && obj.sequenceNumber !== null) {
+    xml += serializeNumber('sequenceNumber', obj.sequenceNumber);
+  }
+  if (obj.line !== undefined && obj.line !== null) {
+    xml += serializeString('line', String(obj.line));
+  }
+  xml += `</${NS_PREFIX}:${elemName}>`;
+  return xml;
+}
+
+export function serializePrintLayoutHeaderLines(obj: T.Input<T.PrintLayoutHeaderLines>, elemName: string): string {
+  let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.printLayoutHeaderLine !== undefined && obj.printLayoutHeaderLine !== null) {
+    for (const item of obj.printLayoutHeaderLine) {
+      xml += serializePrintLayoutLine(item, 'printLayoutHeaderLine');
+    }
+  }
+  xml += `</${NS_PREFIX}:${elemName}>`;
+  return xml;
+}
+
+export function serializePrintLayoutFooterLines(obj: T.Input<T.PrintLayoutFooterLines>, elemName: string): string {
+  let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.printLayoutFooterLine !== undefined && obj.printLayoutFooterLine !== null) {
+    for (const item of obj.printLayoutFooterLine) {
+      xml += serializePrintLayoutLine(item, 'printLayoutFooterLine');
+    }
+  }
+  xml += `</${NS_PREFIX}:${elemName}>`;
+  return xml;
+}
+
+export function serializeOpeningHours(obj: T.Input<T.OpeningHours>, elemName: string): string {
+  let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.mondayFrom !== undefined && obj.mondayFrom !== null) {
+    xml += serializeDateTime('mondayFrom', obj.mondayFrom);
+  }
+  if (obj.mondayTill !== undefined && obj.mondayTill !== null) {
+    xml += serializeDateTime('mondayTill', obj.mondayTill);
+  }
+  if (obj.tuesdayFrom !== undefined && obj.tuesdayFrom !== null) {
+    xml += serializeDateTime('tuesdayFrom', obj.tuesdayFrom);
+  }
+  if (obj.tuesdayTill !== undefined && obj.tuesdayTill !== null) {
+    xml += serializeDateTime('tuesdayTill', obj.tuesdayTill);
+  }
+  if (obj.wednesdayFrom !== undefined && obj.wednesdayFrom !== null) {
+    xml += serializeDateTime('wednesdayFrom', obj.wednesdayFrom);
+  }
+  if (obj.wednesdayTill !== undefined && obj.wednesdayTill !== null) {
+    xml += serializeDateTime('wednesdayTill', obj.wednesdayTill);
+  }
+  if (obj.thursdayFrom !== undefined && obj.thursdayFrom !== null) {
+    xml += serializeDateTime('thursdayFrom', obj.thursdayFrom);
+  }
+  if (obj.thursdayTill !== undefined && obj.thursdayTill !== null) {
+    xml += serializeDateTime('thursdayTill', obj.thursdayTill);
+  }
+  if (obj.fridayFrom !== undefined && obj.fridayFrom !== null) {
+    xml += serializeDateTime('fridayFrom', obj.fridayFrom);
+  }
+  if (obj.fridayTill !== undefined && obj.fridayTill !== null) {
+    xml += serializeDateTime('fridayTill', obj.fridayTill);
+  }
+  if (obj.saturdayFrom !== undefined && obj.saturdayFrom !== null) {
+    xml += serializeDateTime('saturdayFrom', obj.saturdayFrom);
+  }
+  if (obj.saturdayTill !== undefined && obj.saturdayTill !== null) {
+    xml += serializeDateTime('saturdayTill', obj.saturdayTill);
+  }
+  if (obj.sundayFrom !== undefined && obj.sundayFrom !== null) {
+    xml += serializeDateTime('sundayFrom', obj.sundayFrom);
+  }
+  if (obj.sundayTill !== undefined && obj.sundayTill !== null) {
+    xml += serializeDateTime('sundayTill', obj.sundayTill);
+  }
+  xml += `</${NS_PREFIX}:${elemName}>`;
+  return xml;
+}
+
 export function serializeBranchInformation(obj: T.Input<T.BranchInformation>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.branchNumber !== undefined && obj.branchNumber !== null) {
@@ -16734,12 +16855,47 @@ export function serializeBranchInformation(obj: T.Input<T.BranchInformation>, el
   if (obj.termsAndConditions !== undefined && obj.termsAndConditions !== null) {
     xml += serializeString('termsAndConditions', String(obj.termsAndConditions));
   }
+  if (obj.receiptPrinterLogo !== undefined && obj.receiptPrinterLogo !== null) {
+    xml += serializeImage(obj.receiptPrinterLogo, 'receiptPrinterLogo');
+  }
+  if (obj.printLayoutHeaderLines !== undefined && obj.printLayoutHeaderLines !== null) {
+    xml += `<${NS_PREFIX}:printLayoutHeaderLines>`;
+    for (const item of obj.printLayoutHeaderLines) {
+      xml += serializePrintLayoutLine(item, 'printLayoutHeaderLine');
+    }
+    xml += `</${NS_PREFIX}:printLayoutHeaderLines>`;
+  }
+  if (obj.printLayoutFooterLines !== undefined && obj.printLayoutFooterLines !== null) {
+    xml += `<${NS_PREFIX}:printLayoutFooterLines>`;
+    for (const item of obj.printLayoutFooterLines) {
+      xml += serializePrintLayoutLine(item, 'printLayoutFooterLine');
+    }
+    xml += `</${NS_PREFIX}:printLayoutFooterLines>`;
+  }
+  if (obj.openingHours !== undefined && obj.openingHours !== null) {
+    xml += serializeOpeningHours(obj.openingHours, 'openingHours');
+  }
+  if (obj.eoriNumber !== undefined && obj.eoriNumber !== null) {
+    xml += serializeString('eoriNumber', String(obj.eoriNumber));
+  }
+  if (obj.establishmentUnitNumber !== undefined && obj.establishmentUnitNumber !== null) {
+    xml += serializeString('establishmentUnitNumber', String(obj.establishmentUnitNumber));
+  }
   if (obj.deliveryAddresses !== undefined && obj.deliveryAddresses !== null) {
     xml += `<${NS_PREFIX}:deliveryAddresses>`;
     for (const item of obj.deliveryAddresses) {
       xml += serializeDeliveryAddress(item, 'deliveryAddress');
     }
     xml += `</${NS_PREFIX}:deliveryAddresses>`;
+  }
+  xml += `</${NS_PREFIX}:${elemName}>`;
+  return xml;
+}
+
+export function serializesaveBranchInformationRequest(obj: T.Input<T.saveBranchInformationRequest>, elemName: string): string {
+  let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.branchInformation !== undefined && obj.branchInformation !== null) {
+    xml += serializeBranchInformation(obj.branchInformation, 'branchInformation');
   }
   xml += `</${NS_PREFIX}:${elemName}>`;
   return xml;
@@ -18430,6 +18586,18 @@ export function serializeGetBranchInformationResponse(obj: T.Input<T.GetBranchIn
   return xml;
 }
 
+export function serializesaveBranchInformationResponse(obj: T.Input<T.saveBranchInformationResponse>, elemName: string): string {
+  let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.result !== undefined && obj.result !== null) {
+    xml += serializeString('result', String(obj.result));
+  }
+  if (obj.errorMessage !== undefined && obj.errorMessage !== null) {
+    xml += serializeString('errorMessage', String(obj.errorMessage));
+  }
+  xml += `</${NS_PREFIX}:${elemName}>`;
+  return xml;
+}
+
 export function serializeGetBranchGroupsResponse(obj: T.Input<T.GetBranchGroupsResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.branchGroupsList !== undefined && obj.branchGroupsList !== null) {
@@ -19420,8 +19588,20 @@ export function serializePrintLayoutAssignmentPrintLayoutView(obj: T.Input<T.Pri
   return xml;
 }
 
+export function serializensPrintLayoutLocationId(obj: T.Input<T.nsPrintLayoutLocationId>, elemName: string): string {
+  let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.locationId !== undefined && obj.locationId !== null) {
+    xml += serializeNumber('locationId', obj.locationId);
+  }
+  xml += `</${NS_PREFIX}:${elemName}>`;
+  return xml;
+}
+
 export function serializePrintLayoutAssignment(obj: T.Input<T.PrintLayoutAssignment>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.id !== undefined && obj.id !== null) {
+    xml += serializeNumber('id', obj.id);
+  }
   if (obj.workplace !== undefined && obj.workplace !== null) {
     xml += serializeWorkplaceIdentifier(obj.workplace, 'workplace');
   }
@@ -19430,6 +19610,31 @@ export function serializePrintLayoutAssignment(obj: T.Input<T.PrintLayoutAssignm
   }
   if (obj.useOnlinePrinter !== undefined && obj.useOnlinePrinter !== null) {
     xml += serializeBoolean('useOnlinePrinter', obj.useOnlinePrinter);
+  }
+  if (obj.baseLocationId !== undefined && obj.baseLocationId !== null) {
+    xml += serializeNumber('baseLocationId', obj.baseLocationId);
+  }
+  if (obj.asLocationId !== undefined && obj.asLocationId !== null) {
+    xml += serializeNumber('asLocationId', obj.asLocationId);
+  }
+  if (obj.extraLocationIds !== undefined && obj.extraLocationIds !== null) {
+    for (const item of obj.extraLocationIds) {
+      xml += serializensPrintLayoutLocationId(item, 'extraLocationIds');
+    }
+  }
+  if (obj.kind !== undefined && obj.kind !== null) {
+    xml += serializeString('kind', String(obj.kind));
+  }
+  xml += `</${NS_PREFIX}:${elemName}>`;
+  return xml;
+}
+
+export function serializeSavePrintLayoutAssignmentsRequest(obj: T.Input<T.SavePrintLayoutAssignmentsRequest>, elemName: string): string {
+  let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.printLayoutAssignments !== undefined && obj.printLayoutAssignments !== null) {
+    for (const item of obj.printLayoutAssignments) {
+      xml += serializePrintLayoutAssignment(item, 'printLayoutAssignments');
+    }
   }
   xml += `</${NS_PREFIX}:${elemName}>`;
   return xml;
@@ -19588,6 +19793,15 @@ export function serializeGetPrintLayoutAssignmentsResponse(obj: T.Input<T.GetPri
     for (const item of obj.printLayoutAssignments) {
       xml += serializePrintLayoutAssignment(item, 'printLayoutAssignments');
     }
+  }
+  xml += `</${NS_PREFIX}:${elemName}>`;
+  return xml;
+}
+
+export function serializeSavePrintLayoutAssignmentsResponse(obj: T.Input<T.SavePrintLayoutAssignmentsResponse>, elemName: string): string {
+  let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.result !== undefined && obj.result !== null) {
+    xml += serializeString('result', String(obj.result));
   }
   xml += `</${NS_PREFIX}:${elemName}>`;
   return xml;
@@ -30754,6 +30968,12 @@ export function serializeGetBranchInformationBody(request: T.Input<T.GetBranchIn
   return xml;
 }
 
+export function serializeSaveBranchInformationBody(request: T.Input<T.saveBranchInformationRequest>): string {
+  let xml = '';
+  xml += serializesaveBranchInformationRequest(request!, 'request');
+  return xml;
+}
+
 export function serializeGetBranchGroupsBody(request: T.Input<T.GetBranchGroupsRequest>): string {
   let xml = '';
   xml += serializeGetBranchGroupsRequest(request!, 'request');
@@ -31010,6 +31230,12 @@ export function serializeGetPrintLayoutsBody(request: T.Input<T.GetPrintLayoutsR
 export function serializeGetPrintLayoutAssignmentsBody(request: T.Input<T.GetPrintLayoutAssignmentsRequest>): string {
   let xml = '';
   xml += serializeGetPrintLayoutAssignmentsRequest(request!, 'request');
+  return xml;
+}
+
+export function serializeSavePrintLayoutAssignmentsBody(request: T.Input<T.SavePrintLayoutAssignmentsRequest>): string {
+  let xml = '';
+  xml += serializeSavePrintLayoutAssignmentsRequest(request!, 'request');
   return xml;
 }
 
