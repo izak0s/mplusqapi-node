@@ -2846,6 +2846,19 @@ export class MplusKassaClient {
     );
   }
 
+  async saveBranchInformation(request: T.Input<T.saveBranchInformationRequest>, requestId?: string): Promise<T.saveBranchInformationResponse> {
+    const bodyXml = S.serializeSaveBranchInformationBody(request);
+    return this.call(
+      'saveBranchInformation',
+      'saveBranchInformationResponse',
+      'saveBranchInformationResponse',
+      bodyXml,
+      D.deserializesaveBranchInformationResponse,
+      false,
+      requestId,
+    );
+  }
+
   async getBranchGroups(request: T.Input<T.GetBranchGroupsRequest>, requestId?: string): Promise<T.BranchGroups[]> {
     const bodyXml = S.serializeGetBranchGroupsBody(request);
     return (await this.call(
@@ -3423,6 +3436,19 @@ export class MplusKassaClient {
       false,
       requestId,
     )).printLayoutAssignments;
+  }
+
+  async savePrintLayoutAssignments(request: T.Input<T.SavePrintLayoutAssignmentsRequest>, requestId?: string): Promise<T.SavePrintLayoutAssignmentsResponseResult> {
+    const bodyXml = S.serializeSavePrintLayoutAssignmentsBody(request);
+    return (await this.call(
+      'savePrintLayoutAssignments',
+      'SavePrintLayoutAssignmentsResponse',
+      'SavePrintLayoutAssignmentsResponse',
+      bodyXml,
+      D.deserializeSavePrintLayoutAssignmentsResponse,
+      false,
+      requestId,
+    )).result;
   }
 
   async getRenderedPrintLayout(request: T.Input<T.GetRenderedPrintLayoutRequest>, requestId?: string): Promise<T.GetRenderedPrintLayoutResponse> {

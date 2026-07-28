@@ -15,7 +15,7 @@ export type VatMethod = 'VAT-METHOD-INCLUSIVE' | 'VAT-METHOD-EXCLUSIVE' | 'VAT-M
 
 export type VatChange = 'VAT-CHANGE-TAKE-OUT' | 'VAT-CHANGE-EAT-HERE' | 'VAT-CHANGE-CUSTOM-TAKE-OUT' | 'VAT-CHANGE-CUSTOM-EAT-HERE';
 
-export type PaymentMethodType = 'PAYMENT-METHOD-TYPE-PAYMENT' | 'PAYMENT-METHOD-TYPE-EFT' | 'PAYMENT-METHOD-TYPE-SUSPENSE' | 'PAYMENT-METHOD-TYPE-DEPOSIT' | 'PAYMENT-METHOD-TYPE-AUTO-DEPOSIT' | 'PAYMENT-METHOD-TYPE-BPE' | 'PAYMENT-METHOD-TYPE-VOUCHER-BPE' | 'PAYMENT-METHOD-TYPE-VOUCHER-BOOK-BPE';
+export type PaymentMethodType = 'PAYMENT-METHOD-TYPE-PAYMENT' | 'PAYMENT-METHOD-TYPE-EFT' | 'PAYMENT-METHOD-TYPE-SUSPENSE' | 'PAYMENT-METHOD-TYPE-DEPOSIT' | 'PAYMENT-METHOD-TYPE-AUTO-DEPOSIT' | 'PAYMENT-METHOD-TYPE-BPE' | 'PAYMENT-METHOD-TYPE-BPE-NO-STOCK' | 'PAYMENT-METHOD-TYPE-VOUCHER-BPE' | 'PAYMENT-METHOD-TYPE-VOUCHER-BOOK-BPE';
 
 export type BpeBudgetPeriod = 'DAY' | 'WEEK' | 'MONTH' | 'YEAR';
 
@@ -399,6 +399,8 @@ export type DayStockBehaviour = 'DAY-STOCK-BEHAVIOUR-ASK-CONFIRMATION' | 'DAY-ST
 
 export type GetBranchInformationResult = 'GET-BRANCH-INFORMATION-RESULT-OK' | 'GET-BRANCH-INFORMATION-RESULT-FAILED';
 
+export type SaveBranchInformationResult = 'SAVE-BRANCH-INFORMATION-RESULT-OK' | 'SAVE-BRANCH-INFORMATION-RESULT-FAILED';
+
 export type CreateDeliveryMethodResult = 'CREATE-DELIVERY-METHOD-RESULT-OK' | 'CREATE-DELIVERY-METHOD-RESULT-FAILED' | 'CREATE-DELIVERY-METHOD-RESULT-ALREADY-EXISTS';
 
 export type UpdateDeliveryMethodResult = 'UPDATE-DELIVERY-METHOD-RESULT-OK' | 'UPDATE-DELIVERY-METHOD-RESULT-FAILED' | 'UPDATE-DELIVERY-METHOD-RESULT-DOES-NOT-EXIST';
@@ -429,11 +431,13 @@ export type CreateImageResult = 'CREATE-IMAGE-OK' | 'CREATE-IMAGE-TOO-LARGE' | '
 
 export type PrintLayoutType = 'ALL' | 'RECEIPT' | 'GRAPHICS';
 
-export type PrintLayoutKind = 'ALL' | 'ARTICLE' | 'RELATION' | 'EMPLOYEE' | 'REGISTER-RECEIPT' | 'INVOICE' | 'TABLE-ORDER-RECEIPT' | 'INTERMEDIATE-ORDER-RECEIPT' | 'SALE-ORDER' | 'SALE-PACKING-RECEIPT' | 'TICKET' | 'ORDER-TICKET' | 'TICKETCOUNTER-TICKET' | 'DEPOSIT-SLIP' | 'PURCHASE-DELIVERY' | 'PURCHASE-ORDER' | 'PARTIAL-PAYMENT' | 'QUOTATION' | 'MENU-PLANNING' | 'ORDER-SLIP' | 'WEBHOOK-RECEIPT-FOOTER' | 'VOUCHER-ISSUANCE';
+export type PrintLayoutKind = 'ALL' | 'ARTICLE' | 'RELATION' | 'EMPLOYEE' | 'REGISTER-RECEIPT' | 'INVOICE' | 'TABLE-ORDER-RECEIPT' | 'INTERMEDIATE-ORDER-RECEIPT' | 'SALE-ORDER' | 'SALE-PACKING-RECEIPT' | 'TICKET' | 'ORDER-TICKET' | 'TICKETCOUNTER-TICKET' | 'DEPOSIT-SLIP' | 'PURCHASE-DELIVERY' | 'PURCHASE-ORDER' | 'PARTIAL-PAYMENT' | 'QUOTATION' | 'MENU-PLANNING' | 'ORDER-SLIP' | 'WEBHOOK-RECEIPT-FOOTER' | 'VOUCHER-ISSUANCE' | 'RETURN-SLIP' | 'ARTICLE-PRICE-BARCODE';
 
 export type PrintLayoutFieldType = 'ALL' | 'DIGITAL-SIGNATURE' | 'GRAPHICS-MENU-PLANNING-RULES' | 'GRAPHICS-PICTURE' | 'GRAPHICS-RICH-TEXT' | 'GRAPHICS-RULES' | 'GRAPHICS-TEMPLATE' | 'GRAPHICS-TEXT' | 'RECEIPT-PICTURE' | 'RECEIPT-RULES' | 'RECEIPT-TEXT' | 'RECTANGLE' | 'TABLE-ORDER-FORM-RECEIPT-RULES' | 'VARYING-GRAPHICS-BARCODE' | 'VARYING-GRAPHICS-DATE' | 'VARYING-GRAPHICS-PICTURE' | 'VARYING-GRAPHICS-TEXT' | 'VARYING-RECEIPT-BARCODE' | 'VARYING-RECEIPT-DATE' | 'VARYING-RECEIPT-PICTURE' | 'VARYING-RECEIPT-TEXT' | 'WHITESPACE';
 
 export type GetPrintLayoutsResponseResult = 'OK' | 'NO-PRINT-LAYOUTS-FOUND';
+
+export type SavePrintLayoutAssignmentsResponseResult = 'UNKNOWN' | 'OK';
 
 export type RenderedPrintLayoutType = 'PDF' | 'PNG' | 'JPEG' | 'XPS' | 'WEBP';
 
@@ -1538,6 +1542,8 @@ export interface VoucherIssuance {
   endTs?: Date;
   voucherIssuanceRedeems: VoucherIssuanceRedeem[];
   groupScanCode?: string;
+  resolvedScanCode?: string;
+  resolvedGroupScanCode?: string;
 }
 
 export interface VoucherIssuanceList {
@@ -1559,6 +1565,8 @@ export interface VoucherIssuanceCompact {
   endTs?: Date;
   voucherIssuanceRedeems: VoucherIssuanceRedeem[];
   groupScanCode?: string;
+  resolvedScanCode?: string;
+  resolvedGroupScanCode?: string;
   quantity: number;
   positiveIssuanceIds: string[];
   negativeIssuanceIds: string[];
@@ -1583,6 +1591,8 @@ export interface VoucherIssuanceCandidate {
   endTs?: Date;
   voucherIssuanceRedeems: VoucherIssuanceRedeem[];
   groupScanCode?: string;
+  resolvedScanCode?: string;
+  resolvedGroupScanCode?: string;
   quantity: number;
   positiveIssuanceIds: string[];
   negativeIssuanceIds: string[];
@@ -4293,6 +4303,7 @@ export interface OverviewFieldsField {
   cardRow?: number;
   showInInfoPopup: boolean;
   containsPersonalData: boolean;
+  sortable: boolean;
 }
 
 export interface OverviewFieldsList {
@@ -5013,6 +5024,7 @@ export interface GetCardFilterOptionsRequest {
   categoryId?: number;
   filters?: OverviewFilter[];
   fields?: CardFieldInfo[];
+  search?: OverviewSearch;
 }
 
 export interface PlannedCycleCount {
@@ -6065,6 +6077,7 @@ export interface GetConfigurationValuesRequest {
   branchNumber?: number;
   workplaceNumber?: number;
   configurationKeys?: string[];
+  changedSinceTimestamp?: Date;
 }
 
 export interface ConfigurationValue {
@@ -6076,6 +6089,8 @@ export interface ConfigurationValue {
 export interface ConfigurationKeyValues {
   configurationKey: string;
   configurationValues?: ConfigurationValue[];
+  defaultValue?: string;
+  lastChangedTimestamp?: Date;
 }
 
 export interface UpdateConfigurationValuesRequest {
@@ -6650,6 +6665,8 @@ export interface LicensedBranchList {
 
 export interface GetBranchInformationRequest {
   branchNumber?: number;
+  includeImageData?: boolean;
+  includeThumbData?: boolean;
 }
 
 export interface DeliveryAddressSupplier {
@@ -6673,6 +6690,36 @@ export interface DeliveryAddressList {
   deliveryAddress?: DeliveryAddress[];
 }
 
+export interface PrintLayoutLine {
+  sequenceNumber: number;
+  line: string;
+}
+
+export interface PrintLayoutHeaderLines {
+  printLayoutHeaderLine?: PrintLayoutLine[];
+}
+
+export interface PrintLayoutFooterLines {
+  printLayoutFooterLine?: PrintLayoutLine[];
+}
+
+export interface OpeningHours {
+  mondayFrom?: Date;
+  mondayTill?: Date;
+  tuesdayFrom?: Date;
+  tuesdayTill?: Date;
+  wednesdayFrom?: Date;
+  wednesdayTill?: Date;
+  thursdayFrom?: Date;
+  thursdayTill?: Date;
+  fridayFrom?: Date;
+  fridayTill?: Date;
+  saturdayFrom?: Date;
+  saturdayTill?: Date;
+  sundayFrom?: Date;
+  sundayTill?: Date;
+}
+
 export interface BranchInformation {
   branchNumber: number;
   branchName: string;
@@ -6691,7 +6738,17 @@ export interface BranchInformation {
   bankAccountNumber: string;
   vatNumber: string;
   termsAndConditions: string;
+  receiptPrinterLogo?: Image;
+  printLayoutHeaderLines: PrintLayoutLine[];
+  printLayoutFooterLines: PrintLayoutLine[];
+  openingHours?: OpeningHours;
+  eoriNumber: string;
+  establishmentUnitNumber: string;
   deliveryAddresses: DeliveryAddress[];
+}
+
+export interface saveBranchInformationRequest {
+  branchInformation?: BranchInformation;
 }
 
 export interface GetBranchGroupsRequest {
@@ -7339,6 +7396,11 @@ export interface GetBranchInformationResponse {
   errorMessage?: string;
 }
 
+export interface saveBranchInformationResponse {
+  result: SaveBranchInformationResult;
+  errorMessage?: string;
+}
+
 export interface GetBranchGroupsResponse {
   branchGroupsList: BranchGroups[];
 }
@@ -7703,10 +7765,23 @@ export interface PrintLayoutAssignmentPrintLayoutView {
   kind: PrintLayoutKind;
 }
 
+export interface nsPrintLayoutLocationId {
+  locationId: number;
+}
+
 export interface PrintLayoutAssignment {
+  id?: number;
   workplace: WorkplaceIdentifier;
   printLayout: PrintLayoutAssignmentPrintLayoutView;
   useOnlinePrinter: boolean;
+  baseLocationId: number;
+  asLocationId?: number;
+  extraLocationIds?: nsPrintLayoutLocationId[];
+  kind: PrintLayoutKind;
+}
+
+export interface SavePrintLayoutAssignmentsRequest {
+  printLayoutAssignments?: PrintLayoutAssignment[];
 }
 
 export interface PrintParam {
@@ -7767,6 +7842,10 @@ export interface GetPrintLayoutsResponse {
 
 export interface GetPrintLayoutAssignmentsResponse {
   printLayoutAssignments?: PrintLayoutAssignment[];
+}
+
+export interface SavePrintLayoutAssignmentsResponse {
+  result: SavePrintLayoutAssignmentsResponseResult;
 }
 
 export interface GetRenderedPrintLayoutResponse {

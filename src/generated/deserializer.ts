@@ -1380,6 +1380,8 @@ export function deserializeVoucherIssuance(obj: Record<string, unknown>): T.Vouc
     r.voucherIssuanceRedeems = [];
   }
   if (obj['groupScanCode'] !== undefined) r.groupScanCode = String(obj['groupScanCode']) as string;
+  if (obj['resolvedScanCode'] !== undefined) r.resolvedScanCode = String(obj['resolvedScanCode']) as string;
+  if (obj['resolvedGroupScanCode'] !== undefined) r.resolvedGroupScanCode = String(obj['resolvedGroupScanCode']) as string;
   return r as T.VoucherIssuance;
 }
 
@@ -1417,6 +1419,8 @@ export function deserializeVoucherIssuanceCompact(obj: Record<string, unknown>):
     r.voucherIssuanceRedeems = [];
   }
   if (obj['groupScanCode'] !== undefined) r.groupScanCode = String(obj['groupScanCode']) as string;
+  if (obj['resolvedScanCode'] !== undefined) r.resolvedScanCode = String(obj['resolvedScanCode']) as string;
+  if (obj['resolvedGroupScanCode'] !== undefined) r.resolvedGroupScanCode = String(obj['resolvedGroupScanCode']) as string;
   r.quantity = Number(obj['quantity']);
   if (obj['positiveIssuanceIds'] !== undefined) {
     const _w = obj['positiveIssuanceIds'] as Record<string, unknown>;
@@ -1477,6 +1481,8 @@ export function deserializeVoucherIssuanceCandidate(obj: Record<string, unknown>
     r.voucherIssuanceRedeems = [];
   }
   if (obj['groupScanCode'] !== undefined) r.groupScanCode = String(obj['groupScanCode']) as string;
+  if (obj['resolvedScanCode'] !== undefined) r.resolvedScanCode = String(obj['resolvedScanCode']) as string;
+  if (obj['resolvedGroupScanCode'] !== undefined) r.resolvedGroupScanCode = String(obj['resolvedGroupScanCode']) as string;
   r.quantity = Number(obj['quantity']);
   if (obj['positiveIssuanceIds'] !== undefined) {
     const _w = obj['positiveIssuanceIds'] as Record<string, unknown>;
@@ -6067,6 +6073,7 @@ export function deserializeOverviewFieldsField(obj: Record<string, unknown>): T.
   if (obj['cardRow'] !== undefined) r.cardRow = Number(obj['cardRow']);
   r.showInInfoPopup = obj['showInInfoPopup'] === 'true' || obj['showInInfoPopup'] === true;
   r.containsPersonalData = obj['containsPersonalData'] === 'true' || obj['containsPersonalData'] === true;
+  r.sortable = obj['sortable'] === 'true' || obj['sortable'] === true;
   return r as T.OverviewFieldsField;
 }
 
@@ -7154,6 +7161,7 @@ export function deserializeGetCardFilterOptionsRequest(obj: Record<string, unkno
   } else {
     r.fields = [];
   }
+  if (obj['search'] !== undefined) r.search = deserializeOverviewSearch(obj['search'] as Record<string, unknown>);
   return r as T.GetCardFilterOptionsRequest;
 }
 
@@ -9502,6 +9510,7 @@ export function deserializeGetConfigurationValuesRequest(obj: Record<string, unk
   if (obj['configurationKeys'] !== undefined) {
     r.configurationKeys = toArray(obj['configurationKeys']).map(String);
   }
+  if (obj['changedSinceTimestamp'] !== undefined) r.changedSinceTimestamp = new Date(String(obj['changedSinceTimestamp']));
   return r as T.GetConfigurationValuesRequest;
 }
 
@@ -9519,6 +9528,8 @@ export function deserializeConfigurationKeyValues(obj: Record<string, unknown>):
   if (obj['configurationValues'] !== undefined) {
     r.configurationValues = toArray(obj['configurationValues']).map((v) => deserializeConfigurationValue(v as Record<string, unknown>));
   }
+  if (obj['defaultValue'] !== undefined) r.defaultValue = String(obj['defaultValue']) as string;
+  if (obj['lastChangedTimestamp'] !== undefined) r.lastChangedTimestamp = new Date(String(obj['lastChangedTimestamp']));
   return r as T.ConfigurationKeyValues;
 }
 
@@ -10456,6 +10467,8 @@ export function deserializeLicensedBranchList(obj: Record<string, unknown>): T.L
 export function deserializeGetBranchInformationRequest(obj: Record<string, unknown>): T.GetBranchInformationRequest {
   const r: Partial<T.GetBranchInformationRequest> = {};
   r.branchNumber = Number(obj['branchNumber']);
+  if (obj['includeImageData'] !== undefined) r.includeImageData = obj['includeImageData'] === 'true' || obj['includeImageData'] === true;
+  if (obj['includeThumbData'] !== undefined) r.includeThumbData = obj['includeThumbData'] === 'true' || obj['includeThumbData'] === true;
   return r as T.GetBranchInformationRequest;
 }
 
@@ -10502,6 +10515,48 @@ export function deserializeDeliveryAddressList(obj: Record<string, unknown>): T.
   return r as T.DeliveryAddressList;
 }
 
+export function deserializePrintLayoutLine(obj: Record<string, unknown>): T.PrintLayoutLine {
+  const r: Partial<T.PrintLayoutLine> = {};
+  r.sequenceNumber = Number(obj['sequenceNumber']);
+  r.line = String(obj['line'] ?? '') as string;
+  return r as T.PrintLayoutLine;
+}
+
+export function deserializePrintLayoutHeaderLines(obj: Record<string, unknown>): T.PrintLayoutHeaderLines {
+  const r: Partial<T.PrintLayoutHeaderLines> = {};
+  if (obj['printLayoutHeaderLine'] !== undefined) {
+    r.printLayoutHeaderLine = toArray(obj['printLayoutHeaderLine']).map((v) => deserializePrintLayoutLine(v as Record<string, unknown>));
+  }
+  return r as T.PrintLayoutHeaderLines;
+}
+
+export function deserializePrintLayoutFooterLines(obj: Record<string, unknown>): T.PrintLayoutFooterLines {
+  const r: Partial<T.PrintLayoutFooterLines> = {};
+  if (obj['printLayoutFooterLine'] !== undefined) {
+    r.printLayoutFooterLine = toArray(obj['printLayoutFooterLine']).map((v) => deserializePrintLayoutLine(v as Record<string, unknown>));
+  }
+  return r as T.PrintLayoutFooterLines;
+}
+
+export function deserializeOpeningHours(obj: Record<string, unknown>): T.OpeningHours {
+  const r: Partial<T.OpeningHours> = {};
+  if (obj['mondayFrom'] !== undefined) r.mondayFrom = deserializeDateTime(obj['mondayFrom'] as Record<string, unknown>);
+  if (obj['mondayTill'] !== undefined) r.mondayTill = deserializeDateTime(obj['mondayTill'] as Record<string, unknown>);
+  if (obj['tuesdayFrom'] !== undefined) r.tuesdayFrom = deserializeDateTime(obj['tuesdayFrom'] as Record<string, unknown>);
+  if (obj['tuesdayTill'] !== undefined) r.tuesdayTill = deserializeDateTime(obj['tuesdayTill'] as Record<string, unknown>);
+  if (obj['wednesdayFrom'] !== undefined) r.wednesdayFrom = deserializeDateTime(obj['wednesdayFrom'] as Record<string, unknown>);
+  if (obj['wednesdayTill'] !== undefined) r.wednesdayTill = deserializeDateTime(obj['wednesdayTill'] as Record<string, unknown>);
+  if (obj['thursdayFrom'] !== undefined) r.thursdayFrom = deserializeDateTime(obj['thursdayFrom'] as Record<string, unknown>);
+  if (obj['thursdayTill'] !== undefined) r.thursdayTill = deserializeDateTime(obj['thursdayTill'] as Record<string, unknown>);
+  if (obj['fridayFrom'] !== undefined) r.fridayFrom = deserializeDateTime(obj['fridayFrom'] as Record<string, unknown>);
+  if (obj['fridayTill'] !== undefined) r.fridayTill = deserializeDateTime(obj['fridayTill'] as Record<string, unknown>);
+  if (obj['saturdayFrom'] !== undefined) r.saturdayFrom = deserializeDateTime(obj['saturdayFrom'] as Record<string, unknown>);
+  if (obj['saturdayTill'] !== undefined) r.saturdayTill = deserializeDateTime(obj['saturdayTill'] as Record<string, unknown>);
+  if (obj['sundayFrom'] !== undefined) r.sundayFrom = deserializeDateTime(obj['sundayFrom'] as Record<string, unknown>);
+  if (obj['sundayTill'] !== undefined) r.sundayTill = deserializeDateTime(obj['sundayTill'] as Record<string, unknown>);
+  return r as T.OpeningHours;
+}
+
 export function deserializeBranchInformation(obj: Record<string, unknown>): T.BranchInformation {
   const r: Partial<T.BranchInformation> = {};
   r.branchNumber = Number(obj['branchNumber']);
@@ -10521,6 +10576,32 @@ export function deserializeBranchInformation(obj: Record<string, unknown>): T.Br
   r.bankAccountNumber = String(obj['bankAccountNumber'] ?? '') as string;
   r.vatNumber = String(obj['vatNumber'] ?? '') as string;
   r.termsAndConditions = String(obj['termsAndConditions'] ?? '') as string;
+  if (obj['receiptPrinterLogo'] !== undefined) r.receiptPrinterLogo = deserializeImage(obj['receiptPrinterLogo'] as Record<string, unknown>);
+  if (obj['printLayoutHeaderLines'] !== undefined) {
+    const _w = obj['printLayoutHeaderLines'] as Record<string, unknown>;
+    const _iv = (_w)['printLayoutHeaderLine'];
+    if (_iv !== undefined) {
+      r.printLayoutHeaderLines = toArray(_iv).map((v) => deserializePrintLayoutLine(v as Record<string, unknown>));
+    } else {
+      r.printLayoutHeaderLines = [];
+    }
+  } else {
+    r.printLayoutHeaderLines = [];
+  }
+  if (obj['printLayoutFooterLines'] !== undefined) {
+    const _w = obj['printLayoutFooterLines'] as Record<string, unknown>;
+    const _iv = (_w)['printLayoutFooterLine'];
+    if (_iv !== undefined) {
+      r.printLayoutFooterLines = toArray(_iv).map((v) => deserializePrintLayoutLine(v as Record<string, unknown>));
+    } else {
+      r.printLayoutFooterLines = [];
+    }
+  } else {
+    r.printLayoutFooterLines = [];
+  }
+  if (obj['openingHours'] !== undefined) r.openingHours = deserializeOpeningHours(obj['openingHours'] as Record<string, unknown>);
+  r.eoriNumber = String(obj['eoriNumber'] ?? '') as string;
+  r.establishmentUnitNumber = String(obj['establishmentUnitNumber'] ?? '') as string;
   if (obj['deliveryAddresses'] !== undefined) {
     const _w = obj['deliveryAddresses'] as Record<string, unknown>;
     const _iv = (_w)['deliveryAddress'];
@@ -10533,6 +10614,12 @@ export function deserializeBranchInformation(obj: Record<string, unknown>): T.Br
     r.deliveryAddresses = [];
   }
   return r as T.BranchInformation;
+}
+
+export function deserializesaveBranchInformationRequest(obj: Record<string, unknown>): T.saveBranchInformationRequest {
+  const r: Partial<T.saveBranchInformationRequest> = {};
+  r.branchInformation = deserializeBranchInformation(obj['branchInformation'] as Record<string, unknown> ?? {});
+  return r as T.saveBranchInformationRequest;
 }
 
 export function deserializeGetBranchGroupsRequest(obj: Record<string, unknown>): T.GetBranchGroupsRequest {
@@ -11640,6 +11727,14 @@ export function deserializeGetBranchInformationResponse(obj: Record<string, unkn
   return r as T.GetBranchInformationResponse;
 }
 
+export function deserializesaveBranchInformationResponse(obj: Record<string, unknown>): T.saveBranchInformationResponse {
+  const r: Partial<T.saveBranchInformationResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in saveBranchInformationResponse");
+  r.result = String(obj['result'] ?? '') as T.SaveBranchInformationResult;
+  if (obj['errorMessage'] !== undefined) r.errorMessage = String(obj['errorMessage']) as string;
+  return r as T.saveBranchInformationResponse;
+}
+
 export function deserializeGetBranchGroupsResponse(obj: Record<string, unknown>): T.GetBranchGroupsResponse {
   const r: Partial<T.GetBranchGroupsResponse> = {};
   if (obj['branchGroupsList'] !== undefined) {
@@ -12403,12 +12498,33 @@ export function deserializePrintLayoutAssignmentPrintLayoutView(obj: Record<stri
   return r as T.PrintLayoutAssignmentPrintLayoutView;
 }
 
+export function deserializensPrintLayoutLocationId(obj: Record<string, unknown>): T.nsPrintLayoutLocationId {
+  const r: Partial<T.nsPrintLayoutLocationId> = {};
+  r.locationId = Number(obj['locationId']);
+  return r as T.nsPrintLayoutLocationId;
+}
+
 export function deserializePrintLayoutAssignment(obj: Record<string, unknown>): T.PrintLayoutAssignment {
   const r: Partial<T.PrintLayoutAssignment> = {};
+  if (obj['id'] !== undefined) r.id = Number(obj['id']);
   r.workplace = deserializeWorkplaceIdentifier(obj['workplace'] as Record<string, unknown> ?? {});
   r.printLayout = deserializePrintLayoutAssignmentPrintLayoutView(obj['printLayout'] as Record<string, unknown> ?? {});
   r.useOnlinePrinter = obj['useOnlinePrinter'] === 'true' || obj['useOnlinePrinter'] === true;
+  r.baseLocationId = Number(obj['baseLocationId']);
+  if (obj['asLocationId'] !== undefined) r.asLocationId = Number(obj['asLocationId']);
+  if (obj['extraLocationIds'] !== undefined) {
+    r.extraLocationIds = toArray(obj['extraLocationIds']).map((v) => deserializensPrintLayoutLocationId(v as Record<string, unknown>));
+  }
+  r.kind = String(obj['kind'] ?? '') as T.PrintLayoutKind;
   return r as T.PrintLayoutAssignment;
+}
+
+export function deserializeSavePrintLayoutAssignmentsRequest(obj: Record<string, unknown>): T.SavePrintLayoutAssignmentsRequest {
+  const r: Partial<T.SavePrintLayoutAssignmentsRequest> = {};
+  if (obj['printLayoutAssignments'] !== undefined) {
+    r.printLayoutAssignments = toArray(obj['printLayoutAssignments']).map((v) => deserializePrintLayoutAssignment(v as Record<string, unknown>));
+  }
+  return r as T.SavePrintLayoutAssignmentsRequest;
 }
 
 export function deserializePrintParam(obj: Record<string, unknown>): T.PrintParam {
@@ -12508,6 +12624,13 @@ export function deserializeGetPrintLayoutAssignmentsResponse(obj: Record<string,
     r.printLayoutAssignments = toArray(obj['printLayoutAssignments']).map((v) => deserializePrintLayoutAssignment(v as Record<string, unknown>));
   }
   return r as T.GetPrintLayoutAssignmentsResponse;
+}
+
+export function deserializeSavePrintLayoutAssignmentsResponse(obj: Record<string, unknown>): T.SavePrintLayoutAssignmentsResponse {
+  const r: Partial<T.SavePrintLayoutAssignmentsResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in SavePrintLayoutAssignmentsResponse");
+  r.result = String(obj['result'] ?? '') as T.SavePrintLayoutAssignmentsResponseResult;
+  return r as T.SavePrintLayoutAssignmentsResponse;
 }
 
 export function deserializeGetRenderedPrintLayoutResponse(obj: Record<string, unknown>): T.GetRenderedPrintLayoutResponse {
