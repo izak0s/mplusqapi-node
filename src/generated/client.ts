@@ -2846,14 +2846,14 @@ export class MplusKassaClient {
     );
   }
 
-  async saveBranchInformation(request: T.Input<T.saveBranchInformationRequest>, requestId?: string): Promise<T.saveBranchInformationResponse> {
+  async saveBranchInformation(request: T.Input<T.SaveBranchInformationRequest>, requestId?: string): Promise<T.SaveBranchInformationResponse> {
     const bodyXml = S.serializeSaveBranchInformationBody(request);
     return this.call(
       'saveBranchInformation',
-      'saveBranchInformationResponse',
-      'saveBranchInformationResponse',
+      'SaveBranchInformationResponse',
+      'SaveBranchInformationResponse',
       bodyXml,
-      D.deserializesaveBranchInformationResponse,
+      D.deserializeSaveBranchInformationResponse,
       false,
       requestId,
     );
@@ -3410,97 +3410,6 @@ export class MplusKassaClient {
       false,
       requestId,
     )).imageList;
-  }
-
-  async getPrintLayouts(request: T.Input<T.GetPrintLayoutsRequest>, requestId?: string): Promise<T.GetPrintLayoutsResponse> {
-    const bodyXml = S.serializeGetPrintLayoutsBody(request);
-    return this.call(
-      'getPrintLayouts',
-      'GetPrintLayoutsResponse',
-      'GetPrintLayoutsResponse',
-      bodyXml,
-      D.deserializeGetPrintLayoutsResponse,
-      false,
-      requestId,
-    );
-  }
-
-  async getPrintLayoutAssignments(request: T.Input<T.GetPrintLayoutAssignmentsRequest>, requestId?: string): Promise<T.PrintLayoutAssignment[] | undefined> {
-    const bodyXml = S.serializeGetPrintLayoutAssignmentsBody(request);
-    return (await this.call(
-      'getPrintLayoutAssignments',
-      'GetPrintLayoutAssignmentsResponse',
-      'GetPrintLayoutAssignmentsResponse',
-      bodyXml,
-      D.deserializeGetPrintLayoutAssignmentsResponse,
-      false,
-      requestId,
-    )).printLayoutAssignments;
-  }
-
-  async savePrintLayoutAssignments(request: T.Input<T.SavePrintLayoutAssignmentsRequest>, requestId?: string): Promise<T.SavePrintLayoutAssignmentsResponseResult> {
-    const bodyXml = S.serializeSavePrintLayoutAssignmentsBody(request);
-    return (await this.call(
-      'savePrintLayoutAssignments',
-      'SavePrintLayoutAssignmentsResponse',
-      'SavePrintLayoutAssignmentsResponse',
-      bodyXml,
-      D.deserializeSavePrintLayoutAssignmentsResponse,
-      false,
-      requestId,
-    )).result;
-  }
-
-  async getRenderedPrintLayout(request: T.Input<T.GetRenderedPrintLayoutRequest>, requestId?: string): Promise<T.GetRenderedPrintLayoutResponse> {
-    const bodyXml = S.serializeGetRenderedPrintLayoutBody(request);
-    return this.call(
-      'getRenderedPrintLayout',
-      'GetRenderedPrintLayoutResponse',
-      'GetRenderedPrintLayoutResponse',
-      bodyXml,
-      D.deserializeGetRenderedPrintLayoutResponse,
-      false,
-      requestId,
-    );
-  }
-
-  async getPrintLayoutMarkup(request: T.Input<T.GetPrintLayoutMarkupRequest>, requestId?: string): Promise<T.GetPrintLayoutMarkupResponse> {
-    const bodyXml = S.serializeGetPrintLayoutMarkupBody(request);
-    return this.call(
-      'getPrintLayoutMarkup',
-      'GetPrintLayoutMarkupResponse',
-      'GetPrintLayoutMarkupResponse',
-      bodyXml,
-      D.deserializeGetPrintLayoutMarkupResponse,
-      false,
-      requestId,
-    );
-  }
-
-  async printPrintLayout(request: T.Input<T.PrintPrintLayoutRequest>, requestId?: string): Promise<T.PrintPrintLayoutResponse> {
-    const bodyXml = S.serializePrintPrintLayoutBody(request);
-    return this.call(
-      'printPrintLayout',
-      'PrintPrintLayoutResponse',
-      'PrintPrintLayoutResponse',
-      bodyXml,
-      D.deserializePrintPrintLayoutResponse,
-      false,
-      requestId,
-    );
-  }
-
-  async getResolvedPrintTemplates(request: T.Input<T.GetResolvedPrintTemplatesRequest>, requestId?: string): Promise<T.GetResolvedPrintTemplatesResponse> {
-    const bodyXml = S.serializeGetResolvedPrintTemplatesBody(request);
-    return this.call(
-      'getResolvedPrintTemplates',
-      'GetResolvedPrintTemplatesResponse',
-      'GetResolvedPrintTemplatesResponse',
-      bodyXml,
-      D.deserializeGetResolvedPrintTemplatesResponse,
-      false,
-      requestId,
-    );
   }
 
   async checkGiftcardPayment(request: T.Input<T.CheckGiftcardPaymentRequest>, requestId?: string): Promise<T.CheckGiftcardPaymentResponse> {
@@ -4863,6 +4772,97 @@ export class MplusKassaClient {
       bodyXml,
       D.deserializeWebhookResp,
       true,
+      requestId,
+    );
+  }
+
+  async getPrintLayouts(request: T.Input<T.GetPrintLayoutsRequest>, requestId?: string): Promise<T.GetPrintLayoutsResponse> {
+    const bodyXml = S.serializeGetPrintLayoutsBody(request);
+    return this.call(
+      'getPrintLayouts',
+      'GetPrintLayoutsResponse',
+      'GetPrintLayoutsResponse',
+      bodyXml,
+      D.deserializeGetPrintLayoutsResponse,
+      false,
+      requestId,
+    );
+  }
+
+  async getPrintLayoutAssignments(request: T.Input<T.GetPrintLayoutAssignmentsRequest>, requestId?: string): Promise<T.PrintLayoutAssignment[] | undefined> {
+    const bodyXml = S.serializeGetPrintLayoutAssignmentsBody(request);
+    return (await this.call(
+      'getPrintLayoutAssignments',
+      'GetPrintLayoutAssignmentsResponse',
+      'GetPrintLayoutAssignmentsResponse',
+      bodyXml,
+      D.deserializeGetPrintLayoutAssignmentsResponse,
+      false,
+      requestId,
+    )).printLayoutAssignments;
+  }
+
+  async savePrintLayoutAssignments(request: T.Input<T.SavePrintLayoutAssignmentsRequest>, requestId?: string): Promise<T.SavePrintLayoutAssignmentsResponseResult> {
+    const bodyXml = S.serializeSavePrintLayoutAssignmentsBody(request);
+    return (await this.call(
+      'savePrintLayoutAssignments',
+      'SavePrintLayoutAssignmentsResponse',
+      'SavePrintLayoutAssignmentsResponse',
+      bodyXml,
+      D.deserializeSavePrintLayoutAssignmentsResponse,
+      false,
+      requestId,
+    )).result;
+  }
+
+  async getRenderedPrintLayout(request: T.Input<T.GetRenderedPrintLayoutRequest>, requestId?: string): Promise<T.GetRenderedPrintLayoutResponse> {
+    const bodyXml = S.serializeGetRenderedPrintLayoutBody(request);
+    return this.call(
+      'getRenderedPrintLayout',
+      'GetRenderedPrintLayoutResponse',
+      'GetRenderedPrintLayoutResponse',
+      bodyXml,
+      D.deserializeGetRenderedPrintLayoutResponse,
+      false,
+      requestId,
+    );
+  }
+
+  async getPrintLayoutMarkup(request: T.Input<T.GetPrintLayoutMarkupRequest>, requestId?: string): Promise<T.GetPrintLayoutMarkupResponse> {
+    const bodyXml = S.serializeGetPrintLayoutMarkupBody(request);
+    return this.call(
+      'getPrintLayoutMarkup',
+      'GetPrintLayoutMarkupResponse',
+      'GetPrintLayoutMarkupResponse',
+      bodyXml,
+      D.deserializeGetPrintLayoutMarkupResponse,
+      false,
+      requestId,
+    );
+  }
+
+  async printPrintLayout(request: T.Input<T.PrintPrintLayoutRequest>, requestId?: string): Promise<T.PrintPrintLayoutResponse> {
+    const bodyXml = S.serializePrintPrintLayoutBody(request);
+    return this.call(
+      'printPrintLayout',
+      'PrintPrintLayoutResponse',
+      'PrintPrintLayoutResponse',
+      bodyXml,
+      D.deserializePrintPrintLayoutResponse,
+      false,
+      requestId,
+    );
+  }
+
+  async getResolvedPrintTemplates(request: T.Input<T.GetResolvedPrintTemplatesRequest>, requestId?: string): Promise<T.GetResolvedPrintTemplatesResponse> {
+    const bodyXml = S.serializeGetResolvedPrintTemplatesBody(request);
+    return this.call(
+      'getResolvedPrintTemplates',
+      'GetResolvedPrintTemplatesResponse',
+      'GetResolvedPrintTemplatesResponse',
+      bodyXml,
+      D.deserializeGetResolvedPrintTemplatesResponse,
+      false,
       requestId,
     );
   }

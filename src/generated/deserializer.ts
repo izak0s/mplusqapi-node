@@ -10616,10 +10616,10 @@ export function deserializeBranchInformation(obj: Record<string, unknown>): T.Br
   return r as T.BranchInformation;
 }
 
-export function deserializesaveBranchInformationRequest(obj: Record<string, unknown>): T.saveBranchInformationRequest {
-  const r: Partial<T.saveBranchInformationRequest> = {};
+export function deserializeSaveBranchInformationRequest(obj: Record<string, unknown>): T.SaveBranchInformationRequest {
+  const r: Partial<T.SaveBranchInformationRequest> = {};
   r.branchInformation = deserializeBranchInformation(obj['branchInformation'] as Record<string, unknown> ?? {});
-  return r as T.saveBranchInformationRequest;
+  return r as T.SaveBranchInformationRequest;
 }
 
 export function deserializeGetBranchGroupsRequest(obj: Record<string, unknown>): T.GetBranchGroupsRequest {
@@ -11727,12 +11727,12 @@ export function deserializeGetBranchInformationResponse(obj: Record<string, unkn
   return r as T.GetBranchInformationResponse;
 }
 
-export function deserializesaveBranchInformationResponse(obj: Record<string, unknown>): T.saveBranchInformationResponse {
-  const r: Partial<T.saveBranchInformationResponse> = {};
-  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in saveBranchInformationResponse");
+export function deserializeSaveBranchInformationResponse(obj: Record<string, unknown>): T.SaveBranchInformationResponse {
+  const r: Partial<T.SaveBranchInformationResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in SaveBranchInformationResponse");
   r.result = String(obj['result'] ?? '') as T.SaveBranchInformationResult;
   if (obj['errorMessage'] !== undefined) r.errorMessage = String(obj['errorMessage']) as string;
-  return r as T.saveBranchInformationResponse;
+  return r as T.SaveBranchInformationResponse;
 }
 
 export function deserializeGetBranchGroupsResponse(obj: Record<string, unknown>): T.GetBranchGroupsResponse {
@@ -12457,232 +12457,6 @@ export function deserializeGetImagesResponse(obj: Record<string, unknown>): T.Ge
     r.imageList = [];
   }
   return r as T.GetImagesResponse;
-}
-
-export function deserializeGetPrintLayoutsRequest(obj: Record<string, unknown>): T.GetPrintLayoutsRequest {
-  const r: Partial<T.GetPrintLayoutsRequest> = {};
-  if (obj['type'] !== undefined) r.type = String(obj['type']) as T.PrintLayoutType;
-  if (obj['kind'] !== undefined) r.kind = String(obj['kind']) as T.PrintLayoutKind;
-  if (obj['fieldType'] !== undefined) r.fieldType = String(obj['fieldType']) as T.PrintLayoutFieldType;
-  return r as T.GetPrintLayoutsRequest;
-}
-
-export function deserializePrintLayoutView(obj: Record<string, unknown>): T.PrintLayoutView {
-  const r: Partial<T.PrintLayoutView> = {};
-  r.id = String(obj['id'] ?? '') as string;
-  r.name = String(obj['name'] ?? '') as string;
-  r.type = String(obj['type'] ?? '') as T.PrintLayoutType;
-  r.kind = String(obj['kind'] ?? '') as T.PrintLayoutKind;
-  r.createdTimestamp = new Date(String(obj['createdTimestamp'] ?? ''));
-  r.updatedTimestamp = new Date(String(obj['updatedTimestamp'] ?? ''));
-  r.hasDigitalSignatureField = obj['hasDigitalSignatureField'] === 'true' || obj['hasDigitalSignatureField'] === true;
-  return r as T.PrintLayoutView;
-}
-
-export function deserializeGetPrintLayoutAssignmentsRequest(obj: Record<string, unknown>): T.GetPrintLayoutAssignmentsRequest {
-  const r: Partial<T.GetPrintLayoutAssignmentsRequest> = {};
-  if (obj['type'] !== undefined) r.type = String(obj['type']) as T.PrintLayoutType;
-  if (obj['kind'] !== undefined) r.kind = String(obj['kind']) as T.PrintLayoutKind;
-  if (obj['branchNumber'] !== undefined) r.branchNumber = Number(obj['branchNumber']);
-  if (obj['workplaceNumber'] !== undefined) r.workplaceNumber = Number(obj['workplaceNumber']);
-  if (obj['useOnlinePrinter'] !== undefined) r.useOnlinePrinter = obj['useOnlinePrinter'] === 'true' || obj['useOnlinePrinter'] === true;
-  return r as T.GetPrintLayoutAssignmentsRequest;
-}
-
-export function deserializePrintLayoutAssignmentPrintLayoutView(obj: Record<string, unknown>): T.PrintLayoutAssignmentPrintLayoutView {
-  const r: Partial<T.PrintLayoutAssignmentPrintLayoutView> = {};
-  r.id = String(obj['id'] ?? '') as string;
-  r.name = String(obj['name'] ?? '') as string;
-  r.type = String(obj['type'] ?? '') as T.PrintLayoutType;
-  r.kind = String(obj['kind'] ?? '') as T.PrintLayoutKind;
-  return r as T.PrintLayoutAssignmentPrintLayoutView;
-}
-
-export function deserializensPrintLayoutLocationId(obj: Record<string, unknown>): T.nsPrintLayoutLocationId {
-  const r: Partial<T.nsPrintLayoutLocationId> = {};
-  r.locationId = Number(obj['locationId']);
-  return r as T.nsPrintLayoutLocationId;
-}
-
-export function deserializePrintLayoutAssignment(obj: Record<string, unknown>): T.PrintLayoutAssignment {
-  const r: Partial<T.PrintLayoutAssignment> = {};
-  if (obj['id'] !== undefined) r.id = Number(obj['id']);
-  r.workplace = deserializeWorkplaceIdentifier(obj['workplace'] as Record<string, unknown> ?? {});
-  r.printLayout = deserializePrintLayoutAssignmentPrintLayoutView(obj['printLayout'] as Record<string, unknown> ?? {});
-  r.useOnlinePrinter = obj['useOnlinePrinter'] === 'true' || obj['useOnlinePrinter'] === true;
-  r.baseLocationId = Number(obj['baseLocationId']);
-  if (obj['asLocationId'] !== undefined) r.asLocationId = Number(obj['asLocationId']);
-  if (obj['extraLocationIds'] !== undefined) {
-    r.extraLocationIds = toArray(obj['extraLocationIds']).map((v) => deserializensPrintLayoutLocationId(v as Record<string, unknown>));
-  }
-  r.kind = String(obj['kind'] ?? '') as T.PrintLayoutKind;
-  return r as T.PrintLayoutAssignment;
-}
-
-export function deserializeSavePrintLayoutAssignmentsRequest(obj: Record<string, unknown>): T.SavePrintLayoutAssignmentsRequest {
-  const r: Partial<T.SavePrintLayoutAssignmentsRequest> = {};
-  if (obj['printLayoutAssignments'] !== undefined) {
-    r.printLayoutAssignments = toArray(obj['printLayoutAssignments']).map((v) => deserializePrintLayoutAssignment(v as Record<string, unknown>));
-  }
-  return r as T.SavePrintLayoutAssignmentsRequest;
-}
-
-export function deserializePrintParam(obj: Record<string, unknown>): T.PrintParam {
-  const r: Partial<T.PrintParam> = {};
-  r.key = String(obj['key'] ?? '') as string;
-  r.value = String(obj['value'] ?? '') as string;
-  return r as T.PrintParam;
-}
-
-export function deserializePrintParams(obj: Record<string, unknown>): T.PrintParams {
-  const r: Partial<T.PrintParams> = {};
-  if (obj['uuid'] !== undefined) r.uuid = String(obj['uuid']) as string;
-  if (obj['yearNumber'] !== undefined) r.yearNumber = deserializeYearNumber(obj['yearNumber'] as Record<string, unknown>);
-  if (obj['params'] !== undefined) {
-    r.params = toArray(obj['params']).map((v) => deserializePrintParam(v as Record<string, unknown>));
-  }
-  return r as T.PrintParams;
-}
-
-export function deserializePrintInfo(obj: Record<string, unknown>): T.PrintInfo {
-  const r: Partial<T.PrintInfo> = {};
-  if (obj['paramsList'] !== undefined) {
-    r.paramsList = toArray(obj['paramsList']).map((v) => deserializePrintParams(v as Record<string, unknown>));
-  }
-  if (obj['globalParams'] !== undefined) r.globalParams = deserializePrintParams(obj['globalParams'] as Record<string, unknown>);
-  return r as T.PrintInfo;
-}
-
-export function deserializeGetRenderedPrintLayoutRequest(obj: Record<string, unknown>): T.GetRenderedPrintLayoutRequest {
-  const r: Partial<T.GetRenderedPrintLayoutRequest> = {};
-  r.printLayoutUuid = String(obj['printLayoutUuid'] ?? '') as string;
-  r.renderType = String(obj['renderType'] ?? '') as T.RenderedPrintLayoutType;
-  if (obj['printInfo'] !== undefined) r.printInfo = deserializePrintInfo(obj['printInfo'] as Record<string, unknown>);
-  if (obj['dpi'] !== undefined) r.dpi = Number(obj['dpi']);
-  return r as T.GetRenderedPrintLayoutRequest;
-}
-
-export function deserializeGetPrintLayoutMarkupRequest(obj: Record<string, unknown>): T.GetPrintLayoutMarkupRequest {
-  const r: Partial<T.GetPrintLayoutMarkupRequest> = {};
-  r.printLayoutUuid = String(obj['printLayoutUuid'] ?? '') as string;
-  r.markupType = String(obj['markupType'] ?? '') as T.PrintLayoutMarkupType;
-  if (obj['printInfo'] !== undefined) r.printInfo = deserializePrintInfo(obj['printInfo'] as Record<string, unknown>);
-  if (obj['responseAsBase64'] !== undefined) r.responseAsBase64 = obj['responseAsBase64'] === 'true' || obj['responseAsBase64'] === true;
-  if (obj['normalWidthInCharacters'] !== undefined) r.normalWidthInCharacters = Number(obj['normalWidthInCharacters']);
-  if (obj['smallWidthInCharacters'] !== undefined) r.smallWidthInCharacters = Number(obj['smallWidthInCharacters']);
-  return r as T.GetPrintLayoutMarkupRequest;
-}
-
-export function deserializePrintPrintLayoutRequest(obj: Record<string, unknown>): T.PrintPrintLayoutRequest {
-  const r: Partial<T.PrintPrintLayoutRequest> = {};
-  if (obj['type'] !== undefined) r.type = String(obj['type']) as T.PrintLayoutType;
-  r.kind = String(obj['kind'] ?? '') as T.PrintLayoutKind;
-  r.printInfo = deserializePrintInfo(obj['printInfo'] as Record<string, unknown> ?? {});
-  r.workplaceIdentifier = deserializeWorkplaceIdentifier(obj['workplaceIdentifier'] as Record<string, unknown> ?? {});
-  return r as T.PrintPrintLayoutRequest;
-}
-
-export function deserializePrintTemplateList(obj: Record<string, unknown>): T.PrintTemplateList {
-  const r: Partial<T.PrintTemplateList> = {};
-  if (obj['printTemplate'] !== undefined) {
-    r.printTemplate = toArray(obj['printTemplate']).map(String);
-  }
-  return r as T.PrintTemplateList;
-}
-
-export function deserializeGetResolvedPrintTemplatesRequest(obj: Record<string, unknown>): T.GetResolvedPrintTemplatesRequest {
-  const r: Partial<T.GetResolvedPrintTemplatesRequest> = {};
-  r.kind = String(obj['kind'] ?? '') as T.PrintLayoutKind;
-  if (obj['printInfo'] !== undefined) r.printInfo = deserializePrintInfo(obj['printInfo'] as Record<string, unknown>);
-  if (obj['printTemplates'] !== undefined) {
-    const _w = obj['printTemplates'] as Record<string, unknown>;
-    const _iv = (_w)['printTemplate'];
-    if (_iv !== undefined) {
-      r.printTemplates = toArray(_iv).map(String);
-    } else {
-      r.printTemplates = [];
-    }
-  } else {
-    r.printTemplates = [];
-  }
-  return r as T.GetResolvedPrintTemplatesRequest;
-}
-
-export function deserializeGetPrintLayoutsResponse(obj: Record<string, unknown>): T.GetPrintLayoutsResponse {
-  const r: Partial<T.GetPrintLayoutsResponse> = {};
-  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in GetPrintLayoutsResponse");
-  r.result = String(obj['result'] ?? '') as T.GetPrintLayoutsResponseResult;
-  if (obj['printLayouts'] !== undefined) {
-    r.printLayouts = toArray(obj['printLayouts']).map((v) => deserializePrintLayoutView(v as Record<string, unknown>));
-  }
-  return r as T.GetPrintLayoutsResponse;
-}
-
-export function deserializeGetPrintLayoutAssignmentsResponse(obj: Record<string, unknown>): T.GetPrintLayoutAssignmentsResponse {
-  const r: Partial<T.GetPrintLayoutAssignmentsResponse> = {};
-  if (obj['printLayoutAssignments'] !== undefined) {
-    r.printLayoutAssignments = toArray(obj['printLayoutAssignments']).map((v) => deserializePrintLayoutAssignment(v as Record<string, unknown>));
-  }
-  return r as T.GetPrintLayoutAssignmentsResponse;
-}
-
-export function deserializeSavePrintLayoutAssignmentsResponse(obj: Record<string, unknown>): T.SavePrintLayoutAssignmentsResponse {
-  const r: Partial<T.SavePrintLayoutAssignmentsResponse> = {};
-  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in SavePrintLayoutAssignmentsResponse");
-  r.result = String(obj['result'] ?? '') as T.SavePrintLayoutAssignmentsResponseResult;
-  return r as T.SavePrintLayoutAssignmentsResponse;
-}
-
-export function deserializeGetRenderedPrintLayoutResponse(obj: Record<string, unknown>): T.GetRenderedPrintLayoutResponse {
-  const r: Partial<T.GetRenderedPrintLayoutResponse> = {};
-  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in GetRenderedPrintLayoutResponse");
-  r.result = String(obj['result'] ?? '') as T.GetRenderedPrintLayoutResponseResult;
-  if (obj['errorMessage'] === undefined) throw new Error("Missing required field 'errorMessage' in GetRenderedPrintLayoutResponse");
-  r.errorMessage = String(obj['errorMessage'] ?? '') as string;
-  if (obj['renderedPrintLayouts'] !== undefined) {
-    r.renderedPrintLayouts = toArray(obj['renderedPrintLayouts']).map(String);
-  }
-  if (obj['hasDigitalSignatureField'] === undefined) throw new Error("Missing required field 'hasDigitalSignatureField' in GetRenderedPrintLayoutResponse");
-  r.hasDigitalSignatureField = obj['hasDigitalSignatureField'] === 'true' || obj['hasDigitalSignatureField'] === true;
-  return r as T.GetRenderedPrintLayoutResponse;
-}
-
-export function deserializeGetPrintLayoutMarkupResponse(obj: Record<string, unknown>): T.GetPrintLayoutMarkupResponse {
-  const r: Partial<T.GetPrintLayoutMarkupResponse> = {};
-  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in GetPrintLayoutMarkupResponse");
-  r.result = String(obj['result'] ?? '') as T.GetPrintLayoutMarkupResult;
-  if (obj['errorMessage'] === undefined) throw new Error("Missing required field 'errorMessage' in GetPrintLayoutMarkupResponse");
-  r.errorMessage = String(obj['errorMessage'] ?? '') as string;
-  if (obj['printLayoutMarkup'] === undefined) throw new Error("Missing required field 'printLayoutMarkup' in GetPrintLayoutMarkupResponse");
-  r.printLayoutMarkup = String(obj['printLayoutMarkup'] ?? '') as string;
-  return r as T.GetPrintLayoutMarkupResponse;
-}
-
-export function deserializePrintPrintLayoutResponse(obj: Record<string, unknown>): T.PrintPrintLayoutResponse {
-  const r: Partial<T.PrintPrintLayoutResponse> = {};
-  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in PrintPrintLayoutResponse");
-  r.result = String(obj['result'] ?? '') as T.PrintPrintLayoutResponseResult;
-  if (obj['errorMessage'] !== undefined) r.errorMessage = String(obj['errorMessage']) as string;
-  return r as T.PrintPrintLayoutResponse;
-}
-
-export function deserializeGetResolvedPrintTemplatesResponse(obj: Record<string, unknown>): T.GetResolvedPrintTemplatesResponse {
-  const r: Partial<T.GetResolvedPrintTemplatesResponse> = {};
-  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in GetResolvedPrintTemplatesResponse");
-  r.result = String(obj['result'] ?? '') as T.GetResolvedPrintTemplatesResponseResult;
-  if (obj['errorMessage'] !== undefined) r.errorMessage = String(obj['errorMessage']) as string;
-  if (obj['resolvedPrintTemplates'] !== undefined) {
-    const _w = obj['resolvedPrintTemplates'] as Record<string, unknown>;
-    const _iv = (_w)['printTemplate'];
-    if (_iv !== undefined) {
-      r.resolvedPrintTemplates = toArray(_iv).map(String);
-    } else {
-      r.resolvedPrintTemplates = [];
-    }
-  } else {
-    r.resolvedPrintTemplates = [];
-  }
-  return r as T.GetResolvedPrintTemplatesResponse;
 }
 
 export function deserializeVoucherSettingsV1(obj: Record<string, unknown>): T.VoucherSettingsV1 {
@@ -19181,6 +18955,232 @@ export function deserializeWebhookResp(obj: Record<string, unknown>): T.WebhookR
   if (obj['keepPolling'] !== undefined) r.keepPolling = obj['keepPolling'] === 'true' || obj['keepPolling'] === true;
   if (obj['form'] !== undefined) r.form = deserializeWebhookForm(obj['form'] as Record<string, unknown>);
   return r as T.WebhookResp;
+}
+
+export function deserializeGetPrintLayoutsRequest(obj: Record<string, unknown>): T.GetPrintLayoutsRequest {
+  const r: Partial<T.GetPrintLayoutsRequest> = {};
+  if (obj['type'] !== undefined) r.type = String(obj['type']) as T.PrintLayoutType;
+  if (obj['kind'] !== undefined) r.kind = String(obj['kind']) as T.PrintLayoutKind;
+  if (obj['fieldType'] !== undefined) r.fieldType = String(obj['fieldType']) as T.PrintLayoutFieldType;
+  return r as T.GetPrintLayoutsRequest;
+}
+
+export function deserializePrintLayoutView(obj: Record<string, unknown>): T.PrintLayoutView {
+  const r: Partial<T.PrintLayoutView> = {};
+  r.id = String(obj['id'] ?? '') as string;
+  r.name = String(obj['name'] ?? '') as string;
+  r.type = String(obj['type'] ?? '') as T.PrintLayoutType;
+  r.kind = String(obj['kind'] ?? '') as T.PrintLayoutKind;
+  r.createdTimestamp = new Date(String(obj['createdTimestamp'] ?? ''));
+  r.updatedTimestamp = new Date(String(obj['updatedTimestamp'] ?? ''));
+  r.hasDigitalSignatureField = obj['hasDigitalSignatureField'] === 'true' || obj['hasDigitalSignatureField'] === true;
+  return r as T.PrintLayoutView;
+}
+
+export function deserializeGetPrintLayoutAssignmentsRequest(obj: Record<string, unknown>): T.GetPrintLayoutAssignmentsRequest {
+  const r: Partial<T.GetPrintLayoutAssignmentsRequest> = {};
+  if (obj['type'] !== undefined) r.type = String(obj['type']) as T.PrintLayoutType;
+  if (obj['kind'] !== undefined) r.kind = String(obj['kind']) as T.PrintLayoutKind;
+  if (obj['branchNumber'] !== undefined) r.branchNumber = Number(obj['branchNumber']);
+  if (obj['workplaceNumber'] !== undefined) r.workplaceNumber = Number(obj['workplaceNumber']);
+  if (obj['useOnlinePrinter'] !== undefined) r.useOnlinePrinter = obj['useOnlinePrinter'] === 'true' || obj['useOnlinePrinter'] === true;
+  return r as T.GetPrintLayoutAssignmentsRequest;
+}
+
+export function deserializePrintLayoutAssignmentPrintLayoutView(obj: Record<string, unknown>): T.PrintLayoutAssignmentPrintLayoutView {
+  const r: Partial<T.PrintLayoutAssignmentPrintLayoutView> = {};
+  r.id = String(obj['id'] ?? '') as string;
+  r.name = String(obj['name'] ?? '') as string;
+  r.type = String(obj['type'] ?? '') as T.PrintLayoutType;
+  r.kind = String(obj['kind'] ?? '') as T.PrintLayoutKind;
+  return r as T.PrintLayoutAssignmentPrintLayoutView;
+}
+
+export function deserializensPrintLayoutLocationId(obj: Record<string, unknown>): T.nsPrintLayoutLocationId {
+  const r: Partial<T.nsPrintLayoutLocationId> = {};
+  r.locationId = Number(obj['locationId']);
+  return r as T.nsPrintLayoutLocationId;
+}
+
+export function deserializePrintLayoutAssignment(obj: Record<string, unknown>): T.PrintLayoutAssignment {
+  const r: Partial<T.PrintLayoutAssignment> = {};
+  if (obj['id'] !== undefined) r.id = Number(obj['id']);
+  r.workplace = deserializeWorkplaceIdentifier(obj['workplace'] as Record<string, unknown> ?? {});
+  r.printLayout = deserializePrintLayoutAssignmentPrintLayoutView(obj['printLayout'] as Record<string, unknown> ?? {});
+  r.useOnlinePrinter = obj['useOnlinePrinter'] === 'true' || obj['useOnlinePrinter'] === true;
+  r.baseLocationId = Number(obj['baseLocationId']);
+  if (obj['asLocationId'] !== undefined) r.asLocationId = Number(obj['asLocationId']);
+  if (obj['extraLocationIds'] !== undefined) {
+    r.extraLocationIds = toArray(obj['extraLocationIds']).map((v) => deserializensPrintLayoutLocationId(v as Record<string, unknown>));
+  }
+  r.kind = String(obj['kind'] ?? '') as T.PrintLayoutKind;
+  return r as T.PrintLayoutAssignment;
+}
+
+export function deserializeSavePrintLayoutAssignmentsRequest(obj: Record<string, unknown>): T.SavePrintLayoutAssignmentsRequest {
+  const r: Partial<T.SavePrintLayoutAssignmentsRequest> = {};
+  if (obj['printLayoutAssignments'] !== undefined) {
+    r.printLayoutAssignments = toArray(obj['printLayoutAssignments']).map((v) => deserializePrintLayoutAssignment(v as Record<string, unknown>));
+  }
+  return r as T.SavePrintLayoutAssignmentsRequest;
+}
+
+export function deserializePrintParam(obj: Record<string, unknown>): T.PrintParam {
+  const r: Partial<T.PrintParam> = {};
+  r.key = String(obj['key'] ?? '') as string;
+  r.value = String(obj['value'] ?? '') as string;
+  return r as T.PrintParam;
+}
+
+export function deserializePrintParams(obj: Record<string, unknown>): T.PrintParams {
+  const r: Partial<T.PrintParams> = {};
+  if (obj['uuid'] !== undefined) r.uuid = String(obj['uuid']) as string;
+  if (obj['yearNumber'] !== undefined) r.yearNumber = deserializeYearNumber(obj['yearNumber'] as Record<string, unknown>);
+  if (obj['params'] !== undefined) {
+    r.params = toArray(obj['params']).map((v) => deserializePrintParam(v as Record<string, unknown>));
+  }
+  return r as T.PrintParams;
+}
+
+export function deserializePrintInfo(obj: Record<string, unknown>): T.PrintInfo {
+  const r: Partial<T.PrintInfo> = {};
+  if (obj['paramsList'] !== undefined) {
+    r.paramsList = toArray(obj['paramsList']).map((v) => deserializePrintParams(v as Record<string, unknown>));
+  }
+  if (obj['globalParams'] !== undefined) r.globalParams = deserializePrintParams(obj['globalParams'] as Record<string, unknown>);
+  return r as T.PrintInfo;
+}
+
+export function deserializeGetRenderedPrintLayoutRequest(obj: Record<string, unknown>): T.GetRenderedPrintLayoutRequest {
+  const r: Partial<T.GetRenderedPrintLayoutRequest> = {};
+  r.printLayoutUuid = String(obj['printLayoutUuid'] ?? '') as string;
+  r.renderType = String(obj['renderType'] ?? '') as T.RenderedPrintLayoutType;
+  if (obj['printInfo'] !== undefined) r.printInfo = deserializePrintInfo(obj['printInfo'] as Record<string, unknown>);
+  if (obj['dpi'] !== undefined) r.dpi = Number(obj['dpi']);
+  return r as T.GetRenderedPrintLayoutRequest;
+}
+
+export function deserializeGetPrintLayoutMarkupRequest(obj: Record<string, unknown>): T.GetPrintLayoutMarkupRequest {
+  const r: Partial<T.GetPrintLayoutMarkupRequest> = {};
+  r.printLayoutUuid = String(obj['printLayoutUuid'] ?? '') as string;
+  r.markupType = String(obj['markupType'] ?? '') as T.PrintLayoutMarkupType;
+  if (obj['printInfo'] !== undefined) r.printInfo = deserializePrintInfo(obj['printInfo'] as Record<string, unknown>);
+  if (obj['responseAsBase64'] !== undefined) r.responseAsBase64 = obj['responseAsBase64'] === 'true' || obj['responseAsBase64'] === true;
+  if (obj['normalWidthInCharacters'] !== undefined) r.normalWidthInCharacters = Number(obj['normalWidthInCharacters']);
+  if (obj['smallWidthInCharacters'] !== undefined) r.smallWidthInCharacters = Number(obj['smallWidthInCharacters']);
+  return r as T.GetPrintLayoutMarkupRequest;
+}
+
+export function deserializePrintPrintLayoutRequest(obj: Record<string, unknown>): T.PrintPrintLayoutRequest {
+  const r: Partial<T.PrintPrintLayoutRequest> = {};
+  if (obj['type'] !== undefined) r.type = String(obj['type']) as T.PrintLayoutType;
+  r.kind = String(obj['kind'] ?? '') as T.PrintLayoutKind;
+  r.printInfo = deserializePrintInfo(obj['printInfo'] as Record<string, unknown> ?? {});
+  r.workplaceIdentifier = deserializeWorkplaceIdentifier(obj['workplaceIdentifier'] as Record<string, unknown> ?? {});
+  return r as T.PrintPrintLayoutRequest;
+}
+
+export function deserializePrintTemplateList(obj: Record<string, unknown>): T.PrintTemplateList {
+  const r: Partial<T.PrintTemplateList> = {};
+  if (obj['printTemplate'] !== undefined) {
+    r.printTemplate = toArray(obj['printTemplate']).map(String);
+  }
+  return r as T.PrintTemplateList;
+}
+
+export function deserializeGetResolvedPrintTemplatesRequest(obj: Record<string, unknown>): T.GetResolvedPrintTemplatesRequest {
+  const r: Partial<T.GetResolvedPrintTemplatesRequest> = {};
+  r.kind = String(obj['kind'] ?? '') as T.PrintLayoutKind;
+  if (obj['printInfo'] !== undefined) r.printInfo = deserializePrintInfo(obj['printInfo'] as Record<string, unknown>);
+  if (obj['printTemplates'] !== undefined) {
+    const _w = obj['printTemplates'] as Record<string, unknown>;
+    const _iv = (_w)['printTemplate'];
+    if (_iv !== undefined) {
+      r.printTemplates = toArray(_iv).map(String);
+    } else {
+      r.printTemplates = [];
+    }
+  } else {
+    r.printTemplates = [];
+  }
+  return r as T.GetResolvedPrintTemplatesRequest;
+}
+
+export function deserializeGetPrintLayoutsResponse(obj: Record<string, unknown>): T.GetPrintLayoutsResponse {
+  const r: Partial<T.GetPrintLayoutsResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in GetPrintLayoutsResponse");
+  r.result = String(obj['result'] ?? '') as T.GetPrintLayoutsResponseResult;
+  if (obj['printLayouts'] !== undefined) {
+    r.printLayouts = toArray(obj['printLayouts']).map((v) => deserializePrintLayoutView(v as Record<string, unknown>));
+  }
+  return r as T.GetPrintLayoutsResponse;
+}
+
+export function deserializeGetPrintLayoutAssignmentsResponse(obj: Record<string, unknown>): T.GetPrintLayoutAssignmentsResponse {
+  const r: Partial<T.GetPrintLayoutAssignmentsResponse> = {};
+  if (obj['printLayoutAssignments'] !== undefined) {
+    r.printLayoutAssignments = toArray(obj['printLayoutAssignments']).map((v) => deserializePrintLayoutAssignment(v as Record<string, unknown>));
+  }
+  return r as T.GetPrintLayoutAssignmentsResponse;
+}
+
+export function deserializeSavePrintLayoutAssignmentsResponse(obj: Record<string, unknown>): T.SavePrintLayoutAssignmentsResponse {
+  const r: Partial<T.SavePrintLayoutAssignmentsResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in SavePrintLayoutAssignmentsResponse");
+  r.result = String(obj['result'] ?? '') as T.SavePrintLayoutAssignmentsResponseResult;
+  return r as T.SavePrintLayoutAssignmentsResponse;
+}
+
+export function deserializeGetRenderedPrintLayoutResponse(obj: Record<string, unknown>): T.GetRenderedPrintLayoutResponse {
+  const r: Partial<T.GetRenderedPrintLayoutResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in GetRenderedPrintLayoutResponse");
+  r.result = String(obj['result'] ?? '') as T.GetRenderedPrintLayoutResponseResult;
+  if (obj['errorMessage'] === undefined) throw new Error("Missing required field 'errorMessage' in GetRenderedPrintLayoutResponse");
+  r.errorMessage = String(obj['errorMessage'] ?? '') as string;
+  if (obj['renderedPrintLayouts'] !== undefined) {
+    r.renderedPrintLayouts = toArray(obj['renderedPrintLayouts']).map(String);
+  }
+  if (obj['hasDigitalSignatureField'] === undefined) throw new Error("Missing required field 'hasDigitalSignatureField' in GetRenderedPrintLayoutResponse");
+  r.hasDigitalSignatureField = obj['hasDigitalSignatureField'] === 'true' || obj['hasDigitalSignatureField'] === true;
+  return r as T.GetRenderedPrintLayoutResponse;
+}
+
+export function deserializeGetPrintLayoutMarkupResponse(obj: Record<string, unknown>): T.GetPrintLayoutMarkupResponse {
+  const r: Partial<T.GetPrintLayoutMarkupResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in GetPrintLayoutMarkupResponse");
+  r.result = String(obj['result'] ?? '') as T.GetPrintLayoutMarkupResult;
+  if (obj['errorMessage'] === undefined) throw new Error("Missing required field 'errorMessage' in GetPrintLayoutMarkupResponse");
+  r.errorMessage = String(obj['errorMessage'] ?? '') as string;
+  if (obj['printLayoutMarkup'] === undefined) throw new Error("Missing required field 'printLayoutMarkup' in GetPrintLayoutMarkupResponse");
+  r.printLayoutMarkup = String(obj['printLayoutMarkup'] ?? '') as string;
+  return r as T.GetPrintLayoutMarkupResponse;
+}
+
+export function deserializePrintPrintLayoutResponse(obj: Record<string, unknown>): T.PrintPrintLayoutResponse {
+  const r: Partial<T.PrintPrintLayoutResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in PrintPrintLayoutResponse");
+  r.result = String(obj['result'] ?? '') as T.PrintPrintLayoutResponseResult;
+  if (obj['errorMessage'] !== undefined) r.errorMessage = String(obj['errorMessage']) as string;
+  return r as T.PrintPrintLayoutResponse;
+}
+
+export function deserializeGetResolvedPrintTemplatesResponse(obj: Record<string, unknown>): T.GetResolvedPrintTemplatesResponse {
+  const r: Partial<T.GetResolvedPrintTemplatesResponse> = {};
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in GetResolvedPrintTemplatesResponse");
+  r.result = String(obj['result'] ?? '') as T.GetResolvedPrintTemplatesResponseResult;
+  if (obj['errorMessage'] !== undefined) r.errorMessage = String(obj['errorMessage']) as string;
+  if (obj['resolvedPrintTemplates'] !== undefined) {
+    const _w = obj['resolvedPrintTemplates'] as Record<string, unknown>;
+    const _iv = (_w)['printTemplate'];
+    if (_iv !== undefined) {
+      r.resolvedPrintTemplates = toArray(_iv).map(String);
+    } else {
+      r.resolvedPrintTemplates = [];
+    }
+  } else {
+    r.resolvedPrintTemplates = [];
+  }
+  return r as T.GetResolvedPrintTemplatesResponse;
 }
 
 export function deserializeInterbranchOrderLine(obj: Record<string, unknown>): T.InterbranchOrderLine {

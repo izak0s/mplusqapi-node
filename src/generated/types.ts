@@ -241,7 +241,7 @@ export type nsEntityType = 'ENTITY-TYPE-UNKNOWN' | 'ENTITY-TYPE-EMPLOYEE' | 'ENT
  * - `NOT-EMPTY`: for stringable fields that are not NULL and do not have a length of 0
  * - `NO-OVERLAP`: for multiselection fields, none of the filter value must be set for a card to match (card is allowed to have additional values selected)
  */
-export type OverviewFilterOperator = 'EQUAL' | 'LIKE' | 'BIGGER' | 'SMALLER' | 'NOTEQUAL' | 'ISNULL' | 'ISNOTNULL' | 'CONTAINS' | 'OVERLAP' | 'IS' | 'OVERLAPORNONE' | 'INCOLLECTION' | 'BIGGER-OR-EQUAL' | 'SMALLER-OR-EQUAL' | 'EMPTY' | 'NOT-EMPTY' | 'NO-OVERLAP';
+export type OverviewFilterOperator = 'EQUAL' | 'LIKE' | 'BIGGER' | 'SMALLER' | 'NOTEQUAL' | 'ISNULL' | 'ISNOTNULL' | 'CONTAINS' | 'OVERLAP' | 'IS' | 'OVERLAPORNONE' | 'INCOLLECTION' | 'NOT-INCOLLECTION' | 'BIGGER-OR-EQUAL' | 'SMALLER-OR-EQUAL' | 'EMPTY' | 'NOT-EMPTY' | 'NO-OVERLAP';
 
 export type SortOrderType = 'ASCENDING' | 'DESCENDING';
 
@@ -429,28 +429,6 @@ export type SetWorkplaceActiveActivityResult = 'SET-WORKPLACE-ACTIVE-ACTIVITY-RE
 
 export type CreateImageResult = 'CREATE-IMAGE-OK' | 'CREATE-IMAGE-TOO-LARGE' | 'CREATE-IMAGE-STORAGE-ERROR' | 'CREATE-IMAGE-NOT-SUPPORTED';
 
-export type PrintLayoutType = 'ALL' | 'RECEIPT' | 'GRAPHICS';
-
-export type PrintLayoutKind = 'ALL' | 'ARTICLE' | 'RELATION' | 'EMPLOYEE' | 'REGISTER-RECEIPT' | 'INVOICE' | 'TABLE-ORDER-RECEIPT' | 'INTERMEDIATE-ORDER-RECEIPT' | 'SALE-ORDER' | 'SALE-PACKING-RECEIPT' | 'TICKET' | 'ORDER-TICKET' | 'TICKETCOUNTER-TICKET' | 'DEPOSIT-SLIP' | 'PURCHASE-DELIVERY' | 'PURCHASE-ORDER' | 'PARTIAL-PAYMENT' | 'QUOTATION' | 'MENU-PLANNING' | 'ORDER-SLIP' | 'WEBHOOK-RECEIPT-FOOTER' | 'VOUCHER-ISSUANCE' | 'RETURN-SLIP' | 'ARTICLE-PRICE-BARCODE';
-
-export type PrintLayoutFieldType = 'ALL' | 'DIGITAL-SIGNATURE' | 'GRAPHICS-MENU-PLANNING-RULES' | 'GRAPHICS-PICTURE' | 'GRAPHICS-RICH-TEXT' | 'GRAPHICS-RULES' | 'GRAPHICS-TEMPLATE' | 'GRAPHICS-TEXT' | 'RECEIPT-PICTURE' | 'RECEIPT-RULES' | 'RECEIPT-TEXT' | 'RECTANGLE' | 'TABLE-ORDER-FORM-RECEIPT-RULES' | 'VARYING-GRAPHICS-BARCODE' | 'VARYING-GRAPHICS-DATE' | 'VARYING-GRAPHICS-PICTURE' | 'VARYING-GRAPHICS-TEXT' | 'VARYING-RECEIPT-BARCODE' | 'VARYING-RECEIPT-DATE' | 'VARYING-RECEIPT-PICTURE' | 'VARYING-RECEIPT-TEXT' | 'WHITESPACE';
-
-export type GetPrintLayoutsResponseResult = 'OK' | 'NO-PRINT-LAYOUTS-FOUND';
-
-export type SavePrintLayoutAssignmentsResponseResult = 'UNKNOWN' | 'OK';
-
-export type RenderedPrintLayoutType = 'PDF' | 'PNG' | 'JPEG' | 'XPS' | 'WEBP';
-
-export type GetRenderedPrintLayoutResponseResult = 'OK' | 'PRINT-LAYOUT-NOT-FOUND' | 'INVALID-PRINT-INFO' | 'RENDERING-FAILED' | 'COULDNT-OPEN-FILE' | 'THIS-LAYOUT-KIND-DOESNT-EXPECT-ANY-PRINT-INFO';
-
-export type PrintLayoutMarkupType = 'STAR-DOCUMENT-MARKUP' | 'ESC-POS-MARKUP';
-
-export type GetPrintLayoutMarkupResult = 'OK' | 'PRINT-LAYOUT-NOT-FOUND' | 'INVALID-PRINT-INFO' | 'MARKUP-FAILED' | 'THIS-LAYOUT-KIND-DOESNT-EXPECT-ANY-PRINT-INFO';
-
-export type PrintPrintLayoutResponseResult = 'OK' | 'INVALID-PRINT-INFO' | 'NONE-PRINTED' | 'OTHER';
-
-export type GetResolvedPrintTemplatesResponseResult = 'OK' | 'INVALID-PRINT-LAYOUT-KIND' | 'INVALID-PRINT-INFO' | 'THIS-LAYOUT-KIND-DOESNT-EXPECT-ANY-PRINT-INFO';
-
 export type VoucherActivationMoment = 'ISSUE-DATE' | 'START-OF-DAY' | 'START-OF-WEEK' | 'START-OF-MONTH' | 'START-OF-YEAR' | 'CHOICE';
 
 export type VoucherActivationDurationPeriod = 'DAY' | 'WEEK' | 'MONTH' | 'YEAR' | 'UNLIMITED';
@@ -595,6 +573,28 @@ export type ScanCodeType = 'SCAN-CODE-TYPE-BARCODE' | 'SCAN-CODE-TYPE-RFID';
 export type WebhookErrorType = 'WEBHOOK-ERROR-TYPE-REQUEST' | 'WEBHOOK-ERROR-TYPE-RESPONSE';
 
 export type WebhookEvent = 'WEBHOOK-EVENT-SCAN-CODE' | 'WEBHOOK-EVENT-ADD-SESSION-LINE' | 'WEBHOOK-EVENT-UPDATE-SESSION-LINE' | 'WEBHOOK-EVENT-REMOVE-SESSION-LINE' | 'WEBHOOK-EVENT-SELECT-RELATION' | 'WEBHOOK-EVENT-CUSTOM-ACTION' | 'WEBHOOK-EVENT-START-PAYMENT' | 'WEBHOOK-EVENT-CANCEL-PAYMENT' | 'WEBHOOK-EVENT-START-SESSION' | 'WEBHOOK-EVENT-PAUSE-SESSION' | 'WEBHOOK-EVENT-RESUME-SESSION' | 'WEBHOOK-EVENT-CANCEL-SESSION';
+
+export type PrintLayoutType = 'ALL' | 'RECEIPT' | 'GRAPHICS';
+
+export type PrintLayoutKind = 'ALL' | 'ARTICLE' | 'RELATION' | 'EMPLOYEE' | 'REGISTER-RECEIPT' | 'INVOICE' | 'TABLE-ORDER-RECEIPT' | 'INTERMEDIATE-ORDER-RECEIPT' | 'SALE-ORDER' | 'SALE-PACKING-RECEIPT' | 'TICKET' | 'ORDER-TICKET' | 'TICKETCOUNTER-TICKET' | 'DEPOSIT-SLIP' | 'PURCHASE-DELIVERY' | 'PURCHASE-ORDER' | 'PARTIAL-PAYMENT' | 'QUOTATION' | 'MENU-PLANNING' | 'ORDER-SLIP' | 'WEBHOOK-RECEIPT-FOOTER' | 'VOUCHER-ISSUANCE' | 'RETURN-SLIP' | 'ARTICLE-PRICE-BARCODE';
+
+export type PrintLayoutFieldType = 'ALL' | 'DIGITAL-SIGNATURE' | 'GRAPHICS-MENU-PLANNING-RULES' | 'GRAPHICS-PICTURE' | 'GRAPHICS-RICH-TEXT' | 'GRAPHICS-RULES' | 'GRAPHICS-TEMPLATE' | 'GRAPHICS-TEXT' | 'RECEIPT-PICTURE' | 'RECEIPT-RULES' | 'RECEIPT-TEXT' | 'RECTANGLE' | 'TABLE-ORDER-FORM-RECEIPT-RULES' | 'VARYING-GRAPHICS-BARCODE' | 'VARYING-GRAPHICS-DATE' | 'VARYING-GRAPHICS-PICTURE' | 'VARYING-GRAPHICS-TEXT' | 'VARYING-RECEIPT-BARCODE' | 'VARYING-RECEIPT-DATE' | 'VARYING-RECEIPT-PICTURE' | 'VARYING-RECEIPT-TEXT' | 'WHITESPACE';
+
+export type GetPrintLayoutsResponseResult = 'OK' | 'NO-PRINT-LAYOUTS-FOUND';
+
+export type SavePrintLayoutAssignmentsResponseResult = 'UNKNOWN' | 'OK';
+
+export type RenderedPrintLayoutType = 'PDF' | 'PNG' | 'JPEG' | 'XPS' | 'WEBP';
+
+export type GetRenderedPrintLayoutResponseResult = 'OK' | 'PRINT-LAYOUT-NOT-FOUND' | 'INVALID-PRINT-INFO' | 'RENDERING-FAILED' | 'COULDNT-OPEN-FILE' | 'THIS-LAYOUT-KIND-DOESNT-EXPECT-ANY-PRINT-INFO';
+
+export type PrintLayoutMarkupType = 'STAR-DOCUMENT-MARKUP' | 'ESC-POS-MARKUP';
+
+export type GetPrintLayoutMarkupResult = 'OK' | 'PRINT-LAYOUT-NOT-FOUND' | 'INVALID-PRINT-INFO' | 'MARKUP-FAILED' | 'THIS-LAYOUT-KIND-DOESNT-EXPECT-ANY-PRINT-INFO';
+
+export type PrintPrintLayoutResponseResult = 'OK' | 'INVALID-PRINT-INFO' | 'NONE-PRINTED' | 'OTHER';
+
+export type GetResolvedPrintTemplatesResponseResult = 'OK' | 'INVALID-PRINT-LAYOUT-KIND' | 'INVALID-PRINT-INFO' | 'THIS-LAYOUT-KIND-DOESNT-EXPECT-ANY-PRINT-INFO';
 
 export type InterbranchOrderState = 'INTERBRANCH-ORDER-STATE-OPEN' | 'INTERBRANCH-ORDER-STATE-PARTIALLY-SENT' | 'INTERBRANCH-ORDER-STATE-COMPLETELY-SENT' | 'INTERBRANCH-ORDER-STATE-PARTIALLY-CANCELLED' | 'INTERBRANCH-ORDER-STATE-COMPLETELY-CANCELLED' | 'INTERBRANCH-ORDER-STATE-PARTIALLY-SENT-PARTIALLY-CANCELLED' | 'INTERBRANCH-ORDER-STATE-COMPLETELY-SENT-PARTIALLY-CANCELLED';
 
@@ -6747,7 +6747,7 @@ export interface BranchInformation {
   deliveryAddresses: DeliveryAddress[];
 }
 
-export interface saveBranchInformationRequest {
+export interface SaveBranchInformationRequest {
   branchInformation?: BranchInformation;
 }
 
@@ -7396,7 +7396,7 @@ export interface GetBranchInformationResponse {
   errorMessage?: string;
 }
 
-export interface saveBranchInformationResponse {
+export interface SaveBranchInformationResponse {
   result: SaveBranchInformationResult;
   errorMessage?: string;
 }
@@ -7732,144 +7732,6 @@ export interface SaveCardImagesResponse {
 
 export interface GetImagesResponse {
   imageList: Image[];
-}
-
-export interface GetPrintLayoutsRequest {
-  type?: PrintLayoutType;
-  kind?: PrintLayoutKind;
-  fieldType?: PrintLayoutFieldType;
-}
-
-export interface PrintLayoutView {
-  id: string;
-  name: string;
-  type: PrintLayoutType;
-  kind: PrintLayoutKind;
-  createdTimestamp: Date;
-  updatedTimestamp: Date;
-  hasDigitalSignatureField: boolean;
-}
-
-export interface GetPrintLayoutAssignmentsRequest {
-  type?: PrintLayoutType;
-  kind?: PrintLayoutKind;
-  branchNumber?: number;
-  workplaceNumber?: number;
-  useOnlinePrinter?: boolean;
-}
-
-export interface PrintLayoutAssignmentPrintLayoutView {
-  id: string;
-  name: string;
-  type: PrintLayoutType;
-  kind: PrintLayoutKind;
-}
-
-export interface nsPrintLayoutLocationId {
-  locationId: number;
-}
-
-export interface PrintLayoutAssignment {
-  id?: number;
-  workplace: WorkplaceIdentifier;
-  printLayout: PrintLayoutAssignmentPrintLayoutView;
-  useOnlinePrinter: boolean;
-  baseLocationId: number;
-  asLocationId?: number;
-  extraLocationIds?: nsPrintLayoutLocationId[];
-  kind: PrintLayoutKind;
-}
-
-export interface SavePrintLayoutAssignmentsRequest {
-  printLayoutAssignments?: PrintLayoutAssignment[];
-}
-
-export interface PrintParam {
-  key: string;
-  value: string;
-}
-
-export interface PrintParams {
-  uuid?: string;
-  yearNumber?: YearNumber;
-  params?: PrintParam[];
-}
-
-export interface PrintInfo {
-  paramsList?: PrintParams[];
-  globalParams?: PrintParams;
-}
-
-export interface GetRenderedPrintLayoutRequest {
-  printLayoutUuid?: string;
-  renderType?: RenderedPrintLayoutType;
-  /** use to specify print information. If not used the layout will be rendered without data, which will render an example. If used, the layout will be supplied with the print information before being rendered. Call with invalid print information to see expected print information for the layout kind. */
-  printInfo?: PrintInfo;
-  /** use to specify the dots per inch for non-pdf render types. Must be equal to or higher than 26, and equal to or less than 300, default is 100. */
-  dpi?: number;
-}
-
-export interface GetPrintLayoutMarkupRequest {
-  printLayoutUuid?: string;
-  markupType?: PrintLayoutMarkupType;
-  printInfo?: PrintInfo;
-  responseAsBase64?: boolean;
-  normalWidthInCharacters?: number;
-  smallWidthInCharacters?: number;
-}
-
-export interface PrintPrintLayoutRequest {
-  type?: PrintLayoutType;
-  kind?: PrintLayoutKind;
-  printInfo?: PrintInfo;
-  workplaceIdentifier?: WorkplaceIdentifier;
-}
-
-export interface PrintTemplateList {
-  printTemplate?: string[];
-}
-
-export interface GetResolvedPrintTemplatesRequest {
-  kind?: PrintLayoutKind;
-  printInfo?: PrintInfo;
-  printTemplates?: string[];
-}
-
-export interface GetPrintLayoutsResponse {
-  result: GetPrintLayoutsResponseResult;
-  printLayouts?: PrintLayoutView[];
-}
-
-export interface GetPrintLayoutAssignmentsResponse {
-  printLayoutAssignments?: PrintLayoutAssignment[];
-}
-
-export interface SavePrintLayoutAssignmentsResponse {
-  result: SavePrintLayoutAssignmentsResponseResult;
-}
-
-export interface GetRenderedPrintLayoutResponse {
-  result: GetRenderedPrintLayoutResponseResult;
-  errorMessage: string;
-  renderedPrintLayouts?: string[];
-  hasDigitalSignatureField: boolean;
-}
-
-export interface GetPrintLayoutMarkupResponse {
-  result: GetPrintLayoutMarkupResult;
-  errorMessage: string;
-  printLayoutMarkup: string;
-}
-
-export interface PrintPrintLayoutResponse {
-  result: PrintPrintLayoutResponseResult;
-  errorMessage?: string;
-}
-
-export interface GetResolvedPrintTemplatesResponse {
-  result: GetResolvedPrintTemplatesResponseResult;
-  errorMessage?: string;
-  resolvedPrintTemplates: string[];
 }
 
 export interface VoucherSettingsV1 {
@@ -10903,6 +10765,144 @@ export interface WebhookResp {
   lineDeletions?: WebhookLineDeletion[];
   keepPolling?: boolean;
   form?: WebhookForm;
+}
+
+export interface GetPrintLayoutsRequest {
+  type?: PrintLayoutType;
+  kind?: PrintLayoutKind;
+  fieldType?: PrintLayoutFieldType;
+}
+
+export interface PrintLayoutView {
+  id: string;
+  name: string;
+  type: PrintLayoutType;
+  kind: PrintLayoutKind;
+  createdTimestamp: Date;
+  updatedTimestamp: Date;
+  hasDigitalSignatureField: boolean;
+}
+
+export interface GetPrintLayoutAssignmentsRequest {
+  type?: PrintLayoutType;
+  kind?: PrintLayoutKind;
+  branchNumber?: number;
+  workplaceNumber?: number;
+  useOnlinePrinter?: boolean;
+}
+
+export interface PrintLayoutAssignmentPrintLayoutView {
+  id: string;
+  name: string;
+  type: PrintLayoutType;
+  kind: PrintLayoutKind;
+}
+
+export interface nsPrintLayoutLocationId {
+  locationId: number;
+}
+
+export interface PrintLayoutAssignment {
+  id?: number;
+  workplace: WorkplaceIdentifier;
+  printLayout: PrintLayoutAssignmentPrintLayoutView;
+  useOnlinePrinter: boolean;
+  baseLocationId: number;
+  asLocationId?: number;
+  extraLocationIds?: nsPrintLayoutLocationId[];
+  kind: PrintLayoutKind;
+}
+
+export interface SavePrintLayoutAssignmentsRequest {
+  printLayoutAssignments?: PrintLayoutAssignment[];
+}
+
+export interface PrintParam {
+  key: string;
+  value: string;
+}
+
+export interface PrintParams {
+  uuid?: string;
+  yearNumber?: YearNumber;
+  params?: PrintParam[];
+}
+
+export interface PrintInfo {
+  paramsList?: PrintParams[];
+  globalParams?: PrintParams;
+}
+
+export interface GetRenderedPrintLayoutRequest {
+  printLayoutUuid?: string;
+  renderType?: RenderedPrintLayoutType;
+  /** use to specify print information. If not used the layout will be rendered without data, which will render an example. If used, the layout will be supplied with the print information before being rendered. Call with invalid print information to see expected print information for the layout kind. */
+  printInfo?: PrintInfo;
+  /** use to specify the dots per inch for non-pdf render types. Must be equal to or higher than 26, and equal to or less than 300, default is 100. */
+  dpi?: number;
+}
+
+export interface GetPrintLayoutMarkupRequest {
+  printLayoutUuid?: string;
+  markupType?: PrintLayoutMarkupType;
+  printInfo?: PrintInfo;
+  responseAsBase64?: boolean;
+  normalWidthInCharacters?: number;
+  smallWidthInCharacters?: number;
+}
+
+export interface PrintPrintLayoutRequest {
+  type?: PrintLayoutType;
+  kind?: PrintLayoutKind;
+  printInfo?: PrintInfo;
+  workplaceIdentifier?: WorkplaceIdentifier;
+}
+
+export interface PrintTemplateList {
+  printTemplate?: string[];
+}
+
+export interface GetResolvedPrintTemplatesRequest {
+  kind?: PrintLayoutKind;
+  printInfo?: PrintInfo;
+  printTemplates?: string[];
+}
+
+export interface GetPrintLayoutsResponse {
+  result: GetPrintLayoutsResponseResult;
+  printLayouts?: PrintLayoutView[];
+}
+
+export interface GetPrintLayoutAssignmentsResponse {
+  printLayoutAssignments?: PrintLayoutAssignment[];
+}
+
+export interface SavePrintLayoutAssignmentsResponse {
+  result: SavePrintLayoutAssignmentsResponseResult;
+}
+
+export interface GetRenderedPrintLayoutResponse {
+  result: GetRenderedPrintLayoutResponseResult;
+  errorMessage: string;
+  renderedPrintLayouts?: string[];
+  hasDigitalSignatureField: boolean;
+}
+
+export interface GetPrintLayoutMarkupResponse {
+  result: GetPrintLayoutMarkupResult;
+  errorMessage: string;
+  printLayoutMarkup: string;
+}
+
+export interface PrintPrintLayoutResponse {
+  result: PrintPrintLayoutResponseResult;
+  errorMessage?: string;
+}
+
+export interface GetResolvedPrintTemplatesResponse {
+  result: GetResolvedPrintTemplatesResponseResult;
+  errorMessage?: string;
+  resolvedPrintTemplates: string[];
 }
 
 export interface InterbranchOrderLine {
