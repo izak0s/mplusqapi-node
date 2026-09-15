@@ -48,11 +48,13 @@ export type TimelineEventEntityType = 'ORDER' | 'INVOICE' | 'RECEIPT' | 'PROPOSA
 
 export type TimelineEventCategory = 'MAIL' | 'SIGNING' | 'DIRECT-DEBIT' | 'LIFE-CYCLE' | 'OTHER';
 
-export type TimelineEventType = 'MAIL-SENT' | 'MAIL-DELIVERED' | 'MAIL-OPENED' | 'MAIL-FAILED' | 'MAIL-REJECTED' | 'MAIL-COMPLAINED' | 'MAIL-BOUNCED' | 'SIGNING-CREATED' | 'SIGNING-SENT' | 'SIGNING-OPENED' | 'SIGNING-APPROVED' | 'SIGNING-REJECTED' | 'SIGNING-EXPIRED' | 'DIRECT-DEBIT-SENT' | 'DIRECT-DEBIT-PAID' | 'DIRECT-DEBIT-REFUNDED' | 'DIRECT-DEBIT-FAILED' | 'SALES-CREATED' | 'SALES-UPDATED' | 'SALES-TRANSFORMED' | 'SALES-GENERATED' | 'PURCHASE-CREATED' | 'PURCHASE-UPDATED' | 'PURCHASE-TRANSFORMED' | 'INTERBRANCH-CREATED' | 'INTERBRANCH-UPDATED' | 'INTERBRANCH-TRANSFORMED' | 'PRINTED' | 'INVOICE-REMINDER-CREATED';
+export type TimelineEventType = 'MAIL-SENT' | 'MAIL-DELIVERED' | 'MAIL-OPENED' | 'MAIL-FAILED' | 'MAIL-REJECTED' | 'MAIL-COMPLAINED' | 'MAIL-BOUNCED' | 'SIGNING-CREATED' | 'SIGNING-SENT' | 'SIGNING-OPENED' | 'SIGNING-APPROVED' | 'SIGNING-REJECTED' | 'SIGNING-EXPIRED' | 'DIRECT-DEBIT-SENT' | 'DIRECT-DEBIT-PAID' | 'DIRECT-DEBIT-REFUNDED' | 'DIRECT-DEBIT-FAILED' | 'SALES-CREATED' | 'SALES-UPDATED' | 'SALES-TRANSFORMED' | 'SALES-GENERATED' | 'PURCHASE-CREATED' | 'PURCHASE-UPDATED' | 'PURCHASE-TRANSFORMED' | 'INTERBRANCH-CREATED' | 'INTERBRANCH-UPDATED' | 'INTERBRANCH-TRANSFORMED' | 'PRINTED' | 'INVOICE-REMINDER-CREATED' | 'CONTACTED';
 
 export type ContractFrequency = 'WEEKLY' | 'MONTHLY' | 'QUARTERLY' | 'YEARLY' | 'CUSTOMPERIOD' | 'ONCE';
 
 export type ContractPeriodCalculationMethod = 'INADVANCE' | 'AFTERWARDS' | 'QUARTERLY' | 'CURRENT' | 'PREV' | 'NEXT' | 'UNKNOWN';
+
+export type SalesQueueType = 'CREATE' | 'EDIT' | 'PAY' | 'CANCEL' | 'CANCEL-GIFTCARD' | 'UNCANCEL';
 
 export type OrderType = 'ORDER-TYPE-SALES-ORDER' | 'ORDER-TYPE-REPEAT-SALES-ORDER' | 'ORDER-TYPE-EXTERNAL-SALES-ORDER' | 'ORDER-TYPE-TABLE-ORDER' | 'ORDER-TYPE-CAFETERIA-ORDER';
 
@@ -77,6 +79,10 @@ export type VoucherType = 'DEFAULT' | 'ENTREE' | 'EXTERNAL';
 export type VoucherRedeemPeriod = 'DAY' | 'WEEK' | 'MONTH' | 'YEAR';
 
 export type UpdateBehavior = 'UPDATE-BEHAVIOR-APPEND' | 'UPDATE-BEHAVIOR-REPLACE';
+
+export type TimelineEventDataPredicateOperator = 'EXISTS' | 'NOT-EXISTS' | 'EQUAL' | 'NOT-EQUAL' | 'LESS-THAN' | 'LESS-THAN-OR-EQUAL' | 'GREATER-THAN' | 'GREATER-THAN-OR-EQUAL';
+
+export type TimelineEventConditionMatch = 'EXISTS' | 'NOT-EXISTS';
 
 export type ArticleContractLineType = 'ORDER' | 'INVOICE';
 
@@ -241,7 +247,7 @@ export type nsEntityType = 'ENTITY-TYPE-UNKNOWN' | 'ENTITY-TYPE-EMPLOYEE' | 'ENT
  * - `NOT-EMPTY`: for stringable fields that are not NULL and do not have a length of 0
  * - `NO-OVERLAP`: for multiselection fields, none of the filter value must be set for a card to match (card is allowed to have additional values selected)
  */
-export type OverviewFilterOperator = 'EQUAL' | 'LIKE' | 'BIGGER' | 'SMALLER' | 'NOTEQUAL' | 'ISNULL' | 'ISNOTNULL' | 'CONTAINS' | 'OVERLAP' | 'IS' | 'OVERLAPORNONE' | 'INCOLLECTION' | 'BIGGER-OR-EQUAL' | 'SMALLER-OR-EQUAL' | 'EMPTY' | 'NOT-EMPTY' | 'NO-OVERLAP';
+export type OverviewFilterOperator = 'EQUAL' | 'LIKE' | 'BIGGER' | 'SMALLER' | 'NOTEQUAL' | 'ISNULL' | 'ISNOTNULL' | 'CONTAINS' | 'OVERLAP' | 'IS' | 'OVERLAPORNONE' | 'INCOLLECTION' | 'NOT-INCOLLECTION' | 'BIGGER-OR-EQUAL' | 'SMALLER-OR-EQUAL' | 'EMPTY' | 'NOT-EMPTY' | 'NO-OVERLAP';
 
 export type SortOrderType = 'ASCENDING' | 'DESCENDING';
 
@@ -427,29 +433,14 @@ export type WorkplaceLoginState = 'WORKPLACE-LOGIN-STATE-ALLOWED' | 'WORKPLACE-L
 
 export type SetWorkplaceActiveActivityResult = 'SET-WORKPLACE-ACTIVE-ACTIVITY-RESULT-OK' | 'SET-WORKPLACE-ACTIVE-ACTIVITY-RESULT-ACTIVITY-NOT-FOUND' | 'SET-WORKPLACE-ACTIVE-ACTIVITY-RESULT-ACTIVITY-NOT-ACTIVE' | 'SET-WORKPLACE-ACTIVE-ACTIVITY-RESULT-WORKPLACE-NOT-FOUND';
 
+export type WorkplaceType = 'STANDARD' | 'ONLINE' | 'MOBILE' | 'KIOSK' | 'GUEST' | 'NARROWCASTING' | 'QR' | 'OTHER';
+
+/**
+ * - `API-IDENT-MISMATCH`: Owned by another API ident.
+ */
+export type UnregisterContextPresenceResult = 'OK' | 'NONE-FOUND' | 'API-IDENT-MISMATCH';
+
 export type CreateImageResult = 'CREATE-IMAGE-OK' | 'CREATE-IMAGE-TOO-LARGE' | 'CREATE-IMAGE-STORAGE-ERROR' | 'CREATE-IMAGE-NOT-SUPPORTED';
-
-export type PrintLayoutType = 'ALL' | 'RECEIPT' | 'GRAPHICS';
-
-export type PrintLayoutKind = 'ALL' | 'ARTICLE' | 'RELATION' | 'EMPLOYEE' | 'REGISTER-RECEIPT' | 'INVOICE' | 'TABLE-ORDER-RECEIPT' | 'INTERMEDIATE-ORDER-RECEIPT' | 'SALE-ORDER' | 'SALE-PACKING-RECEIPT' | 'TICKET' | 'ORDER-TICKET' | 'TICKETCOUNTER-TICKET' | 'DEPOSIT-SLIP' | 'PURCHASE-DELIVERY' | 'PURCHASE-ORDER' | 'PARTIAL-PAYMENT' | 'QUOTATION' | 'MENU-PLANNING' | 'ORDER-SLIP' | 'WEBHOOK-RECEIPT-FOOTER' | 'VOUCHER-ISSUANCE' | 'RETURN-SLIP' | 'ARTICLE-PRICE-BARCODE';
-
-export type PrintLayoutFieldType = 'ALL' | 'DIGITAL-SIGNATURE' | 'GRAPHICS-MENU-PLANNING-RULES' | 'GRAPHICS-PICTURE' | 'GRAPHICS-RICH-TEXT' | 'GRAPHICS-RULES' | 'GRAPHICS-TEMPLATE' | 'GRAPHICS-TEXT' | 'RECEIPT-PICTURE' | 'RECEIPT-RULES' | 'RECEIPT-TEXT' | 'RECTANGLE' | 'TABLE-ORDER-FORM-RECEIPT-RULES' | 'VARYING-GRAPHICS-BARCODE' | 'VARYING-GRAPHICS-DATE' | 'VARYING-GRAPHICS-PICTURE' | 'VARYING-GRAPHICS-TEXT' | 'VARYING-RECEIPT-BARCODE' | 'VARYING-RECEIPT-DATE' | 'VARYING-RECEIPT-PICTURE' | 'VARYING-RECEIPT-TEXT' | 'WHITESPACE';
-
-export type GetPrintLayoutsResponseResult = 'OK' | 'NO-PRINT-LAYOUTS-FOUND';
-
-export type SavePrintLayoutAssignmentsResponseResult = 'UNKNOWN' | 'OK';
-
-export type RenderedPrintLayoutType = 'PDF' | 'PNG' | 'JPEG' | 'XPS' | 'WEBP';
-
-export type GetRenderedPrintLayoutResponseResult = 'OK' | 'PRINT-LAYOUT-NOT-FOUND' | 'INVALID-PRINT-INFO' | 'RENDERING-FAILED' | 'COULDNT-OPEN-FILE' | 'THIS-LAYOUT-KIND-DOESNT-EXPECT-ANY-PRINT-INFO';
-
-export type PrintLayoutMarkupType = 'STAR-DOCUMENT-MARKUP' | 'ESC-POS-MARKUP';
-
-export type GetPrintLayoutMarkupResult = 'OK' | 'PRINT-LAYOUT-NOT-FOUND' | 'INVALID-PRINT-INFO' | 'MARKUP-FAILED' | 'THIS-LAYOUT-KIND-DOESNT-EXPECT-ANY-PRINT-INFO';
-
-export type PrintPrintLayoutResponseResult = 'OK' | 'INVALID-PRINT-INFO' | 'NONE-PRINTED' | 'OTHER';
-
-export type GetResolvedPrintTemplatesResponseResult = 'OK' | 'INVALID-PRINT-LAYOUT-KIND' | 'INVALID-PRINT-INFO' | 'THIS-LAYOUT-KIND-DOESNT-EXPECT-ANY-PRINT-INFO';
 
 export type VoucherActivationMoment = 'ISSUE-DATE' | 'START-OF-DAY' | 'START-OF-WEEK' | 'START-OF-MONTH' | 'START-OF-YEAR' | 'CHOICE';
 
@@ -490,6 +481,8 @@ export type ReportPrintableFinancialTotalsOption = 'REPORT-PRINTABLE-FINANCIAL-T
 export type RegisterTimelineEventsSaveMode = 'RAW' | 'ENRICH';
 
 export type RegisterTimelineEventsResult = 'OK' | 'FAILED';
+
+export type reportErrorCode = 'INVALID-JSON' | 'MISSING-FIELD' | 'INVALID-FIELD-TYPE' | 'INVALID-ENUM-VALUE' | 'UNSUPPORTED-REPORT-TYPE' | 'UNSUPPORTED-EXPRESSION-TYPE' | 'UNSUPPORTED-COLUMN' | 'INVALID-COLUMN-VALUE' | 'VALIDATION-FAILED' | 'LIMIT-EXCEEDED' | 'NOT-FOUND' | 'NOT-AUTHORIZED' | 'REVISION-CONFLICT';
 
 export type InvoiceType = 'INVOICE-TYPE-INVOICE' | 'INVOICE-TYPE-DIRECT-INVOICE' | 'INVOICE-TYPE-CREDIT-INVOICE' | 'INVOICE-TYPE-REPEATING-INVOICE';
 
@@ -556,8 +549,6 @@ export type CashCountInfoState = 'CASH-COUNT-INFO-STATE-OK' | 'CASH-COUNT-INFO-S
 
 export type SaveCashCountResult = 'SAVE-CASH-COUNT-OK' | 'SAVE-CASH-COUNT-INFO-FAILED' | 'SAVE-CASH-COUNT-INVALID-WORKPLACE-DATA' | 'SAVE-CASH-COUNT-INVALID-EXTRA-WORKPLACE-DATA' | 'SAVE-CASH-COUNT-INVALID-PAYMENT-METHOD-AMOUNT' | 'SAVE-CASH-COUNT-MISSING-COUNTED-PAYMENT-METHOD-AMOUNTS' | 'SAVE-CASH-COUNT-EXTRA-COUNTED-PAYMENT-METHOD-AMOUNTS' | 'SAVE-CASH-COUNT-INVALID-AUTOMATIC-DEPOSIT-PAYMENT-METHOD' | 'SAVE-CASH-COUNT-FAILED-TO-BUILD-OR-SAVE-CASH-COUNT' | 'SAVE-CASH-COUNT-FAILED';
 
-export type SalesQueueType = 'CREATE' | 'EDIT' | 'CANCEL' | 'CANCEL-GIFTCARD' | 'UNCANCEL';
-
 export type SalesQueueResultType = 'APPLIED-IMMEDIATELY' | 'QUEUED';
 
 export type ProcessInvoiceResultCode = 'OK' | 'FAILED-SPECIFIED-INVOICE-NOT-FOUND' | 'FAILED-SPECIFIED-INVOICE-NOT-EDITABLE' | 'FAILED-PROCESSOR';
@@ -595,6 +586,28 @@ export type ScanCodeType = 'SCAN-CODE-TYPE-BARCODE' | 'SCAN-CODE-TYPE-RFID';
 export type WebhookErrorType = 'WEBHOOK-ERROR-TYPE-REQUEST' | 'WEBHOOK-ERROR-TYPE-RESPONSE';
 
 export type WebhookEvent = 'WEBHOOK-EVENT-SCAN-CODE' | 'WEBHOOK-EVENT-ADD-SESSION-LINE' | 'WEBHOOK-EVENT-UPDATE-SESSION-LINE' | 'WEBHOOK-EVENT-REMOVE-SESSION-LINE' | 'WEBHOOK-EVENT-SELECT-RELATION' | 'WEBHOOK-EVENT-CUSTOM-ACTION' | 'WEBHOOK-EVENT-START-PAYMENT' | 'WEBHOOK-EVENT-CANCEL-PAYMENT' | 'WEBHOOK-EVENT-START-SESSION' | 'WEBHOOK-EVENT-PAUSE-SESSION' | 'WEBHOOK-EVENT-RESUME-SESSION' | 'WEBHOOK-EVENT-CANCEL-SESSION';
+
+export type PrintLayoutType = 'ALL' | 'RECEIPT' | 'GRAPHICS';
+
+export type PrintLayoutKind = 'ALL' | 'ARTICLE' | 'RELATION' | 'EMPLOYEE' | 'REGISTER-RECEIPT' | 'INVOICE' | 'TABLE-ORDER-RECEIPT' | 'INTERMEDIATE-ORDER-RECEIPT' | 'SALE-ORDER' | 'SALE-PACKING-RECEIPT' | 'TICKET' | 'ORDER-TICKET' | 'TICKETCOUNTER-TICKET' | 'DEPOSIT-SLIP' | 'PURCHASE-DELIVERY' | 'PURCHASE-ORDER' | 'PARTIAL-PAYMENT' | 'QUOTATION' | 'MENU-PLANNING' | 'ORDER-SLIP' | 'WEBHOOK-RECEIPT-FOOTER' | 'VOUCHER-ISSUANCE' | 'RETURN-SLIP' | 'ARTICLE-PRICE-BARCODE';
+
+export type PrintLayoutFieldType = 'ALL' | 'DIGITAL-SIGNATURE' | 'GRAPHICS-MENU-PLANNING-RULES' | 'GRAPHICS-PICTURE' | 'GRAPHICS-RICH-TEXT' | 'GRAPHICS-RULES' | 'GRAPHICS-TEMPLATE' | 'GRAPHICS-TEXT' | 'RECEIPT-PICTURE' | 'RECEIPT-RULES' | 'RECEIPT-TEXT' | 'RECTANGLE' | 'TABLE-ORDER-FORM-RECEIPT-RULES' | 'VARYING-GRAPHICS-BARCODE' | 'VARYING-GRAPHICS-DATE' | 'VARYING-GRAPHICS-PICTURE' | 'VARYING-GRAPHICS-TEXT' | 'VARYING-RECEIPT-BARCODE' | 'VARYING-RECEIPT-DATE' | 'VARYING-RECEIPT-PICTURE' | 'VARYING-RECEIPT-TEXT' | 'WHITESPACE';
+
+export type GetPrintLayoutsResponseResult = 'OK' | 'NO-PRINT-LAYOUTS-FOUND';
+
+export type SavePrintLayoutAssignmentsResponseResult = 'UNKNOWN' | 'OK';
+
+export type RenderedPrintLayoutType = 'PDF' | 'PNG' | 'JPEG' | 'XPS' | 'WEBP';
+
+export type GetRenderedPrintLayoutResponseResult = 'OK' | 'PRINT-LAYOUT-NOT-FOUND' | 'INVALID-PRINT-INFO' | 'RENDERING-FAILED' | 'COULDNT-OPEN-FILE' | 'THIS-LAYOUT-KIND-DOESNT-EXPECT-ANY-PRINT-INFO';
+
+export type PrintLayoutMarkupType = 'STAR-DOCUMENT-MARKUP' | 'ESC-POS-MARKUP';
+
+export type GetPrintLayoutMarkupResult = 'OK' | 'PRINT-LAYOUT-NOT-FOUND' | 'INVALID-PRINT-INFO' | 'MARKUP-FAILED' | 'THIS-LAYOUT-KIND-DOESNT-EXPECT-ANY-PRINT-INFO';
+
+export type PrintPrintLayoutResponseResult = 'OK' | 'INVALID-PRINT-INFO' | 'NONE-PRINTED' | 'OTHER';
+
+export type GetResolvedPrintTemplatesResponseResult = 'OK' | 'INVALID-PRINT-LAYOUT-KIND' | 'INVALID-PRINT-INFO' | 'THIS-LAYOUT-KIND-DOESNT-EXPECT-ANY-PRINT-INFO';
 
 export type InterbranchOrderState = 'INTERBRANCH-ORDER-STATE-OPEN' | 'INTERBRANCH-ORDER-STATE-PARTIALLY-SENT' | 'INTERBRANCH-ORDER-STATE-COMPLETELY-SENT' | 'INTERBRANCH-ORDER-STATE-PARTIALLY-CANCELLED' | 'INTERBRANCH-ORDER-STATE-COMPLETELY-CANCELLED' | 'INTERBRANCH-ORDER-STATE-PARTIALLY-SENT-PARTIALLY-CANCELLED' | 'INTERBRANCH-ORDER-STATE-COMPLETELY-SENT-PARTIALLY-CANCELLED';
 
@@ -1154,6 +1167,19 @@ export interface SalesLineContractLineList {
   contractLine?: SalesLineContractLine[];
 }
 
+export interface SalesQueueEntry {
+  id: string;
+  salesObjectId: string;
+  type: SalesQueueType;
+  createdTs: Date;
+  processedTs?: Date;
+  cancelledTs?: Date;
+  failedTs?: Date;
+  failureReason?: string;
+  branchNumber: number;
+  expectedTargetHash?: string;
+}
+
 export interface Order {
   orderId: string;
   extOrderId?: string;
@@ -1225,6 +1251,8 @@ export interface Order {
   branchInvoiceNumbers: TransactionNumber[];
   timelineEvents: TimelineEvent[];
   contractPeriod?: ContractPeriod;
+  /** Latest unprocessed queue entry if requested using `includeQueueEntry`. */
+  queueEntry?: SalesQueueEntry;
 }
 
 export interface OrderList {
@@ -1692,6 +1720,19 @@ export interface JsonValueList {
   data?: string[];
 }
 
+export interface TimelineEventDataPredicate {
+  path?: string[];
+  predicateOperator: TimelineEventDataPredicateOperator;
+  stringValue?: string;
+  numberValue?: string;
+  booleanValue?: boolean;
+  dateTimeValue?: Date;
+}
+
+export interface TimelineEventDataPredicateList {
+  predicate?: TimelineEventDataPredicate[];
+}
+
 export interface TimelineEventSubFilter {
   ids: string[];
   employeeNumbers: number[];
@@ -1701,6 +1742,7 @@ export interface TimelineEventSubFilter {
   data: string[];
   from?: Date;
   through?: Date;
+  dataPredicates: TimelineEventDataPredicate[];
 }
 
 export interface TimelineEventFilter {
@@ -1712,8 +1754,18 @@ export interface TimelineEventFilter {
   data: string[];
   from?: Date;
   through?: Date;
+  dataPredicates: TimelineEventDataPredicate[];
   entities: TimelineEventEntity[];
   categories: TimelineEventCategory[];
+}
+
+export interface TimelineEventCondition {
+  match: TimelineEventConditionMatch;
+  eventFilter: TimelineEventSubFilter;
+}
+
+export interface TimelineEventConditionList {
+  condition?: TimelineEventCondition[];
 }
 
 export interface YearNumberVersion {
@@ -2725,6 +2777,7 @@ export interface GetReceiptsRequest {
   signingTimelineEventsFilter?: TimelineEventSubFilter;
   includeOtherTimelineEvents?: boolean;
   otherTimelineEventsFilter?: TimelineEventSubFilter;
+  timelineEventConditions?: TimelineEventCondition[];
 }
 
 export interface GetReceiptsByCashCountRequest {
@@ -6747,7 +6800,7 @@ export interface BranchInformation {
   deliveryAddresses: DeliveryAddress[];
 }
 
-export interface saveBranchInformationRequest {
+export interface SaveBranchInformationRequest {
   branchInformation?: BranchInformation;
 }
 
@@ -6949,6 +7002,8 @@ export interface AuthorizationGroup {
   name: string;
   filterProfileId?: number;
   rankOrder?: number;
+  /** Filled in if this auth group is a system authorization group. System authorization groups are NOT editable. */
+  systemGroupKey?: string;
 }
 
 export interface GroupAuthorization {
@@ -7152,6 +7207,31 @@ export interface GetBpeBudgetsRequest {
 
 export interface SaveBpeBudgetsRequest {
   bpeEmployeeBudget?: BpeEmployeeBudget[];
+}
+
+export interface RegisterContextPresenceRequest {
+  presenceId?: string;
+  employeeNumber?: number;
+  workplaceKey?: WorkplaceIdentifier;
+  contextKey?: string;
+}
+
+export interface ContextPresenceParticipant {
+  employeeNumber: number;
+  employeeName: string;
+  workplaceKey: WorkplaceIdentifier;
+  branchName: string;
+  workplaceName: string;
+  workplaceType: WorkplaceType;
+  openedTs: Date;
+}
+
+export interface ContextPresenceParticipantList {
+  participant?: ContextPresenceParticipant[];
+}
+
+export interface UnregisterContextPresenceRequest {
+  presenceIds?: string[];
 }
 
 export interface GetConfigurationResponse {
@@ -7396,7 +7476,7 @@ export interface GetBranchInformationResponse {
   errorMessage?: string;
 }
 
-export interface saveBranchInformationResponse {
+export interface SaveBranchInformationResponse {
   result: SaveBranchInformationResult;
   errorMessage?: string;
 }
@@ -7619,6 +7699,14 @@ export interface GetBpeBudgetsResponse {
 export interface SaveBpeBudgetsResponse {
 }
 
+export interface RegisterContextPresenceResponse {
+  otherParticipants: ContextPresenceParticipant[];
+}
+
+export interface UnregisterContextPresenceResponse {
+  result: UnregisterContextPresenceResult;
+}
+
 /** Descripter of how a label should be used by code */
 export interface ImageLabel {
   /** Id of the label id's below 1000 are defined by code and will never change meaning */
@@ -7732,144 +7820,6 @@ export interface SaveCardImagesResponse {
 
 export interface GetImagesResponse {
   imageList: Image[];
-}
-
-export interface GetPrintLayoutsRequest {
-  type?: PrintLayoutType;
-  kind?: PrintLayoutKind;
-  fieldType?: PrintLayoutFieldType;
-}
-
-export interface PrintLayoutView {
-  id: string;
-  name: string;
-  type: PrintLayoutType;
-  kind: PrintLayoutKind;
-  createdTimestamp: Date;
-  updatedTimestamp: Date;
-  hasDigitalSignatureField: boolean;
-}
-
-export interface GetPrintLayoutAssignmentsRequest {
-  type?: PrintLayoutType;
-  kind?: PrintLayoutKind;
-  branchNumber?: number;
-  workplaceNumber?: number;
-  useOnlinePrinter?: boolean;
-}
-
-export interface PrintLayoutAssignmentPrintLayoutView {
-  id: string;
-  name: string;
-  type: PrintLayoutType;
-  kind: PrintLayoutKind;
-}
-
-export interface nsPrintLayoutLocationId {
-  locationId: number;
-}
-
-export interface PrintLayoutAssignment {
-  id?: number;
-  workplace: WorkplaceIdentifier;
-  printLayout: PrintLayoutAssignmentPrintLayoutView;
-  useOnlinePrinter: boolean;
-  baseLocationId: number;
-  asLocationId?: number;
-  extraLocationIds?: nsPrintLayoutLocationId[];
-  kind: PrintLayoutKind;
-}
-
-export interface SavePrintLayoutAssignmentsRequest {
-  printLayoutAssignments?: PrintLayoutAssignment[];
-}
-
-export interface PrintParam {
-  key: string;
-  value: string;
-}
-
-export interface PrintParams {
-  uuid?: string;
-  yearNumber?: YearNumber;
-  params?: PrintParam[];
-}
-
-export interface PrintInfo {
-  paramsList?: PrintParams[];
-  globalParams?: PrintParams;
-}
-
-export interface GetRenderedPrintLayoutRequest {
-  printLayoutUuid?: string;
-  renderType?: RenderedPrintLayoutType;
-  /** use to specify print information. If not used the layout will be rendered without data, which will render an example. If used, the layout will be supplied with the print information before being rendered. Call with invalid print information to see expected print information for the layout kind. */
-  printInfo?: PrintInfo;
-  /** use to specify the dots per inch for non-pdf render types. Must be equal to or higher than 26, and equal to or less than 300, default is 100. */
-  dpi?: number;
-}
-
-export interface GetPrintLayoutMarkupRequest {
-  printLayoutUuid?: string;
-  markupType?: PrintLayoutMarkupType;
-  printInfo?: PrintInfo;
-  responseAsBase64?: boolean;
-  normalWidthInCharacters?: number;
-  smallWidthInCharacters?: number;
-}
-
-export interface PrintPrintLayoutRequest {
-  type?: PrintLayoutType;
-  kind?: PrintLayoutKind;
-  printInfo?: PrintInfo;
-  workplaceIdentifier?: WorkplaceIdentifier;
-}
-
-export interface PrintTemplateList {
-  printTemplate?: string[];
-}
-
-export interface GetResolvedPrintTemplatesRequest {
-  kind?: PrintLayoutKind;
-  printInfo?: PrintInfo;
-  printTemplates?: string[];
-}
-
-export interface GetPrintLayoutsResponse {
-  result: GetPrintLayoutsResponseResult;
-  printLayouts?: PrintLayoutView[];
-}
-
-export interface GetPrintLayoutAssignmentsResponse {
-  printLayoutAssignments?: PrintLayoutAssignment[];
-}
-
-export interface SavePrintLayoutAssignmentsResponse {
-  result: SavePrintLayoutAssignmentsResponseResult;
-}
-
-export interface GetRenderedPrintLayoutResponse {
-  result: GetRenderedPrintLayoutResponseResult;
-  errorMessage: string;
-  renderedPrintLayouts?: string[];
-  hasDigitalSignatureField: boolean;
-}
-
-export interface GetPrintLayoutMarkupResponse {
-  result: GetPrintLayoutMarkupResult;
-  errorMessage: string;
-  printLayoutMarkup: string;
-}
-
-export interface PrintPrintLayoutResponse {
-  result: PrintPrintLayoutResponseResult;
-  errorMessage?: string;
-}
-
-export interface GetResolvedPrintTemplatesResponse {
-  result: GetResolvedPrintTemplatesResponseResult;
-  errorMessage?: string;
-  resolvedPrintTemplates: string[];
 }
 
 export interface VoucherSettingsV1 {
@@ -8848,6 +8798,52 @@ export interface GetTimelineEventsRequest {
   filter?: TimelineEventFilter;
 }
 
+export interface reportError {
+  code: reportErrorCode;
+  details: string;
+  path?: string;
+}
+
+export interface GetReportQuerySourcesRequest {
+}
+
+export interface GetReportPresetsRequest {
+}
+
+export interface GetDashboardsRequest {
+}
+
+export interface GetDashboardRequest {
+  dashboardId?: string;
+}
+
+export interface SaveDashboardRequest {
+  dashboardJson?: string;
+}
+
+export interface DeleteDashboardRequest {
+  dashboardId?: string;
+  revision?: number;
+}
+
+export interface UpdateDashboardOrderRequest {
+  dashboardIdsJson?: string;
+}
+
+export interface ExecuteReportQueriesRequest {
+  queriesJson?: string;
+  transformJson?: string;
+}
+
+export interface AssembleReportRequest {
+  reportAssemblyJson?: string;
+}
+
+export interface ExecuteReportPresetRequest {
+  presetId?: string;
+  queryFiltersJson?: string;
+}
+
 export interface ReportTurnoverByBranchResponse {
   turnoverList: ReportTurnoverByBranch[];
 }
@@ -8922,6 +8918,57 @@ export interface RegisterTimelineEventsResponse {
 
 export interface GetTimelineEventsResponse {
   events: TimelineEvent[];
+}
+
+export interface GetReportQuerySourcesResponse {
+  sourcesJson?: string;
+  error?: reportError;
+}
+
+export interface GetReportPresetsResponse {
+  presetsJson?: string;
+  error?: reportError;
+}
+
+export interface GetDashboardsResponse {
+  dashboardsJson?: string;
+  error?: reportError;
+}
+
+export interface GetDashboardResponse {
+  dashboardJson?: string;
+  error?: reportError;
+}
+
+export interface SaveDashboardResponse {
+  dashboardJson?: string;
+  error?: reportError;
+}
+
+export interface DeleteDashboardResponse {
+  success: boolean;
+  error?: reportError;
+}
+
+export interface UpdateDashboardOrderResponse {
+  dashboardsJson?: string;
+  error?: reportError;
+}
+
+export interface ExecuteReportQueriesResponse {
+  resultsJson?: string;
+  transformedResultJson?: string;
+  error?: reportError;
+}
+
+export interface AssembleReportResponse {
+  reportJson?: string;
+  error?: reportError;
+}
+
+export interface ExecuteReportPresetResponse {
+  reportJson?: string;
+  error?: reportError;
 }
 
 export interface ArticleNumberFilter {
@@ -9650,6 +9697,7 @@ export interface GetProposalsRequest {
   signingTimelineEventsFilter?: TimelineEventSubFilter;
   includeOtherTimelineEvents?: boolean;
   otherTimelineEventsFilter?: TimelineEventSubFilter;
+  timelineEventConditions?: TimelineEventCondition[];
 }
 
 export interface SaveProposalInfo {
@@ -9712,6 +9760,9 @@ export interface GetOrdersRequest {
   signingTimelineEventsFilter?: TimelineEventSubFilter;
   includeOtherTimelineEvents?: boolean;
   otherTimelineEventsFilter?: TimelineEventSubFilter;
+  timelineEventConditions?: TimelineEventCondition[];
+  /** Include pending queued snapshots. */
+  includeQueuedSnapshots?: boolean;
 }
 
 export interface DetermineContractLinesRequest {
@@ -9845,17 +9896,6 @@ export interface SalesQueueTypeList {
   type?: SalesQueueType[];
 }
 
-export interface SalesQueueEntry {
-  id: string;
-  salesObjectId: string;
-  type: SalesQueueType;
-  createdTs: Date;
-  processedTs?: Date;
-  cancelledTs?: Date;
-  failedTs?: Date;
-  failureReason?: string;
-}
-
 export interface SalesQueueEntryList {
   entry?: SalesQueueEntry[];
 }
@@ -9970,6 +10010,7 @@ export interface GetInvoicesRequest {
   directDebitTimelineEventsFilter?: TimelineEventSubFilter;
   includeOtherTimelineEvents?: boolean;
   otherTimelineEventsFilter?: TimelineEventSubFilter;
+  timelineEventConditions?: TimelineEventCondition[];
 }
 
 export interface CreditInvoiceV2Request {
@@ -10037,6 +10078,8 @@ export interface PackingSlip {
   branchGroupNumber?: number;
   ownerId?: string;
   branchInvoiceNumber?: TransactionNumber;
+  /** Latest unprocessed queue entry if requested using `includeQueueEntry`. */
+  queueEntry?: SalesQueueEntry;
 }
 
 export interface PackingSlipInput {
@@ -10083,6 +10126,8 @@ export interface GetPackingSlipsRequest {
   includeLineList?: boolean;
   /** [DEPRECATED] The type filter is ignored. The call will now give back all packing slips. */
   typeFilter?: PackingSlipType[];
+  /** Include pending queued snapshots. */
+  includeQueuedSnapshots?: boolean;
 }
 
 export interface GetPackingSlipsByOrderRequest {
@@ -10107,7 +10152,15 @@ export interface SalesQueueFilter {
   ids: string[];
   salesObjectIds: string[];
   types: SalesQueueType[];
+  /** Set all three state filters to false. */
   pendingOnly?: boolean;
+  branchNumbers?: number[];
+  /** Filter by whether the entry has been processed. */
+  processed?: boolean;
+  /** Filter by whether the entry has been cancelled. */
+  cancelled?: boolean;
+  /** Filter by whether the entry has failed. */
+  failed?: boolean;
 }
 
 export interface GetPackingSlipQueueRequest {
@@ -10115,6 +10168,14 @@ export interface GetPackingSlipQueueRequest {
   /** If true, and a single salesObjectId will be returned, the packing slip state of the latest CREATE/EDIT queue entry will also be returned. */
   loadPackingSlip?: boolean;
   /** If true, only the latest queue entry for each sales object will be returned. */
+  latestOnly?: boolean;
+}
+
+export interface GetOrderQueueRequest {
+  filter?: SalesQueueFilter;
+  /** Return the snapshot for one sales object. */
+  loadOrder?: boolean;
+  /** Return only each sales object's latest entry. */
   latestOnly?: boolean;
 }
 
@@ -10395,6 +10456,12 @@ export interface GetPackingSlipQueueResponse {
   packingSlipQueueEntryList: SalesQueueEntry[];
   /** Will contain the packing slip state for the latest CREATE/EDIT queue entry. Only returned if loadPackingSlip is true and a single salesObjectId will be returned. */
   lastPackingSlip?: PackingSlip;
+}
+
+export interface GetOrderQueueResponse {
+  orderQueueEntryList: SalesQueueEntry[];
+  /** The requested queued order snapshot. */
+  lastOrder?: Order;
 }
 
 export interface WebhookConsumerEvent {
@@ -10778,6 +10845,7 @@ export interface WebhookReq {
   selectRelation?: WebhookSelectRelationInput;
   customAction?: WebhookCustomActionInput;
   form?: WebhookFormInput;
+  webhookConsumerId?: string;
 }
 
 export interface ExternalPaymentReq {
@@ -10815,6 +10883,7 @@ export interface ExternalPaymentWebhookRequest {
   selectRelation?: WebhookSelectRelationInput;
   customAction?: WebhookCustomActionInput;
   form?: WebhookFormInput;
+  webhookConsumerId?: string;
   externalPayment?: ExternalPaymentReq;
 }
 
@@ -10832,6 +10901,7 @@ export interface SendWebhookRequest {
   selectRelation?: WebhookSelectRelationInput;
   customAction?: WebhookCustomActionInput;
   form?: WebhookFormInput;
+  webhookConsumerId?: string;
   webhookEvent?: WebhookEvent;
 }
 
@@ -10903,6 +10973,144 @@ export interface WebhookResp {
   lineDeletions?: WebhookLineDeletion[];
   keepPolling?: boolean;
   form?: WebhookForm;
+}
+
+export interface GetPrintLayoutsRequest {
+  type?: PrintLayoutType;
+  kind?: PrintLayoutKind;
+  fieldType?: PrintLayoutFieldType;
+}
+
+export interface PrintLayoutView {
+  id: string;
+  name: string;
+  type: PrintLayoutType;
+  kind: PrintLayoutKind;
+  createdTimestamp: Date;
+  updatedTimestamp: Date;
+  hasDigitalSignatureField: boolean;
+}
+
+export interface GetPrintLayoutAssignmentsRequest {
+  type?: PrintLayoutType;
+  kind?: PrintLayoutKind;
+  branchNumber?: number;
+  workplaceNumber?: number;
+  useOnlinePrinter?: boolean;
+}
+
+export interface PrintLayoutAssignmentPrintLayoutView {
+  id: string;
+  name: string;
+  type: PrintLayoutType;
+  kind: PrintLayoutKind;
+}
+
+export interface nsPrintLayoutLocationId {
+  locationId: number;
+}
+
+export interface PrintLayoutAssignment {
+  id?: number;
+  workplace: WorkplaceIdentifier;
+  printLayout: PrintLayoutAssignmentPrintLayoutView;
+  useOnlinePrinter: boolean;
+  baseLocationId: number;
+  asLocationId?: number;
+  extraLocationIds?: nsPrintLayoutLocationId[];
+  kind: PrintLayoutKind;
+}
+
+export interface SavePrintLayoutAssignmentsRequest {
+  printLayoutAssignments?: PrintLayoutAssignment[];
+}
+
+export interface PrintParam {
+  key: string;
+  value: string;
+}
+
+export interface PrintParams {
+  uuid?: string;
+  yearNumber?: YearNumber;
+  params?: PrintParam[];
+}
+
+export interface PrintInfo {
+  paramsList?: PrintParams[];
+  globalParams?: PrintParams;
+}
+
+export interface GetRenderedPrintLayoutRequest {
+  printLayoutUuid?: string;
+  renderType?: RenderedPrintLayoutType;
+  /** use to specify print information. If not used the layout will be rendered without data, which will render an example. If used, the layout will be supplied with the print information before being rendered. Call with invalid print information to see expected print information for the layout kind. */
+  printInfo?: PrintInfo;
+  /** use to specify the dots per inch for non-pdf render types. Must be equal to or higher than 26, and equal to or less than 300, default is 100. */
+  dpi?: number;
+}
+
+export interface GetPrintLayoutMarkupRequest {
+  printLayoutUuid?: string;
+  markupType?: PrintLayoutMarkupType;
+  printInfo?: PrintInfo;
+  responseAsBase64?: boolean;
+  normalWidthInCharacters?: number;
+  smallWidthInCharacters?: number;
+}
+
+export interface PrintPrintLayoutRequest {
+  type?: PrintLayoutType;
+  kind?: PrintLayoutKind;
+  printInfo?: PrintInfo;
+  workplaceIdentifier?: WorkplaceIdentifier;
+}
+
+export interface PrintTemplateList {
+  printTemplate?: string[];
+}
+
+export interface GetResolvedPrintTemplatesRequest {
+  kind?: PrintLayoutKind;
+  printInfo?: PrintInfo;
+  printTemplates?: string[];
+}
+
+export interface GetPrintLayoutsResponse {
+  result: GetPrintLayoutsResponseResult;
+  printLayouts?: PrintLayoutView[];
+}
+
+export interface GetPrintLayoutAssignmentsResponse {
+  printLayoutAssignments?: PrintLayoutAssignment[];
+}
+
+export interface SavePrintLayoutAssignmentsResponse {
+  result: SavePrintLayoutAssignmentsResponseResult;
+}
+
+export interface GetRenderedPrintLayoutResponse {
+  result: GetRenderedPrintLayoutResponseResult;
+  errorMessage: string;
+  renderedPrintLayouts?: string[];
+  hasDigitalSignatureField: boolean;
+}
+
+export interface GetPrintLayoutMarkupResponse {
+  result: GetPrintLayoutMarkupResult;
+  errorMessage: string;
+  printLayoutMarkup: string;
+}
+
+export interface PrintPrintLayoutResponse {
+  result: PrintPrintLayoutResponseResult;
+  errorMessage?: string;
+}
+
+export interface GetResolvedPrintTemplatesResponse {
+  result: GetResolvedPrintTemplatesResponseResult;
+  errorMessage?: string;
+  resolvedPrintTemplates: string[];
 }
 
 export interface InterbranchOrderLine {
