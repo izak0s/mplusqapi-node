@@ -1428,6 +1428,42 @@ export function serializeSalesLineContractLineList(obj: T.Input<T.SalesLineContr
   return xml;
 }
 
+export function serializeSalesQueueEntry(obj: T.Input<T.SalesQueueEntry>, elemName: string): string {
+  let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.id !== undefined && obj.id !== null) {
+    xml += serializeString('id', String(obj.id));
+  }
+  if (obj.salesObjectId !== undefined && obj.salesObjectId !== null) {
+    xml += serializeString('salesObjectId', String(obj.salesObjectId));
+  }
+  if (obj.type !== undefined && obj.type !== null) {
+    xml += serializeString('type', String(obj.type));
+  }
+  if (obj.createdTs !== undefined && obj.createdTs !== null) {
+    xml += serializeString('createdTs', obj.createdTs.toISOString());
+  }
+  if (obj.processedTs !== undefined && obj.processedTs !== null) {
+    xml += serializeString('processedTs', obj.processedTs.toISOString());
+  }
+  if (obj.cancelledTs !== undefined && obj.cancelledTs !== null) {
+    xml += serializeString('cancelledTs', obj.cancelledTs.toISOString());
+  }
+  if (obj.failedTs !== undefined && obj.failedTs !== null) {
+    xml += serializeString('failedTs', obj.failedTs.toISOString());
+  }
+  if (obj.failureReason !== undefined && obj.failureReason !== null) {
+    xml += serializeString('failureReason', String(obj.failureReason));
+  }
+  if (obj.branchNumber !== undefined && obj.branchNumber !== null) {
+    xml += serializeNumber('branchNumber', obj.branchNumber);
+  }
+  if (obj.expectedTargetHash !== undefined && obj.expectedTargetHash !== null) {
+    xml += serializeString('expectedTargetHash', String(obj.expectedTargetHash));
+  }
+  xml += `</${NS_PREFIX}:${elemName}>`;
+  return xml;
+}
+
 export function serializeOrder(obj: T.Input<T.Order>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.orderId !== undefined && obj.orderId !== null) {
@@ -1679,6 +1715,9 @@ export function serializeOrder(obj: T.Input<T.Order>, elemName: string): string 
   }
   if (obj.contractPeriod !== undefined && obj.contractPeriod !== null) {
     xml += serializeContractPeriod(obj.contractPeriod, 'contractPeriod');
+  }
+  if (obj.queueEntry !== undefined && obj.queueEntry !== null) {
+    xml += serializeSalesQueueEntry(obj.queueEntry, 'queueEntry');
   }
   xml += `</${NS_PREFIX}:${elemName}>`;
   return xml;
@@ -2909,6 +2948,43 @@ export function serializeJsonValueList(obj: T.Input<T.JsonValueList>, elemName: 
   return xml;
 }
 
+export function serializeTimelineEventDataPredicate(obj: T.Input<T.TimelineEventDataPredicate>, elemName: string): string {
+  let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.path !== undefined && obj.path !== null) {
+    for (const item of obj.path) {
+      xml += serializeString('path', String(item));
+    }
+  }
+  if (obj.predicateOperator !== undefined && obj.predicateOperator !== null) {
+    xml += serializeString('predicateOperator', String(obj.predicateOperator));
+  }
+  if (obj.stringValue !== undefined && obj.stringValue !== null) {
+    xml += serializeString('stringValue', String(obj.stringValue));
+  }
+  if (obj.numberValue !== undefined && obj.numberValue !== null) {
+    xml += serializeString('numberValue', String(obj.numberValue));
+  }
+  if (obj.booleanValue !== undefined && obj.booleanValue !== null) {
+    xml += serializeBoolean('booleanValue', obj.booleanValue);
+  }
+  if (obj.dateTimeValue !== undefined && obj.dateTimeValue !== null) {
+    xml += serializeString('dateTimeValue', obj.dateTimeValue.toISOString());
+  }
+  xml += `</${NS_PREFIX}:${elemName}>`;
+  return xml;
+}
+
+export function serializeTimelineEventDataPredicateList(obj: T.Input<T.TimelineEventDataPredicateList>, elemName: string): string {
+  let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.predicate !== undefined && obj.predicate !== null) {
+    for (const item of obj.predicate) {
+      xml += serializeTimelineEventDataPredicate(item, 'predicate');
+    }
+  }
+  xml += `</${NS_PREFIX}:${elemName}>`;
+  return xml;
+}
+
 export function serializeTimelineEventSubFilter(obj: T.Input<T.TimelineEventSubFilter>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.ids !== undefined && obj.ids !== null) {
@@ -2958,6 +3034,13 @@ export function serializeTimelineEventSubFilter(obj: T.Input<T.TimelineEventSubF
   }
   if (obj.through !== undefined && obj.through !== null) {
     xml += serializeString('through', obj.through.toISOString());
+  }
+  if (obj.dataPredicates !== undefined && obj.dataPredicates !== null) {
+    xml += `<${NS_PREFIX}:dataPredicates>`;
+    for (const item of obj.dataPredicates) {
+      xml += serializeTimelineEventDataPredicate(item, 'predicate');
+    }
+    xml += `</${NS_PREFIX}:dataPredicates>`;
   }
   xml += `</${NS_PREFIX}:${elemName}>`;
   return xml;
@@ -3013,6 +3096,13 @@ export function serializeTimelineEventFilter(obj: T.Input<T.TimelineEventFilter>
   if (obj.through !== undefined && obj.through !== null) {
     xml += serializeString('through', obj.through.toISOString());
   }
+  if (obj.dataPredicates !== undefined && obj.dataPredicates !== null) {
+    xml += `<${NS_PREFIX}:dataPredicates>`;
+    for (const item of obj.dataPredicates) {
+      xml += serializeTimelineEventDataPredicate(item, 'predicate');
+    }
+    xml += `</${NS_PREFIX}:dataPredicates>`;
+  }
   if (obj.entities !== undefined && obj.entities !== null) {
     xml += `<${NS_PREFIX}:entities>`;
     for (const item of obj.entities) {
@@ -3026,6 +3116,29 @@ export function serializeTimelineEventFilter(obj: T.Input<T.TimelineEventFilter>
       xml += serializeString('category', String(item));
     }
     xml += `</${NS_PREFIX}:categories>`;
+  }
+  xml += `</${NS_PREFIX}:${elemName}>`;
+  return xml;
+}
+
+export function serializeTimelineEventCondition(obj: T.Input<T.TimelineEventCondition>, elemName: string): string {
+  let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.match !== undefined && obj.match !== null) {
+    xml += serializeString('match', String(obj.match));
+  }
+  if (obj.eventFilter !== undefined && obj.eventFilter !== null) {
+    xml += serializeTimelineEventSubFilter(obj.eventFilter, 'eventFilter');
+  }
+  xml += `</${NS_PREFIX}:${elemName}>`;
+  return xml;
+}
+
+export function serializeTimelineEventConditionList(obj: T.Input<T.TimelineEventConditionList>, elemName: string): string {
+  let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.condition !== undefined && obj.condition !== null) {
+    for (const item of obj.condition) {
+      xml += serializeTimelineEventCondition(item, 'condition');
+    }
   }
   xml += `</${NS_PREFIX}:${elemName}>`;
   return xml;
@@ -5774,6 +5887,13 @@ export function serializeGetReceiptsRequest(obj: T.Input<T.GetReceiptsRequest>, 
   }
   if (obj.otherTimelineEventsFilter !== undefined && obj.otherTimelineEventsFilter !== null) {
     xml += serializeTimelineEventSubFilter(obj.otherTimelineEventsFilter, 'otherTimelineEventsFilter');
+  }
+  if (obj.timelineEventConditions !== undefined && obj.timelineEventConditions !== null) {
+    xml += `<${NS_PREFIX}:timelineEventConditions>`;
+    for (const item of obj.timelineEventConditions) {
+      xml += serializeTimelineEventCondition(item, 'condition');
+    }
+    xml += `</${NS_PREFIX}:timelineEventConditions>`;
   }
   xml += `</${NS_PREFIX}:${elemName}>`;
   return xml;
@@ -16892,7 +17012,7 @@ export function serializeBranchInformation(obj: T.Input<T.BranchInformation>, el
   return xml;
 }
 
-export function serializesaveBranchInformationRequest(obj: T.Input<T.saveBranchInformationRequest>, elemName: string): string {
+export function serializeSaveBranchInformationRequest(obj: T.Input<T.SaveBranchInformationRequest>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.branchInformation !== undefined && obj.branchInformation !== null) {
     xml += serializeBranchInformation(obj.branchInformation, 'branchInformation');
@@ -17415,6 +17535,9 @@ export function serializeAuthorizationGroup(obj: T.Input<T.AuthorizationGroup>, 
   if (obj.rankOrder !== undefined && obj.rankOrder !== null) {
     xml += serializeNumber('rankOrder', obj.rankOrder);
   }
+  if (obj.systemGroupKey !== undefined && obj.systemGroupKey !== null) {
+    xml += serializeString('systemGroupKey', String(obj.systemGroupKey));
+  }
   xml += `</${NS_PREFIX}:${elemName}>`;
   return xml;
 }
@@ -17931,6 +18054,75 @@ export function serializeSaveBpeBudgetsRequest(obj: T.Input<T.SaveBpeBudgetsRequ
     for (const item of obj.bpeEmployeeBudget) {
       xml += serializeBpeEmployeeBudget(item, 'bpeEmployeeBudget');
     }
+  }
+  xml += `</${NS_PREFIX}:${elemName}>`;
+  return xml;
+}
+
+export function serializeRegisterContextPresenceRequest(obj: T.Input<T.RegisterContextPresenceRequest>, elemName: string): string {
+  let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.presenceId !== undefined && obj.presenceId !== null) {
+    xml += serializeString('presenceId', String(obj.presenceId));
+  }
+  if (obj.employeeNumber !== undefined && obj.employeeNumber !== null) {
+    xml += serializeNumber('employeeNumber', obj.employeeNumber);
+  }
+  if (obj.workplaceKey !== undefined && obj.workplaceKey !== null) {
+    xml += serializeWorkplaceIdentifier(obj.workplaceKey, 'workplaceKey');
+  }
+  if (obj.contextKey !== undefined && obj.contextKey !== null) {
+    xml += serializeString('contextKey', String(obj.contextKey));
+  }
+  xml += `</${NS_PREFIX}:${elemName}>`;
+  return xml;
+}
+
+export function serializeContextPresenceParticipant(obj: T.Input<T.ContextPresenceParticipant>, elemName: string): string {
+  let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.employeeNumber !== undefined && obj.employeeNumber !== null) {
+    xml += serializeNumber('employeeNumber', obj.employeeNumber);
+  }
+  if (obj.employeeName !== undefined && obj.employeeName !== null) {
+    xml += serializeString('employeeName', String(obj.employeeName));
+  }
+  if (obj.workplaceKey !== undefined && obj.workplaceKey !== null) {
+    xml += serializeWorkplaceIdentifier(obj.workplaceKey, 'workplaceKey');
+  }
+  if (obj.branchName !== undefined && obj.branchName !== null) {
+    xml += serializeString('branchName', String(obj.branchName));
+  }
+  if (obj.workplaceName !== undefined && obj.workplaceName !== null) {
+    xml += serializeString('workplaceName', String(obj.workplaceName));
+  }
+  if (obj.workplaceType !== undefined && obj.workplaceType !== null) {
+    xml += serializeString('workplaceType', String(obj.workplaceType));
+  }
+  if (obj.openedTs !== undefined && obj.openedTs !== null) {
+    xml += serializeString('openedTs', obj.openedTs.toISOString());
+  }
+  xml += `</${NS_PREFIX}:${elemName}>`;
+  return xml;
+}
+
+export function serializeContextPresenceParticipantList(obj: T.Input<T.ContextPresenceParticipantList>, elemName: string): string {
+  let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.participant !== undefined && obj.participant !== null) {
+    for (const item of obj.participant) {
+      xml += serializeContextPresenceParticipant(item, 'participant');
+    }
+  }
+  xml += `</${NS_PREFIX}:${elemName}>`;
+  return xml;
+}
+
+export function serializeUnregisterContextPresenceRequest(obj: T.Input<T.UnregisterContextPresenceRequest>, elemName: string): string {
+  let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.presenceIds !== undefined && obj.presenceIds !== null) {
+    xml += `<${NS_PREFIX}:presenceIds>`;
+    for (const item of obj.presenceIds) {
+      xml += serializeString('id', String(item));
+    }
+    xml += `</${NS_PREFIX}:presenceIds>`;
   }
   xml += `</${NS_PREFIX}:${elemName}>`;
   return xml;
@@ -18586,7 +18778,7 @@ export function serializeGetBranchInformationResponse(obj: T.Input<T.GetBranchIn
   return xml;
 }
 
-export function serializesaveBranchInformationResponse(obj: T.Input<T.saveBranchInformationResponse>, elemName: string): string {
+export function serializeSaveBranchInformationResponse(obj: T.Input<T.SaveBranchInformationResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.result !== undefined && obj.result !== null) {
     xml += serializeString('result', String(obj.result));
@@ -19224,6 +19416,28 @@ export function serializeSaveBpeBudgetsResponse(obj: T.Input<T.SaveBpeBudgetsRes
   return xml;
 }
 
+export function serializeRegisterContextPresenceResponse(obj: T.Input<T.RegisterContextPresenceResponse>, elemName: string): string {
+  let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.otherParticipants !== undefined && obj.otherParticipants !== null) {
+    xml += `<${NS_PREFIX}:otherParticipants>`;
+    for (const item of obj.otherParticipants) {
+      xml += serializeContextPresenceParticipant(item, 'participant');
+    }
+    xml += `</${NS_PREFIX}:otherParticipants>`;
+  }
+  xml += `</${NS_PREFIX}:${elemName}>`;
+  return xml;
+}
+
+export function serializeUnregisterContextPresenceResponse(obj: T.Input<T.UnregisterContextPresenceResponse>, elemName: string): string {
+  let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.result !== undefined && obj.result !== null) {
+    xml += serializeString('result', String(obj.result));
+  }
+  xml += `</${NS_PREFIX}:${elemName}>`;
+  return xml;
+}
+
 export function serializeImageLabel(obj: T.Input<T.ImageLabel>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.id !== undefined && obj.id !== null) {
@@ -19502,372 +19716,6 @@ export function serializeGetImagesResponse(obj: T.Input<T.GetImagesResponse>, el
       xml += serializeImage(item, 'image');
     }
     xml += `</${NS_PREFIX}:imageList>`;
-  }
-  xml += `</${NS_PREFIX}:${elemName}>`;
-  return xml;
-}
-
-export function serializeGetPrintLayoutsRequest(obj: T.Input<T.GetPrintLayoutsRequest>, elemName: string): string {
-  let xml = `<${NS_PREFIX}:${elemName}>`;
-  if (obj.type !== undefined && obj.type !== null) {
-    xml += serializeString('type', String(obj.type));
-  }
-  if (obj.kind !== undefined && obj.kind !== null) {
-    xml += serializeString('kind', String(obj.kind));
-  }
-  if (obj.fieldType !== undefined && obj.fieldType !== null) {
-    xml += serializeString('fieldType', String(obj.fieldType));
-  }
-  xml += `</${NS_PREFIX}:${elemName}>`;
-  return xml;
-}
-
-export function serializePrintLayoutView(obj: T.Input<T.PrintLayoutView>, elemName: string): string {
-  let xml = `<${NS_PREFIX}:${elemName}>`;
-  if (obj.id !== undefined && obj.id !== null) {
-    xml += serializeString('id', String(obj.id));
-  }
-  if (obj.name !== undefined && obj.name !== null) {
-    xml += serializeString('name', String(obj.name));
-  }
-  if (obj.type !== undefined && obj.type !== null) {
-    xml += serializeString('type', String(obj.type));
-  }
-  if (obj.kind !== undefined && obj.kind !== null) {
-    xml += serializeString('kind', String(obj.kind));
-  }
-  if (obj.createdTimestamp !== undefined && obj.createdTimestamp !== null) {
-    xml += serializeString('createdTimestamp', obj.createdTimestamp.toISOString());
-  }
-  if (obj.updatedTimestamp !== undefined && obj.updatedTimestamp !== null) {
-    xml += serializeString('updatedTimestamp', obj.updatedTimestamp.toISOString());
-  }
-  if (obj.hasDigitalSignatureField !== undefined && obj.hasDigitalSignatureField !== null) {
-    xml += serializeBoolean('hasDigitalSignatureField', obj.hasDigitalSignatureField);
-  }
-  xml += `</${NS_PREFIX}:${elemName}>`;
-  return xml;
-}
-
-export function serializeGetPrintLayoutAssignmentsRequest(obj: T.Input<T.GetPrintLayoutAssignmentsRequest>, elemName: string): string {
-  let xml = `<${NS_PREFIX}:${elemName}>`;
-  if (obj.type !== undefined && obj.type !== null) {
-    xml += serializeString('type', String(obj.type));
-  }
-  if (obj.kind !== undefined && obj.kind !== null) {
-    xml += serializeString('kind', String(obj.kind));
-  }
-  if (obj.branchNumber !== undefined && obj.branchNumber !== null) {
-    xml += serializeNumber('branchNumber', obj.branchNumber);
-  }
-  if (obj.workplaceNumber !== undefined && obj.workplaceNumber !== null) {
-    xml += serializeNumber('workplaceNumber', obj.workplaceNumber);
-  }
-  if (obj.useOnlinePrinter !== undefined && obj.useOnlinePrinter !== null) {
-    xml += serializeBoolean('useOnlinePrinter', obj.useOnlinePrinter);
-  }
-  xml += `</${NS_PREFIX}:${elemName}>`;
-  return xml;
-}
-
-export function serializePrintLayoutAssignmentPrintLayoutView(obj: T.Input<T.PrintLayoutAssignmentPrintLayoutView>, elemName: string): string {
-  let xml = `<${NS_PREFIX}:${elemName}>`;
-  if (obj.id !== undefined && obj.id !== null) {
-    xml += serializeString('id', String(obj.id));
-  }
-  if (obj.name !== undefined && obj.name !== null) {
-    xml += serializeString('name', String(obj.name));
-  }
-  if (obj.type !== undefined && obj.type !== null) {
-    xml += serializeString('type', String(obj.type));
-  }
-  if (obj.kind !== undefined && obj.kind !== null) {
-    xml += serializeString('kind', String(obj.kind));
-  }
-  xml += `</${NS_PREFIX}:${elemName}>`;
-  return xml;
-}
-
-export function serializensPrintLayoutLocationId(obj: T.Input<T.nsPrintLayoutLocationId>, elemName: string): string {
-  let xml = `<${NS_PREFIX}:${elemName}>`;
-  if (obj.locationId !== undefined && obj.locationId !== null) {
-    xml += serializeNumber('locationId', obj.locationId);
-  }
-  xml += `</${NS_PREFIX}:${elemName}>`;
-  return xml;
-}
-
-export function serializePrintLayoutAssignment(obj: T.Input<T.PrintLayoutAssignment>, elemName: string): string {
-  let xml = `<${NS_PREFIX}:${elemName}>`;
-  if (obj.id !== undefined && obj.id !== null) {
-    xml += serializeNumber('id', obj.id);
-  }
-  if (obj.workplace !== undefined && obj.workplace !== null) {
-    xml += serializeWorkplaceIdentifier(obj.workplace, 'workplace');
-  }
-  if (obj.printLayout !== undefined && obj.printLayout !== null) {
-    xml += serializePrintLayoutAssignmentPrintLayoutView(obj.printLayout, 'printLayout');
-  }
-  if (obj.useOnlinePrinter !== undefined && obj.useOnlinePrinter !== null) {
-    xml += serializeBoolean('useOnlinePrinter', obj.useOnlinePrinter);
-  }
-  if (obj.baseLocationId !== undefined && obj.baseLocationId !== null) {
-    xml += serializeNumber('baseLocationId', obj.baseLocationId);
-  }
-  if (obj.asLocationId !== undefined && obj.asLocationId !== null) {
-    xml += serializeNumber('asLocationId', obj.asLocationId);
-  }
-  if (obj.extraLocationIds !== undefined && obj.extraLocationIds !== null) {
-    for (const item of obj.extraLocationIds) {
-      xml += serializensPrintLayoutLocationId(item, 'extraLocationIds');
-    }
-  }
-  if (obj.kind !== undefined && obj.kind !== null) {
-    xml += serializeString('kind', String(obj.kind));
-  }
-  xml += `</${NS_PREFIX}:${elemName}>`;
-  return xml;
-}
-
-export function serializeSavePrintLayoutAssignmentsRequest(obj: T.Input<T.SavePrintLayoutAssignmentsRequest>, elemName: string): string {
-  let xml = `<${NS_PREFIX}:${elemName}>`;
-  if (obj.printLayoutAssignments !== undefined && obj.printLayoutAssignments !== null) {
-    for (const item of obj.printLayoutAssignments) {
-      xml += serializePrintLayoutAssignment(item, 'printLayoutAssignments');
-    }
-  }
-  xml += `</${NS_PREFIX}:${elemName}>`;
-  return xml;
-}
-
-export function serializePrintParam(obj: T.Input<T.PrintParam>, elemName: string): string {
-  let xml = `<${NS_PREFIX}:${elemName}>`;
-  if (obj.key !== undefined && obj.key !== null) {
-    xml += serializeString('key', String(obj.key));
-  }
-  if (obj.value !== undefined && obj.value !== null) {
-    xml += serializeString('value', String(obj.value));
-  }
-  xml += `</${NS_PREFIX}:${elemName}>`;
-  return xml;
-}
-
-export function serializePrintParams(obj: T.Input<T.PrintParams>, elemName: string): string {
-  let xml = `<${NS_PREFIX}:${elemName}>`;
-  if (obj.uuid !== undefined && obj.uuid !== null) {
-    xml += serializeString('uuid', String(obj.uuid));
-  }
-  if (obj.yearNumber !== undefined && obj.yearNumber !== null) {
-    xml += serializeYearNumber(obj.yearNumber, 'yearNumber');
-  }
-  if (obj.params !== undefined && obj.params !== null) {
-    for (const item of obj.params) {
-      xml += serializePrintParam(item, 'params');
-    }
-  }
-  xml += `</${NS_PREFIX}:${elemName}>`;
-  return xml;
-}
-
-export function serializePrintInfo(obj: T.Input<T.PrintInfo>, elemName: string): string {
-  let xml = `<${NS_PREFIX}:${elemName}>`;
-  if (obj.paramsList !== undefined && obj.paramsList !== null) {
-    for (const item of obj.paramsList) {
-      xml += serializePrintParams(item, 'paramsList');
-    }
-  }
-  if (obj.globalParams !== undefined && obj.globalParams !== null) {
-    xml += serializePrintParams(obj.globalParams, 'globalParams');
-  }
-  xml += `</${NS_PREFIX}:${elemName}>`;
-  return xml;
-}
-
-export function serializeGetRenderedPrintLayoutRequest(obj: T.Input<T.GetRenderedPrintLayoutRequest>, elemName: string): string {
-  let xml = `<${NS_PREFIX}:${elemName}>`;
-  if (obj.printLayoutUuid !== undefined && obj.printLayoutUuid !== null) {
-    xml += serializeString('printLayoutUuid', String(obj.printLayoutUuid));
-  }
-  if (obj.renderType !== undefined && obj.renderType !== null) {
-    xml += serializeString('renderType', String(obj.renderType));
-  }
-  if (obj.printInfo !== undefined && obj.printInfo !== null) {
-    xml += serializePrintInfo(obj.printInfo, 'printInfo');
-  }
-  if (obj.dpi !== undefined && obj.dpi !== null) {
-    xml += serializeNumber('dpi', obj.dpi);
-  }
-  xml += `</${NS_PREFIX}:${elemName}>`;
-  return xml;
-}
-
-export function serializeGetPrintLayoutMarkupRequest(obj: T.Input<T.GetPrintLayoutMarkupRequest>, elemName: string): string {
-  let xml = `<${NS_PREFIX}:${elemName}>`;
-  if (obj.printLayoutUuid !== undefined && obj.printLayoutUuid !== null) {
-    xml += serializeString('printLayoutUuid', String(obj.printLayoutUuid));
-  }
-  if (obj.markupType !== undefined && obj.markupType !== null) {
-    xml += serializeString('markupType', String(obj.markupType));
-  }
-  if (obj.printInfo !== undefined && obj.printInfo !== null) {
-    xml += serializePrintInfo(obj.printInfo, 'printInfo');
-  }
-  if (obj.responseAsBase64 !== undefined && obj.responseAsBase64 !== null) {
-    xml += serializeBoolean('responseAsBase64', obj.responseAsBase64);
-  }
-  if (obj.normalWidthInCharacters !== undefined && obj.normalWidthInCharacters !== null) {
-    xml += serializeNumber('normalWidthInCharacters', obj.normalWidthInCharacters);
-  }
-  if (obj.smallWidthInCharacters !== undefined && obj.smallWidthInCharacters !== null) {
-    xml += serializeNumber('smallWidthInCharacters', obj.smallWidthInCharacters);
-  }
-  xml += `</${NS_PREFIX}:${elemName}>`;
-  return xml;
-}
-
-export function serializePrintPrintLayoutRequest(obj: T.Input<T.PrintPrintLayoutRequest>, elemName: string): string {
-  let xml = `<${NS_PREFIX}:${elemName}>`;
-  if (obj.type !== undefined && obj.type !== null) {
-    xml += serializeString('type', String(obj.type));
-  }
-  if (obj.kind !== undefined && obj.kind !== null) {
-    xml += serializeString('kind', String(obj.kind));
-  }
-  if (obj.printInfo !== undefined && obj.printInfo !== null) {
-    xml += serializePrintInfo(obj.printInfo, 'printInfo');
-  }
-  if (obj.workplaceIdentifier !== undefined && obj.workplaceIdentifier !== null) {
-    xml += serializeWorkplaceIdentifier(obj.workplaceIdentifier, 'workplaceIdentifier');
-  }
-  xml += `</${NS_PREFIX}:${elemName}>`;
-  return xml;
-}
-
-export function serializePrintTemplateList(obj: T.Input<T.PrintTemplateList>, elemName: string): string {
-  let xml = `<${NS_PREFIX}:${elemName}>`;
-  if (obj.printTemplate !== undefined && obj.printTemplate !== null) {
-    for (const item of obj.printTemplate) {
-      xml += serializeString('printTemplate', String(item));
-    }
-  }
-  xml += `</${NS_PREFIX}:${elemName}>`;
-  return xml;
-}
-
-export function serializeGetResolvedPrintTemplatesRequest(obj: T.Input<T.GetResolvedPrintTemplatesRequest>, elemName: string): string {
-  let xml = `<${NS_PREFIX}:${elemName}>`;
-  if (obj.kind !== undefined && obj.kind !== null) {
-    xml += serializeString('kind', String(obj.kind));
-  }
-  if (obj.printInfo !== undefined && obj.printInfo !== null) {
-    xml += serializePrintInfo(obj.printInfo, 'printInfo');
-  }
-  if (obj.printTemplates !== undefined && obj.printTemplates !== null) {
-    xml += `<${NS_PREFIX}:printTemplates>`;
-    for (const item of obj.printTemplates) {
-      xml += serializeString('printTemplate', String(item));
-    }
-    xml += `</${NS_PREFIX}:printTemplates>`;
-  }
-  xml += `</${NS_PREFIX}:${elemName}>`;
-  return xml;
-}
-
-export function serializeGetPrintLayoutsResponse(obj: T.Input<T.GetPrintLayoutsResponse>, elemName: string): string {
-  let xml = `<${NS_PREFIX}:${elemName}>`;
-  if (obj.result !== undefined && obj.result !== null) {
-    xml += serializeString('result', String(obj.result));
-  }
-  if (obj.printLayouts !== undefined && obj.printLayouts !== null) {
-    for (const item of obj.printLayouts) {
-      xml += serializePrintLayoutView(item, 'printLayouts');
-    }
-  }
-  xml += `</${NS_PREFIX}:${elemName}>`;
-  return xml;
-}
-
-export function serializeGetPrintLayoutAssignmentsResponse(obj: T.Input<T.GetPrintLayoutAssignmentsResponse>, elemName: string): string {
-  let xml = `<${NS_PREFIX}:${elemName}>`;
-  if (obj.printLayoutAssignments !== undefined && obj.printLayoutAssignments !== null) {
-    for (const item of obj.printLayoutAssignments) {
-      xml += serializePrintLayoutAssignment(item, 'printLayoutAssignments');
-    }
-  }
-  xml += `</${NS_PREFIX}:${elemName}>`;
-  return xml;
-}
-
-export function serializeSavePrintLayoutAssignmentsResponse(obj: T.Input<T.SavePrintLayoutAssignmentsResponse>, elemName: string): string {
-  let xml = `<${NS_PREFIX}:${elemName}>`;
-  if (obj.result !== undefined && obj.result !== null) {
-    xml += serializeString('result', String(obj.result));
-  }
-  xml += `</${NS_PREFIX}:${elemName}>`;
-  return xml;
-}
-
-export function serializeGetRenderedPrintLayoutResponse(obj: T.Input<T.GetRenderedPrintLayoutResponse>, elemName: string): string {
-  let xml = `<${NS_PREFIX}:${elemName}>`;
-  if (obj.result !== undefined && obj.result !== null) {
-    xml += serializeString('result', String(obj.result));
-  }
-  if (obj.errorMessage !== undefined && obj.errorMessage !== null) {
-    xml += serializeString('errorMessage', String(obj.errorMessage));
-  }
-  if (obj.renderedPrintLayouts !== undefined && obj.renderedPrintLayouts !== null) {
-    for (const item of obj.renderedPrintLayouts) {
-      xml += serializeString('renderedPrintLayouts', String(item));
-    }
-  }
-  if (obj.hasDigitalSignatureField !== undefined && obj.hasDigitalSignatureField !== null) {
-    xml += serializeBoolean('hasDigitalSignatureField', obj.hasDigitalSignatureField);
-  }
-  xml += `</${NS_PREFIX}:${elemName}>`;
-  return xml;
-}
-
-export function serializeGetPrintLayoutMarkupResponse(obj: T.Input<T.GetPrintLayoutMarkupResponse>, elemName: string): string {
-  let xml = `<${NS_PREFIX}:${elemName}>`;
-  if (obj.result !== undefined && obj.result !== null) {
-    xml += serializeString('result', String(obj.result));
-  }
-  if (obj.errorMessage !== undefined && obj.errorMessage !== null) {
-    xml += serializeString('errorMessage', String(obj.errorMessage));
-  }
-  if (obj.printLayoutMarkup !== undefined && obj.printLayoutMarkup !== null) {
-    xml += serializeString('printLayoutMarkup', String(obj.printLayoutMarkup));
-  }
-  xml += `</${NS_PREFIX}:${elemName}>`;
-  return xml;
-}
-
-export function serializePrintPrintLayoutResponse(obj: T.Input<T.PrintPrintLayoutResponse>, elemName: string): string {
-  let xml = `<${NS_PREFIX}:${elemName}>`;
-  if (obj.result !== undefined && obj.result !== null) {
-    xml += serializeString('result', String(obj.result));
-  }
-  if (obj.errorMessage !== undefined && obj.errorMessage !== null) {
-    xml += serializeString('errorMessage', String(obj.errorMessage));
-  }
-  xml += `</${NS_PREFIX}:${elemName}>`;
-  return xml;
-}
-
-export function serializeGetResolvedPrintTemplatesResponse(obj: T.Input<T.GetResolvedPrintTemplatesResponse>, elemName: string): string {
-  let xml = `<${NS_PREFIX}:${elemName}>`;
-  if (obj.result !== undefined && obj.result !== null) {
-    xml += serializeString('result', String(obj.result));
-  }
-  if (obj.errorMessage !== undefined && obj.errorMessage !== null) {
-    xml += serializeString('errorMessage', String(obj.errorMessage));
-  }
-  if (obj.resolvedPrintTemplates !== undefined && obj.resolvedPrintTemplates !== null) {
-    xml += `<${NS_PREFIX}:resolvedPrintTemplates>`;
-    for (const item of obj.resolvedPrintTemplates) {
-      xml += serializeString('printTemplate', String(item));
-    }
-    xml += `</${NS_PREFIX}:resolvedPrintTemplates>`;
   }
   xml += `</${NS_PREFIX}:${elemName}>`;
   return xml;
@@ -22732,6 +22580,111 @@ export function serializeGetTimelineEventsRequest(obj: T.Input<T.GetTimelineEven
   return xml;
 }
 
+export function serializereportError(obj: T.Input<T.reportError>, elemName: string): string {
+  let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.code !== undefined && obj.code !== null) {
+    xml += serializeString('code', String(obj.code));
+  }
+  if (obj.details !== undefined && obj.details !== null) {
+    xml += serializeString('details', String(obj.details));
+  }
+  if (obj.path !== undefined && obj.path !== null) {
+    xml += serializeString('path', String(obj.path));
+  }
+  xml += `</${NS_PREFIX}:${elemName}>`;
+  return xml;
+}
+
+export function serializeGetReportQuerySourcesRequest(obj: T.Input<T.GetReportQuerySourcesRequest>, elemName: string): string {
+  let xml = `<${NS_PREFIX}:${elemName}>`;
+  xml += `</${NS_PREFIX}:${elemName}>`;
+  return xml;
+}
+
+export function serializeGetReportPresetsRequest(obj: T.Input<T.GetReportPresetsRequest>, elemName: string): string {
+  let xml = `<${NS_PREFIX}:${elemName}>`;
+  xml += `</${NS_PREFIX}:${elemName}>`;
+  return xml;
+}
+
+export function serializeGetDashboardsRequest(obj: T.Input<T.GetDashboardsRequest>, elemName: string): string {
+  let xml = `<${NS_PREFIX}:${elemName}>`;
+  xml += `</${NS_PREFIX}:${elemName}>`;
+  return xml;
+}
+
+export function serializeGetDashboardRequest(obj: T.Input<T.GetDashboardRequest>, elemName: string): string {
+  let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.dashboardId !== undefined && obj.dashboardId !== null) {
+    xml += serializeString('dashboardId', String(obj.dashboardId));
+  }
+  xml += `</${NS_PREFIX}:${elemName}>`;
+  return xml;
+}
+
+export function serializeSaveDashboardRequest(obj: T.Input<T.SaveDashboardRequest>, elemName: string): string {
+  let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.dashboardJson !== undefined && obj.dashboardJson !== null) {
+    xml += serializeString('dashboardJson', String(obj.dashboardJson));
+  }
+  xml += `</${NS_PREFIX}:${elemName}>`;
+  return xml;
+}
+
+export function serializeDeleteDashboardRequest(obj: T.Input<T.DeleteDashboardRequest>, elemName: string): string {
+  let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.dashboardId !== undefined && obj.dashboardId !== null) {
+    xml += serializeString('dashboardId', String(obj.dashboardId));
+  }
+  if (obj.revision !== undefined && obj.revision !== null) {
+    xml += serializeNumber('revision', obj.revision);
+  }
+  xml += `</${NS_PREFIX}:${elemName}>`;
+  return xml;
+}
+
+export function serializeUpdateDashboardOrderRequest(obj: T.Input<T.UpdateDashboardOrderRequest>, elemName: string): string {
+  let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.dashboardIdsJson !== undefined && obj.dashboardIdsJson !== null) {
+    xml += serializeString('dashboardIdsJson', String(obj.dashboardIdsJson));
+  }
+  xml += `</${NS_PREFIX}:${elemName}>`;
+  return xml;
+}
+
+export function serializeExecuteReportQueriesRequest(obj: T.Input<T.ExecuteReportQueriesRequest>, elemName: string): string {
+  let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.queriesJson !== undefined && obj.queriesJson !== null) {
+    xml += serializeString('queriesJson', String(obj.queriesJson));
+  }
+  if (obj.transformJson !== undefined && obj.transformJson !== null) {
+    xml += serializeString('transformJson', String(obj.transformJson));
+  }
+  xml += `</${NS_PREFIX}:${elemName}>`;
+  return xml;
+}
+
+export function serializeAssembleReportRequest(obj: T.Input<T.AssembleReportRequest>, elemName: string): string {
+  let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.reportAssemblyJson !== undefined && obj.reportAssemblyJson !== null) {
+    xml += serializeString('reportAssemblyJson', String(obj.reportAssemblyJson));
+  }
+  xml += `</${NS_PREFIX}:${elemName}>`;
+  return xml;
+}
+
+export function serializeExecuteReportPresetRequest(obj: T.Input<T.ExecuteReportPresetRequest>, elemName: string): string {
+  let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.presetId !== undefined && obj.presetId !== null) {
+    xml += serializeString('presetId', String(obj.presetId));
+  }
+  if (obj.queryFiltersJson !== undefined && obj.queryFiltersJson !== null) {
+    xml += serializeString('queryFiltersJson', String(obj.queryFiltersJson));
+  }
+  xml += `</${NS_PREFIX}:${elemName}>`;
+  return xml;
+}
+
 export function serializeReportTurnoverByBranchResponse(obj: T.Input<T.ReportTurnoverByBranchResponse>, elemName: string): string {
   let xml = `<${NS_PREFIX}:${elemName}>`;
   if (obj.turnoverList !== undefined && obj.turnoverList !== null) {
@@ -22965,6 +22918,129 @@ export function serializeGetTimelineEventsResponse(obj: T.Input<T.GetTimelineEve
       xml += serializeTimelineEvent(item, 'event');
     }
     xml += `</${NS_PREFIX}:events>`;
+  }
+  xml += `</${NS_PREFIX}:${elemName}>`;
+  return xml;
+}
+
+export function serializeGetReportQuerySourcesResponse(obj: T.Input<T.GetReportQuerySourcesResponse>, elemName: string): string {
+  let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.sourcesJson !== undefined && obj.sourcesJson !== null) {
+    xml += serializeString('sourcesJson', String(obj.sourcesJson));
+  }
+  if (obj.error !== undefined && obj.error !== null) {
+    xml += serializereportError(obj.error, 'error');
+  }
+  xml += `</${NS_PREFIX}:${elemName}>`;
+  return xml;
+}
+
+export function serializeGetReportPresetsResponse(obj: T.Input<T.GetReportPresetsResponse>, elemName: string): string {
+  let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.presetsJson !== undefined && obj.presetsJson !== null) {
+    xml += serializeString('presetsJson', String(obj.presetsJson));
+  }
+  if (obj.error !== undefined && obj.error !== null) {
+    xml += serializereportError(obj.error, 'error');
+  }
+  xml += `</${NS_PREFIX}:${elemName}>`;
+  return xml;
+}
+
+export function serializeGetDashboardsResponse(obj: T.Input<T.GetDashboardsResponse>, elemName: string): string {
+  let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.dashboardsJson !== undefined && obj.dashboardsJson !== null) {
+    xml += serializeString('dashboardsJson', String(obj.dashboardsJson));
+  }
+  if (obj.error !== undefined && obj.error !== null) {
+    xml += serializereportError(obj.error, 'error');
+  }
+  xml += `</${NS_PREFIX}:${elemName}>`;
+  return xml;
+}
+
+export function serializeGetDashboardResponse(obj: T.Input<T.GetDashboardResponse>, elemName: string): string {
+  let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.dashboardJson !== undefined && obj.dashboardJson !== null) {
+    xml += serializeString('dashboardJson', String(obj.dashboardJson));
+  }
+  if (obj.error !== undefined && obj.error !== null) {
+    xml += serializereportError(obj.error, 'error');
+  }
+  xml += `</${NS_PREFIX}:${elemName}>`;
+  return xml;
+}
+
+export function serializeSaveDashboardResponse(obj: T.Input<T.SaveDashboardResponse>, elemName: string): string {
+  let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.dashboardJson !== undefined && obj.dashboardJson !== null) {
+    xml += serializeString('dashboardJson', String(obj.dashboardJson));
+  }
+  if (obj.error !== undefined && obj.error !== null) {
+    xml += serializereportError(obj.error, 'error');
+  }
+  xml += `</${NS_PREFIX}:${elemName}>`;
+  return xml;
+}
+
+export function serializeDeleteDashboardResponse(obj: T.Input<T.DeleteDashboardResponse>, elemName: string): string {
+  let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.success !== undefined && obj.success !== null) {
+    xml += serializeBoolean('success', obj.success);
+  }
+  if (obj.error !== undefined && obj.error !== null) {
+    xml += serializereportError(obj.error, 'error');
+  }
+  xml += `</${NS_PREFIX}:${elemName}>`;
+  return xml;
+}
+
+export function serializeUpdateDashboardOrderResponse(obj: T.Input<T.UpdateDashboardOrderResponse>, elemName: string): string {
+  let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.dashboardsJson !== undefined && obj.dashboardsJson !== null) {
+    xml += serializeString('dashboardsJson', String(obj.dashboardsJson));
+  }
+  if (obj.error !== undefined && obj.error !== null) {
+    xml += serializereportError(obj.error, 'error');
+  }
+  xml += `</${NS_PREFIX}:${elemName}>`;
+  return xml;
+}
+
+export function serializeExecuteReportQueriesResponse(obj: T.Input<T.ExecuteReportQueriesResponse>, elemName: string): string {
+  let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.resultsJson !== undefined && obj.resultsJson !== null) {
+    xml += serializeString('resultsJson', String(obj.resultsJson));
+  }
+  if (obj.transformedResultJson !== undefined && obj.transformedResultJson !== null) {
+    xml += serializeString('transformedResultJson', String(obj.transformedResultJson));
+  }
+  if (obj.error !== undefined && obj.error !== null) {
+    xml += serializereportError(obj.error, 'error');
+  }
+  xml += `</${NS_PREFIX}:${elemName}>`;
+  return xml;
+}
+
+export function serializeAssembleReportResponse(obj: T.Input<T.AssembleReportResponse>, elemName: string): string {
+  let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.reportJson !== undefined && obj.reportJson !== null) {
+    xml += serializeString('reportJson', String(obj.reportJson));
+  }
+  if (obj.error !== undefined && obj.error !== null) {
+    xml += serializereportError(obj.error, 'error');
+  }
+  xml += `</${NS_PREFIX}:${elemName}>`;
+  return xml;
+}
+
+export function serializeExecuteReportPresetResponse(obj: T.Input<T.ExecuteReportPresetResponse>, elemName: string): string {
+  let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.reportJson !== undefined && obj.reportJson !== null) {
+    xml += serializeString('reportJson', String(obj.reportJson));
+  }
+  if (obj.error !== undefined && obj.error !== null) {
+    xml += serializereportError(obj.error, 'error');
   }
   xml += `</${NS_PREFIX}:${elemName}>`;
   return xml;
@@ -25137,6 +25213,13 @@ export function serializeGetProposalsRequest(obj: T.Input<T.GetProposalsRequest>
   if (obj.otherTimelineEventsFilter !== undefined && obj.otherTimelineEventsFilter !== null) {
     xml += serializeTimelineEventSubFilter(obj.otherTimelineEventsFilter, 'otherTimelineEventsFilter');
   }
+  if (obj.timelineEventConditions !== undefined && obj.timelineEventConditions !== null) {
+    xml += `<${NS_PREFIX}:timelineEventConditions>`;
+    for (const item of obj.timelineEventConditions) {
+      xml += serializeTimelineEventCondition(item, 'condition');
+    }
+    xml += `</${NS_PREFIX}:timelineEventConditions>`;
+  }
   xml += `</${NS_PREFIX}:${elemName}>`;
   return xml;
 }
@@ -25339,6 +25422,16 @@ export function serializeGetOrdersRequest(obj: T.Input<T.GetOrdersRequest>, elem
   }
   if (obj.otherTimelineEventsFilter !== undefined && obj.otherTimelineEventsFilter !== null) {
     xml += serializeTimelineEventSubFilter(obj.otherTimelineEventsFilter, 'otherTimelineEventsFilter');
+  }
+  if (obj.timelineEventConditions !== undefined && obj.timelineEventConditions !== null) {
+    xml += `<${NS_PREFIX}:timelineEventConditions>`;
+    for (const item of obj.timelineEventConditions) {
+      xml += serializeTimelineEventCondition(item, 'condition');
+    }
+    xml += `</${NS_PREFIX}:timelineEventConditions>`;
+  }
+  if (obj.includeQueuedSnapshots !== undefined && obj.includeQueuedSnapshots !== null) {
+    xml += serializeBoolean('includeQueuedSnapshots', obj.includeQueuedSnapshots);
   }
   xml += `</${NS_PREFIX}:${elemName}>`;
   return xml;
@@ -25650,36 +25743,6 @@ export function serializeSalesQueueTypeList(obj: T.Input<T.SalesQueueTypeList>, 
     for (const item of obj.type) {
       xml += serializeString('type', String(item));
     }
-  }
-  xml += `</${NS_PREFIX}:${elemName}>`;
-  return xml;
-}
-
-export function serializeSalesQueueEntry(obj: T.Input<T.SalesQueueEntry>, elemName: string): string {
-  let xml = `<${NS_PREFIX}:${elemName}>`;
-  if (obj.id !== undefined && obj.id !== null) {
-    xml += serializeString('id', String(obj.id));
-  }
-  if (obj.salesObjectId !== undefined && obj.salesObjectId !== null) {
-    xml += serializeString('salesObjectId', String(obj.salesObjectId));
-  }
-  if (obj.type !== undefined && obj.type !== null) {
-    xml += serializeString('type', String(obj.type));
-  }
-  if (obj.createdTs !== undefined && obj.createdTs !== null) {
-    xml += serializeString('createdTs', obj.createdTs.toISOString());
-  }
-  if (obj.processedTs !== undefined && obj.processedTs !== null) {
-    xml += serializeString('processedTs', obj.processedTs.toISOString());
-  }
-  if (obj.cancelledTs !== undefined && obj.cancelledTs !== null) {
-    xml += serializeString('cancelledTs', obj.cancelledTs.toISOString());
-  }
-  if (obj.failedTs !== undefined && obj.failedTs !== null) {
-    xml += serializeString('failedTs', obj.failedTs.toISOString());
-  }
-  if (obj.failureReason !== undefined && obj.failureReason !== null) {
-    xml += serializeString('failureReason', String(obj.failureReason));
   }
   xml += `</${NS_PREFIX}:${elemName}>`;
   return xml;
@@ -26022,6 +26085,13 @@ export function serializeGetInvoicesRequest(obj: T.Input<T.GetInvoicesRequest>, 
   if (obj.otherTimelineEventsFilter !== undefined && obj.otherTimelineEventsFilter !== null) {
     xml += serializeTimelineEventSubFilter(obj.otherTimelineEventsFilter, 'otherTimelineEventsFilter');
   }
+  if (obj.timelineEventConditions !== undefined && obj.timelineEventConditions !== null) {
+    xml += `<${NS_PREFIX}:timelineEventConditions>`;
+    for (const item of obj.timelineEventConditions) {
+      xml += serializeTimelineEventCondition(item, 'condition');
+    }
+    xml += `</${NS_PREFIX}:timelineEventConditions>`;
+  }
   xml += `</${NS_PREFIX}:${elemName}>`;
   return xml;
 }
@@ -26209,6 +26279,9 @@ export function serializePackingSlip(obj: T.Input<T.PackingSlip>, elemName: stri
   if (obj.branchInvoiceNumber !== undefined && obj.branchInvoiceNumber !== null) {
     xml += serializeTransactionNumber(obj.branchInvoiceNumber, 'branchInvoiceNumber');
   }
+  if (obj.queueEntry !== undefined && obj.queueEntry !== null) {
+    xml += serializeSalesQueueEntry(obj.queueEntry, 'queueEntry');
+  }
   xml += `</${NS_PREFIX}:${elemName}>`;
   return xml;
 }
@@ -26372,6 +26445,9 @@ export function serializeGetPackingSlipsRequest(obj: T.Input<T.GetPackingSlipsRe
       xml += serializeString('typeFilter', String(item));
     }
   }
+  if (obj.includeQueuedSnapshots !== undefined && obj.includeQueuedSnapshots !== null) {
+    xml += serializeBoolean('includeQueuedSnapshots', obj.includeQueuedSnapshots);
+  }
   xml += `</${NS_PREFIX}:${elemName}>`;
   return xml;
 }
@@ -26441,6 +26517,20 @@ export function serializeSalesQueueFilter(obj: T.Input<T.SalesQueueFilter>, elem
   if (obj.pendingOnly !== undefined && obj.pendingOnly !== null) {
     xml += serializeBoolean('pendingOnly', obj.pendingOnly);
   }
+  if (obj.branchNumbers !== undefined && obj.branchNumbers !== null) {
+    for (const item of obj.branchNumbers) {
+      xml += serializeNumber('branchNumbers', item);
+    }
+  }
+  if (obj.processed !== undefined && obj.processed !== null) {
+    xml += serializeBoolean('processed', obj.processed);
+  }
+  if (obj.cancelled !== undefined && obj.cancelled !== null) {
+    xml += serializeBoolean('cancelled', obj.cancelled);
+  }
+  if (obj.failed !== undefined && obj.failed !== null) {
+    xml += serializeBoolean('failed', obj.failed);
+  }
   xml += `</${NS_PREFIX}:${elemName}>`;
   return xml;
 }
@@ -26452,6 +26542,21 @@ export function serializeGetPackingSlipQueueRequest(obj: T.Input<T.GetPackingSli
   }
   if (obj.loadPackingSlip !== undefined && obj.loadPackingSlip !== null) {
     xml += serializeBoolean('loadPackingSlip', obj.loadPackingSlip);
+  }
+  if (obj.latestOnly !== undefined && obj.latestOnly !== null) {
+    xml += serializeBoolean('latestOnly', obj.latestOnly);
+  }
+  xml += `</${NS_PREFIX}:${elemName}>`;
+  return xml;
+}
+
+export function serializeGetOrderQueueRequest(obj: T.Input<T.GetOrderQueueRequest>, elemName: string): string {
+  let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.filter !== undefined && obj.filter !== null) {
+    xml += serializeSalesQueueFilter(obj.filter, 'filter');
+  }
+  if (obj.loadOrder !== undefined && obj.loadOrder !== null) {
+    xml += serializeBoolean('loadOrder', obj.loadOrder);
   }
   if (obj.latestOnly !== undefined && obj.latestOnly !== null) {
     xml += serializeBoolean('latestOnly', obj.latestOnly);
@@ -27253,6 +27358,22 @@ export function serializeGetPackingSlipQueueResponse(obj: T.Input<T.GetPackingSl
   }
   if (obj.lastPackingSlip !== undefined && obj.lastPackingSlip !== null) {
     xml += serializePackingSlip(obj.lastPackingSlip, 'lastPackingSlip');
+  }
+  xml += `</${NS_PREFIX}:${elemName}>`;
+  return xml;
+}
+
+export function serializeGetOrderQueueResponse(obj: T.Input<T.GetOrderQueueResponse>, elemName: string): string {
+  let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.orderQueueEntryList !== undefined && obj.orderQueueEntryList !== null) {
+    xml += `<${NS_PREFIX}:orderQueueEntryList>`;
+    for (const item of obj.orderQueueEntryList) {
+      xml += serializeSalesQueueEntry(item, 'entry');
+    }
+    xml += `</${NS_PREFIX}:orderQueueEntryList>`;
+  }
+  if (obj.lastOrder !== undefined && obj.lastOrder !== null) {
+    xml += serializeOrder(obj.lastOrder, 'lastOrder');
   }
   xml += `</${NS_PREFIX}:${elemName}>`;
   return xml;
@@ -28288,6 +28409,9 @@ export function serializeWebhookReq(obj: T.Input<T.WebhookReq>, elemName: string
   if (obj.form !== undefined && obj.form !== null) {
     xml += serializeWebhookFormInput(obj.form, 'form');
   }
+  if (obj.webhookConsumerId !== undefined && obj.webhookConsumerId !== null) {
+    xml += serializeString('webhookConsumerId', String(obj.webhookConsumerId));
+  }
   xml += `</${NS_PREFIX}:${elemName}>`;
   return xml;
 }
@@ -28391,6 +28515,9 @@ export function serializeExternalPaymentWebhookRequest(obj: T.Input<T.ExternalPa
   if (obj.form !== undefined && obj.form !== null) {
     xml += serializeWebhookFormInput(obj.form, 'form');
   }
+  if (obj.webhookConsumerId !== undefined && obj.webhookConsumerId !== null) {
+    xml += serializeString('webhookConsumerId', String(obj.webhookConsumerId));
+  }
   if (obj.externalPayment !== undefined && obj.externalPayment !== null) {
     xml += serializeExternalPaymentReq(obj.externalPayment, 'externalPayment');
   }
@@ -28435,6 +28562,9 @@ export function serializeSendWebhookRequest(obj: T.Input<T.SendWebhookRequest>, 
   }
   if (obj.form !== undefined && obj.form !== null) {
     xml += serializeWebhookFormInput(obj.form, 'form');
+  }
+  if (obj.webhookConsumerId !== undefined && obj.webhookConsumerId !== null) {
+    xml += serializeString('webhookConsumerId', String(obj.webhookConsumerId));
   }
   if (obj.webhookEvent !== undefined && obj.webhookEvent !== null) {
     xml += serializeString('webhookEvent', String(obj.webhookEvent));
@@ -28653,6 +28783,372 @@ export function serializeWebhookResp(obj: T.Input<T.WebhookResp>, elemName: stri
   }
   if (obj.form !== undefined && obj.form !== null) {
     xml += serializeWebhookForm(obj.form, 'form');
+  }
+  xml += `</${NS_PREFIX}:${elemName}>`;
+  return xml;
+}
+
+export function serializeGetPrintLayoutsRequest(obj: T.Input<T.GetPrintLayoutsRequest>, elemName: string): string {
+  let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.type !== undefined && obj.type !== null) {
+    xml += serializeString('type', String(obj.type));
+  }
+  if (obj.kind !== undefined && obj.kind !== null) {
+    xml += serializeString('kind', String(obj.kind));
+  }
+  if (obj.fieldType !== undefined && obj.fieldType !== null) {
+    xml += serializeString('fieldType', String(obj.fieldType));
+  }
+  xml += `</${NS_PREFIX}:${elemName}>`;
+  return xml;
+}
+
+export function serializePrintLayoutView(obj: T.Input<T.PrintLayoutView>, elemName: string): string {
+  let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.id !== undefined && obj.id !== null) {
+    xml += serializeString('id', String(obj.id));
+  }
+  if (obj.name !== undefined && obj.name !== null) {
+    xml += serializeString('name', String(obj.name));
+  }
+  if (obj.type !== undefined && obj.type !== null) {
+    xml += serializeString('type', String(obj.type));
+  }
+  if (obj.kind !== undefined && obj.kind !== null) {
+    xml += serializeString('kind', String(obj.kind));
+  }
+  if (obj.createdTimestamp !== undefined && obj.createdTimestamp !== null) {
+    xml += serializeString('createdTimestamp', obj.createdTimestamp.toISOString());
+  }
+  if (obj.updatedTimestamp !== undefined && obj.updatedTimestamp !== null) {
+    xml += serializeString('updatedTimestamp', obj.updatedTimestamp.toISOString());
+  }
+  if (obj.hasDigitalSignatureField !== undefined && obj.hasDigitalSignatureField !== null) {
+    xml += serializeBoolean('hasDigitalSignatureField', obj.hasDigitalSignatureField);
+  }
+  xml += `</${NS_PREFIX}:${elemName}>`;
+  return xml;
+}
+
+export function serializeGetPrintLayoutAssignmentsRequest(obj: T.Input<T.GetPrintLayoutAssignmentsRequest>, elemName: string): string {
+  let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.type !== undefined && obj.type !== null) {
+    xml += serializeString('type', String(obj.type));
+  }
+  if (obj.kind !== undefined && obj.kind !== null) {
+    xml += serializeString('kind', String(obj.kind));
+  }
+  if (obj.branchNumber !== undefined && obj.branchNumber !== null) {
+    xml += serializeNumber('branchNumber', obj.branchNumber);
+  }
+  if (obj.workplaceNumber !== undefined && obj.workplaceNumber !== null) {
+    xml += serializeNumber('workplaceNumber', obj.workplaceNumber);
+  }
+  if (obj.useOnlinePrinter !== undefined && obj.useOnlinePrinter !== null) {
+    xml += serializeBoolean('useOnlinePrinter', obj.useOnlinePrinter);
+  }
+  xml += `</${NS_PREFIX}:${elemName}>`;
+  return xml;
+}
+
+export function serializePrintLayoutAssignmentPrintLayoutView(obj: T.Input<T.PrintLayoutAssignmentPrintLayoutView>, elemName: string): string {
+  let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.id !== undefined && obj.id !== null) {
+    xml += serializeString('id', String(obj.id));
+  }
+  if (obj.name !== undefined && obj.name !== null) {
+    xml += serializeString('name', String(obj.name));
+  }
+  if (obj.type !== undefined && obj.type !== null) {
+    xml += serializeString('type', String(obj.type));
+  }
+  if (obj.kind !== undefined && obj.kind !== null) {
+    xml += serializeString('kind', String(obj.kind));
+  }
+  xml += `</${NS_PREFIX}:${elemName}>`;
+  return xml;
+}
+
+export function serializensPrintLayoutLocationId(obj: T.Input<T.nsPrintLayoutLocationId>, elemName: string): string {
+  let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.locationId !== undefined && obj.locationId !== null) {
+    xml += serializeNumber('locationId', obj.locationId);
+  }
+  xml += `</${NS_PREFIX}:${elemName}>`;
+  return xml;
+}
+
+export function serializePrintLayoutAssignment(obj: T.Input<T.PrintLayoutAssignment>, elemName: string): string {
+  let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.id !== undefined && obj.id !== null) {
+    xml += serializeNumber('id', obj.id);
+  }
+  if (obj.workplace !== undefined && obj.workplace !== null) {
+    xml += serializeWorkplaceIdentifier(obj.workplace, 'workplace');
+  }
+  if (obj.printLayout !== undefined && obj.printLayout !== null) {
+    xml += serializePrintLayoutAssignmentPrintLayoutView(obj.printLayout, 'printLayout');
+  }
+  if (obj.useOnlinePrinter !== undefined && obj.useOnlinePrinter !== null) {
+    xml += serializeBoolean('useOnlinePrinter', obj.useOnlinePrinter);
+  }
+  if (obj.baseLocationId !== undefined && obj.baseLocationId !== null) {
+    xml += serializeNumber('baseLocationId', obj.baseLocationId);
+  }
+  if (obj.asLocationId !== undefined && obj.asLocationId !== null) {
+    xml += serializeNumber('asLocationId', obj.asLocationId);
+  }
+  if (obj.extraLocationIds !== undefined && obj.extraLocationIds !== null) {
+    for (const item of obj.extraLocationIds) {
+      xml += serializensPrintLayoutLocationId(item, 'extraLocationIds');
+    }
+  }
+  if (obj.kind !== undefined && obj.kind !== null) {
+    xml += serializeString('kind', String(obj.kind));
+  }
+  xml += `</${NS_PREFIX}:${elemName}>`;
+  return xml;
+}
+
+export function serializeSavePrintLayoutAssignmentsRequest(obj: T.Input<T.SavePrintLayoutAssignmentsRequest>, elemName: string): string {
+  let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.printLayoutAssignments !== undefined && obj.printLayoutAssignments !== null) {
+    for (const item of obj.printLayoutAssignments) {
+      xml += serializePrintLayoutAssignment(item, 'printLayoutAssignments');
+    }
+  }
+  xml += `</${NS_PREFIX}:${elemName}>`;
+  return xml;
+}
+
+export function serializePrintParam(obj: T.Input<T.PrintParam>, elemName: string): string {
+  let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.key !== undefined && obj.key !== null) {
+    xml += serializeString('key', String(obj.key));
+  }
+  if (obj.value !== undefined && obj.value !== null) {
+    xml += serializeString('value', String(obj.value));
+  }
+  xml += `</${NS_PREFIX}:${elemName}>`;
+  return xml;
+}
+
+export function serializePrintParams(obj: T.Input<T.PrintParams>, elemName: string): string {
+  let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.uuid !== undefined && obj.uuid !== null) {
+    xml += serializeString('uuid', String(obj.uuid));
+  }
+  if (obj.yearNumber !== undefined && obj.yearNumber !== null) {
+    xml += serializeYearNumber(obj.yearNumber, 'yearNumber');
+  }
+  if (obj.params !== undefined && obj.params !== null) {
+    for (const item of obj.params) {
+      xml += serializePrintParam(item, 'params');
+    }
+  }
+  xml += `</${NS_PREFIX}:${elemName}>`;
+  return xml;
+}
+
+export function serializePrintInfo(obj: T.Input<T.PrintInfo>, elemName: string): string {
+  let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.paramsList !== undefined && obj.paramsList !== null) {
+    for (const item of obj.paramsList) {
+      xml += serializePrintParams(item, 'paramsList');
+    }
+  }
+  if (obj.globalParams !== undefined && obj.globalParams !== null) {
+    xml += serializePrintParams(obj.globalParams, 'globalParams');
+  }
+  xml += `</${NS_PREFIX}:${elemName}>`;
+  return xml;
+}
+
+export function serializeGetRenderedPrintLayoutRequest(obj: T.Input<T.GetRenderedPrintLayoutRequest>, elemName: string): string {
+  let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.printLayoutUuid !== undefined && obj.printLayoutUuid !== null) {
+    xml += serializeString('printLayoutUuid', String(obj.printLayoutUuid));
+  }
+  if (obj.renderType !== undefined && obj.renderType !== null) {
+    xml += serializeString('renderType', String(obj.renderType));
+  }
+  if (obj.printInfo !== undefined && obj.printInfo !== null) {
+    xml += serializePrintInfo(obj.printInfo, 'printInfo');
+  }
+  if (obj.dpi !== undefined && obj.dpi !== null) {
+    xml += serializeNumber('dpi', obj.dpi);
+  }
+  xml += `</${NS_PREFIX}:${elemName}>`;
+  return xml;
+}
+
+export function serializeGetPrintLayoutMarkupRequest(obj: T.Input<T.GetPrintLayoutMarkupRequest>, elemName: string): string {
+  let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.printLayoutUuid !== undefined && obj.printLayoutUuid !== null) {
+    xml += serializeString('printLayoutUuid', String(obj.printLayoutUuid));
+  }
+  if (obj.markupType !== undefined && obj.markupType !== null) {
+    xml += serializeString('markupType', String(obj.markupType));
+  }
+  if (obj.printInfo !== undefined && obj.printInfo !== null) {
+    xml += serializePrintInfo(obj.printInfo, 'printInfo');
+  }
+  if (obj.responseAsBase64 !== undefined && obj.responseAsBase64 !== null) {
+    xml += serializeBoolean('responseAsBase64', obj.responseAsBase64);
+  }
+  if (obj.normalWidthInCharacters !== undefined && obj.normalWidthInCharacters !== null) {
+    xml += serializeNumber('normalWidthInCharacters', obj.normalWidthInCharacters);
+  }
+  if (obj.smallWidthInCharacters !== undefined && obj.smallWidthInCharacters !== null) {
+    xml += serializeNumber('smallWidthInCharacters', obj.smallWidthInCharacters);
+  }
+  xml += `</${NS_PREFIX}:${elemName}>`;
+  return xml;
+}
+
+export function serializePrintPrintLayoutRequest(obj: T.Input<T.PrintPrintLayoutRequest>, elemName: string): string {
+  let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.type !== undefined && obj.type !== null) {
+    xml += serializeString('type', String(obj.type));
+  }
+  if (obj.kind !== undefined && obj.kind !== null) {
+    xml += serializeString('kind', String(obj.kind));
+  }
+  if (obj.printInfo !== undefined && obj.printInfo !== null) {
+    xml += serializePrintInfo(obj.printInfo, 'printInfo');
+  }
+  if (obj.workplaceIdentifier !== undefined && obj.workplaceIdentifier !== null) {
+    xml += serializeWorkplaceIdentifier(obj.workplaceIdentifier, 'workplaceIdentifier');
+  }
+  xml += `</${NS_PREFIX}:${elemName}>`;
+  return xml;
+}
+
+export function serializePrintTemplateList(obj: T.Input<T.PrintTemplateList>, elemName: string): string {
+  let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.printTemplate !== undefined && obj.printTemplate !== null) {
+    for (const item of obj.printTemplate) {
+      xml += serializeString('printTemplate', String(item));
+    }
+  }
+  xml += `</${NS_PREFIX}:${elemName}>`;
+  return xml;
+}
+
+export function serializeGetResolvedPrintTemplatesRequest(obj: T.Input<T.GetResolvedPrintTemplatesRequest>, elemName: string): string {
+  let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.kind !== undefined && obj.kind !== null) {
+    xml += serializeString('kind', String(obj.kind));
+  }
+  if (obj.printInfo !== undefined && obj.printInfo !== null) {
+    xml += serializePrintInfo(obj.printInfo, 'printInfo');
+  }
+  if (obj.printTemplates !== undefined && obj.printTemplates !== null) {
+    xml += `<${NS_PREFIX}:printTemplates>`;
+    for (const item of obj.printTemplates) {
+      xml += serializeString('printTemplate', String(item));
+    }
+    xml += `</${NS_PREFIX}:printTemplates>`;
+  }
+  xml += `</${NS_PREFIX}:${elemName}>`;
+  return xml;
+}
+
+export function serializeGetPrintLayoutsResponse(obj: T.Input<T.GetPrintLayoutsResponse>, elemName: string): string {
+  let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.result !== undefined && obj.result !== null) {
+    xml += serializeString('result', String(obj.result));
+  }
+  if (obj.printLayouts !== undefined && obj.printLayouts !== null) {
+    for (const item of obj.printLayouts) {
+      xml += serializePrintLayoutView(item, 'printLayouts');
+    }
+  }
+  xml += `</${NS_PREFIX}:${elemName}>`;
+  return xml;
+}
+
+export function serializeGetPrintLayoutAssignmentsResponse(obj: T.Input<T.GetPrintLayoutAssignmentsResponse>, elemName: string): string {
+  let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.printLayoutAssignments !== undefined && obj.printLayoutAssignments !== null) {
+    for (const item of obj.printLayoutAssignments) {
+      xml += serializePrintLayoutAssignment(item, 'printLayoutAssignments');
+    }
+  }
+  xml += `</${NS_PREFIX}:${elemName}>`;
+  return xml;
+}
+
+export function serializeSavePrintLayoutAssignmentsResponse(obj: T.Input<T.SavePrintLayoutAssignmentsResponse>, elemName: string): string {
+  let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.result !== undefined && obj.result !== null) {
+    xml += serializeString('result', String(obj.result));
+  }
+  xml += `</${NS_PREFIX}:${elemName}>`;
+  return xml;
+}
+
+export function serializeGetRenderedPrintLayoutResponse(obj: T.Input<T.GetRenderedPrintLayoutResponse>, elemName: string): string {
+  let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.result !== undefined && obj.result !== null) {
+    xml += serializeString('result', String(obj.result));
+  }
+  if (obj.errorMessage !== undefined && obj.errorMessage !== null) {
+    xml += serializeString('errorMessage', String(obj.errorMessage));
+  }
+  if (obj.renderedPrintLayouts !== undefined && obj.renderedPrintLayouts !== null) {
+    for (const item of obj.renderedPrintLayouts) {
+      xml += serializeString('renderedPrintLayouts', String(item));
+    }
+  }
+  if (obj.hasDigitalSignatureField !== undefined && obj.hasDigitalSignatureField !== null) {
+    xml += serializeBoolean('hasDigitalSignatureField', obj.hasDigitalSignatureField);
+  }
+  xml += `</${NS_PREFIX}:${elemName}>`;
+  return xml;
+}
+
+export function serializeGetPrintLayoutMarkupResponse(obj: T.Input<T.GetPrintLayoutMarkupResponse>, elemName: string): string {
+  let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.result !== undefined && obj.result !== null) {
+    xml += serializeString('result', String(obj.result));
+  }
+  if (obj.errorMessage !== undefined && obj.errorMessage !== null) {
+    xml += serializeString('errorMessage', String(obj.errorMessage));
+  }
+  if (obj.printLayoutMarkup !== undefined && obj.printLayoutMarkup !== null) {
+    xml += serializeString('printLayoutMarkup', String(obj.printLayoutMarkup));
+  }
+  xml += `</${NS_PREFIX}:${elemName}>`;
+  return xml;
+}
+
+export function serializePrintPrintLayoutResponse(obj: T.Input<T.PrintPrintLayoutResponse>, elemName: string): string {
+  let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.result !== undefined && obj.result !== null) {
+    xml += serializeString('result', String(obj.result));
+  }
+  if (obj.errorMessage !== undefined && obj.errorMessage !== null) {
+    xml += serializeString('errorMessage', String(obj.errorMessage));
+  }
+  xml += `</${NS_PREFIX}:${elemName}>`;
+  return xml;
+}
+
+export function serializeGetResolvedPrintTemplatesResponse(obj: T.Input<T.GetResolvedPrintTemplatesResponse>, elemName: string): string {
+  let xml = `<${NS_PREFIX}:${elemName}>`;
+  if (obj.result !== undefined && obj.result !== null) {
+    xml += serializeString('result', String(obj.result));
+  }
+  if (obj.errorMessage !== undefined && obj.errorMessage !== null) {
+    xml += serializeString('errorMessage', String(obj.errorMessage));
+  }
+  if (obj.resolvedPrintTemplates !== undefined && obj.resolvedPrintTemplates !== null) {
+    xml += `<${NS_PREFIX}:resolvedPrintTemplates>`;
+    for (const item of obj.resolvedPrintTemplates) {
+      xml += serializeString('printTemplate', String(item));
+    }
+    xml += `</${NS_PREFIX}:resolvedPrintTemplates>`;
   }
   xml += `</${NS_PREFIX}:${elemName}>`;
   return xml;
@@ -30968,9 +31464,9 @@ export function serializeGetBranchInformationBody(request: T.Input<T.GetBranchIn
   return xml;
 }
 
-export function serializeSaveBranchInformationBody(request: T.Input<T.saveBranchInformationRequest>): string {
+export function serializeSaveBranchInformationBody(request: T.Input<T.SaveBranchInformationRequest>): string {
   let xml = '';
-  xml += serializesaveBranchInformationRequest(request!, 'request');
+  xml += serializeSaveBranchInformationRequest(request!, 'request');
   return xml;
 }
 
@@ -31184,6 +31680,18 @@ export function serializeSaveBpeBudgetsBody(request: T.Input<T.SaveBpeBudgetsReq
   return xml;
 }
 
+export function serializeRegisterContextPresenceBody(request: T.Input<T.RegisterContextPresenceRequest>): string {
+  let xml = '';
+  xml += serializeRegisterContextPresenceRequest(request!, 'request');
+  return xml;
+}
+
+export function serializeUnregisterContextPresenceBody(request: T.Input<T.UnregisterContextPresenceRequest>): string {
+  let xml = '';
+  xml += serializeUnregisterContextPresenceRequest(request!, 'request');
+  return xml;
+}
+
 export function serializeCreateImageBody(request: T.Input<T.CreateImageRequest>): string {
   let xml = '';
   xml += serializeCreateImageRequest(request!, 'request');
@@ -31218,48 +31726,6 @@ export function serializeGetImagesBody(request: T.Input<T.GetImagesRequest> | un
   if (request === undefined) return '';
   let xml = '';
   xml += serializeGetImagesRequest(request!, 'request');
-  return xml;
-}
-
-export function serializeGetPrintLayoutsBody(request: T.Input<T.GetPrintLayoutsRequest>): string {
-  let xml = '';
-  xml += serializeGetPrintLayoutsRequest(request!, 'request');
-  return xml;
-}
-
-export function serializeGetPrintLayoutAssignmentsBody(request: T.Input<T.GetPrintLayoutAssignmentsRequest>): string {
-  let xml = '';
-  xml += serializeGetPrintLayoutAssignmentsRequest(request!, 'request');
-  return xml;
-}
-
-export function serializeSavePrintLayoutAssignmentsBody(request: T.Input<T.SavePrintLayoutAssignmentsRequest>): string {
-  let xml = '';
-  xml += serializeSavePrintLayoutAssignmentsRequest(request!, 'request');
-  return xml;
-}
-
-export function serializeGetRenderedPrintLayoutBody(request: T.Input<T.GetRenderedPrintLayoutRequest>): string {
-  let xml = '';
-  xml += serializeGetRenderedPrintLayoutRequest(request!, 'request');
-  return xml;
-}
-
-export function serializeGetPrintLayoutMarkupBody(request: T.Input<T.GetPrintLayoutMarkupRequest>): string {
-  let xml = '';
-  xml += serializeGetPrintLayoutMarkupRequest(request!, 'request');
-  return xml;
-}
-
-export function serializePrintPrintLayoutBody(request: T.Input<T.PrintPrintLayoutRequest>): string {
-  let xml = '';
-  xml += serializePrintPrintLayoutRequest(request!, 'request');
-  return xml;
-}
-
-export function serializeGetResolvedPrintTemplatesBody(request: T.Input<T.GetResolvedPrintTemplatesRequest>): string {
-  let xml = '';
-  xml += serializeGetResolvedPrintTemplatesRequest(request!, 'request');
   return xml;
 }
 
@@ -31506,6 +31972,66 @@ export function serializeRegisterTimelineEventsBody(request: T.Input<T.RegisterT
 export function serializeGetTimelineEventsBody(request: T.Input<T.GetTimelineEventsRequest>): string {
   let xml = '';
   xml += serializeGetTimelineEventsRequest(request!, 'request');
+  return xml;
+}
+
+export function serializeGetReportQuerySourcesBody(request: T.Input<T.GetReportQuerySourcesRequest>): string {
+  let xml = '';
+  xml += serializeGetReportQuerySourcesRequest(request!, 'request');
+  return xml;
+}
+
+export function serializeGetReportPresetsBody(request: T.Input<T.GetReportPresetsRequest>): string {
+  let xml = '';
+  xml += serializeGetReportPresetsRequest(request!, 'request');
+  return xml;
+}
+
+export function serializeGetDashboardsBody(request: T.Input<T.GetDashboardsRequest>): string {
+  let xml = '';
+  xml += serializeGetDashboardsRequest(request!, 'request');
+  return xml;
+}
+
+export function serializeGetDashboardBody(request: T.Input<T.GetDashboardRequest>): string {
+  let xml = '';
+  xml += serializeGetDashboardRequest(request!, 'request');
+  return xml;
+}
+
+export function serializeSaveDashboardBody(request: T.Input<T.SaveDashboardRequest>): string {
+  let xml = '';
+  xml += serializeSaveDashboardRequest(request!, 'request');
+  return xml;
+}
+
+export function serializeDeleteDashboardBody(request: T.Input<T.DeleteDashboardRequest>): string {
+  let xml = '';
+  xml += serializeDeleteDashboardRequest(request!, 'request');
+  return xml;
+}
+
+export function serializeUpdateDashboardOrderBody(request: T.Input<T.UpdateDashboardOrderRequest>): string {
+  let xml = '';
+  xml += serializeUpdateDashboardOrderRequest(request!, 'request');
+  return xml;
+}
+
+export function serializeExecuteReportQueriesBody(request: T.Input<T.ExecuteReportQueriesRequest>): string {
+  let xml = '';
+  xml += serializeExecuteReportQueriesRequest(request!, 'request');
+  return xml;
+}
+
+export function serializeAssembleReportBody(request: T.Input<T.AssembleReportRequest>): string {
+  let xml = '';
+  xml += serializeAssembleReportRequest(request!, 'request');
+  return xml;
+}
+
+export function serializeExecuteReportPresetBody(request: T.Input<T.ExecuteReportPresetRequest>): string {
+  let xml = '';
+  xml += serializeExecuteReportPresetRequest(request!, 'request');
   return xml;
 }
 
@@ -31878,6 +32404,12 @@ export function serializeGetPackingSlipQueueBody(request: T.Input<T.GetPackingSl
   return xml;
 }
 
+export function serializeGetOrderQueueBody(request: T.Input<T.GetOrderQueueRequest>): string {
+  let xml = '';
+  xml += serializeGetOrderQueueRequest(request!, 'request');
+  return xml;
+}
+
 export function serializeGetWebhookConsumersBody(request: T.Input<T.GetWebhookConsumersRequest>): string {
   let xml = '';
   xml += serializeGetWebhookConsumersRequest(request!, 'request');
@@ -31955,6 +32487,48 @@ export function serializeCancelExternalPaymentV2Body(request: T.Input<T.External
 export function serializeSendWebhookBody(request: T.Input<T.SendWebhookRequest>): string {
   let xml = '';
   xml += serializeSendWebhookRequest(request!, 'request');
+  return xml;
+}
+
+export function serializeGetPrintLayoutsBody(request: T.Input<T.GetPrintLayoutsRequest>): string {
+  let xml = '';
+  xml += serializeGetPrintLayoutsRequest(request!, 'request');
+  return xml;
+}
+
+export function serializeGetPrintLayoutAssignmentsBody(request: T.Input<T.GetPrintLayoutAssignmentsRequest>): string {
+  let xml = '';
+  xml += serializeGetPrintLayoutAssignmentsRequest(request!, 'request');
+  return xml;
+}
+
+export function serializeSavePrintLayoutAssignmentsBody(request: T.Input<T.SavePrintLayoutAssignmentsRequest>): string {
+  let xml = '';
+  xml += serializeSavePrintLayoutAssignmentsRequest(request!, 'request');
+  return xml;
+}
+
+export function serializeGetRenderedPrintLayoutBody(request: T.Input<T.GetRenderedPrintLayoutRequest>): string {
+  let xml = '';
+  xml += serializeGetRenderedPrintLayoutRequest(request!, 'request');
+  return xml;
+}
+
+export function serializeGetPrintLayoutMarkupBody(request: T.Input<T.GetPrintLayoutMarkupRequest>): string {
+  let xml = '';
+  xml += serializeGetPrintLayoutMarkupRequest(request!, 'request');
+  return xml;
+}
+
+export function serializePrintPrintLayoutBody(request: T.Input<T.PrintPrintLayoutRequest>): string {
+  let xml = '';
+  xml += serializePrintPrintLayoutRequest(request!, 'request');
+  return xml;
+}
+
+export function serializeGetResolvedPrintTemplatesBody(request: T.Input<T.GetResolvedPrintTemplatesRequest>): string {
+  let xml = '';
+  xml += serializeGetResolvedPrintTemplatesRequest(request!, 'request');
   return xml;
 }
 

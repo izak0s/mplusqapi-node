@@ -2846,14 +2846,14 @@ export class MplusKassaClient {
     );
   }
 
-  async saveBranchInformation(request: T.Input<T.saveBranchInformationRequest>, requestId?: string): Promise<T.saveBranchInformationResponse> {
+  async saveBranchInformation(request: T.Input<T.SaveBranchInformationRequest>, requestId?: string): Promise<T.SaveBranchInformationResponse> {
     const bodyXml = S.serializeSaveBranchInformationBody(request);
     return this.call(
       'saveBranchInformation',
-      'saveBranchInformationResponse',
-      'saveBranchInformationResponse',
+      'SaveBranchInformationResponse',
+      'SaveBranchInformationResponse',
       bodyXml,
-      D.deserializesaveBranchInformationResponse,
+      D.deserializeSaveBranchInformationResponse,
       false,
       requestId,
     );
@@ -3331,6 +3331,34 @@ export class MplusKassaClient {
     );
   }
 
+  /** Refreshes the presence registration for the authenticated API ident and returns the other active participants. Repeat every 20 seconds. */
+  async registerContextPresence(request: T.Input<T.RegisterContextPresenceRequest>, requestId?: string): Promise<T.ContextPresenceParticipant[]> {
+    const bodyXml = S.serializeRegisterContextPresenceBody(request);
+    return (await this.call(
+      'registerContextPresence',
+      'RegisterContextPresenceResponse',
+      'RegisterContextPresenceResponse',
+      bodyXml,
+      D.deserializeRegisterContextPresenceResponse,
+      false,
+      requestId,
+    )).otherParticipants;
+  }
+
+  /** Removes presence registrations owned by the authenticated API ident. If any registration belongs to another ident, nothing is removed and the result is API_IDENT_MISMATCH. */
+  async unregisterContextPresence(request: T.Input<T.UnregisterContextPresenceRequest>, requestId?: string): Promise<T.UnregisterContextPresenceResult> {
+    const bodyXml = S.serializeUnregisterContextPresenceBody(request);
+    return (await this.call(
+      'unregisterContextPresence',
+      'UnregisterContextPresenceResponse',
+      'UnregisterContextPresenceResponse',
+      bodyXml,
+      D.deserializeUnregisterContextPresenceResponse,
+      false,
+      requestId,
+    )).result;
+  }
+
   async createImage(request: T.Input<T.CreateImageRequest>, requestId?: string): Promise<T.CreateImageResponse> {
     const bodyXml = S.serializeCreateImageBody(request);
     return this.call(
@@ -3410,97 +3438,6 @@ export class MplusKassaClient {
       false,
       requestId,
     )).imageList;
-  }
-
-  async getPrintLayouts(request: T.Input<T.GetPrintLayoutsRequest>, requestId?: string): Promise<T.GetPrintLayoutsResponse> {
-    const bodyXml = S.serializeGetPrintLayoutsBody(request);
-    return this.call(
-      'getPrintLayouts',
-      'GetPrintLayoutsResponse',
-      'GetPrintLayoutsResponse',
-      bodyXml,
-      D.deserializeGetPrintLayoutsResponse,
-      false,
-      requestId,
-    );
-  }
-
-  async getPrintLayoutAssignments(request: T.Input<T.GetPrintLayoutAssignmentsRequest>, requestId?: string): Promise<T.PrintLayoutAssignment[] | undefined> {
-    const bodyXml = S.serializeGetPrintLayoutAssignmentsBody(request);
-    return (await this.call(
-      'getPrintLayoutAssignments',
-      'GetPrintLayoutAssignmentsResponse',
-      'GetPrintLayoutAssignmentsResponse',
-      bodyXml,
-      D.deserializeGetPrintLayoutAssignmentsResponse,
-      false,
-      requestId,
-    )).printLayoutAssignments;
-  }
-
-  async savePrintLayoutAssignments(request: T.Input<T.SavePrintLayoutAssignmentsRequest>, requestId?: string): Promise<T.SavePrintLayoutAssignmentsResponseResult> {
-    const bodyXml = S.serializeSavePrintLayoutAssignmentsBody(request);
-    return (await this.call(
-      'savePrintLayoutAssignments',
-      'SavePrintLayoutAssignmentsResponse',
-      'SavePrintLayoutAssignmentsResponse',
-      bodyXml,
-      D.deserializeSavePrintLayoutAssignmentsResponse,
-      false,
-      requestId,
-    )).result;
-  }
-
-  async getRenderedPrintLayout(request: T.Input<T.GetRenderedPrintLayoutRequest>, requestId?: string): Promise<T.GetRenderedPrintLayoutResponse> {
-    const bodyXml = S.serializeGetRenderedPrintLayoutBody(request);
-    return this.call(
-      'getRenderedPrintLayout',
-      'GetRenderedPrintLayoutResponse',
-      'GetRenderedPrintLayoutResponse',
-      bodyXml,
-      D.deserializeGetRenderedPrintLayoutResponse,
-      false,
-      requestId,
-    );
-  }
-
-  async getPrintLayoutMarkup(request: T.Input<T.GetPrintLayoutMarkupRequest>, requestId?: string): Promise<T.GetPrintLayoutMarkupResponse> {
-    const bodyXml = S.serializeGetPrintLayoutMarkupBody(request);
-    return this.call(
-      'getPrintLayoutMarkup',
-      'GetPrintLayoutMarkupResponse',
-      'GetPrintLayoutMarkupResponse',
-      bodyXml,
-      D.deserializeGetPrintLayoutMarkupResponse,
-      false,
-      requestId,
-    );
-  }
-
-  async printPrintLayout(request: T.Input<T.PrintPrintLayoutRequest>, requestId?: string): Promise<T.PrintPrintLayoutResponse> {
-    const bodyXml = S.serializePrintPrintLayoutBody(request);
-    return this.call(
-      'printPrintLayout',
-      'PrintPrintLayoutResponse',
-      'PrintPrintLayoutResponse',
-      bodyXml,
-      D.deserializePrintPrintLayoutResponse,
-      false,
-      requestId,
-    );
-  }
-
-  async getResolvedPrintTemplates(request: T.Input<T.GetResolvedPrintTemplatesRequest>, requestId?: string): Promise<T.GetResolvedPrintTemplatesResponse> {
-    const bodyXml = S.serializeGetResolvedPrintTemplatesBody(request);
-    return this.call(
-      'getResolvedPrintTemplates',
-      'GetResolvedPrintTemplatesResponse',
-      'GetResolvedPrintTemplatesResponse',
-      bodyXml,
-      D.deserializeGetResolvedPrintTemplatesResponse,
-      false,
-      requestId,
-    );
   }
 
   async checkGiftcardPayment(request: T.Input<T.CheckGiftcardPaymentRequest>, requestId?: string): Promise<T.CheckGiftcardPaymentResponse> {
@@ -4041,6 +3978,137 @@ export class MplusKassaClient {
       false,
       requestId,
     )).events;
+  }
+
+  async getReportQuerySources(request: T.Input<T.GetReportQuerySourcesRequest>, requestId?: string): Promise<T.GetReportQuerySourcesResponse> {
+    const bodyXml = S.serializeGetReportQuerySourcesBody(request);
+    return this.call(
+      'getReportQuerySources',
+      'GetReportQuerySourcesResponse',
+      'GetReportQuerySourcesResponse',
+      bodyXml,
+      D.deserializeGetReportQuerySourcesResponse,
+      false,
+      requestId,
+    );
+  }
+
+  async getReportPresets(request: T.Input<T.GetReportPresetsRequest>, requestId?: string): Promise<T.GetReportPresetsResponse> {
+    const bodyXml = S.serializeGetReportPresetsBody(request);
+    return this.call(
+      'getReportPresets',
+      'GetReportPresetsResponse',
+      'GetReportPresetsResponse',
+      bodyXml,
+      D.deserializeGetReportPresetsResponse,
+      false,
+      requestId,
+    );
+  }
+
+  async getDashboards(request: T.Input<T.GetDashboardsRequest>, requestId?: string): Promise<T.GetDashboardsResponse> {
+    const bodyXml = S.serializeGetDashboardsBody(request);
+    return this.call(
+      'getDashboards',
+      'GetDashboardsResponse',
+      'GetDashboardsResponse',
+      bodyXml,
+      D.deserializeGetDashboardsResponse,
+      false,
+      requestId,
+    );
+  }
+
+  async getDashboard(request: T.Input<T.GetDashboardRequest>, requestId?: string): Promise<T.GetDashboardResponse> {
+    const bodyXml = S.serializeGetDashboardBody(request);
+    return this.call(
+      'getDashboard',
+      'GetDashboardResponse',
+      'GetDashboardResponse',
+      bodyXml,
+      D.deserializeGetDashboardResponse,
+      false,
+      requestId,
+    );
+  }
+
+  async saveDashboard(request: T.Input<T.SaveDashboardRequest>, requestId?: string): Promise<T.SaveDashboardResponse> {
+    const bodyXml = S.serializeSaveDashboardBody(request);
+    return this.call(
+      'saveDashboard',
+      'SaveDashboardResponse',
+      'SaveDashboardResponse',
+      bodyXml,
+      D.deserializeSaveDashboardResponse,
+      false,
+      requestId,
+    );
+  }
+
+  async deleteDashboard(request: T.Input<T.DeleteDashboardRequest>, requestId?: string): Promise<T.DeleteDashboardResponse> {
+    const bodyXml = S.serializeDeleteDashboardBody(request);
+    return this.call(
+      'deleteDashboard',
+      'DeleteDashboardResponse',
+      'DeleteDashboardResponse',
+      bodyXml,
+      D.deserializeDeleteDashboardResponse,
+      false,
+      requestId,
+    );
+  }
+
+  async updateDashboardOrder(request: T.Input<T.UpdateDashboardOrderRequest>, requestId?: string): Promise<T.UpdateDashboardOrderResponse> {
+    const bodyXml = S.serializeUpdateDashboardOrderBody(request);
+    return this.call(
+      'updateDashboardOrder',
+      'UpdateDashboardOrderResponse',
+      'UpdateDashboardOrderResponse',
+      bodyXml,
+      D.deserializeUpdateDashboardOrderResponse,
+      false,
+      requestId,
+    );
+  }
+
+  async executeReportQueries(request: T.Input<T.ExecuteReportQueriesRequest>, requestId?: string): Promise<T.ExecuteReportQueriesResponse> {
+    const bodyXml = S.serializeExecuteReportQueriesBody(request);
+    return this.call(
+      'executeReportQueries',
+      'ExecuteReportQueriesResponse',
+      'ExecuteReportQueriesResponse',
+      bodyXml,
+      D.deserializeExecuteReportQueriesResponse,
+      false,
+      requestId,
+    );
+  }
+
+  async assembleReport(request: T.Input<T.AssembleReportRequest>, requestId?: string): Promise<T.AssembleReportResponse> {
+    const bodyXml = S.serializeAssembleReportBody(request);
+    return this.call(
+      'assembleReport',
+      'AssembleReportResponse',
+      'AssembleReportResponse',
+      bodyXml,
+      D.deserializeAssembleReportResponse,
+      false,
+      requestId,
+    );
+  }
+
+  /** executes an authorized preset. Query conditions use AND. */
+  async executeReportPreset(request: T.Input<T.ExecuteReportPresetRequest>, requestId?: string): Promise<T.ExecuteReportPresetResponse> {
+    const bodyXml = S.serializeExecuteReportPresetBody(request);
+    return this.call(
+      'executeReportPreset',
+      'ExecuteReportPresetResponse',
+      'ExecuteReportPresetResponse',
+      bodyXml,
+      D.deserializeExecuteReportPresetResponse,
+      false,
+      requestId,
+    );
   }
 
   async getSalesRepeatTemplates(request: T.Input<T.GetSalesRepeatTemplatesRequest>, requestId?: string): Promise<T.SalesRepeatTemplate[]> {
@@ -4732,6 +4800,19 @@ export class MplusKassaClient {
     );
   }
 
+  async getOrderQueue(request: T.Input<T.GetOrderQueueRequest>, requestId?: string): Promise<T.GetOrderQueueResponse> {
+    const bodyXml = S.serializeGetOrderQueueBody(request);
+    return this.call(
+      'getOrderQueue',
+      'GetOrderQueueResponse',
+      'GetOrderQueueResponse',
+      bodyXml,
+      D.deserializeGetOrderQueueResponse,
+      false,
+      requestId,
+    );
+  }
+
   async getWebhookConsumers(request: T.Input<T.GetWebhookConsumersRequest>, requestId?: string): Promise<T.WebhookConsumer[]> {
     const bodyXml = S.serializeGetWebhookConsumersBody(request);
     return (await this.call(
@@ -4863,6 +4944,97 @@ export class MplusKassaClient {
       bodyXml,
       D.deserializeWebhookResp,
       true,
+      requestId,
+    );
+  }
+
+  async getPrintLayouts(request: T.Input<T.GetPrintLayoutsRequest>, requestId?: string): Promise<T.GetPrintLayoutsResponse> {
+    const bodyXml = S.serializeGetPrintLayoutsBody(request);
+    return this.call(
+      'getPrintLayouts',
+      'GetPrintLayoutsResponse',
+      'GetPrintLayoutsResponse',
+      bodyXml,
+      D.deserializeGetPrintLayoutsResponse,
+      false,
+      requestId,
+    );
+  }
+
+  async getPrintLayoutAssignments(request: T.Input<T.GetPrintLayoutAssignmentsRequest>, requestId?: string): Promise<T.PrintLayoutAssignment[] | undefined> {
+    const bodyXml = S.serializeGetPrintLayoutAssignmentsBody(request);
+    return (await this.call(
+      'getPrintLayoutAssignments',
+      'GetPrintLayoutAssignmentsResponse',
+      'GetPrintLayoutAssignmentsResponse',
+      bodyXml,
+      D.deserializeGetPrintLayoutAssignmentsResponse,
+      false,
+      requestId,
+    )).printLayoutAssignments;
+  }
+
+  async savePrintLayoutAssignments(request: T.Input<T.SavePrintLayoutAssignmentsRequest>, requestId?: string): Promise<T.SavePrintLayoutAssignmentsResponseResult> {
+    const bodyXml = S.serializeSavePrintLayoutAssignmentsBody(request);
+    return (await this.call(
+      'savePrintLayoutAssignments',
+      'SavePrintLayoutAssignmentsResponse',
+      'SavePrintLayoutAssignmentsResponse',
+      bodyXml,
+      D.deserializeSavePrintLayoutAssignmentsResponse,
+      false,
+      requestId,
+    )).result;
+  }
+
+  async getRenderedPrintLayout(request: T.Input<T.GetRenderedPrintLayoutRequest>, requestId?: string): Promise<T.GetRenderedPrintLayoutResponse> {
+    const bodyXml = S.serializeGetRenderedPrintLayoutBody(request);
+    return this.call(
+      'getRenderedPrintLayout',
+      'GetRenderedPrintLayoutResponse',
+      'GetRenderedPrintLayoutResponse',
+      bodyXml,
+      D.deserializeGetRenderedPrintLayoutResponse,
+      false,
+      requestId,
+    );
+  }
+
+  async getPrintLayoutMarkup(request: T.Input<T.GetPrintLayoutMarkupRequest>, requestId?: string): Promise<T.GetPrintLayoutMarkupResponse> {
+    const bodyXml = S.serializeGetPrintLayoutMarkupBody(request);
+    return this.call(
+      'getPrintLayoutMarkup',
+      'GetPrintLayoutMarkupResponse',
+      'GetPrintLayoutMarkupResponse',
+      bodyXml,
+      D.deserializeGetPrintLayoutMarkupResponse,
+      false,
+      requestId,
+    );
+  }
+
+  async printPrintLayout(request: T.Input<T.PrintPrintLayoutRequest>, requestId?: string): Promise<T.PrintPrintLayoutResponse> {
+    const bodyXml = S.serializePrintPrintLayoutBody(request);
+    return this.call(
+      'printPrintLayout',
+      'PrintPrintLayoutResponse',
+      'PrintPrintLayoutResponse',
+      bodyXml,
+      D.deserializePrintPrintLayoutResponse,
+      false,
+      requestId,
+    );
+  }
+
+  async getResolvedPrintTemplates(request: T.Input<T.GetResolvedPrintTemplatesRequest>, requestId?: string): Promise<T.GetResolvedPrintTemplatesResponse> {
+    const bodyXml = S.serializeGetResolvedPrintTemplatesBody(request);
+    return this.call(
+      'getResolvedPrintTemplates',
+      'GetResolvedPrintTemplatesResponse',
+      'GetResolvedPrintTemplatesResponse',
+      bodyXml,
+      D.deserializeGetResolvedPrintTemplatesResponse,
+      false,
       requestId,
     );
   }
