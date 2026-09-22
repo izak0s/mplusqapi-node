@@ -3262,6 +3262,7 @@ export interface Article {
   priceDeviationMin?: string;
   priceDeviationMax?: string;
   availableForInterbranchOrdering?: boolean;
+  shelfLifeInMinutes?: number;
 }
 
 export interface ArticleList {

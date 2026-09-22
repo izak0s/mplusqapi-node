@@ -7273,6 +7273,9 @@ export function serializeArticle(obj: T.Input<T.Article>, elemName: string): str
   if (obj.availableForInterbranchOrdering !== undefined && obj.availableForInterbranchOrdering !== null) {
     xml += serializeBoolean('availableForInterbranchOrdering', obj.availableForInterbranchOrdering);
   }
+  if (obj.shelfLifeInMinutes !== undefined && obj.shelfLifeInMinutes !== null) {
+    xml += serializeNumber('shelfLifeInMinutes', obj.shelfLifeInMinutes);
+  }
   xml += `</${NS_PREFIX}:${elemName}>`;
   return xml;
 }

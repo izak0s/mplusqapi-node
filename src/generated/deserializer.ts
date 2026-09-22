@@ -4323,6 +4323,7 @@ export function deserializeArticle(obj: Record<string, unknown>): T.Article {
   if (obj['priceDeviationMin'] !== undefined) r.priceDeviationMin = String(obj['priceDeviationMin']) as string;
   if (obj['priceDeviationMax'] !== undefined) r.priceDeviationMax = String(obj['priceDeviationMax']) as string;
   if (obj['availableForInterbranchOrdering'] !== undefined) r.availableForInterbranchOrdering = obj['availableForInterbranchOrdering'] === 'true' || obj['availableForInterbranchOrdering'] === true;
+  if (obj['shelfLifeInMinutes'] !== undefined) r.shelfLifeInMinutes = Number(obj['shelfLifeInMinutes']);
   return r as T.Article;
 }
 
