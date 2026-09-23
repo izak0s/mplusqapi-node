@@ -10081,6 +10081,8 @@ export interface PackingSlip {
   branchInvoiceNumber?: TransactionNumber;
   /** Latest unprocessed queue entry if requested using `includeQueueEntry`. */
   queueEntry?: SalesQueueEntry;
+  /** Whether the packing slip is linked to a sales order (including queued sales orders). */
+  isBasedOnSalesOrder: boolean;
 }
 
 export interface PackingSlipInput {
