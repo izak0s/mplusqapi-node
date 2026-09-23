@@ -26285,6 +26285,9 @@ export function serializePackingSlip(obj: T.Input<T.PackingSlip>, elemName: stri
   if (obj.queueEntry !== undefined && obj.queueEntry !== null) {
     xml += serializeSalesQueueEntry(obj.queueEntry, 'queueEntry');
   }
+  if (obj.isBasedOnSalesOrder !== undefined && obj.isBasedOnSalesOrder !== null) {
+    xml += serializeBoolean('isBasedOnSalesOrder', obj.isBasedOnSalesOrder);
+  }
   xml += `</${NS_PREFIX}:${elemName}>`;
   return xml;
 }

@@ -17550,6 +17550,7 @@ export function deserializePackingSlip(obj: Record<string, unknown>): T.PackingS
   if (obj['ownerId'] !== undefined) r.ownerId = String(obj['ownerId']) as string;
   if (obj['branchInvoiceNumber'] !== undefined) r.branchInvoiceNumber = deserializeTransactionNumber(obj['branchInvoiceNumber'] as Record<string, unknown>);
   if (obj['queueEntry'] !== undefined) r.queueEntry = deserializeSalesQueueEntry(obj['queueEntry'] as Record<string, unknown>);
+  r.isBasedOnSalesOrder = obj['isBasedOnSalesOrder'] === 'true' || obj['isBasedOnSalesOrder'] === true;
   return r as T.PackingSlip;
 }
 
