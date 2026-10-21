@@ -2293,6 +2293,20 @@ export class MplusKassaClient {
     );
   }
 
+  async startAutomaticDormantArticleCount(request: T.Input<T.StartAutomaticDormantArticleCountRequest>, requestId?: string): Promise<T.StartAutomaticDormantArticleCountResponse> {
+    request = { idempotencyKey: randomUUID(), ...request };
+    const bodyXml = S.serializeStartAutomaticDormantArticleCountBody(request);
+    return this.call(
+      'startAutomaticDormantArticleCount',
+      'StartAutomaticDormantArticleCountResponse',
+      'StartAutomaticDormantArticleCountResponse',
+      bodyXml,
+      D.deserializeStartAutomaticDormantArticleCountResponse,
+      true,
+      requestId,
+    );
+  }
+
   /** (deprecated) configuration heirarchy not clear, use getConfigurationTree and getConfigurationValues, updateConfigurationValues instead. */
   async getConfiguration(request: T.Input<T.GetConfigurationRequest>, requestId?: string): Promise<T.Configuration[]> {
     const bodyXml = S.serializeGetConfigurationBody(request);
@@ -2321,7 +2335,7 @@ export class MplusKassaClient {
     )).result;
   }
 
-  /** use to retrieve availible configuration tree. */
+  /** use to retrieve availible configuration tree for the current license. */
   async getConfigurationTree(request: T.Input<T.GetConfigurationTreeRequest>, requestId?: string): Promise<T.ConfigurationGroup[] | undefined> {
     const bodyXml = S.serializeGetConfigurationTreeBody(request);
     return (await this.call(

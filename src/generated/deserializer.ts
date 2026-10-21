@@ -615,6 +615,7 @@ export function deserializePaymentMethod(obj: Record<string, unknown>): T.Paymen
   if (obj['hasExternalPaymentWebhook'] !== undefined) r.hasExternalPaymentWebhook = obj['hasExternalPaymentWebhook'] === 'true' || obj['hasExternalPaymentWebhook'] === true;
   if (obj['bpeConfiguration'] !== undefined) r.bpeConfiguration = deserializeBpeConfiguration(obj['bpeConfiguration'] as Record<string, unknown>);
   if (obj['giftcardType'] !== undefined) r.giftcardType = deserializeGiftcardType(obj['giftcardType'] as Record<string, unknown>);
+  if (obj['openCashDrawer'] !== undefined) r.openCashDrawer = obj['openCashDrawer'] === 'true' || obj['openCashDrawer'] === true;
   return r as T.PaymentMethod;
 }
 
@@ -1802,6 +1803,39 @@ export function deserializeTimelineEventSubFilter(obj: Record<string, unknown>):
   } else {
     r.dataPredicates = [];
   }
+  if (obj['branchGroupIds'] !== undefined) {
+    const _w = obj['branchGroupIds'] as Record<string, unknown>;
+    const _iv = (_w)['branchGroups'];
+    if (_iv !== undefined) {
+      r.branchGroupIds = toArray(_iv).map(Number);
+    } else {
+      r.branchGroupIds = [];
+    }
+  } else {
+    r.branchGroupIds = [];
+  }
+  if (obj['ownerIds'] !== undefined) {
+    const _w = obj['ownerIds'] as Record<string, unknown>;
+    const _iv = (_w)['id'];
+    if (_iv !== undefined) {
+      r.ownerIds = toArray(_iv).map(String);
+    } else {
+      r.ownerIds = [];
+    }
+  } else {
+    r.ownerIds = [];
+  }
+  if (obj['activityIds'] !== undefined) {
+    const _w = obj['activityIds'] as Record<string, unknown>;
+    const _iv = (_w)['id'];
+    if (_iv !== undefined) {
+      r.activityIds = toArray(_iv).map(String);
+    } else {
+      r.activityIds = [];
+    }
+  } else {
+    r.activityIds = [];
+  }
   return r as T.TimelineEventSubFilter;
 }
 
@@ -1885,6 +1919,39 @@ export function deserializeTimelineEventFilter(obj: Record<string, unknown>): T.
     }
   } else {
     r.dataPredicates = [];
+  }
+  if (obj['branchGroupIds'] !== undefined) {
+    const _w = obj['branchGroupIds'] as Record<string, unknown>;
+    const _iv = (_w)['branchGroups'];
+    if (_iv !== undefined) {
+      r.branchGroupIds = toArray(_iv).map(Number);
+    } else {
+      r.branchGroupIds = [];
+    }
+  } else {
+    r.branchGroupIds = [];
+  }
+  if (obj['ownerIds'] !== undefined) {
+    const _w = obj['ownerIds'] as Record<string, unknown>;
+    const _iv = (_w)['id'];
+    if (_iv !== undefined) {
+      r.ownerIds = toArray(_iv).map(String);
+    } else {
+      r.ownerIds = [];
+    }
+  } else {
+    r.ownerIds = [];
+  }
+  if (obj['activityIds'] !== undefined) {
+    const _w = obj['activityIds'] as Record<string, unknown>;
+    const _iv = (_w)['id'];
+    if (_iv !== undefined) {
+      r.activityIds = toArray(_iv).map(String);
+    } else {
+      r.activityIds = [];
+    }
+  } else {
+    r.activityIds = [];
   }
   if (obj['entities'] !== undefined) {
     const _w = obj['entities'] as Record<string, unknown>;
@@ -2748,6 +2815,28 @@ export function deserializeGetOrderChangesRequest(obj: Record<string, unknown>):
   } else {
     r.orderTypeList = [];
   }
+  if (obj['ownerFilter'] !== undefined) {
+    const _w = obj['ownerFilter'] as Record<string, unknown>;
+    const _iv = (_w)['ownerLabels'];
+    if (_iv !== undefined) {
+      r.ownerFilter = toArray(_iv).map(String);
+    } else {
+      r.ownerFilter = [];
+    }
+  } else {
+    r.ownerFilter = [];
+  }
+  if (obj['branchGroupFilter'] !== undefined) {
+    const _w = obj['branchGroupFilter'] as Record<string, unknown>;
+    const _iv = (_w)['branchGroups'];
+    if (_iv !== undefined) {
+      r.branchGroupFilter = toArray(_iv).map(Number);
+    } else {
+      r.branchGroupFilter = [];
+    }
+  } else {
+    r.branchGroupFilter = [];
+  }
   return r as T.GetOrderChangesRequest;
 }
 
@@ -3144,6 +3233,28 @@ export function deserializeGetOrderHistoryRequest(obj: Record<string, unknown>):
     }
   } else {
     r.orderIdList = [];
+  }
+  if (obj['ownerFilter'] !== undefined) {
+    const _w = obj['ownerFilter'] as Record<string, unknown>;
+    const _iv = (_w)['ownerLabels'];
+    if (_iv !== undefined) {
+      r.ownerFilter = toArray(_iv).map(String);
+    } else {
+      r.ownerFilter = [];
+    }
+  } else {
+    r.ownerFilter = [];
+  }
+  if (obj['branchGroupFilter'] !== undefined) {
+    const _w = obj['branchGroupFilter'] as Record<string, unknown>;
+    const _iv = (_w)['branchGroups'];
+    if (_iv !== undefined) {
+      r.branchGroupFilter = toArray(_iv).map(Number);
+    } else {
+      r.branchGroupFilter = [];
+    }
+  } else {
+    r.branchGroupFilter = [];
   }
   return r as T.GetOrderHistoryRequest;
 }
@@ -4324,6 +4435,7 @@ export function deserializeArticle(obj: Record<string, unknown>): T.Article {
   if (obj['priceDeviationMax'] !== undefined) r.priceDeviationMax = String(obj['priceDeviationMax']) as string;
   if (obj['availableForInterbranchOrdering'] !== undefined) r.availableForInterbranchOrdering = obj['availableForInterbranchOrdering'] === 'true' || obj['availableForInterbranchOrdering'] === true;
   if (obj['shelfLifeInMinutes'] !== undefined) r.shelfLifeInMinutes = Number(obj['shelfLifeInMinutes']);
+  if (obj['automaticDormantInterval'] !== undefined) r.automaticDormantInterval = Number(obj['automaticDormantInterval']);
   return r as T.Article;
 }
 
@@ -6396,6 +6508,7 @@ export function deserializeSaveStockCorrectionsRequest(obj: Record<string, unkno
   if (obj['correctionMode'] !== undefined) r.correctionMode = String(obj['correctionMode']) as T.StockCorrectionMode;
   if (obj['reason'] !== undefined) r.reason = String(obj['reason']) as string;
   if (obj['plannedCycleCountId'] !== undefined) r.plannedCycleCountId = String(obj['plannedCycleCountId']) as string;
+  if (obj['automaticDormantArticleCountSessionId'] !== undefined) r.automaticDormantArticleCountSessionId = String(obj['automaticDormantArticleCountSessionId']) as string;
   return r as T.SaveStockCorrectionsRequest;
 }
 
@@ -7069,6 +7182,7 @@ export function deserializeArticleBranchDeviationLine(obj: Record<string, unknow
   if (obj['salesPriceExcl'] !== undefined) r.salesPriceExcl = String(obj['salesPriceExcl']) as string;
   if (obj['specialPrice'] !== undefined) r.specialPrice = String(obj['specialPrice']) as T.ArticleSpecialPrice;
   if (obj['oldestBestBeforeDate'] !== undefined) r.oldestBestBeforeDate = new Date(String(obj['oldestBestBeforeDate']));
+  if (obj['automaticDormantInterval'] !== undefined) r.automaticDormantInterval = Number(obj['automaticDormantInterval']);
   return r as T.ArticleBranchDeviationLine;
 }
 
@@ -7290,6 +7404,7 @@ export function deserializeActiveCycleCountLine(obj: Record<string, unknown>): T
   r.articleNumber = Number(obj['articleNumber']);
   if (obj['variantId'] !== undefined) r.variantId = Number(obj['variantId']);
   if (obj['counted'] !== undefined) r.counted = String(obj['counted']) as string;
+  if (obj['sequenceNumber'] !== undefined) r.sequenceNumber = Number(obj['sequenceNumber']);
   return r as T.ActiveCycleCountLine;
 }
 
@@ -7387,6 +7502,14 @@ export function deserializeSaveArticleComponentsRequest(obj: Record<string, unkn
     r.articleComponents = [];
   }
   return r as T.SaveArticleComponentsRequest;
+}
+
+export function deserializeStartAutomaticDormantArticleCountRequest(obj: Record<string, unknown>): T.StartAutomaticDormantArticleCountRequest {
+  const r: Partial<T.StartAutomaticDormantArticleCountRequest> = {};
+  r.idempotencyKey = String(obj['idempotencyKey'] ?? '') as string;
+  r.branchNumber = Number(obj['branchNumber']);
+  r.employeeNumber = Number(obj['employeeNumber']);
+  return r as T.StartAutomaticDormantArticleCountRequest;
 }
 
 export function deserializegetSalesPriceListResponse(obj: Record<string, unknown>): T.getSalesPriceListResponse {
@@ -9254,6 +9377,28 @@ export function deserializeSaveArticleComponentsResponse(obj: Record<string, unk
   return r as T.SaveArticleComponentsResponse;
 }
 
+export function deserializeStartAutomaticDormantArticleCountResponse(obj: Record<string, unknown>): T.StartAutomaticDormantArticleCountResponse {
+  const r: Partial<T.StartAutomaticDormantArticleCountResponse> = {};
+  if (obj['idempotencyResult'] === undefined) throw new Error("Missing required field 'idempotencyResult' in StartAutomaticDormantArticleCountResponse");
+  r.idempotencyResult = String(obj['idempotencyResult'] ?? '') as T.IdempotencyResult;
+  if (obj['result'] === undefined) throw new Error("Missing required field 'result' in StartAutomaticDormantArticleCountResponse");
+  r.result = String(obj['result'] ?? '') as T.StartAutomaticDormantArticleCountResult;
+  if (obj['sessionId'] === undefined) throw new Error("Missing required field 'sessionId' in StartAutomaticDormantArticleCountResponse");
+  r.sessionId = String(obj['sessionId'] ?? '') as string;
+  if (obj['articleNumbers'] !== undefined) {
+    const _w = obj['articleNumbers'] as Record<string, unknown>;
+    const _iv = (_w)['articleNumbers'];
+    if (_iv !== undefined) {
+      r.articleNumbers = toArray(_iv).map(Number);
+    } else {
+      r.articleNumbers = [];
+    }
+  } else {
+    r.articleNumbers = [];
+  }
+  return r as T.StartAutomaticDormantArticleCountResponse;
+}
+
 export function deserializeRequestDateFilter(obj: Record<string, unknown>): T.RequestDateFilter {
   const r: Partial<T.RequestDateFilter> = {};
   r.fromFinancialDate = new Date(String(obj['fromFinancialDate'] ?? ''));
@@ -9543,6 +9688,7 @@ export function deserializeConfigurationOption(obj: Record<string, unknown>): T.
   r.key = String(obj['key'] ?? '') as string;
   r.value = String(obj['value'] ?? '') as string;
   r.locked = obj['locked'] === 'true' || obj['locked'] === true;
+  if (obj['postMigrationStep'] !== undefined) r.postMigrationStep = String(obj['postMigrationStep']) as string;
   return r as T.ConfigurationOption;
 }
 
@@ -9569,6 +9715,7 @@ export function deserializeConfigurationItem(obj: Record<string, unknown>): T.Co
   if (obj['pathKind'] !== undefined) r.pathKind = String(obj['pathKind']) as T.ConfigurationItemPathKind;
   if (obj['pathFilter'] !== undefined) r.pathFilter = String(obj['pathFilter']) as string;
   if (obj['pathFilterIndex'] !== undefined) r.pathFilterIndex = Number(obj['pathFilterIndex']);
+  r.per = String(obj['per'] ?? '') as T.ConfigurationPer;
   return r as T.ConfigurationItem;
 }
 
@@ -9581,6 +9728,7 @@ export function deserializeConfigurationGroup(obj: Record<string, unknown>): T.C
   if (obj['configurationSubGroups'] !== undefined) {
     r.configurationSubGroups = toArray(obj['configurationSubGroups']).map((v) => deserializeConfigurationGroup(v as Record<string, unknown>));
   }
+  if (obj['explanation'] !== undefined) r.explanation = String(obj['explanation']) as string;
   return r as T.ConfigurationGroup;
 }
 
@@ -17550,6 +17698,7 @@ export function deserializePackingSlip(obj: Record<string, unknown>): T.PackingS
   if (obj['ownerId'] !== undefined) r.ownerId = String(obj['ownerId']) as string;
   if (obj['branchInvoiceNumber'] !== undefined) r.branchInvoiceNumber = deserializeTransactionNumber(obj['branchInvoiceNumber'] as Record<string, unknown>);
   if (obj['queueEntry'] !== undefined) r.queueEntry = deserializeSalesQueueEntry(obj['queueEntry'] as Record<string, unknown>);
+  r.isBasedOnSalesOrder = obj['isBasedOnSalesOrder'] === 'true' || obj['isBasedOnSalesOrder'] === true;
   return r as T.PackingSlip;
 }
 

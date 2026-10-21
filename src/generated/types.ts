@@ -276,7 +276,7 @@ export type StockCorrectionType = 'CORRECTION-TYPE-COUNT' | 'CORRECTION-TYPE-WRI
 
 export type StockCorrectionMode = 'STOCK-CORRECTION-MODE-ABSOLUTE' | 'STOCK-CORRECTION-MODE-RELATIVE';
 
-export type SaveStockCorrectionsResult = 'SAVE-STOCK-CORRECTIONS-RESULT-OK' | 'SAVE-STOCK-CORRECTIONS-RESULT-BRANCH-NOT-FOUND' | 'SAVE-STOCK-CORRECTIONS-RESULT-ARTICLE-NOT-FOUND' | 'SAVE-STOCK-CORRECTIONS-RESULT-NO-STOCK-ARTICLE' | 'SAVE-STOCK-CORRECTIONS-RESULT-NO-CORRECTIONS' | 'SAVE-STOCK-CORRECTIONS-RESULT-DUPLICATE-ARTICLE' | 'SAVE-STOCK-CORRECTIONS-RESULT-INVALID-PLANNED-CYCLE-COUNT-ID' | 'SAVE-STOCK-CORRECTIONS-RESULT-FAILED';
+export type SaveStockCorrectionsResult = 'SAVE-STOCK-CORRECTIONS-RESULT-OK' | 'SAVE-STOCK-CORRECTIONS-RESULT-BRANCH-NOT-FOUND' | 'SAVE-STOCK-CORRECTIONS-RESULT-ARTICLE-NOT-FOUND' | 'SAVE-STOCK-CORRECTIONS-RESULT-NO-STOCK-ARTICLE' | 'SAVE-STOCK-CORRECTIONS-RESULT-NO-CORRECTIONS' | 'SAVE-STOCK-CORRECTIONS-RESULT-DUPLICATE-ARTICLE' | 'SAVE-STOCK-CORRECTIONS-RESULT-INVALID-PLANNED-CYCLE-COUNT-ID' | 'SAVE-STOCK-CORRECTIONS-RESULT-FAILED' | 'SAVE-STOCK-CORRECTIONS-RESULT-INVALID-AUTOMATIC-DORMANT-ARTICLE-COUNT-SESSION-ID';
 
 export type GetPurchaseBookResult = 'GET-PURCHASE-BOOK-RESULT-OK';
 
@@ -335,6 +335,8 @@ export type SetArticleRecalledResult = 'SET-ARTICLE-RECALLED-OK-IS-NOW-RECALLED'
 export type SaveArticleComponentsMode = 'SET' | 'APPEND';
 
 export type SaveArticleComponentsResult = 'OK' | 'FAILED-INVALID-ARTICLE-NUMBER' | 'FAILED-INVALID-COMPONENT-ARTICLE-NUMBER' | 'FAILED-COMPONENT-ALREADY-EXISTS';
+
+export type StartAutomaticDormantArticleCountResult = 'OK' | 'UNAUTHORIZED' | 'DATABASE-UNAVAILABLE';
 
 export type LayoutRenderType = 'PDF' | 'PNG' | 'JPEG';
 
@@ -1039,6 +1041,7 @@ export interface PaymentMethod {
   hasExternalPaymentWebhook?: boolean;
   bpeConfiguration?: BpeConfiguration;
   giftcardType?: GiftcardType;
+  openCashDrawer?: boolean;
 }
 
 export interface PaymentMethodList {
@@ -1743,6 +1746,9 @@ export interface TimelineEventSubFilter {
   from?: Date;
   through?: Date;
   dataPredicates: TimelineEventDataPredicate[];
+  branchGroupIds: number[];
+  ownerIds: string[];
+  activityIds: string[];
 }
 
 export interface TimelineEventFilter {
@@ -1755,6 +1761,9 @@ export interface TimelineEventFilter {
   from?: Date;
   through?: Date;
   dataPredicates: TimelineEventDataPredicate[];
+  branchGroupIds: number[];
+  ownerIds: string[];
+  activityIds: string[];
   entities: TimelineEventEntity[];
   categories: TimelineEventCategory[];
 }
@@ -2356,6 +2365,8 @@ export interface GetOrderChangesRequest {
   articlePluNumbers?: string[];
   articleBarcodes?: string[];
   orderTypeList?: OrderType[];
+  ownerFilter?: string[];
+  branchGroupFilter?: number[];
 }
 
 export interface OrderPaymentList {
@@ -2610,6 +2621,8 @@ export interface GetOrderHistoryRequest {
   tableNumberList?: TableNumber[];
   orderTypeList?: OrderType[];
   orderIdList?: string[];
+  ownerFilter?: string[];
+  branchGroupFilter?: number[];
 }
 
 export interface CancelOrderRequest {
@@ -3263,6 +3276,7 @@ export interface Article {
   priceDeviationMax?: string;
   availableForInterbranchOrdering?: boolean;
   shelfLifeInMinutes?: number;
+  automaticDormantInterval?: number;
 }
 
 export interface ArticleList {
@@ -4499,6 +4513,7 @@ export interface SaveStockCorrectionsRequest {
   reason?: string;
   /** The cycle count id of an active and planned cycle count (getActiveCycleCount). This will save a reference to that planned cycle count on the correction. */
   plannedCycleCountId?: string;
+  automaticDormantArticleCountSessionId?: string;
 }
 
 export interface PurchaseBookEntry {
@@ -4988,6 +5003,7 @@ export interface ArticleBranchDeviationLine {
   salesPriceExcl?: string;
   specialPrice?: ArticleSpecialPrice;
   oldestBestBeforeDate?: Date;
+  automaticDormantInterval?: number;
 }
 
 export interface SaveArticleBranchDeviationsRequest {
@@ -5109,6 +5125,7 @@ export interface ActiveCycleCountLine {
   articleNumber: number;
   variantId?: number;
   counted?: string;
+  sequenceNumber?: number;
 }
 
 export interface ActiveCycleCountLineList {
@@ -5168,6 +5185,13 @@ export interface SaveArticleComponentsRequest {
   mode?: SaveArticleComponentsMode;
   articleNumber?: number;
   articleComponents?: ArticleComponent[];
+}
+
+export interface StartAutomaticDormantArticleCountRequest {
+  /** Must be unique for every request that you only want to have executed once. If you want to recheck if a certain request came through, reuse the same idempotencyKey. */
+  idempotencyKey?: string;
+  branchNumber?: number;
+  employeeNumber?: number;
 }
 
 export interface getSalesPriceListResponse {
@@ -5952,6 +5976,14 @@ export interface SaveArticleComponentsResponse {
   newArticleComponents: ArticleComponent[];
 }
 
+export interface StartAutomaticDormantArticleCountResponse {
+  /** Shows you whether you have received the original response or a replay of the response. Either way, all other properties of this response will be the same. This is just for informational purposes. */
+  idempotencyResult: IdempotencyResult;
+  result: StartAutomaticDormantArticleCountResult;
+  sessionId: string;
+  articleNumbers: number[];
+}
+
 export interface RequestDateFilter {
   fromFinancialDate: Date;
   throughFinancialDate: Date;
@@ -6094,6 +6126,7 @@ export interface ConfigurationOption {
   key: string;
   value: string;
   locked: boolean;
+  postMigrationStep?: string;
 }
 
 export interface ConfigurationItem {
@@ -6116,12 +6149,14 @@ export interface ConfigurationItem {
   pathKind?: ConfigurationItemPathKind;
   pathFilter?: string;
   pathFilterIndex?: number;
+  per: ConfigurationPer;
 }
 
 export interface ConfigurationGroup {
   configurationGroupName: string;
   configurationItems?: ConfigurationItem[];
   configurationSubGroups?: ConfigurationGroup[];
+  explanation?: string;
 }
 
 export interface GetConfigurationTreeRequest {
@@ -10081,6 +10116,8 @@ export interface PackingSlip {
   branchInvoiceNumber?: TransactionNumber;
   /** Latest unprocessed queue entry if requested using `includeQueueEntry`. */
   queueEntry?: SalesQueueEntry;
+  /** Whether the packing slip is linked to a sales order (including queued sales orders). */
+  isBasedOnSalesOrder: boolean;
 }
 
 export interface PackingSlipInput {
