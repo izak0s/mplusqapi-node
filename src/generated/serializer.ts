@@ -15325,6 +15325,9 @@ export function serializeGetConfigurationValuesRequest(obj: T.Input<T.GetConfigu
   if (obj.changedSinceTimestamp !== undefined && obj.changedSinceTimestamp !== null) {
     xml += serializeString('changedSinceTimestamp', obj.changedSinceTimestamp.toISOString());
   }
+  if (obj.includeUnconfiguredValues !== undefined && obj.includeUnconfiguredValues !== null) {
+    xml += serializeBoolean('includeUnconfiguredValues', obj.includeUnconfiguredValues);
+  }
   xml += `</${NS_PREFIX}:${elemName}>`;
   return xml;
 }
