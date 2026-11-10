@@ -9745,6 +9745,7 @@ export function deserializeGetConfigurationValuesRequest(obj: Record<string, unk
     r.configurationKeys = toArray(obj['configurationKeys']).map(String);
   }
   if (obj['changedSinceTimestamp'] !== undefined) r.changedSinceTimestamp = new Date(String(obj['changedSinceTimestamp']));
+  if (obj['includeUnconfiguredValues'] !== undefined) r.includeUnconfiguredValues = obj['includeUnconfiguredValues'] === 'true' || obj['includeUnconfiguredValues'] === true;
   return r as T.GetConfigurationValuesRequest;
 }
 
