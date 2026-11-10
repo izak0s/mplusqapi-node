@@ -6167,6 +6167,7 @@ export interface GetConfigurationValuesRequest {
   workplaceNumber?: number;
   configurationKeys?: string[];
   changedSinceTimestamp?: Date;
+  includeUnconfiguredValues?: boolean;
 }
 
 export interface ConfigurationValue {
